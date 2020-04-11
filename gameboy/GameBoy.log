@@ -1,0 +1,32 @@
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Por setear los valores del archivo de configuracion
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Leyendo Archivo de Configuracion..
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.2
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.3
+[INFO] 14:48:16:608 GameBoy.log/(16299:16299): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Por setear los valores del archivo de configuracion
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Leyendo Archivo de Configuracion..
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.2
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.3
+[INFO] 14:50:56:882 GameBoy.log/(16590:16590): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 14:58:26:495 GameBoy.log/(17318:17318): Por setear los valores del archivo de configuracion
+[INFO] 14:58:26:495 GameBoy.log/(17318:17318): Leyendo Archivo de Configuracion..
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el IP_BROKER
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el PUERTO_BROKER
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el IP_TEAM
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el PUERTO_TEAM
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el IP_GAMECARD
+[ERROR] 14:58:26:495 GameBoy.log/(17318:17318): El archivo de configuracion no contiene el PUERTO_GAMECARD
+[INFO] 14:59:59:321 GameBoy.log/(17531:17531): Por setear los valores del archivo de configuracion
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Leyendo Archivo de Configuracion..
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.2
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.3
+[INFO] 14:59:59:326 GameBoy.log/(17531:17531): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
