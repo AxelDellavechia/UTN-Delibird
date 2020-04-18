@@ -7,11 +7,19 @@ void inicializar_semaforos(){
 
 }
 
-void crearLogger(char * nombre , char * path) {
+void crearLogger( char * nombre , char * otroLog ) {
+
 	char * archivoLog = strdup(nombre);
-	logger = log_create(path, archivoLog, FALSE, LOG_LEVEL_INFO);
+	char * archivoLogCatedra = strdup(otroLog);
+
+	logger = log_create(LOG_PATH_INTERNO, archivoLog, FALSE, LOG_LEVEL_INFO);
+	loggerCatedra = log_create(LOG_PATH, archivoLogCatedra, FALSE, LOG_LEVEL_INFO);
+
 	free(archivoLog);
 	archivoLog = NULL;
+
+	free(archivoLogCatedra);
+	archivoLogCatedra = NULL;
 }
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
@@ -107,3 +115,32 @@ void* reservarMemoria(int size) {
 		}
 		return puntero;
 }
+
+void conectaryLoguear(int modulo , int conexion , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
+
+	conexion = conectarCon(fdServer,ipServer,portServer,logger) ;
+
+	char * comando ;
+
+	switch(modulo){
+				case TEAM :
+					comando = strdup("TEAM") ;
+					break;
+				case BROKER:
+					comando = strdup("BROKER") ;
+					break;
+				case GAMECARD :
+					comando = strdup("GAMECARD") ;
+					break;
+	}
+
+	if (conexion == 0 ) {
+			log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",comando,ipServer,portServer);
+			free(comando);
+		} else {
+			log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",comando,ipServer,portServer);
+			free(comando);
+	}
+
+}
+

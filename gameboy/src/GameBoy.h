@@ -10,6 +10,18 @@
 
 #include "Generales.h"
 
+char * pokemon ;
+int pokemon_posx;
+int pokemon_posy;
+int pokemon_cantidad;
+
+int flujoGameCard( char * comando,int argc, char *argv[]);
+int flujoTeam( char * comando,int argc, char *argv[]);
+int flujoBroker( char * comando,int argc, char *argv[]);
+int flujoSuscriptor( char * comando,int argc, char *argv[]);
 
 
 #endif /* GAMEBOY_H_ */
+
+
+
