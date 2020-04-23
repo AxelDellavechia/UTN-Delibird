@@ -53,7 +53,6 @@ typedef struct{
 	char* nombre_pokemon;
 	uint32_t  posicion_x;
 	uint32_t posicion_y;
-
 }NEW_POKEMON;
 
 typedef struct{
@@ -79,6 +78,17 @@ typedef struct{
 	uint32_t posicion_x;
 	uint32_t posicion_y;
 }APPEARED_POKEMON;
+
+typedef struct{
+	uint32_t largo_nombre;
+	char* nombre_pokemon;
+	uint32_t posicion_x;
+	uint32_t posicion_y;
+}CATCH_POKEMON;
+
+typedef struct{
+	uint32_t atrapo_pokemon;
+}CAUGHT_POKEMON;
 
 void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
