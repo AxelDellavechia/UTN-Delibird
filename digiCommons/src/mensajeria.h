@@ -14,6 +14,7 @@ typedef struct{
 	char* nombre_pokemon;
 	uint32_t  posicion_x;
 	uint32_t posicion_y;
+	uint32_t cantidad;
 }cola_NEW_POKEMON;
 
 typedef struct{
