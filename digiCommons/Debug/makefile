@@ -29,7 +29,7 @@ all: libdigiCommons.so
 libdigiCommons.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc -shared -o "libdigiCommons.so" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -Lcommons -shared -o "libdigiCommons.so" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
