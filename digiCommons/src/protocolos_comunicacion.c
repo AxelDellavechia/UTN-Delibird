@@ -96,6 +96,22 @@ void * serealizar(int head, void * mensaje, int tamanio){
 		memcpy(buffer, mensaje, tamanio);
 		break;
 	}
+	case OPEN:{
+		//buffer = malloc( sizeof(uint32_t) +sizeof(int) * 3 +fileOpen->path_tam );
+		int desplazamiento = 0;
+		memcpy(buffer+desplazamiento,&fileOpen->path_tam,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,fileOpen->path,fileOpen->path_tam);
+		desplazamiento += fileOpen->path_tam;
+		memcpy(buffer+desplazamiento,&fileOpen->create,sizeof(int));
+		desplazamiento += sizeof(int);
+		memcpy(buffer+desplazamiento,&fileOpen->ensure,sizeof(int));
+		desplazamiento += sizeof(int);
+		memcpy(buffer+desplazamiento,&fileOpen->trunc,sizeof(int));
+		desplazamiento += sizeof(int);
+	//	free(fileOpen);
+		break;
+	}
 
   } // fin switch head
 	return buffer;
@@ -111,6 +127,17 @@ void * deserealizar(int head, void * buffer, int tamanio){
 	case LOCALIZED_POKEMON: {
 		mensaje = malloc(tamanio);
 		memcpy(mensaje, buffer, tamanio);
+		break;
+	}
+	case GETATTR: {
+		GAttr* attr = malloc(sizeof(GAttr));
+		int desplazamiento = 0;
+		memcpy(&attr->file_size,(buffer+desplazamiento),sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(&attr->state,(buffer+desplazamiento),sizeof(uint8_t));
+		desplazamiento += sizeof(uint8_t);
+		memcpy(&attr->updated,(buffer+desplazamiento),sizeof(unsigned long long));
+		return (attr);
 		break;
 	}
 
