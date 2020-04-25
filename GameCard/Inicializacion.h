@@ -1,5 +1,6 @@
 #include "GameCard.h"
 #include <commons/config.h>
+#include <pthread.h>
 
 #define LOG_PATH "./GAMECARD.log"
 
@@ -13,8 +14,10 @@ typedef struct{
 
 
 void leer_configFile();
-
+void consola();
+void servidor();
 
 ConfigFile* config_File;
 t_log* logger;
-
+pthread_t hilo_servidor;
+pthread_t hilo_consola;
