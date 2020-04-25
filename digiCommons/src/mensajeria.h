@@ -8,6 +8,7 @@
 #ifndef SRC_MENSAJERIA_H_
 #define SRC_MENSAJERIA_H_
 #include <commons/collections/list.h>
+#include <stdint.h>
 
 typedef struct{
 	uint32_t id_mensaje;
@@ -49,6 +50,7 @@ typedef struct{
 }cola_CATCH_POKEMON;
 
 typedef struct{
+	uint32_t id_mensaje;
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 

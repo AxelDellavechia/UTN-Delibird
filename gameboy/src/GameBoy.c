@@ -102,11 +102,18 @@ log_info(logger,"Trabajando con el GAMECARD");
 
 				if (strcasecmp("GET_POKEMON",comando) == 0 ) {
 
-					pokemon = strdup(argv[3]);
 
-					log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",pokemon);
+
+					cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
+
+					get_poke->id_mensaje = 0 ;
+
+					get_poke->nombre_pokemon = strdup(argv[3]);
+
+					log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
 
 					free(comando);
+					free(get_poke);
 					return EXIT_SUCCESS;
 				}
 
@@ -120,13 +127,17 @@ log_info(logger,"Trabajando con el GAMECARD");
 						return EXIT_FAILURE;
 					}
 
-					pokemon = strdup(argv[3]);
-					pokemon_posx = atoi(argv[4]) ;
-					pokemon_posy = atoi(argv[5]) ;
+					cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
 
-					log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",pokemon,pokemon_posx,pokemon_posy);
+					cat_poke->id_mensaje = 0 ;
+					cat_poke->nombre_pokemon = strdup(argv[3]);
+					cat_poke->posicion_x = atoi(argv[4]) ;
+					cat_poke->posicion_y = atoi(argv[5]) ;
+
+					log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
 
 					free(comando);
+					free(cat_poke);
 					return EXIT_SUCCESS;
 				}
 
@@ -140,14 +151,18 @@ log_info(logger,"Trabajando con el GAMECARD");
 						return EXIT_FAILURE;
 					}
 
-					pokemon = strdup(argv[3]);
-					pokemon_posx = atoi(argv[4]) ;
-					pokemon_posy = atoi(argv[5]) ;
-					pokemon_cantidad = atoi(argv[6]);
+					cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
 
-					log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",pokemon,pokemon_posx,pokemon_posy,pokemon_cantidad);
+					new_poke->id_mensaje = 0 ;
+					new_poke->nombre_pokemon = strdup(argv[3]);
+					new_poke->posicion_x = atoi(argv[4]) ;
+					new_poke->posicion_y = atoi(argv[5]) ;
+					new_poke->cantidad = atoi(argv[6]) ;
+
+					log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
 
 					free(comando);
+					free(new_poke);
 					return EXIT_SUCCESS;
 				}
 
@@ -179,13 +194,17 @@ if ( cxTeam != 0 ) {
 					return EXIT_FAILURE;
 				}
 
-				pokemon = strdup(argv[3]);
-				pokemon_posx = atoi(argv[4]) ;
-				pokemon_posy = atoi(argv[5]) ;
+				cola_APPEARED_POKEMON * app_poke = (cola_APPEARED_POKEMON * ) malloc(sizeof(cola_APPEARED_POKEMON));
 
-				log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",pokemon,pokemon_posx,pokemon_posy);
+				app_poke->id_mensaje = 0 ;
+				app_poke->nombre_pokemon = strdup(argv[3]);
+				app_poke->posicion_x = atoi(argv[4]) ;
+				app_poke->posicion_y = atoi(argv[5]) ;
+
+				log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 				//aplicar_protocolo_enviar(fdBroker,)
 				free(comando);
+				free(app_poke);
 				return EXIT_SUCCESS;
 			} else {
 				printf("Comando no reconocido\n");
@@ -220,10 +239,17 @@ log_info(logger,"Trabajando con el BROKER");
 						//./gameboy BROKER GET_POKEMON [POKEMON]
 
 						if (strcasecmp("GET_POKEMON",comando) == 0 ) {
-							pokemon = strdup(argv[3]);
-							log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s  ",pokemon);
-							//aplicar_protocolo_enviar(fdBroker,)
+
+							cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
+
+							get_poke->id_mensaje = 0 ;
+
+							get_poke->nombre_pokemon = strdup(argv[3]);
+
+							log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
+
 							free(comando);
+							free(get_poke);
 							return EXIT_SUCCESS;
 						}
 
@@ -236,6 +262,11 @@ log_info(logger,"Trabajando con el BROKER");
 								free(comando);
 								return EXIT_FAILURE;
 							}
+
+							cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
+
+							cau_poke->id_mensaje = atoi(argv[3]);
+							cau_poke->atrapo_pokemon = atoi(argv[5]) ;
 
 							int id_mensaje = atoi(argv[4]);
 							char * estado = strdup(argv[5]);
@@ -256,15 +287,17 @@ log_info(logger,"Trabajando con el BROKER");
 								return EXIT_FAILURE;
 							}
 
-							pokemon = strdup(argv[3]);
-							pokemon_posx = atoi(argv[4]) ;
-							pokemon_posy = atoi(argv[5]) ;
+							cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
 
-							log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",pokemon,pokemon_posx,pokemon_posy);
+							cat_poke->id_mensaje = 0 ;
+							cat_poke->nombre_pokemon = strdup(argv[3]);
+							cat_poke->posicion_x = atoi(argv[4]) ;
+							cat_poke->posicion_y = atoi(argv[5]) ;
 
-							//aplicar_protocolo_enviar(fdBroker,)
+							log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
 
 							free(comando);
+							free(cat_poke);
 							return EXIT_SUCCESS;
 						}
 
@@ -278,16 +311,17 @@ log_info(logger,"Trabajando con el BROKER");
 									return EXIT_FAILURE;
 							}
 
-							pokemon = strdup(argv[3]);
-							pokemon_posx = atoi(argv[4]) ;
-							pokemon_posy = atoi(argv[5]) ;
-							int id_mensaje = atoi(argv[6]);
+							cola_APPEARED_POKEMON * app_poke = (cola_APPEARED_POKEMON * ) malloc(sizeof(cola_APPEARED_POKEMON));
 
-							log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , ID_MENSAJE: %d ",pokemon,pokemon_posx,pokemon_posy,id_mensaje);
+							app_poke->id_mensaje = atoi(argv[6]) ;
+							app_poke->nombre_pokemon = strdup(argv[3]);
+							app_poke->posicion_x = atoi(argv[4]) ;
+							app_poke->posicion_y = atoi(argv[5]) ;
 
+							log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 							//aplicar_protocolo_enviar(fdBroker,)
-
 							free(comando);
+							free(app_poke);
 							return EXIT_SUCCESS;
 						}
 
@@ -301,14 +335,18 @@ log_info(logger,"Trabajando con el BROKER");
 									return EXIT_FAILURE;
 							}
 
-							pokemon = strdup(argv[3]);
-							pokemon_posx = atoi(argv[4]) ;
-							pokemon_posy = atoi(argv[5]) ;
-							pokemon_cantidad = atoi(argv[6]);
+							cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
 
-							log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",pokemon,pokemon_posx,pokemon_posy,pokemon_cantidad);
+							new_poke->id_mensaje = 0 ;
+							new_poke->nombre_pokemon = strdup(argv[3]);
+							new_poke->posicion_x = atoi(argv[4]) ;
+							new_poke->posicion_y = atoi(argv[5]) ;
+							new_poke->cantidad = atoi(argv[6]) ;
+
+							log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
 
 							free(comando);
+							free(new_poke);
 							return EXIT_SUCCESS;
 						}
 						else {
@@ -347,3 +385,4 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 				return EXIT_SUCCESS;
 		}
 }
+

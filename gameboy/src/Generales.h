@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../digiCommons/src/mensajeria.h"
+#include "../digiCommons/src/protocolos_comunicacion.h"
+
 #define LOG_PATH "../CatedraGB.log"
 #define LOG_PATH_INTERNO "../GameBoy.log"
 #define RUTA_CONFIG_MEM "../configGB.txt"
@@ -36,22 +39,6 @@ typedef struct config {
 } archivoConfigGB;
 
 archivoConfigGB *configGB;
-
-typedef enum {
-	NEW_POKEMON = 1,
-	APPEARED_POKEMON,
-	CATCH_POKEMON,
-	CAUGHT_POKEMON,
-	GET_POKEMON,
-	LOCALIZED_POKEMON,
-	FIN_DEL_PROTOCOLO
-} protocolo;
-
-typedef enum {
-	GAMECARD = 1,
-	BROKER,
-	TEAM
-} modulos;
 
 int fdBroker;
 int fdTeam;
