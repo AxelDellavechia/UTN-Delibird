@@ -87,7 +87,7 @@ int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger) {
 void * serealizar(int head, void * mensaje, int tamanio){
 
 	void * buffer = NULL;
-
+	printf("hola");
 	switch(head) {
 	// CASE 1: El mensaje es un texto (char*)
 	case NEW_POKEMON: case APPEARED_POKEMON: case CATCH_POKEMON: case CAUGHT_POKEMON: case GET_POKEMON:
