@@ -1,0 +1,9 @@
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Por setear los valores del archivo de configuracion
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Leyendo Archivo de Configuracion..
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.2
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.3
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 15:42:37:694 GameBoy.log/(507:507): Trabajando con el TEAM
