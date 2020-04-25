@@ -3,6 +3,8 @@
 
 #include "sockets.h"
 #include <commons/log.h>
+#include "mensajeria.h"
+#include <commons/string.h>
 
 #define INT (sizeof(int))
 
