@@ -100,6 +100,8 @@ void iniciar_estructuras(){
 	//Se reserva la Memoria total del Broker
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
+	//Setea cantidad fallidas
+	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(mutex_memoria_cache, NULL);

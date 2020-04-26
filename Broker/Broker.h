@@ -108,7 +108,7 @@ char FIRST_FIT[2]= "FF";
 char BEST_FIT[2] = "BF";
 char PARTICIONES[11] = "PARTICIONES";
 char BUDDY_SYSTEM[2] = "BS";
-int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
+int cantidad_fallidas;
 
 
 void leer_configFile();
