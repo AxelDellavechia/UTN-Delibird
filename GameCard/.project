@@ -4,6 +4,8 @@
 	<comment></comment>
 	<projects>
 		<project>digiCommons</project>
+		<project>so-commons-library</project>
+		<project>tp-2020-1c-Digimon</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

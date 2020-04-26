@@ -24,7 +24,9 @@
 								<option id="gnu.c.compiler.option.debugging.level.1543006965" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.include.paths.2056886863" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/digiCommons}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/include"/>
 								</option>
+								<option id="gnu.c.compiler.option.dialect.std.303004677" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.2046629913" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.272075709" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
@@ -38,7 +40,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/so-commons-library}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.libs.139064527" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="digiCommons"/>
+									<listOptionValue builtIn="false" value="digiCommons"/>
+									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="commons"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1941653374" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
@@ -53,6 +56,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/digiCommons}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/so-commons-library}&quot;"/>
 									<listOptionValue builtIn="false" value="/home/utnso/so-commons-library/src"/>
+									<listOptionValue builtIn="false" value="/usr/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1511823635" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
