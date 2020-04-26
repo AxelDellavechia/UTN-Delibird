@@ -3,6 +3,8 @@
 
 #include "sockets.h"
 #include <commons/log.h>
+#include "mensajeria.h"
+#include <commons/string.h>
 
 #define INT (sizeof(int))
 
@@ -15,6 +17,12 @@ typedef enum {
 	LOCALIZED_POKEMON,
 	FIN_DEL_PROTOCOLO
 } protocolo;
+
+typedef enum {
+	GAMECARD = 1,
+	BROKER,
+	TEAM
+} modulos;
 
 int validar_recive(int status, int modo);
 int validar_servidor(char *id , char* mensajeEsperado,t_log* logger);

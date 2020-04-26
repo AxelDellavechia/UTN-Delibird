@@ -23,21 +23,25 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: libdigiCommons.so
+all: gameboy
+
+dependents:
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) all
 
 # Tool invocations
-libdigiCommons.so: $(OBJS) $(USER_OBJS)
+gameboy: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc -Lcommons -shared -o "libdigiCommons.so" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace/digiCommons/Debug" -o "gameboy" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(LIBRARIES)$(OBJS)$(C_DEPS) libdigiCommons.so
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) gameboy
 	-@echo ' '
 
 .PHONY: all clean dependents
+/home/utnso/workspace/digiCommons/Debug/libdigiCommons.so:
 
 -include ../makefile.targets
