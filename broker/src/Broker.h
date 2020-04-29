@@ -106,9 +106,6 @@ char BUDDY_SYSTEM[2] = "BS";
 
 int cantidad_fallidas;
 
-void* reservarMemoria(int size);
-void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
-void iniciar_log();
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
@@ -120,7 +117,7 @@ Particion* algoritmo_primer_ajuste(int tamano);
 Particion* algoritmo_mejor_ajuste(int tamano);
 void compactacion();
 void eliminar_particion();
-void consola();
+
 
 int dumpMemoria(int senial);
 

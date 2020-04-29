@@ -41,5 +41,9 @@ ConfigFile* config_File;
 t_log* logger;
 t_log* loggerCatedra;
 
+void* reservarMemoria(int size);
+void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
+void consola();
+void iniciar_log();
 
 #endif /* SRC_GENERALES_H_ */
