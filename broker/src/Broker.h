@@ -8,11 +8,6 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
-#define LOG_PATH "../CatedraGB.log"
-#define LOG_PATH_INTERNO "../broker.log"
-
-#define RUTA_CONFIG_MEM "../configBroker.txt"
-
 #include <commons/log.h>
 #include <commons/config.h>
 #include <commons/string.h>
@@ -23,8 +18,8 @@
 #include <../digiCommons/src/protocolos_comunicacion.h>
 
 #include <pthread.h>
-#include <signal.h>
-#include <locale.h>
+
+
 #include <limits.h>
 
 typedef struct Mensaje{
@@ -43,17 +38,6 @@ typedef struct Particion{
 typedef struct{
 
 }Suscriptor;
-
-typedef struct ConfigFile{
-	int TAMANO_MEMORIA;
-	int TAMANO_MINIMO_PARTICION;
-	char* ALGORITMO_MEMORIA;
-	char* ALGORITMO_REEMPLAZO;
-	char* ALGORITMO_PARTICION_LIBRE;
-	char* IP_BROKER;
-	int PUERTO_BROKER;
-	int FRECUENCIA_COMPACTACION;
-} ConfigFile;
 
 typedef struct{
 
@@ -108,11 +92,6 @@ typedef struct{
 void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
 
-ConfigFile* config_File;
-
-t_log* logger;
-t_log* loggerCatedra;
-
 t_list* lista_particiones;
 t_list* cola_new_pokemon;
 t_list* cola_localized_pokemon;
@@ -141,5 +120,8 @@ Particion* algoritmo_primer_ajuste(int tamano);
 Particion* algoritmo_mejor_ajuste(int tamano);
 void compactacion();
 void eliminar_particion();
+void consola();
+
+int dumpMemoria(int senial);
 
 #endif /* BROKER_H_ */
