@@ -7,8 +7,17 @@
 
 ## Para el Debug
 
-1) Dentro del eclipse hacer click en la flecha abajo de debug
+Opción A
+1) Dentro del eclipse hacer click en la flecha abajo de debug 
 2) Ir a Run Configurations
+
+Opción B
+1) Ir a propiedas del proyecto (ALT + ENTER)
+2) Ir a Run/Debug Setting
+
+
+Flujo en Común
+
 3) C/C++ Applications -> New
 4) Ir a la pestaña Environments -> New
 5) En name ingresar -> LD_LIBRARY_PATH
