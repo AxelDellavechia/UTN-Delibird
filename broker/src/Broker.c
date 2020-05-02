@@ -16,7 +16,7 @@ int main(){//int argc, char **argv) {
 
 	//Leo el Archivo de Configuracion
 
-	config_File = reservarMemoria(sizeof(config_File));
+	config_File = reservarMemoria(sizeof(ConfigFile));
 
 	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
@@ -25,6 +25,42 @@ int main(){//int argc, char **argv) {
 
 	//Multi-Hilos por conexion
 	//iniciar_servicio_broker();
+
+	int a = 1 ;
+	int b = 2;
+
+	void * ptInicial = &a ;
+	void * ptFinal = &b ;
+
+	Particion * el_ejemplo;
+
+	el_ejemplo = reservarMemoria(sizeof(Particion));
+
+	el_ejemplo->libre = true ;
+	el_ejemplo->tamano = 345 ;
+	el_ejemplo->punteroInicial = ptInicial ;
+	el_ejemplo->punteroFinal = ptFinal ;
+
+	Particion * el_ejemplo2;
+
+	el_ejemplo2 = reservarMemoria(sizeof(Particion));
+
+
+	el_ejemplo2->colaAsignada = NEW_POKEMON ;
+	el_ejemplo2->idColaAsignada = 1 ;
+	el_ejemplo2->libre =false ;
+	el_ejemplo2->punteroInicial = ptInicial ;
+	el_ejemplo2->punteroFinal = ptFinal ;
+	el_ejemplo2->tamano =456 ;
+	el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
+
+ 	lista_particiones = list_create() ;
+
+	list_add(lista_particiones,el_ejemplo);
+
+	list_add(lista_particiones,el_ejemplo2);
+
+	//printf("tamanio lista %d",list_size(lista_particiones));
 
 	signal(SIGUSR1,dumpMemoria);
 
@@ -214,7 +250,39 @@ int dumpMemoria (int senial) {
 	if (dump != NULL) {
 		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		fprintf(dump,"Dump: %s \n",ctime(&raw));
-		fprintf(dump,"Partición <valor>: <valor>		[X]		Size: <valor>		LRU: <valor>		Cola: <valor>		ID: <ID>\n");
+		int i ;
+		for ( i = 0 ; i < list_size(lista_particiones) ; i++) {
+			Particion * actual = list_get(lista_particiones,i) ;
+			if ( actual->libre ) {
+				fprintf(dump,"Partición %d: %p - %p		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
+			} else {
+				char * colaNombre ;
+				switch (actual->colaAsignada) {
+					case NEW_POKEMON :
+						colaNombre = strdup("NEW_POKEMON");
+					break;
+					case APPEARED_POKEMON :
+						colaNombre = strdup("APPEARED_POKEMON");
+					break;
+					case CATCH_POKEMON :
+						colaNombre = strdup("CATCH_POKEMON");
+					break;
+					case CAUGHT_POKEMON :
+						colaNombre = strdup("CAUGHT_POKEMON");
+					break;
+					case GET_POKEMON :
+						colaNombre = strdup("GET_POKEMON");
+					break;
+					case LOCALIZED_POKEMON :
+						colaNombre = strdup("LOCALIZED_POKEMON");
+					break;
+				}
+				fprintf(dump,"Partición %d: %p - %p		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->idColaAsignada);
+				free(colaNombre);
+			}
+
+			free(actual);
+		}
 		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	} else {
 		printf("No se puede abrir el archivo\n");

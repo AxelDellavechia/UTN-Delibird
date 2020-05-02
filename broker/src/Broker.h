@@ -32,7 +32,11 @@ typedef struct Mensaje{
 typedef struct Particion{
 	int tamano;
 	_Bool libre;
-	//void* puntero;
+	int colaAsignada;
+	int idColaAsignada;
+	void* punteroInicial;
+	void* punteroFinal;
+	int tiempoLRU;
 }Particion;
 
 typedef struct{
