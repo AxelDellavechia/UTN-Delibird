@@ -12,6 +12,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+<<<<<<< HEAD
+=======
+#include "../digiCommons/src/mensajeria.h"
+#include "../digiCommons/src/protocolos_comunicacion.h"
+
+>>>>>>> origin/master
 #define LOG_PATH "../CatedraGB.log"
 #define LOG_PATH_INTERNO "../GameBoy.log"
 #define RUTA_CONFIG_MEM "../configGB.txt"
@@ -37,6 +43,7 @@ typedef struct config {
 
 archivoConfigGB *configGB;
 
+<<<<<<< HEAD
 typedef enum {
 	NEW_POKEMON = 1,
 	APPEARED_POKEMON,
@@ -53,6 +60,8 @@ typedef enum {
 	TEAM
 } modulos;
 
+=======
+>>>>>>> origin/master
 int fdBroker;
 int fdTeam;
 int fdGameCard;

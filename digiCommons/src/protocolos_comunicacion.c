@@ -43,7 +43,7 @@ int validar_conexion(int ret, int modo,t_log* logger) {
 
 void handshake(int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) {
 
-		int handshake_esperado = malloc(strlen(mensajeEsperado) + 1);
+		int handshake_esperado = (int) malloc(strlen(mensajeEsperado) + 1);
 
 		char *buff =  handshake_esperado;
 
@@ -167,6 +167,8 @@ void * serealizar(int head, void * mensaje, int tamanio){
 
 		buffer = NULL ;
 		desplazamiento = 0 ;
+memcpy(buffer+desplazamiento,&new_poke->posicion_x,sizeof(uint32_t));
+desplazamiento += sizeof(uint32_t);
 				memcpy(buffer+desplazamiento,&caug_poke->atrapo_pokemon,sizeof(uint32_t));
 				desplazamiento += sizeof(uint32_t);
 				free(caug_poke);
@@ -292,12 +294,14 @@ void * deserealizar(int head, void * buffer, int tamanio){
 		case CAUGHT_POKEMON: {
 			/*
 			  	typedef struct{
+			  	uint32_t id_mensaje;
 					uint32_t atrapo_pokemon;
 				}cola_CAUGHT_POKEMON;
 			 */
 
 			cola_CAUGHT_POKEMON* cau_poke = malloc(sizeof(cola_CAUGHT_POKEMON));
-
+							memcpy(&cau_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
 							memcpy(&cau_poke->atrapo_pokemon,(buffer+desplazamiento),sizeof(uint32_t));
 							return (cau_poke);
 							break;
@@ -369,14 +373,8 @@ int calcularTamanioMensaje(int head, void* mensaje){
 			break;
 		}
 
-		case APPEARED_POKEMON: case CATCH_POKEMON: {
+		case APPEARED_POKEMON: case CAUGHT_POKEMON: case CATCH_POKEMON: {
 			tamanio =+ sizeof(uint32_t) * 3 ;
-			break;
-		}
-
-
-		case CAUGHT_POKEMON:{
-			tamanio = sizeof(uint32_t) ;
 			break;
 		}
 

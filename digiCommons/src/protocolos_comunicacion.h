@@ -18,6 +18,12 @@ typedef enum {
 	FIN_DEL_PROTOCOLO
 } protocolo;
 
+typedef enum {
+	GAMECARD = 1,
+	BROKER,
+	TEAM
+} modulos;
+
 int validar_recive(int status, int modo);
 int validar_servidor(char *id , char* mensajeEsperado,t_log* logger);
 int validar_conexion(int ret, int modo,t_log* logger);

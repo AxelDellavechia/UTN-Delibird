@@ -80,6 +80,31 @@ typedef struct{
 
 
 t_list* lista_particiones;
+t_list* cola_new_pokemon;
+t_list* cola_localized_pokemon;
+t_list* cola_get_pokemon;
+t_list* cola_appeared_pokemon;
+t_list* cola_catch_pokemon;
+char FIRST_FIT[2]= "FF";
+char BEST_FIT[2] = "BF";
+char PARTICIONES[11] = "PARTICIONES";
+char BUDDY_SYSTEM[2] = "BS";
+int cantidad_fallidas;
+
+
+void leer_configFile();
+void iniciar_log();
+void iniciar_servicio_broker();
+void esperar_conexion(int servidor);
+void atender(int socket);
+void iniciar_estructuras();
+void reservar_particion(int tamano, Mensaje msj);
+void reservar_particion_dinamica(int tamano, Mensaje mensaje);
+void reservar_particion_bs(int tamano, Mensaje mensaje);
+Particion* algoritmo_primer_ajuste(int tamano);
+Particion* algoritmo_mejor_ajuste(int tamano);
+void compactacion();
+void eliminar_particion();
 
 
 
