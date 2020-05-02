@@ -2,21 +2,20 @@
 #include <stdlib.h>
 #include "Team.h"
 
-
 int main(void) {
 
-	crearLogger("CatedraGB.log",LOG_PATH);
-	crearLogger("GameBoy.log",LOG_PATH_INTERNO);
+	crearLogger("CatedraTeam.log",LOG_PATH);
+	crearLogger("Team.log",LOG_PATH_INTERNO);
 
-	fdBroker = nuevoSocket();
+	//fdBroker = nuevoSocket();
 
 	//inicializar_semaforos();
-
-	log_info(logger, "Por setear los valores del archivo de configuracion");
 
 	crearEstructuras();
 
 	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
+
+	obtenerEntrenadores();
 
 	get_pokemon();
 	//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD]

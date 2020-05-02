@@ -9,9 +9,9 @@
 
 #include <limits.h>
 
-#define LOG_PATH "../CatedraGB.log"
-#define LOG_PATH_INTERNO "../GameBoy.log"
-#define RUTA_CONFIG_MEM "../configGB.txt"
+#define LOG_PATH "../CatedraTeam.log"
+#define LOG_PATH_INTERNO "../Team.log"
+#define RUTA_CONFIG_MEM "configTeam.txt"
 #define FALSE 0
 #define TRUE 1
 #define ERROR -1
@@ -27,15 +27,13 @@ t_list* colaBlocked;
 t_list* colaExit;
 t_list* mapaPokemon;
 t_list* posicion;
-t_list* pokemonesObjetivo;
-t_list* pokemonesAtrapados;
 
 pthread_mutex_t semaforo;
 
-typedef struct config {
-	char* posicionEntrenadores;
-	char* pokemonEntrenadores;
-	char* objetivosEntrenadores;
+typedef struct archivoConfigFile {
+	t_list* posicionEntrenadores;
+	t_list* pokemonEntrenadores;
+	t_list* objetivosEntrenadores;
 	int tiempoReconexion;
 	int retardoCicloCPU;
 	char* algoritmoPlanificacion;
@@ -50,12 +48,15 @@ archivoConfigFile *configFile;
 
 typedef struct posicionPokemon {
 	char* tipoPokemon;
-	t_list* posicion;
+	int posicion_x;
+	int posicion_y;
 } posicionPokemon;
 
 typedef struct entrenadorPokemon {
-	t_list* pokemonesObjetivo;
+	int posicion_x;
+	int posicion_y;
 	t_list* pokemonesAtrapados;
+	t_list* pokemonesObjetivo;
 } entrenadorPokemon;
 
 int fdBroker;
@@ -65,5 +66,6 @@ void crearLogger(char * nombre , char * path);
 void capturarError(int signal);
 void * reservarMemoria(int size);
 void inicializar_semaforos();
+char* obtenerElementoPorPosicion(char* array, int posicionEnArray, char* corte);
 
 #endif

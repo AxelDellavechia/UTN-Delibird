@@ -9,87 +9,47 @@ void crearLogger(char * nombre , char * path) {
 }
 
 void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
-
+	int posicionLista = 0;
 	configFile = reservarMemoria(sizeof(archivoConfigFile));
 	t_config *config;
 	config = config_create(ruta);
 	log_info(logger, "Por setear los valores del archivo de configuracion");
-	if (config != NULL) {
-		log_info(logger, "TEAM: Leyendo Archivo de Configuracion..");
-		if (config_has_property(config, "POSICIONES_ENTRENADORES")) {
-			configFile->posicionEntrenadores = config_get_string_value(config, "POSICIONES_ENTRENADORES");
-				log_info(logger, "Se encontró y cargó el contenido de POSICIONES_ENTRENADORES a la estructura TEAM. Valor: %s",configFile->posicionEntrenadores);
-		} else {
-			log_error(logger,"El archivo de configuracion no contiene el parametro POSICIONES_ENTRENADORES");
-		}
-		if (config_has_property(config, "POKEMON_ENTRENADORES")) {
-			configFile->pokemonEntrenadores = config_get_int_value(config, "POKEMON_ENTRENADORES");
-			log_info(logger, "Se encontró y cargó el contenido de POKEMON_ENTRENADORES a la estructura TEAM. Valor: %d",configFile->pokemonEntrenadores);
-		} else {
-			log_error(logger,"El archivo de configuracion no contiene el parametro POKEMON_ENTRENADORES");
-		}
-		if (config_has_property(config, "OBJETIVOS_ENTRENADORES")) {
-			pokemonesNecesarios = config_get_int_value(config, "OBJETIVOS_ENTRENADORES");
-			log_info(logger, "Se encontró y cargó el contenido de OBJETIVOS_ENTRENADORES a la estructura TEAM. Valor: %d",configFile->objetivosEntrenadores);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametroOBJETIVOS_ENTRENADORES");
-		}
-		if (config_has_property(config, "TIEMPO_RECONEXION")) {
-			//configFile->semIDs = (char *) malloc(sizeof config_get_array_value(config, "SEM_IDS"));
-			configFile->tiempoReconexion = config_get_array_value(config, "TIEMPO_RECONEXION");
-			log_info(logger, "Se encontró y cargó el contenido de TIEMPO_RECONEXION a la estructura TEAM. Valor: %p", configFile->tiempoReconexion);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro TIEMPO_RECONEXION");
-		}
-		if (config_has_property(config, "RETARDO_CICLO_CPU")) {
-			configFile->retardoCicloCPU = config_get_array_value(config, "RETARDO_CICLO_CPU");
-			log_info(logger, "Se encontró y cargó el contenido del RETARDO_CICLO_CPU a la estructura TEAM. Valor: %d",configFile->retardoCicloCPU);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro RETARDO_CICLO_CPU");
-		}
-		if (config_has_property(config, "ALGORITMO_PLANIFICACION")) {
-			configFile->algoritmoPlanificacion = strdup(config_get_array_value(config, "ALGORITMO_PLANIFICACION"));
-			log_info(logger, "Se encontró y cargó el contenido del ALGORITMO_PLANIFICACION a la estructura TEAM. Valor: %d",configFile->algoritmoPlanificacion);
-		} else {
-			log_error(logger,"El archivo de configuracion no contiene el parametro ALGORITMO_PLANIFICACION");
-		}
-		if (config_has_property(config, "QUANTUM")) {
-			configFile->quantum = config_get_int_value(config, "QUANTUM");
-			log_info(logger, "Se encontró y cargó el contenido del QUANTUM a la estructura TEAM. Valor: %d", configFile->quantum);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro QUANTUM");
-		}
-		if (config_has_property(config, "IP_BROKER")) {
-			configFile->ipBroker = config_get_int_value(config, "IP_BROKER");
-			log_info(logger, "Se encontró y cargó el contenido del IP_BROKER a la estructura TEAM. Valor: %d", configFile->ipBroker);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro IP_BROKER");
-		}
-		if (config_has_property(config, "ESTIMACION_INICIAL")) {
-			configFile->estimacionInicial = config_get_int_value(config, "ESTIMACION_INICIAL");
-			log_info(logger, "Se encontró y cargó el contenido del ESTIMACION_INICIAL a la estructura TEAM. Valor: %d", configFile->estimacionInicial);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro ESTIMACION_INICIAL");
-		}
-		if (config_has_property(config, "PUERTO_BROKER")) {
-			configFile->puertoBroker = config_get_int_value(config, "PUERTO_BROKER");
-			log_info(logger, "Se encontró y cargó el contenido del PUERTO_BROKER a la estructura TEAM. Valor: %d", configFile->puertoBroker);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro PUERTO_BROKER");
-		}
-		if (config_has_property(config, "LOG_FILE")) {
-			configFile->logFile = config_get_int_value(config, "LOG_FILE");
-			log_info(logger, "Se encontró y cargó el contenido del LOG_FILE a la estructura TEAM. Valor: %d", configFile->logFile);
-		} else {
-			log_error(logger, "El archivo de configuracion no contiene el parametro LOG_FILE");
-		}
-		config_destroy(config); // Libero la estructura archivoConfig
-		log_info(logger,"El archivo de configuración ha sido leído correctamente");
+	char** posicionEntrenadoresAux = config_get_array_value(config, "POSICIONES_ENTRENADORES");
+	char** pokemonEntrenadoresAux = config_get_array_value(config, "POKEMON_ENTRENADORES");
+	char** objetivosEntrenadoresAux = config_get_array_value(config, "OBJETIVOS_ENTRENADORES");
+	configFile->tiempoReconexion = config_get_int_value(config, "TIEMPO_RECONEXION");
+	configFile->retardoCicloCPU = config_get_int_value(config, "RETARDO_CICLO_CPU");
+	configFile->algoritmoPlanificacion = config_get_string_value(config, "ALGORITMO_PLANIFICACION");
+	configFile->quantum = config_get_int_value(config, "QUANTUM");
+	configFile->ipBroker = config_get_string_value(config, "IP_BROKER");
+	configFile->estimacionInicial = config_get_int_value(config, "ESTIMACION_INICIAL");
+	configFile->puertoBroker = config_get_int_value(config, "PUERTO_BROKER");
+	configFile->logFile = config_get_string_value(config, "LOG_FILE");
+	configFile->posicionEntrenadores = list_create();
+	configFile->pokemonEntrenadores = list_create();
+	configFile->objetivosEntrenadores = list_create();
+	while(posicionEntrenadoresAux[posicionLista] != NULL) {
+		list_add(configFile->posicionEntrenadores, string_duplicate(posicionEntrenadoresAux[posicionLista]));
+		posicionLista++;
 	}
+	posicionLista = 0;
+	while(pokemonEntrenadoresAux[posicionLista] != NULL) {
+		list_add(configFile->pokemonEntrenadores, string_duplicate(pokemonEntrenadoresAux[posicionLista]));
+		posicionLista++;
+	}
+	posicionLista = 0;
+	while(objetivosEntrenadoresAux[posicionLista] != NULL) {
+		list_add(configFile->objetivosEntrenadores, string_duplicate(objetivosEntrenadoresAux[posicionLista]));
+		posicionLista++;
+	}
+	config_destroy(config); // Libero la estructura archivoConfig
+	free(posicionEntrenadoresAux);
+	free(pokemonEntrenadoresAux);
+	free(objetivosEntrenadoresAux);
+	log_info(logger,"El archivo de configuración ha sido leído correctamente");
 }
 
 void* reservarMemoria(int size) {
-
 		void *puntero = malloc(size);
 		if(puntero == NULL) {
 			fprintf(stderr, "Error al reservar %d bytes de memoria", size);
@@ -107,9 +67,56 @@ void crearEstructuras() {
 	colaBlocked = list_create();
 	colaExit = list_create();
 	mapaPokemon = list_create();
-	posicion = list_create();
-	pokemonesObjetivo = list_create();
-	pokemonesAtrapados = list_create();
+}
+
+void obtenerEntrenadores() {
+	int listaEntrenadores = 0;
+	while(configFile->posicionEntrenadores[listaEntrenadores] != NULL) {
+		char* posicionEntrenador = configFile->posicionEntrenadores[listaEntrenadores].head->data;
+		char* pokemonesEntrenador = configFile->pokemonEntrenadores[listaEntrenadores].head->data;
+		char* objetivosEntrenador = configFile->objetivosEntrenadores[listaEntrenadores].head->data;
+		char* arrayCortado = strtok(posicionEntrenador, "|");
+		char* posicionXStr = arrayCortado;
+		char*posicionYStr = strtok(NULL, "|");
+		int posicionX = atoi(posicionXStr);
+		int posicionY = atoi(posicionYStr);
+		entrenadorPokemon* entrenador = reservarMemoria(sizeof(entrenadorPokemon));
+		entrenador->pokemonesAtrapados = list_create();
+		entrenador->pokemonesObjetivo = list_create();
+		entrenador->posicion_x = posicionX;
+		entrenador->posicion_y = posicionY;
+		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
+		while (pokemonAtrapado != NULL) {
+			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemonAtrapado));
+			pokemonAtrapado = strtok(NULL, "|");
+		}
+		char* pokemonObjetivo = strtok(objetivosEntrenador, "|");
+		while (pokemonObjetivo != NULL) {
+			list_add(entrenador->pokemonesObjetivo, string_duplicate(pokemonObjetivo));
+			pokemonObjetivo = strtok(NULL, "|");
+		}
+	}
+}
+
+void crearEntrenador(int posicionX, int posicionY, char* pokemonesEntrenador, char* objetivosEntrenador) {
+	int posicion = 0;
+	entrenadorPokemon* entrenador = reservarMemoria(sizeof(entrenadorPokemon));
+	entrenador->pokemonesAtrapados = list_create();
+	entrenador->pokemonesObjetivo = list_create();
+	entrenador->posicion_x = posicionX;
+	entrenador->posicion_y = posicionY;
+	while (pokemonesEntrenador[posicion] != NULL) {
+		list_add(entrenador->pokemonesAtrapados, pokemonesEntrenador[posicion]);
+		posicion++;
+	}
+	posicion = 0;
+	while (objetivosEntrenador[posicion] != NULL) {
+		list_add(entrenador->pokemonesObjetivo, objetivosEntrenador[posicion]);
+		posicion++;
+	}
+
+	//log_info(logger, pokemonesEntrenador);
+	//log_info(logger, objetivosEntrenador);
 }
 
 void appeared_pokemon(posicionPokemon pokemonAparecido) {
@@ -132,30 +139,13 @@ void verificarPokemonesNecesarios(char* especiePokemon) {
 }
 
 void get_pokemon() {
-	if (validar_conexion) {
-		//int listaPokemon = 0;
-		//while (pokemonesNecesarios[listaPokemon].head->next != NULL) {
-		for (int listaPokemon = 0; listaPokemon <= sizeof(pokemonesNecesarios); listaPokemon++) {
-			t_list* objetivosEntrenadores = list_get(pokemonesNecesarios, listaPokemon);
-			//int objetivoEntrenador = 0;
-			for (int objetivoEntrenador = 0; objetivoEntrenador <= sizeof(objetivosEntrenadores); objetivoEntrenador++) {
-			//while (objetivosEntrenadores[objetivoEntrenador].head->next != NULL) {
-				char* objetivoEntrenadorStr = list_get(objetivosEntrenadores, objetivoEntrenador);
-				//enviar_mensaje(GET_POKEMON(objetivoEntrenadorStr));
-				//void* posicionesPokemon = aplicar_protocolo_recibir(fdBroker, 0);
-				//objetivoEntrenador++;
-			}
-			//listaPokemon++;
-		}
-		/*for (int listaPokemon = 0; listaPokemon < sizeof(pokemonesNecesarios); listaPokemon++) {
-
-		for (int objetivoEntrenador = 0; objetivoEntrenador < sizeof(objetivosEntrenadores); objetivoEntrenador++) {
-
-			}
-		}*/
-	} else {
+	//if (validar_conexion) {
+		t_list* pokemonEntrenadores = configFile->pokemonEntrenadores;
+		char* elemento = pokemonEntrenadores[0].head->data;
+		log_info(logger, elemento);
+	/*} else {
 		void* posicionesPokemon = NULL;
-	}
+	}*/
 }
 
 void catch_pokemon(posicionPokemon pokemon, int entrenador) {
