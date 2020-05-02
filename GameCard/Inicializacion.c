@@ -1,10 +1,14 @@
 #include "Inicializacion.h"
 #include <commons/config.h>
+#include "src/sockets.h"
 
 
-void leer_configFile(){
+/*void leer_configFile(char* ruta) {
+
+
 	t_config *config;
-		config = config_create("/GameCard.config");
+	char *ptrRuta = ruta;
+	config = config_create(ptrRuta);
 		if (config != NULL) {
 			config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
 			config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
@@ -15,19 +19,57 @@ void leer_configFile(){
 			config_destroy(config);
 
 			crearPuntoMontaje();
+			leer_metaData_principal();
 		}
 
+
+}*/
+
+void* reservarMemoria(int size) {
+	void *puntero = malloc(size);
+	if (puntero == NULL) {
+		fprintf(stderr,
+				"Lo imposible sucedió. Error al reservar %d bytes de memoria\n",
+				size);
+		exit(ERROR);
+	}
+	return puntero;
+}
+
+void leer_configFile(char* ruta) {
+
+	config_File = reservarMemoria(sizeof(ConfigFile));
+	t_config *config;
+	config = reservarMemoria (sizeof(t_config));
+	config = config_create(ruta);
+	log_info(logger, "Por setear los valores del archivo de configuracion");
+	if (config != NULL) {
+		log_info(logger, "FS: Leyendo Archivo de Configuracion..");
+
+		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
+		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
+		config_File->PUNTO_MONTAJE_TALLGRASS = config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS");
+		config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
+		config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
+		config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
+
+		}
+	//config_destroy(config);
+	crearPuntoMontaje();
+	leer_metaData_principal();
 
 }
 
 void crearPuntoMontaje()
 {
-		//PuntoMontaje = (struct t_config_PuntosMontaje *) malloc (sizeof(struct PuntoMontaje));
+		PuntoMontaje = malloc (sizeof(t_config_PuntosMontaje));
 
-		PuntoMontaje->PUNTOMONTAJE = malloc ( string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
-		PuntoMontaje->FILES = malloc ( string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
-		PuntoMontaje->BLOCKS = malloc ( string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
+		PuntoMontaje->PUNTOMONTAJE = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
+		PuntoMontaje->FILES = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
+		PuntoMontaje->BLOCKS = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
 		PuntoMontaje->METADATA = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/") ) ;
+		PuntoMontaje->METADATA_FILE = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Metadata.bin") ) ;
+		PuntoMontaje->BITMAP = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
 
 
 
@@ -41,23 +83,32 @@ void crearPuntoMontaje()
 		strcpy(PuntoMontaje->METADATA,PuntoMontaje->PUNTOMONTAJE);
 		strcat(PuntoMontaje->METADATA,"Metadata/");
 
+		strcpy(PuntoMontaje->METADATA_FILE,PuntoMontaje->PUNTOMONTAJE);
+		strcat(PuntoMontaje->METADATA_FILE,"Metadata/Metadata.bin");
+
+		strcpy(PuntoMontaje->BITMAP,PuntoMontaje->PUNTOMONTAJE);
+		strcat(PuntoMontaje->BITMAP,"Metadata/Bitmap.bin");
+
 		strcpy(PuntoMontaje->FILES,PuntoMontaje->PUNTOMONTAJE);
 		strcat(PuntoMontaje->FILES,"Files/");
 
 }
 
 int leer_metaData_principal(){
-	char *direccionArchivoMedata=(char *) malloc(1 + strlen(PuntoMontaje->METADATA));
+/*	char *direccionArchivoMedata=(char *) malloc(strlen(PuntoMontaje->METADATA));
 
 	string_append(&direccionArchivoMedata,PuntoMontaje->METADATA);
-	printf("direccionArchivoMedata: %s\n",direccionArchivoMedata);
+	printf("direccionArchivoMedata: %s\n",direccionArchivoMedata);*/
+
+	config_MetaData = reservarMemoria(sizeof(t_config_MetaData));
+
 	t_config *archivo_MetaData;
-	archivo_MetaData=config_create(direccionArchivoMedata);
+	archivo_MetaData=config_create(PuntoMontaje->METADATA_FILE);
 	config_MetaData->cantidad_bloques=config_get_int_value(archivo_MetaData,"BLOCKS");
     config_MetaData->magic_number=string_duplicate(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
 	config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
-	free(direccionArchivoMedata);
-	config_destroy(archivo_MetaData);
+	//free(direccionArchivoMedata);
+	//config_destroy(archivo_MetaData);
 	return 0;
 }
 
@@ -251,4 +302,100 @@ void crearBloques(void)
 			fclose(block);
 			free(bloque);
 	}
+}
+
+void crearBitmap(){
+
+	//char *direccionArchivoBitMap = path_bitmap();
+
+	int bitmap = open(PuntoMontaje->BITMAP, O_RDWR);
+
+
+	if(bitmap == ERROR){
+		printf("No se pudo abrir el archivo bitmap\n");
+	}
+
+	struct stat mystat;
+
+	if (fstat(bitmap, &mystat) < 0) {
+	    printf("Error al establecer fstat\n");
+	    close(bitmap);
+	}
+    char *bmap ;
+
+
+    //Subo a memoria el contenido del archivo bitmap desde 0 hasta mystat.st_size bytes.
+
+    bmap = mmap(NULL, mystat.st_size, PROT_WRITE | PROT_READ, MAP_PRIVATE, bitmap, 0);
+
+
+	if (bmap == MAP_FAILED) {
+			printf("Error al mapear a memoria: %s\n", strerror(errno));
+
+	}
+
+	//bitarray = bitarray_create_with_mode(bmap, config_MetaData.cantidad_bloques / 8, MSB_FIRST);
+	bitarray = bitarray_create_with_mode(mmap(NULL, config_MetaData->cantidad_bloques / 8, PROT_WRITE | PROT_READ, MAP_SHARED, bitmap, 0), config_MetaData->cantidad_bloques / 8, MSB_FIRST);
+
+	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
+
+
+	close(bitmap);
+
+	printf("cantidadDebits: %i\n",cantidadDebits);
+	int i;
+	for (i=0;i<cantidadDebits;i++){
+
+		bitarray_clean_bit(bitarray,i);
+
+	}
+
+}
+
+int creacionDeArchivoBitmap(char *path,int cantidad){
+    int x = 0;
+    FILE *fh = fopen (path, "wb");
+    if(fh == NULL){
+    	printf("Error en el fopen\n");
+    }
+    int i;
+    for( i=0;i<cantidad;i++){
+        if (fh != NULL) {
+                fwrite (&x, sizeof (x), 1, fh);
+        }
+    }
+    fclose(fh);
+    return 0;
+
+}
+
+
+
+
+int cantidadDeBloquesLibres (void){
+	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
+	int libre =ERROR;
+	int i;
+	for (i=0;i<cantidadDebits;i++){
+		if (bitarray_test_bit(bitarray,i)==0){
+			libre++;
+		}
+	}
+	return libre;
+}
+
+int proximobloqueLibre (void){
+
+	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
+	int i;
+	int libre= ERROR;
+	//pthread_mutex_lock(&mxBitmap);
+	for (i=0;i<cantidadDebits;i++){
+		if(bitarray_test_bit(bitarray,i)==0){
+			libre=i;
+			break;
+		}
+	}
+//	pthread_mutex_unlock(&mxBitmap);
+	return libre;
 }

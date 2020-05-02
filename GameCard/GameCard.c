@@ -9,12 +9,14 @@
 
 
 int main(){//int argc, char **argv) {
-
-	leer_configFile();
-
 	iniciar_log();
-	crearBloques();
+	leer_configFile(CONFIG_PATH);
 
+
+//YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
+		//crearBloques();
+	//creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques);
+	crearBitmap();
 	crearHilos();
 
 

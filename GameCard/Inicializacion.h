@@ -4,8 +4,14 @@
 #include "GameCard.h"
 #include <commons/config.h>
 #include <commons/string.h>
+#include <commons/bitarray.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
 #include <pthread.h>
 
+
+#define CONFIG_PATH "./config.txt"
 #define LOG_PATH "./GAMECARD.log"
 #define CONEXIONES_PERMITIDAS 100
 
@@ -34,12 +40,14 @@ typedef struct{
 typedef struct{
 	char* PUNTOMONTAJE;
 	char* METADATA;
+	char* METADATA_FILE;
+	char* BITMAP;
 	char* BLOCKS;
 	char* FILES;
 
 }t_config_PuntosMontaje;
 
-void leer_configFile();
+void leer_configFile(char* ruta);
 void crearPuntoMontaje();
 void consola();
 void servidor();
@@ -48,6 +56,7 @@ ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
 t_config_PuntosMontaje* PuntoMontaje;
 t_log* logger;
+t_bitarray *bitarray;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 
