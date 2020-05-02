@@ -19,8 +19,7 @@
 
 t_log * logger;
 t_log * loggerCatedra;
-t_list* pokemonesRequeridos;
-t_list* pokemonesNecesarios;
+t_list* objetivoTeam;
 t_list* colaNew;
 t_list* colaReady;
 t_list* colaBlocked;
@@ -53,6 +52,7 @@ typedef struct posicionPokemon {
 } posicionPokemon;
 
 typedef struct entrenadorPokemon {
+	int idEntrenador;
 	int posicion_x;
 	int posicion_y;
 	t_list* pokemonesAtrapados;

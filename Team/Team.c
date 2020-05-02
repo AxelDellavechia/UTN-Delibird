@@ -4,8 +4,8 @@
 
 int main(void) {
 
-	crearLogger("CatedraTeam.log",LOG_PATH);
 	crearLogger("Team.log",LOG_PATH_INTERNO);
+	//crearLogger("CatedraTeam.log",LOG_PATH);
 
 	//fdBroker = nuevoSocket();
 
@@ -15,9 +15,9 @@ int main(void) {
 
 	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
-	obtenerEntrenadores();
+	obtenerEntrenadores(logger);
 
-	get_pokemon();
+	localizarPokemones();
 	//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD]
 
 	//./gameboy BROKER APPEARED_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE]

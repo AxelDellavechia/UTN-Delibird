@@ -13,7 +13,6 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 	configFile = reservarMemoria(sizeof(archivoConfigFile));
 	t_config *config;
 	config = config_create(ruta);
-	log_info(logger, "Por setear los valores del archivo de configuracion");
 	char** posicionEntrenadoresAux = config_get_array_value(config, "POSICIONES_ENTRENADORES");
 	char** pokemonEntrenadoresAux = config_get_array_value(config, "POKEMON_ENTRENADORES");
 	char** objetivosEntrenadoresAux = config_get_array_value(config, "OBJETIVOS_ENTRENADORES");
@@ -46,7 +45,6 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 	free(posicionEntrenadoresAux);
 	free(pokemonEntrenadoresAux);
 	free(objetivosEntrenadoresAux);
-	log_info(logger,"El archivo de configuración ha sido leído correctamente");
 }
 
 void* reservarMemoria(int size) {
@@ -59,8 +57,7 @@ void* reservarMemoria(int size) {
 }
 
 void crearEstructuras() {
-	pokemonesRequeridos = list_create();
-	pokemonesNecesarios = list_create();
+	objetivoTeam = list_create();
 	colaNew = list_create();
 	colaReady = list_create();
 	int exec;
@@ -69,12 +66,11 @@ void crearEstructuras() {
 	mapaPokemon = list_create();
 }
 
-void obtenerEntrenadores() {
-	int listaEntrenadores = 0;
-	while(configFile->posicionEntrenadores[listaEntrenadores] != NULL) {
-		char* posicionEntrenador = configFile->posicionEntrenadores[listaEntrenadores].head->data;
-		char* pokemonesEntrenador = configFile->pokemonEntrenadores[listaEntrenadores].head->data;
-		char* objetivosEntrenador = configFile->objetivosEntrenadores[listaEntrenadores].head->data;
+void obtenerEntrenadores(t_log *logger) {
+	for(int listaEntrenadores = 0; listaEntrenadores < list_size(configFile->posicionEntrenadores); listaEntrenadores++) {
+		char* posicionEntrenador = list_get(configFile->posicionEntrenadores, listaEntrenadores);
+		char* pokemonesEntrenador = list_get(configFile->pokemonEntrenadores, listaEntrenadores);
+		char* objetivosEntrenador = list_get(configFile->objetivosEntrenadores, listaEntrenadores);
 		char* arrayCortado = strtok(posicionEntrenador, "|");
 		char* posicionXStr = arrayCortado;
 		char*posicionYStr = strtok(NULL, "|");
@@ -83,6 +79,7 @@ void obtenerEntrenadores() {
 		entrenadorPokemon* entrenador = reservarMemoria(sizeof(entrenadorPokemon));
 		entrenador->pokemonesAtrapados = list_create();
 		entrenador->pokemonesObjetivo = list_create();
+		entrenador->idEntrenador = listaEntrenadores;
 		entrenador->posicion_x = posicionX;
 		entrenador->posicion_y = posicionY;
 		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
@@ -95,36 +92,18 @@ void obtenerEntrenadores() {
 			list_add(entrenador->pokemonesObjetivo, string_duplicate(pokemonObjetivo));
 			pokemonObjetivo = strtok(NULL, "|");
 		}
+		list_add(colaNew, entrenador);
+		log_info(logger, "Entrenador %i creado y en cola de New", listaEntrenadores);
+		list_add_all(objetivoTeam, entrenador->pokemonesObjetivo);
 	}
-}
-
-void crearEntrenador(int posicionX, int posicionY, char* pokemonesEntrenador, char* objetivosEntrenador) {
-	int posicion = 0;
-	entrenadorPokemon* entrenador = reservarMemoria(sizeof(entrenadorPokemon));
-	entrenador->pokemonesAtrapados = list_create();
-	entrenador->pokemonesObjetivo = list_create();
-	entrenador->posicion_x = posicionX;
-	entrenador->posicion_y = posicionY;
-	while (pokemonesEntrenador[posicion] != NULL) {
-		list_add(entrenador->pokemonesAtrapados, pokemonesEntrenador[posicion]);
-		posicion++;
-	}
-	posicion = 0;
-	while (objetivosEntrenador[posicion] != NULL) {
-		list_add(entrenador->pokemonesObjetivo, objetivosEntrenador[posicion]);
-		posicion++;
-	}
-
-	//log_info(logger, pokemonesEntrenador);
-	//log_info(logger, objetivosEntrenador);
 }
 
 void appeared_pokemon(posicionPokemon pokemonAparecido) {
 	list_add(mapaPokemon, pokemonAparecido.tipoPokemon);
-	verificarPokemonesNecesarios(pokemonAparecido.tipoPokemon);
+	//verificarPokemonesNecesarios(pokemonAparecido.tipoPokemon);
 }
 
-void verificarPokemonesNecesarios(char* especiePokemon) {
+/*void verificarPokemonesNecesarios(char* especiePokemon) {
 	for (int listaPokemon = 0; listaPokemon < sizeof(pokemonesNecesarios); listaPokemon++) {
 		t_list* objetivosEntrenadores = list_get(pokemonesNecesarios, listaPokemon);
 		for (int objetivoEntrenador = 0; objetivoEntrenador < sizeof(objetivosEntrenadores); objetivoEntrenador++) {
@@ -136,13 +115,29 @@ void verificarPokemonesNecesarios(char* especiePokemon) {
 		}
 		break;
 	}
-}
+}*/
 
-void get_pokemon() {
+void localizarPokemones() {
 	//if (validar_conexion) {
-		t_list* pokemonEntrenadores = configFile->pokemonEntrenadores;
-		char* elemento = pokemonEntrenadores[0].head->data;
-		log_info(logger, elemento);
+	int existePokemonEnListaAux;
+	t_list* listaAux = list_create();
+	char* pokemonObjetivo = list_get(objetivoTeam, 0);
+	list_add(listaAux, string_duplicate(pokemonObjetivo));
+	for(int posicionObjetivo = 1; posicionObjetivo < list_size(objetivoTeam); posicionObjetivo++) {
+		existePokemonEnListaAux = FALSE;
+		char* pokemonObjetivo = list_get(objetivoTeam, posicionObjetivo);
+		for (int posicionListaAux = 0; posicionListaAux < list_size(listaAux); posicionListaAux++) {
+			char* elementoListaAux = list_get(listaAux, posicionListaAux);
+			if(strcmp(elementoListaAux, pokemonObjetivo) == 0) {
+				existePokemonEnListaAux = TRUE;
+				break;
+			}
+		}
+		if (existePokemonEnListaAux == FALSE) {
+			list_add(listaAux, string_duplicate(pokemonObjetivo));
+		}
+	}
+
 	/*} else {
 		void* posicionesPokemon = NULL;
 	}*/
