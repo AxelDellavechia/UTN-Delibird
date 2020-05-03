@@ -1,5 +1,7 @@
 #include "Generales.h"
 #include "../digiCommons/src/protocolos_comunicacion.h"
+#include <math.h>
+#include "../digiCommons/src/mensajeria.h"
 
 void crearLogger(char * nombre , char * path) {
 	char * archivoLog = strdup(nombre);
@@ -137,10 +139,32 @@ void localizarPokemones() {
 			list_add(listaAux, string_duplicate(pokemonObjetivo));
 		}
 	}
-
+	for(int posicionLista = 0; posicionLista < list_size(listaAux); posicionLista++) {
+		//ENVIAR GET_POKEMON CON CADA ELEMENTO DE LA LISTA
+	}
 	/*} else {
 		void* posicionesPokemon = NULL;
 	}*/
+}
+
+void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido) {
+	entrenadorPokemon* proximoEntrenadorAReady;
+	int movimientoDeProximoEntrenadorAReady = 0;
+	for(int posicionEntrenador = 0; posicionEntrenador < list_size(colaNew); posicionEntrenador++) {
+		entrenadorPokemon* entrenador = list_get(colaNew, posicionEntrenador);
+		int posicionXEntrenador = entrenador->posicion_x;
+		int posicionYEntrenador = entrenador->posicion_y;
+		int posicionXPokemon = pokemonAparecido->posicion_x;
+		int posicionYPokemon = pokemonAparecido->posicion_y;
+		int movimientoEnX = fabs(posicionXEntrenador - posicionXPokemon);
+		int movimientoEnY = fabs(posicionYEntrenador - posicionYPokemon);
+		int movimientoEntrenador = movimientoEnX + movimientoEnY;
+		if((movimientoEntrenador < movimientoDeProximoEntrenadorAReady) || (posicionEntrenador == 0)) {
+			movimientoDeProximoEntrenadorAReady = movimientoEntrenador;
+			proximoEntrenadorAReady = entrenador;
+		}
+	}
+	list_add(colaReady, proximoEntrenadorAReady);
 }
 
 void catch_pokemon(posicionPokemon pokemon, int entrenador) {

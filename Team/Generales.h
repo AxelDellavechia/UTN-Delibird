@@ -25,7 +25,6 @@ t_list* colaReady;
 t_list* colaBlocked;
 t_list* colaExit;
 t_list* mapaPokemon;
-t_list* posicion;
 
 pthread_mutex_t semaforo;
 
