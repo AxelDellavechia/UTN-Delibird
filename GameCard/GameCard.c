@@ -17,10 +17,9 @@ int main(){//int argc, char **argv) {
 		//crearBloques();
 	//creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques);
 	crearBitmap();
-	crearHilos();
+	leerFiles();
+//	crearHilos();
 
-
-	printf("Hola Mundo");
 	//return EXIT_SUCCESS;
 }
 

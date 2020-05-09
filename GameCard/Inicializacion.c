@@ -64,12 +64,12 @@ void crearPuntoMontaje()
 {
 		PuntoMontaje = malloc (sizeof(t_config_PuntosMontaje));
 
-		PuntoMontaje->PUNTOMONTAJE = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
-		PuntoMontaje->FILES = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
-		PuntoMontaje->BLOCKS = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
-		PuntoMontaje->METADATA = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/") ) ;
-		PuntoMontaje->METADATA_FILE = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Metadata.bin") ) ;
-		PuntoMontaje->BITMAP = malloc (string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
+		PuntoMontaje->PUNTOMONTAJE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
+		PuntoMontaje->FILES = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
+		PuntoMontaje->BLOCKS = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
+		PuntoMontaje->METADATA = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/") ) ;
+		PuntoMontaje->METADATA_FILE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Metadata.bin") ) ;
+		PuntoMontaje->BITMAP = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
 
 
 
@@ -140,7 +140,7 @@ void iniciar_log(){
 
 void consola() {
 
-	printf("Hola! Ingresá \"salir\" para finalizar módulo y \"ayuda\" para ver los comandos\n");
+	printf("\nHola! Ingresá \"salir\" para finalizar módulo y \"ayuda\" para ver los comandos\n");
 	size_t buffer_size = 100; //por el momento restringido a 100 caracteres
 	char* comando = (char *) calloc(1, buffer_size);
 
@@ -370,8 +370,6 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 }
 
 
-
-
 int cantidadDeBloquesLibres (void){
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
 	int libre =ERROR;
@@ -398,4 +396,83 @@ int proximobloqueLibre (void){
 	}
 //	pthread_mutex_unlock(&mxBitmap);
 	return libre;
+}
+
+void leerFiles(){
+	cantFiles = 0;
+	dirList = list_create();
+	cargarArbolDirectorios(PuntoMontaje->FILES);
+	printf("Elementos de la lista: %i",list_size(dirList));
+	  for(int i = 0; i< cantFiles; i++){
+			  t_files* archivo = malloc (sizeof(t_files));
+			  archivo = list_get(dirList, i);
+			  printf("\nArchivo: %s   Padre:%s", archivo->file, archivo->parent);
+			  char* subDir = malloc (string_length(archivo->parent) + string_length(archivo->file) + 2);
+			  strcpy(subDir,archivo->parent);
+			  strcat(subDir,archivo->file);
+			  strcat(subDir,"/");
+			  cargarArbolDirectorios(subDir);
+
+		  }
+
+}
+
+void cargarArbolDirectorios(char* Directorio){
+
+	  //dirList = list_create();
+	  DIR *dir;
+	  /* en *ent habrá información sobre el archivo que se está "sacando" a cada momento */
+	  struct dirent *ent;
+
+	  /* Empezaremos a leer en el directorio actual */
+	  dir = opendir (Directorio);
+
+	  /* Miramos que no haya error */
+	  if (dir == NULL){
+	    log_info(logger,"No se pudo cargar la estructura de Directorios");
+	  }else{
+
+	  /* Leyendo uno a uno todos los archivos que hay */
+	  while ((ent = readdir (dir)) != NULL)
+	    {
+	      /* Nos devolverá el directorio actual (.) y el anterior (..), como hace ls */
+	      if ( (strcmp(ent->d_name, ".")!=0) && (strcmp(ent->d_name, "..")!=0) )
+	    {
+	      /* Una vez tenemos el archivo, lo pasamos a una función para procesarlo. */
+
+	    t_files* File = malloc (sizeof(t_files));
+		File->file = malloc (string_length(ent->d_name) + 1) ;
+		File->parent = malloc (string_length(Directorio) + 1) ;
+
+		strcpy(File->file,ent->d_name);
+		strcpy(File->parent,Directorio);
+
+	    list_add(dirList, File);
+	    //mantengo la cantidad de archivos que voy leyendo para luego ir recorriendolos y agregando los nuevos
+	    cantFiles++;
+	    }
+	    }
+	  closedir (dir);
+	  }
+}
+
+
+void listarArchivos(char *archivo)
+{
+
+  FILE *fich;
+  long ftam;
+
+  fich=fopen(archivo, "r");
+  if (fich)
+    {
+      fseek(fich, 0L, SEEK_END);
+      ftam=ftell(fich);
+      fclose(fich);
+      /* Si todo va bien, decimos el tamaño */
+      printf ("%30s (%ld bytes)\n", archivo, ftam);
+    }
+  else
+    /* Si ha pasado algo, sólo decimos el nombre */
+    printf ("%30s (No info.)\n", archivo);
 }

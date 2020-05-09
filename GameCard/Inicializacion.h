@@ -5,10 +5,13 @@
 #include <commons/config.h>
 #include <commons/string.h>
 #include <commons/bitarray.h>
+#include <sys/types.h>
+#include <dirent.h>
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <pthread.h>
+
 
 
 #define CONFIG_PATH "./config.txt"
@@ -38,6 +41,11 @@ typedef struct{
 }t_config_MetaData;
 
 typedef struct{
+	char* file;
+	char* parent;
+}t_files;
+
+typedef struct{
 	char* PUNTOMONTAJE;
 	char* METADATA;
 	char* METADATA_FILE;
@@ -51,15 +59,19 @@ void leer_configFile(char* ruta);
 void crearPuntoMontaje();
 void consola();
 void servidor();
+void cargarArbolDirectorios(char* Directorio);
 
 ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
 t_config_PuntosMontaje* PuntoMontaje;
+
+t_list* dirList;
 t_log* logger;
 t_bitarray *bitarray;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 
+int cantFiles;
 int comandoIn;
 int HANDSHAKE_SIZE;
 fd_set setMaestro;
