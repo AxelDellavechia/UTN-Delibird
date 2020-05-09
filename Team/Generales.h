@@ -25,6 +25,7 @@ t_list* colaReady;
 t_list* colaBlocked;
 t_list* colaExit;
 t_list* mapaPokemon;
+t_list* entrenadoresEnDeadlock;
 
 pthread_mutex_t semaforo;
 
@@ -56,9 +57,12 @@ typedef struct entrenadorPokemon {
 	int posicion_y;
 	t_list* pokemonesAtrapados;
 	t_list* pokemonesObjetivo;
+	int ciclosEnCPU;
 } entrenadorPokemon;
 
 int fdBroker;
+int exec;
+int ciclosEnCPU;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void crearLogger(char * nombre , char * path);
@@ -66,5 +70,10 @@ void capturarError(int signal);
 void * reservarMemoria(int size);
 void inicializar_semaforos();
 char* obtenerElementoPorPosicion(char* array, int posicionEnArray, char* corte);
+void quitarPokemonDeAtrapados(entrenadorPokemon* entrenador, char* pokemon);
+void verificarIntercambios();
+char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador);
+char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador);
+void quitarDeColaBlocked(entrenadorPokemon* entrenador);
 
 #endif

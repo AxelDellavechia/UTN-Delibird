@@ -62,10 +62,10 @@ void crearEstructuras() {
 	objetivoTeam = list_create();
 	colaNew = list_create();
 	colaReady = list_create();
-	int exec;
 	colaBlocked = list_create();
 	colaExit = list_create();
 	mapaPokemon = list_create();
+	entrenadoresEnDeadlock = list_create();
 }
 
 void obtenerEntrenadores(t_log *logger) {
@@ -84,6 +84,7 @@ void obtenerEntrenadores(t_log *logger) {
 		entrenador->idEntrenador = listaEntrenadores;
 		entrenador->posicion_x = posicionX;
 		entrenador->posicion_y = posicionY;
+		entrenador->ciclosEnCPU = 0;
 		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
 		while (pokemonAtrapado != NULL) {
 			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemonAtrapado));
@@ -165,9 +166,196 @@ void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido) {
 		}
 	}
 	list_add(colaReady, proximoEntrenadorAReady);
+	log_info(logger, "Entrenador %i a cola de Ready por ser el más cercano", proximoEntrenadorAReady->idEntrenador);
 }
 
-void catch_pokemon(posicionPokemon pokemon, int entrenador) {
+void moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino) {
+	_Bool moverEntrenadorEnX = TRUE;
+	_Bool moverEntrenadorEnY = TRUE;
+	int posicionXEntrenador = entrenador->posicion_x;
+	int posicionYEntrenador = entrenador->posicion_y;
+	int ciclosEnCPUEntrenador = entrenador->ciclosEnCPU;
+	while (moverEntrenadorEnX == TRUE) {
+		if (posicionXEntrenador < posicionXDestino) {
+			posicionXEntrenador++;
+			ciclosEnCPUEntrenador++;
+		} else if (posicionXEntrenador > posicionXDestino) {
+			posicionXEntrenador--;
+			ciclosEnCPUEntrenador++;
+		} else {
+			moverEntrenadorEnX = FALSE;
+		}
+	}
+	while (moverEntrenadorEnY == TRUE) {
+		if (posicionYEntrenador < posicionYDestino) {
+			posicionYEntrenador++;
+			ciclosEnCPUEntrenador++;
+		} else if (posicionYEntrenador > posicionYDestino) {
+			posicionYEntrenador--;
+			ciclosEnCPUEntrenador++;
+		} else {
+			moverEntrenadorEnY = FALSE;
+		}
+	}
+	entrenador->ciclosEnCPU = ciclosEnCPUEntrenador;
+	entrenador->posicion_x = posicionXEntrenador;
+	entrenador->posicion_y = posicionYEntrenador;
+	log_info(logger, "Entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
+}
+
+void realizarIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, char* pokemonEntrenador1, char* pokemonEntrenador2) {
+	list_add(entrenador1->pokemonesAtrapados, pokemonEntrenador2);
+	list_add(entrenador2->pokemonesAtrapados, pokemonEntrenador1);
+	quitarPokemonDeAtrapados(entrenador1, pokemonEntrenador1);
+	quitarPokemonDeAtrapados(entrenador2, pokemonEntrenador2);
+}
+
+void quitarPokemonDeAtrapados(entrenadorPokemon* entrenador, char* pokemon) {
+	for (int pokemonPosition = 0; pokemonPosition < list_size(entrenador->pokemonesAtrapados); pokemonPosition++) {
+		char* pokemonEntrenador = list_get(entrenador->pokemonesAtrapados, pokemonPosition);
+		if (strcmp(pokemonEntrenador, pokemon)) {
+			list_remove(entrenador->pokemonesAtrapados, pokemonPosition);
+		}
+	}
+}
+
+void verificarDeadlock(entrenadorPokemon* entrenador) {
+	int pokemonEncontrado;
+	int entrenadorEnDeadlock;
+	t_list* listaObjetivosAuxiliar = list_duplicate(entrenador->pokemonesObjetivo);
+	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
+	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
+	int cantidadObjetivosAuxiliar = cantidadPokemonesObjetivo;
+	if (cantidadPokemonesAtrapados == cantidadPokemonesObjetivo) {
+		for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
+			pokemonEncontrado = FALSE;
+			char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
+			for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
+				char* pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
+				if (strcmp(pokemonAtrapado, pokemonObjetivo)) {
+					list_remove(listaObjetivosAuxiliar, posicionObjetivos);
+					cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
+					pokemonEncontrado = TRUE;
+					break;
+				}
+			}
+			if (pokemonEncontrado == FALSE) {
+				entrenadorEnDeadlock = FALSE;
+				for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
+					entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+					if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
+						entrenadorEnDeadlock = TRUE;
+						break;
+					}
+				}
+				if (entrenadorEnDeadlock == FALSE) {
+					list_add(colaBlocked, entrenador);
+					list_add(entrenadoresEnDeadlock, entrenador);
+					verificarIntercambios();
+				}
+			}
+		}
+		if (cantidadObjetivosAuxiliar == 0) {
+			for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
+				entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+				if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
+					list_remove(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+					break;
+				}
+			}
+			quitarDeColaBlocked(entrenador);
+			list_add(colaExit, entrenador);
+		}
+	}
+}
+
+void quitarDeColaBlocked(entrenadorPokemon* entrenador) {
+	for(int posicionEnListaBlocked = 0; posicionEnListaBlocked < list_size(colaBlocked); posicionEnListaBlocked++) {
+		entrenadorPokemon* entrenadorBlockeado = list_get(colaBlocked, posicionEnListaBlocked);
+		if (entrenadorBlockeado->idEntrenador == entrenador->idEntrenador) {
+			list_remove(colaBlocked, posicionEnListaBlocked);
+			break;
+		}
+	}
+}
+
+void verificarIntercambios() {
+	if (list_size(entrenadoresEnDeadlock) > 1) {
+		for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
+			entrenadorPokemon* entrenador1 = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+			char* objetivoFaltanteEntrenador1 = obtenerPokemonObjetivoFaltante(entrenador1);
+			char* atrapadoInnecesarioEntrenador1 = obtenerPokemonAtrapadoInnecesario(entrenador1);
+			for (int posicionEntrenadorParaComparar = posicionEnListaDeadlock; posicionEntrenadorParaComparar < list_size(entrenadoresEnDeadlock); posicionEntrenadorParaComparar++) {
+				entrenadorPokemon* entrenador2 = list_get(entrenadoresEnDeadlock, posicionEntrenadorParaComparar);
+				char* objetivoFaltanteEntrenador2 = obtenerPokemonObjetivoFaltante(entrenador2);
+				char* atrapadoInnecesarioEntrenador2 = obtenerPokemonAtrapadoInnecesario(entrenador2);
+				if ((strcmp(objetivoFaltanteEntrenador1, atrapadoInnecesarioEntrenador2)) || (strcmp(atrapadoInnecesarioEntrenador1, objetivoFaltanteEntrenador2))) {
+					realizarIntercambio(entrenador1, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
+					verificarDeadlock(entrenador1);
+					verificarDeadlock(entrenador2);
+					verificarIntercambios();
+				}
+			}
+		}
+	}
+}
+
+char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador) {
+	_Bool pokemonObjetivoFaltanteEncontrado;
+	char* pokemonAtrapado;
+	char* pokemonObjetivo;
+	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
+	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
+	t_list* listaAtrapadosAuxiliar = list_duplicate(entrenador->pokemonesAtrapados);
+	int cantidadAtrapadosAuxiliar = cantidadPokemonesAtrapados;
+	for (int posicionObjetivo = 0; posicionObjetivo < cantidadPokemonesObjetivo; posicionObjetivo++) {
+		pokemonObjetivoFaltanteEncontrado = FALSE;
+		pokemonObjetivo = list_get(entrenador->pokemonesObjetivo, posicionObjetivo);
+		for (int posicionAtrapado = 0; posicionAtrapado < cantidadAtrapadosAuxiliar; posicionAtrapado++) {
+			pokemonAtrapado = list_get(listaAtrapadosAuxiliar, posicionAtrapado);
+			if (strcmp(pokemonAtrapado, pokemonObjetivo)) {
+				list_remove(listaAtrapadosAuxiliar, posicionAtrapado);
+				cantidadAtrapadosAuxiliar = list_size(listaAtrapadosAuxiliar);
+				pokemonObjetivoFaltanteEncontrado = TRUE;
+				break;
+			}
+		}
+		if (pokemonObjetivoFaltanteEncontrado == FALSE) {
+			return pokemonObjetivo;
+			break;
+		}
+	}
+	return pokemonObjetivo;
+}
+
+char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador) {
+	_Bool pokemonAtrapadoInnecesarioEncontrado;
+	char* pokemonAtrapado;
+	char* pokemonObjetivo;
+	t_list* listaObjetivosAuxiliar = list_duplicate(entrenador->pokemonesObjetivo);
+	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
+	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
+	int cantidadObjetivosAuxiliar = cantidadPokemonesObjetivo;
+	for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
+		pokemonAtrapadoInnecesarioEncontrado = FALSE;
+		pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
+		for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
+			pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
+			if (strcmp(pokemonAtrapado, pokemonObjetivo)) {
+				list_remove(listaObjetivosAuxiliar, posicionObjetivos);
+				cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
+				pokemonAtrapadoInnecesarioEncontrado = TRUE;
+				break;
+			}
+		}
+		if (pokemonAtrapadoInnecesarioEncontrado == FALSE) {
+			return pokemonAtrapado;
+		}
+	}
+	return pokemonAtrapado;
+}
+
+void catch_pokemon(posicionPokemon* pokemon, int entrenador) {
 	if (validar_conexion) {
 		//aplicar_protocolo_enviar(fdBroker, 0, CATCH_POKEMON(pokemon));
 		void* resultadoCatch = aplicar_protocolo_recibir(fdBroker, 0);
@@ -178,11 +366,12 @@ void catch_pokemon(posicionPokemon pokemon, int entrenador) {
 	}
 }
 
-void caught_pokemon(posicionPokemon pokemon, void* resultadoCatch) {
-
+void caught_pokemon(posicionPokemon* pokemon, void* resultadoCatch) {
+	//FALTA AGREGAR LA LOGICA DE QUE CUANDO RECIBO UN CAUGHT BUSCO AL ENTRENADOR QUE LE INTERESA ESE MENSAJE
+	verificarDeadlock();
 }
 
-void localized_pokemon(posicionPokemon pokemonEncontrado) {
+void localized_pokemon(posicionPokemon* pokemonEncontrado) {
 	int posicion = 0;
 	while (mapaPokemon[posicion].head->next != NULL) {
 		_Bool buscarPokemon(posicionPokemon* pokemonEncontrado) {
