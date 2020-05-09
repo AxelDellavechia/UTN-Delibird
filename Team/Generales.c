@@ -249,7 +249,6 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 					}
 				}
 				if (entrenadorEnDeadlock == FALSE) {
-					list_add(colaBlocked, entrenador);
 					list_add(entrenadoresEnDeadlock, entrenador);
 					verificarIntercambios();
 				}
