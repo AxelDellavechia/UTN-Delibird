@@ -5,6 +5,7 @@
 #include <commons/log.h>
 #include "mensajeria.h"
 #include <commons/string.h>
+#include <locale.h>
 
 #define INT (sizeof(int))
 
@@ -27,7 +28,8 @@ typedef enum {
 int validar_recive(int status, int modo);
 int validar_servidor(char *id , char* mensajeEsperado,t_log* logger);
 int validar_conexion(int ret, int modo,t_log* logger);
-void handshake(int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger);
+int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger);
+int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) ;
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
 void * serealizar(int head, void * mensaje, int tamanio);
 void * deserealizar(int head, void * buffer, int tamanio);

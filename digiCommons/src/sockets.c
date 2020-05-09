@@ -110,6 +110,7 @@ int recibirPorSocket(int fdServidor, void * buffer, int tamanioBytes) {
 	int total = 0;
 	int bytes_recibidos;
 
+
 	while (total < tamanioBytes){
 
 	bytes_recibidos = recv(fdServidor, buffer+total, tamanioBytes, MSG_WAITALL);
@@ -120,7 +121,7 @@ int recibirPorSocket(int fdServidor, void * buffer, int tamanioBytes) {
 		break;
 			}
 
-	if (bytes_recibidos == 0) { // Conexión cerrada
+	if (bytes_recibidos == 0 || bytes_recibidos == NULL ) { // Conexión cerrada
 		printf("[SOCKETS] La conexión fd #%d se ha cerrado.\n", fdServidor);
 		break;
 	}

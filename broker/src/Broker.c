@@ -8,6 +8,42 @@
 #include "Broker.h"
 #include "generales.h"
 
+void dummyDump(){
+
+	int a = 1 ;
+	int b = 2;
+
+	void * ptInicial = &a ;
+	void * ptFinal = &b ;
+
+		Particion * el_ejemplo;
+
+		el_ejemplo = reservarMemoria(sizeof(Particion));
+
+		el_ejemplo->libre = true ;
+		el_ejemplo->tamano = 345 ;
+		el_ejemplo->punteroInicial = ptInicial ;
+		el_ejemplo->punteroFinal = ptFinal ;
+
+		Particion * el_ejemplo2;
+
+		el_ejemplo2 = reservarMemoria(sizeof(Particion));
+
+
+		el_ejemplo2->colaAsignada = NEW_POKEMON ;
+		el_ejemplo2->idColaAsignada = 1 ;
+		el_ejemplo2->libre =false ;
+		el_ejemplo2->punteroInicial = ptInicial ;
+		el_ejemplo2->punteroFinal = ptFinal ;
+		el_ejemplo2->tamano =456 ;
+		el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
+
+	 	lista_particiones = list_create() ;
+
+		list_add(lista_particiones,el_ejemplo);
+
+		list_add(lista_particiones,el_ejemplo2);
+}
 
 int main(){//int argc, char **argv) {
 
@@ -21,55 +57,19 @@ int main(){//int argc, char **argv) {
 	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
 	//Iniciar Estructuras
-	//iniciar_estructuras();
+	iniciar_estructuras();
 
-	//Multi-Hilos por conexion
-	//iniciar_servicio_broker();
-
-	int a = 1 ;
-	int b = 2;
-
-	void * ptInicial = &a ;
-	void * ptFinal = &b ;
-
-	Particion * el_ejemplo;
-
-	el_ejemplo = reservarMemoria(sizeof(Particion));
-
-	el_ejemplo->libre = true ;
-	el_ejemplo->tamano = 345 ;
-	el_ejemplo->punteroInicial = ptInicial ;
-	el_ejemplo->punteroFinal = ptFinal ;
-
-	Particion * el_ejemplo2;
-
-	el_ejemplo2 = reservarMemoria(sizeof(Particion));
-
-
-	el_ejemplo2->colaAsignada = NEW_POKEMON ;
-	el_ejemplo2->idColaAsignada = 1 ;
-	el_ejemplo2->libre =false ;
-	el_ejemplo2->punteroInicial = ptInicial ;
-	el_ejemplo2->punteroFinal = ptFinal ;
-	el_ejemplo2->tamano =456 ;
-	el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
-
- 	lista_particiones = list_create() ;
-
-	list_add(lista_particiones,el_ejemplo);
-
-	list_add(lista_particiones,el_ejemplo2);
-
-	//printf("tamanio lista %d",list_size(lista_particiones));
-
+	//Capturar señal SIGUSR1 para el Dump de Memoria
+	dummyDump();
 	signal(SIGUSR1,dumpMemoria);
 
-	consola();
+	//Multi-Hilos por conexion
+	crearHilosBroker();
 
-	return EXIT_SUCCESS;
+	//return EXIT_SUCCESS;
 }
 
-
+/*
 void iniciar_servicio_broker(){
 	int socket = nuevoSocket();
 	asociarSocket(socket, config_File->PUERTO_BROKER);
@@ -78,7 +78,6 @@ void iniciar_servicio_broker(){
 	}
 }
 
-/*
 void esperar_conexion(int servidor){
 
 	int socket = aceptarConexionSocket(servidor);
@@ -89,7 +88,6 @@ void esperar_conexion(int servidor){
 
 	pthread_detach(cliente);
 }
-*/
 
 void atender(int socket){
 	void * operacion = NULL ;
@@ -122,6 +120,7 @@ void atender(int socket){
 		}
 	}
 }
+*/
 
 void iniciar_estructuras(){
 	//Se reserva la Memoria total del Broker

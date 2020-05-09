@@ -8,19 +8,7 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
-#include <commons/log.h>
-#include <commons/config.h>
-#include <commons/string.h>
-#include <commons/collections/list.h>
-
-#include <../digiCommons/src/sockets.h>
-#include <../digiCommons/src/mensajeria.h>
-#include <../digiCommons/src/protocolos_comunicacion.h>
-
-#include <pthread.h>
-
-
-#include <limits.h>
+#include "generales.h"
 
 typedef struct Mensaje{
 	int id_msj;
@@ -121,6 +109,7 @@ Particion* algoritmo_primer_ajuste(int tamano);
 Particion* algoritmo_mejor_ajuste(int tamano);
 void compactacion();
 void eliminar_particion();
+void dummyDump();
 
 
 int dumpMemoria(int senial);
