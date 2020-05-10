@@ -58,6 +58,7 @@ typedef struct entrenadorPokemon {
 	t_list* pokemonesAtrapados;
 	t_list* pokemonesObjetivo;
 	int ciclosEnCPU;
+	char* proximaAccion;
 } entrenadorPokemon;
 
 int fdBroker;

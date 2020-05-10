@@ -85,6 +85,7 @@ void obtenerEntrenadores(t_log *logger) {
 		entrenador->posicion_x = posicionX;
 		entrenador->posicion_y = posicionY;
 		entrenador->ciclosEnCPU = 0;
+		entrenador->proximaAccion = "AtraparPokemon";
 		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
 		while (pokemonAtrapado != NULL) {
 			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemonAtrapado));
@@ -354,6 +355,46 @@ char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador) {
 	return pokemonAtrapado;
 }
 
+void ejecutar() {
+	char* algoritmo = configFile->algoritmoPlanificacion;
+	char* accion;
+	switch(algoritmo) {
+	case "FIFO":
+		entrenadorPokemon* entrenador = list_get(colaReady, 0);
+		exec = entrenador->idEntrenador;
+		accion = entrenador->proximaAccion;
+		list_remove(colaReady, 0);
+		realizarAccion(accion, 0);
+	break;
+	case "RR":
+		int quantum = configFile->quantum;
+		entrenadorPokemon* entrenador = list_get(colaReady, 0);
+		exec = entrenador->idEntrenador;
+		accion = entrenador->proximaAccion;
+		list_remove(colaReady, 0);
+		realizarAccion(accion, quantum);
+	break;
+	case "SJF sin desalojo":
+		char* accionAComparar;
+		for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
+			entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
+			accionAComparar = entrenador->proximaAccion;
+		}
+	break;
+	case "SJF con desalojo":
+
+	break;
+	}
+}
+
+void realizarAccion(char* accion, int tiempo) {
+	switch(accion) {
+	case "AtraparPokemon":
+
+	break;
+	}
+}
+
 void catch_pokemon(posicionPokemon* pokemon, int entrenador) {
 	if (validar_conexion) {
 		//aplicar_protocolo_enviar(fdBroker, 0, CATCH_POKEMON(pokemon));
@@ -367,7 +408,7 @@ void catch_pokemon(posicionPokemon* pokemon, int entrenador) {
 
 void caught_pokemon(posicionPokemon* pokemon, void* resultadoCatch) {
 	//FALTA AGREGAR LA LOGICA DE QUE CUANDO RECIBO UN CAUGHT BUSCO AL ENTRENADOR QUE LE INTERESA ESE MENSAJE
-	verificarDeadlock();
+	//verificarDeadlock();
 }
 
 void localized_pokemon(posicionPokemon* pokemonEncontrado) {
