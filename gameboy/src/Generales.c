@@ -103,7 +103,7 @@ void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 
 
 	}
-	free(config);
+	config_destroy(config);
 }
 
 void* reservarMemoria(int size) {
@@ -116,32 +116,37 @@ void* reservarMemoria(int size) {
 		return puntero;
 }
 
-void conectaryLoguear(int modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
+void conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
 
 	int conexion = conectarCon(fdServer,ipServer,portServer,logger) ;
 
-	char * comando ;
-
-	switch(modulo){
-				case TEAM :
-					comando = strdup("TEAM") ;
-					break;
-				case BROKER:
-					comando = strdup("BROKER") ;
-					break;
-				case GAMECARD :
-					comando = strdup("GAMECARD") ;
-					break;
-	}
-
-	if (conexion == 1 ) {
-			log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",comando,ipServer,portServer);
-			return
-			free(comando);
-		} else {
-			log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",comando,ipServer,portServer);
-			free(comando);
+		if (conexion == 1 ) {
+					log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",modulo,ipServer,portServer);
+				} else {
+					log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",modulo,ipServer,portServer);
 	}
 
 }
+
+void consola() {
+
+	printf("Hola! Ingresá \"salir\" para finalizar módulo\n");
+	size_t buffer_size = 100; //por el momento restringido a 100 caracteres
+	char* comando = (char *) calloc(1, buffer_size);
+
+	while (!string_equals_ignore_case(comando, "salir\n")) {
+		printf(">");
+		int bytes_read = getline(&comando, &buffer_size, stdin);
+		if (bytes_read == -1) {
+			log_error(logger,"Error en getline");
+		}
+		if (bytes_read == 1) {
+			continue;
+		}
+	}
+
+	log_destroy(logger);
+	free(comando);
+}
+
 

@@ -14,7 +14,7 @@
 int main (int argc, char *argv[]) {
 
 
-		crearLogger("GameBoy.log","CatedraGB.log");
+		crearLogger("GameBoy.log","GameBoyCatedra.log");
 
 		configGB = reservarMemoria(sizeof(archivoConfigGB));
 
@@ -35,8 +35,6 @@ int main (int argc, char *argv[]) {
 			return EXIT_FAILURE ;
 		}
 */
-		fdGB = nuevoSocket();
-
 		inicializar_semaforos();
 
 		log_info(logger, "Por setear los valores del archivo de configuracion");
@@ -70,14 +68,13 @@ int main (int argc, char *argv[]) {
 				return EXIT_FAILURE;
 		}
 
-
 }
 
 int flujoGameCard( char * comando,int argc, char *argv[]) {
 
 log_info(logger,"Trabajando con el GAMECARD");
 
-conectaryLoguear(GAMECARD ,fdGB,configGB->ipGameCard,configGB->puertoGameCard,logger, loggerCatedra);
+conectaryLoguear("GAMECARD",fdGB,configGB->ipGameCard,configGB->puertoGameCard,logger, loggerCatedra);
 
 handshake_cliente(fdGB, "Team" , "Broker", logger);
 
@@ -184,10 +181,6 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 
 			log_info(logger,"Trabajando con el TEAM");
 
-			conectaryLoguear(TEAM ,fdGB,configGB->ipTeam,configGB->puertoTeam,logger, loggerCatedra);
-
-			handshake_cliente(fdGB, "Broker" , "Team", logger);
-
 			free(comando);
 
 			//./gameboy TEAM APPEARED_POKEMON [POKEMON] [POSX] [POSY]
@@ -204,7 +197,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 						return EXIT_FAILURE;
 					}
 				 */
-				cola_APPEARED_POKEMON * app_poke =  malloc(sizeof(cola_APPEARED_POKEMON));
+				cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
 
 				app_poke->id_mensaje = 0 ;
 				/*
@@ -212,21 +205,32 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 				app_poke->posicion_x = atoi(argv[4]) ;
 				app_poke->posicion_y = atoi(argv[5]) ;
 				 */
+				/*
+				app_poke->nombre_pokemon = calloc(string_length("pikachu")+1, sizeof(char) ) ;
+				strcpy((char*) app_poke->nombre_pokemon, "pikachu");
+				 */
 				app_poke->nombre_pokemon = strdup("pikachu");
 				app_poke->posicion_x = 2 ;
 				app_poke->posicion_y = 10 ;
 
 				//log_info(logger,"tamanio de uint32_t * 3 -> %d",sizeof(uint32_t) * 3);
 
-				//log_info(logger,"tamanio de app_poke %d",sizeof(app_poke));
+				log_info(logger,"tamanio de app_poke %d",sizeof(app_poke));
 
-				//log_info(logger,"tamanio de app_poke %d",calcularTamanioMensaje(APPEARED_POKEMON,app_poke));
+				log_info(logger,"tamanio de app_poke %d",calcularTamanioMensaje(APPEARED_POKEMON,app_poke));
+
+				fdGB = nuevoSocket();
+
+				conectaryLoguear("TEAM" ,fdGB,configGB->ipTeam,configGB->puertoTeam,logger, loggerCatedra);
+
+				handshake_cliente(fdGB, "Broker" , "Team", logger);
 
 				log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 
 				aplicar_protocolo_enviar(fdGB,APPEARED_POKEMON,app_poke);
 
 				free(comando);
+				free(app_poke->nombre_pokemon);
 				free(app_poke);
 				return EXIT_SUCCESS;
 			} else {
@@ -239,10 +243,6 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 int flujoBroker( char * comando,int argc, char *argv[]){
 
 log_info(logger,"Trabajando con el BROKER");
-
-conectaryLoguear(BROKER ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
-
-handshake_cliente(fdGB, "Team" , "Broker", logger);
 
 			if ( argc < 3 ){
 				printf("No se ingreso la cantidad de parametros necesarios\n");
@@ -275,10 +275,16 @@ handshake_cliente(fdGB, "Team" , "Broker", logger);
 
 							log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
 
+							conectaryLoguear("BROKER" ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
+
+							handshake_cliente(fdGB, "Team" , "Broker", logger);
+
 							aplicar_protocolo_enviar(fdGB,GET_POKEMON,get_poke);
 
 							free(comando);
+
 							free(get_poke);
+
 							return EXIT_SUCCESS;
 						}
 
@@ -401,7 +407,7 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 
 	log_info(logger,"Trabajando con el SUSCRIPTOR");
 
-	conectaryLoguear(BROKER ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
+	conectaryLoguear("BROKER" ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
 
 	handshake_cliente(fdGB, "Team" , "Broker", logger);
 

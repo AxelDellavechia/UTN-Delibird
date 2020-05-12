@@ -322,7 +322,7 @@ void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 
 		}
 	}
-	free(config);
+	config_destroy(config);
 }
 
 void iniciar_log(){
