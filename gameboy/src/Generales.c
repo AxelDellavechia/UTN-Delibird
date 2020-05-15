@@ -118,7 +118,7 @@ void* reservarMemoria(int size) {
 
 void conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
 
-	int conexion = conectarCon(fdServer,ipServer,portServer,logger) ;
+	conexion = conectarCon(fdServer,ipServer,portServer,logger) ;
 
 		if (conexion == 1 ) {
 					log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",modulo,ipServer,portServer);

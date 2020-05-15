@@ -19,7 +19,7 @@ void iniciar_logCatedra(){
 
 void iniciar_log(){
 
-	char * archivoLog = strdup("broker.log");
+	char * archivoLog = strdup("Team.log");
 
 	logger = log_create(LOG_PATH_INTERNO, archivoLog, FALSE, LOG_LEVEL_INFO);
 
@@ -118,6 +118,9 @@ void crearEstructuras() {
 }
 
 void obtenerEntrenadores(t_log *logger) {
+
+	setlocale(LC_ALL,"");
+
 	for(int listaEntrenadores = 0; listaEntrenadores < list_size(configFile->posicionEntrenadores); listaEntrenadores++) {
 		char* posicionEntrenador = list_get(configFile->posicionEntrenadores, listaEntrenadores);
 		char* pokemonesEntrenador = list_get(configFile->pokemonEntrenadores, listaEntrenadores);
@@ -219,7 +222,7 @@ void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido) {
 void catch_pokemon(posicionPokemon pokemon, int entrenador) {
 	if (validar_conexion) {
 		//aplicar_protocolo_enviar(fdBroker, 0, CATCH_POKEMON(pokemon));
-		void* resultadoCatch = aplicar_protocolo_recibir(fdTeam, 0);
+		void* resultadoCatch = aplicar_protocolo_recibir(fdTeam,logger);
 		caught_pokemon(pokemon, resultadoCatch);
 		list_add(colaBlocked, entrenador);
 	} else {
@@ -244,7 +247,7 @@ void localized_pokemon(posicionPokemon pokemonEncontrado) {
 
 void inicializar_semaforos(){
 	//inicializo semaforos de nodos
-	pthread_mutex_init(&semaforo, NULL);
+	pthread_mutex_init(&mxSocketsFD, NULL);
 	pthread_mutex_init(&mxHilos, NULL);
 }
 
@@ -254,7 +257,6 @@ void crearHilos() {
 	hilo_servidor= 0;
 	hilo_consola= 0;
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
-
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 
 	pthread_join(hilo_servidor, NULL);
@@ -280,13 +282,51 @@ void consola() {
 	}
 
 	log_destroy(logger);
+	log_destroy(loggerCatedra);
 	free(comando);
+
+
 
 	pthread_detach(hilo_servidor);
 	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
 }
 
+void servidor() {
+
+	fdTeam = nuevoSocket();
+
+	asociarSocket(fdTeam, configFile->puertoTeam);
+	escucharSocket(fdTeam, CONEXIONES_PERMITIDAS);
+
+	log_info(logger," Escuchando conexiones");
+
+	while(TRUE) {
+
+		int conexionNueva = 0;
+		int comandoNuevo;//= reservarMemoria(INT);
+
+		while(conexionNueva == 0) {
+
+			comandoNuevo = aceptarConexionSocket(fdTeam);
+
+			conexionNueva = handshake_servidor ( comandoNuevo,"Team" , "Broker",logger);
+
+			if( ! validar_conexion(conexionNueva, 0,logger) ) {
+					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+					cerrarSocket(fdTeam);
+					pthread_mutex_unlock(&mxSocketsFD);
+			}
+		}
+		pthread_t hilo;
+		pthread_mutex_lock(&mxHilos);
+		pthread_create(&hilo, NULL, (void*) thread_Team,comandoNuevo);
+		pthread_mutex_unlock(&mxHilos);
+
+	}
+}
+
+/*
 void servidor() {
 
 	fdTeam = nuevoSocket();
@@ -305,11 +345,10 @@ void servidor() {
 
 	log_info(logger," Escuchando conexiones. Socket: %d",fdTeam);
 
-
 	while(TRUE) {
-		pthread_mutex_lock(&semaforo);
+		pthread_mutex_lock(&mxSocketsFD);
 		setAux = setMaestro;
-		pthread_mutex_unlock(&semaforo);
+		pthread_mutex_unlock(&mxSocketsFD);
 
 				if (select((maxFD + 1), &setAux, NULL, NULL, NULL ) == -1) {
 					printf("Error en la escucha.\n");
@@ -321,9 +360,9 @@ void servidor() {
 		int comandoNuevo;//= reservarMemoria(INT);
 
 		for (i = 0; i <= maxFD; i++) {
-					pthread_mutex_lock(&semaforo);
+					pthread_mutex_lock(&mxSocketsFD);
 					int check = FD_ISSET(i,&setAux);
-					pthread_mutex_unlock(&semaforo);
+					pthread_mutex_unlock(&mxSocketsFD);
 					if (check) { // Me fijo en el set de descriptores a ver cual respondió
 						if (i == fdTeam) { //Tengo un nuevo hilo queriendose conectar
 							//Esta funcion acepta una nueva conexion
@@ -335,17 +374,19 @@ void servidor() {
 								return;
 							}
 
-							conexionNueva = handshake_servidor (comandoNuevo, "Team" , "Broker",logger);
-							if( ! validar_conexion(conexionNueva, 0,logger) ) {
-									pthread_mutex_lock(&semaforo); //desbloquea el semaforo
+							conexionNueva = handshake_servidor ( comandoNuevo,"Team" , "Broker",logger);
+
+							if( validar_conexion(conexionNueva, 0,logger) == FALSE ) {
+									pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
 									FD_CLR(i, &setMaestro); // borra el file descriptor del set
-									pthread_mutex_unlock(&semaforo);
+									pthread_mutex_unlock(&mxSocketsFD);
 									cerrarSocket(i);
+
 									continue; // vuelve al inicio del while
 							}else{
-									pthread_mutex_lock(&semaforo);
+									pthread_mutex_lock(&mxSocketsFD);
 									FD_SET(comandoNuevo, &setMaestro); //agrego el nuevo socket al setMaestro
-									pthread_mutex_unlock(&semaforo);
+									pthread_mutex_unlock(&mxSocketsFD);
 									if (comandoNuevo > maxFD) maxFD = comandoNuevo;
 						}
 						}else { // Hay actividad nueva en algún hilo de kernel
@@ -363,56 +404,13 @@ void servidor() {
 
 	}
 }
-
+*/
 int thread_Team(int fdCliente) {
 
-	int head = 0;
-	int result = 0;
+	aplicar_protocolo_recibir(fdCliente , logger); // recibo mensajes
 
-		void* mensaje = aplicar_protocolo_recibir(fdCliente, &head); // recibo mensajes
-
-		log_info(logger, "metodo thread_Team recibio: %d", mensaje);
-
-		if ( mensaje != NULL ) {
-
-			log_info(logger, "head: %i\n",head);
-
-
-			switch(head){
-
-						case NEW_POKEMON :
-							log_info(logger, "NEW_POKEMON");
-						break;
-						case APPEARED_POKEMON :{
-							cola_APPEARED_POKEMON * app_poke = (cola_APPEARED_POKEMON *) mensaje;
-							log_info(logger,"Recibí en la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
-
-							break;
-						}
-						case CATCH_POKEMON :
-							log_info(logger, "CATCH_POKEMON");
-						break;
-						case CAUGHT_POKEMON :
-							log_info(logger, "CAUGHT_POKEMON");
-						break;
-						case GET_POKEMON :
-							log_info(logger, "GET_POKEMON");
-						break;
-						case LOCALIZED_POKEMON :
-							log_info(logger, "LOCALIZED_POKEMON");
-						break;
-						default:
-							log_info(logger, "Instrucción no reconocida");
-							break;
-					}
-			free(mensaje);
-
-			//pthread_detach( pthread_self() );
-			//return TRUE;
-				//return FALSE;
-		};
+	pthread_mutex_lock(&mxHilos);
 	pthread_detach( pthread_self() );
-	log_info(logger, "saliendo metodo thread_Team");
+	pthread_mutex_unlock(&mxHilos);
 	return FALSE;
-
 }

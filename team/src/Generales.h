@@ -35,8 +35,8 @@ t_list* colaBlocked;
 t_list* colaExit;
 t_list* mapaPokemon;
 
-pthread_mutex_t semaforo;
 pthread_mutex_t mxHilos;
+pthread_mutex_t mxSocketsFD;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;

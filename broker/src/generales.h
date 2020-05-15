@@ -29,7 +29,7 @@
 #define TRUE 1
 #define ERROR -1
 
-#define LOG_PATH "../CatedraGB.log"
+#define LOG_PATH "../brokerCatedra.log"
 #define LOG_PATH_INTERNO "../broker.log"
 
 #define RUTA_CONFIG_MEM "../configBroker.txt"
@@ -52,7 +52,8 @@ ConfigFile* config_File;
 t_log* logger;
 t_log* loggerCatedra;
 
-pthread_mutex_t semaforo;
+pthread_mutex_t mxHilos;
+pthread_mutex_t mxSocketsFD;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;

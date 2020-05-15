@@ -74,9 +74,11 @@ void consola() {
 
 void inicializar_semaforos(){
 	//inicializo semaforos de nodos
-	pthread_mutex_init(&semaforo, NULL);
+	pthread_mutex_init(&mxHilos, NULL);
+	pthread_mutex_init(&mxSocketsFD, NULL);
 }
 
+/*
 void servidor() {
 
 	fdBroker = nuevoSocket();
@@ -153,60 +155,50 @@ void servidor() {
 
 	}
 }
+*/
+
+void servidor() {
+
+	fdBroker = nuevoSocket();
+
+	asociarSocket(fdBroker, config_File->PUERTO_BROKER);
+	escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
+
+	log_info(logger," Escuchando conexiones");
+
+	while(TRUE) {
+
+		int conexionNueva = 0;
+		int comandoNuevo;//= reservarMemoria(INT);
+
+		while(conexionNueva == 0) {
+
+			comandoNuevo = aceptarConexionSocket(fdBroker);
+
+			conexionNueva = handshake_servidor ( comandoNuevo,"Broker" , "Team",logger);
+
+			if( ! validar_conexion(conexionNueva, 0,logger) ) {
+					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+					cerrarSocket(fdBroker);
+					pthread_mutex_unlock(&mxSocketsFD);
+			}
+		}
+		pthread_t hilo;
+		pthread_mutex_lock(&mxHilos);
+		pthread_create(&hilo, NULL, (void*) thread_Broker,comandoNuevo);
+		pthread_mutex_unlock(&mxHilos);
+
+	}
+}
 
 int thread_Broker(int fdCliente) {
 
-	int head = 0;
-	int result = 0;
-	//int iterar = 1;
+	aplicar_protocolo_recibir(fdCliente , logger); // recibo mensajes
 
-//	while(iterar > 0){
-		void* mensaje = aplicar_protocolo_recibir(fdCliente, &head); // recibo mensajes
-		if (mensaje != NULL)
-		{
-			log_info(logger, "head: %i\n",head);
-
-
-			switch(head){
-
-						case NEW_POKEMON :
-							log_info(logger, "NEW_POKEMON");
-						break;
-						case APPEARED_POKEMON :
-							log_info(logger, "APPEARED_POKEMON");
-						break;
-						case CATCH_POKEMON :
-							log_info(logger, "CATCH_POKEMON");
-						break;
-						case CAUGHT_POKEMON :
-							log_info(logger, "CAUGHT_POKEMON");
-						break;
-						case GET_POKEMON :
-							log_info(logger, "GET_POKEMON");
-						break;
-						case LOCALIZED_POKEMON :
-							log_info(logger, "LOCALIZED_POKEMON");
-						break;
-						default:
-							log_error(logger, "Instrucción no reconocida");
-							break;
-					}
-			free(mensaje);
-
-			//pthread_detach( pthread_self() );
-			//return TRUE;
-				//return FALSE;
-		}else
-		{
-			//FD_CLR(fdCliente, &setMaestro);
-			//free(mensaje);
-//			iterar = -1;
-		}
-//	}
-	//FD_CLR(fdCliente, &setMaestro);
+	pthread_mutex_lock(&mxHilos);
 	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
 	return FALSE;
-
 }
 
 void* reservarMemoria(int size) {
@@ -328,7 +320,7 @@ void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 void iniciar_log(){
 
 	char * archivoLog = strdup("broker.log");
-	char * archivoLogCatedra = strdup("CatedraGB.log");
+	char * archivoLogCatedra = strdup("brokerCatedra.log");
 
 	logger = log_create(LOG_PATH_INTERNO, archivoLog, FALSE, LOG_LEVEL_INFO);
 	loggerCatedra = log_create(LOG_PATH, archivoLogCatedra, FALSE, LOG_LEVEL_INFO);

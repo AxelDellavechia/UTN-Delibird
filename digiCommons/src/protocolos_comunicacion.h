@@ -28,15 +28,24 @@ void * buffer ;
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);
 int validar_conexion(int ret, int modo,t_log* logger);
+
 int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger);
 int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) ;
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
 
 void * serealizar(int head, void * mensaje ,  int tamanio);
 
-void * deserealizar(int head, void * buffer, int tamanio);
+void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke);
+void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) ;
+void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio , cola_CATCH_POKEMON* cat_poke);
+void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
+void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
+void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
+
 int calcularTamanioMensaje(int head, void* mensaje);
-void* aplicar_protocolo_recibir(int fdEmisor, int* head);
+
+void* aplicar_protocolo_recibir(int fdEmisor , t_log * logger);
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
+int conectar_y_enviar(int fdServer, char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) ;
 
 #endif /* SRC_PROTOCOLOS_COMUNICACION_H_ */

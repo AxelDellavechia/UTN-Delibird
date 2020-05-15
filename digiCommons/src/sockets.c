@@ -116,18 +116,18 @@ int recibirPorSocket(int fdServidor, void * buffer, int tamanioBytes) {
 	bytes_recibidos = recv(fdServidor, buffer+total, tamanioBytes, MSG_WAITALL);
 	// MSG_WAITALL: el recv queda completamente bloqueado hasta que el paquete sea recibido completamente
 
-	if (bytes_recibidos == ERROR) { // Error al recibir mensaje
-		perror("[SOCKETS] No se pudo recibir correctamente los datos.\n");
-		break;
-			}
+		if (bytes_recibidos == ERROR) { // Error al recibir mensaje
+			perror("[SOCKETS] No se pudo recibir correctamente los datos.\n");
+			break;
+				}
 
-	if ( bytes_recibidos == 0 ) { // Conexión cerrada
-		printf("[SOCKETS] La conexión fd #%d se ha cerrado.\n", fdServidor);
-		break;
-	}
-	total += bytes_recibidos;
-	tamanioBytes -= bytes_recibidos;
+		if ( bytes_recibidos == 0 ) { // Conexión cerrada
+			printf("[SOCKETS] La conexión fd #%d se ha cerrado.\n", fdServidor);
+			break;
 		}
+		total += bytes_recibidos;
+		tamanioBytes -= bytes_recibidos;
+	}
 	return bytes_recibidos; // En caso de éxito, se retorna la cantidad de bytes realmente recibida
 }
 

@@ -42,6 +42,7 @@ typedef struct config {
 archivoConfigGB *configGB;
 
 int fdGB;
+int conexion;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void crearLogger( char * nombre , char * otroLog );
