@@ -28,24 +28,55 @@ int main (int argc, char *argv[]) {
 		printf("argv[6]: %s \n",argv[6]);
 		printf("Cantidad de Parametros: %d \n",argc);
 		*/
-		/*
+
 		if (argc < 2 || argc > 6 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			log_info(logger,"No se ingreso la cantidad de parametros necesarios");
 			return EXIT_FAILURE ;
 		}
-		*/
+
 		inicializar_semaforos();
 
 		log_info(logger, "Por setear los valores del archivo de configuracion");
 
 		leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
-		char * comando = strdup( argv[1] ) ;
 
-		//char * comando = strdup( "TEAM" ) ;
+		/*
+		cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
+
+		loc_poke->lista_posiciones = list_create(); // 16
+
+		loc_poke->id_mensaje = 0 ; //4
+		loc_poke->cantidad = 2 ; // 4
+		loc_poke->nombre_pokemon = strdup("pikachu"); // 7
+		loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
+
+
+		list_add(loc_poke->lista_posiciones, (int) 1);
+		list_add(loc_poke->lista_posiciones, (int) 12);
+		list_add(loc_poke->lista_posiciones, (int) 3);
+		list_add(loc_poke->lista_posiciones, (int) 31);
+
+		int size = 0 ;
+
+		for (int i = 0 ; i < list_size(loc_poke->lista_posiciones) ; i++) {
+			log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
+			size += ( sizeof(uint32_t) +  sizeof(uint32_t) );
+			i++;
+		}
+
+		//log_info(logger,"list size * uint32_t -> %d", sizeof(uint32_t) * list_size(loc_poke->lista_posiciones));
+		//log_info(logger,"list size cantidad de uint32_t -> %d", size);
+		*/
 
 		fdGB = nuevoSocket();
+
+		char * comando = strdup( argv[1] ) ;
+
+		//char * comando = strdup( "MEME" ) ;
+
+
 
 		/*
 			Logs obligatorios
@@ -461,4 +492,5 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 				return EXIT_SUCCESS;
 		}
 }
+
 

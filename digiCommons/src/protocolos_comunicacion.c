@@ -263,15 +263,17 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += sizeof(uint32_t);
 		memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
+		memcpy(buffer+desplazamiento,localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
 		desplazamiento += localized_pokemon->tamanio_nombre;
 		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->lista_posiciones,sizeof(uint32_t) * list_size(localized_pokemon->lista_posiciones));
+		int tamLista = list_size(localized_pokemon->lista_posiciones);
+		for (int i = 0 ; i < tamLista ; i++){
+		int elemento = list_get(localized_pokemon->lista_posiciones,i) ;
+		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-
+		}
 		break;
-
 	}
 
   } // fin switch head
@@ -388,28 +390,54 @@ void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET
 							//return get_poke;
 }
 
-void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke) {
+void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke_des) {
 
 	int desplazamiento = 0;
 
-	loc_poke->nombre_pokemon = malloc(1);
+	/*
+	 	int desplazamiento = 0;
+		memcpy(buffer+desplazamiento,&localized_pokemon->id_mensaje,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,&localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
+		desplazamiento += localized_pokemon->tamanio_nombre;
+		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,&localized_pokemon->lista_posiciones,sizeof(uint32_t) * list_size(localized_pokemon->lista_posiciones));
+		desplazamiento += sizeof(uint32_t);
+	*/
 
-							memcpy(&loc_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
+	loc_poke_des->nombre_pokemon = malloc(1);
+	loc_poke_des->lista_posiciones = list_create();
+
+							memcpy(&loc_poke_des->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							memcpy(&loc_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
+							memcpy(&loc_poke_des->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+							/*
+							 	cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
+								memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
+								desplazamiento += cat_poke->tamanio_nombre;
+							 */
+							loc_poke_des->nombre_pokemon = realloc(loc_poke_des->nombre_pokemon,loc_poke_des->tamanio_nombre);
+							memcpy(loc_poke_des->nombre_pokemon,(buffer+desplazamiento),loc_poke_des->tamanio_nombre);
+							desplazamiento += loc_poke_des->tamanio_nombre;
+
+							memcpy(&loc_poke_des->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							loc_poke->nombre_pokemon = realloc(loc_poke->nombre_pokemon,loc_poke->tamanio_nombre);
-							memcpy(loc_poke->nombre_pokemon,(buffer+desplazamiento),loc_poke->tamanio_nombre);
-							desplazamiento += loc_poke->tamanio_nombre;
+							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) - sizeof(uint32_t) - loc_poke_des->tamanio_nombre ) / sizeof(uint32_t) ;
 
-							memcpy(&loc_poke->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
+							for (int i = 0 ; i < cantidadElementos ; i++){
+							int aux = 0;
+							memcpy(&aux,buffer+desplazamiento,sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+							list_add(loc_poke_des->lista_posiciones,aux);
+							}
 
-							memcpy(buffer+desplazamiento,&loc_poke->lista_posiciones,sizeof(uint32_t) * list_size(loc_poke->lista_posiciones));
-
-							loc_poke->nombre_pokemon[loc_poke->tamanio_nombre] = '\0';
+							loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
 
 							//return loc_poke;
 }
@@ -425,6 +453,7 @@ int calcularTamanioMensaje(int head, void* mensaje){
 	}
 
 	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON *) mensaje;
+	cola_LOCALIZED_POKEMON * loc_poke = (cola_LOCALIZED_POKEMON *) mensaje;
 
 	tamanio = tamanio + strlen(new_poke->nombre_pokemon) ;
 
@@ -434,7 +463,6 @@ int calcularTamanioMensaje(int head, void* mensaje){
 		case NEW_POKEMON: {
 
 			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) ;
-			free(new_poke);
 			break;
 		}
 
@@ -448,16 +476,10 @@ int calcularTamanioMensaje(int head, void* mensaje){
 		}
 
 		case LOCALIZED_POKEMON:{
-			cola_LOCALIZED_POKEMON * loc_poke = (cola_LOCALIZED_POKEMON *) mensaje;
-			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + ( sizeof(uint32_t) * list_size(loc_poke->lista_posiciones)) ;
+
+			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + ( sizeof(uint32_t) * list_size(loc_poke->lista_posiciones) ) ;
 			break;
 		}
-
-		default: {
-			tamanio = strlen((char*) mensaje) + 1;
-			break;
-		}
-
 	} // fin switch head
 
 	return tamanio;
@@ -532,7 +554,10 @@ void* aplicar_protocolo_recibir(int fdEmisor , t_log * logger){
 				case LOCALIZED_POKEMON :{
 					cola_LOCALIZED_POKEMON loc_poke ;
 					deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-					log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d",loc_poke.nombre_pokemon,loc_poke.cantidad);
+					for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
+					log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+					i++;
+					}
 					break;
 				}
 				default:
