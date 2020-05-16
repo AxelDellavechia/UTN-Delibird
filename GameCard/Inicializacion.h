@@ -43,6 +43,10 @@ typedef struct{
 typedef struct{
 	char* file;
 	char* parent;
+	char* type;
+	char* open;
+	int size;
+	t_list* blocks;
 }t_files;
 
 typedef struct{
