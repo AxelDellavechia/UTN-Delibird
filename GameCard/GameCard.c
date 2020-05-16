@@ -6,6 +6,7 @@
  */
 #include "GameCard.h"
 #include "Inicializacion.h"
+#include "MetodosGC.h"
 
 
 int main(){//int argc, char **argv) {
@@ -16,8 +17,22 @@ int main(){//int argc, char **argv) {
 //YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
 		//crearBloques();
 	//creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques);
+
+
 	crearBitmap();
-	leerFiles();
+	//leerFiles();
+
+	/* CASO DE PRUEBA */
+	cola_NEW_POKEMON* Pokemon;
+	Pokemon = reservarMemoria(sizeof(cola_NEW_POKEMON));
+
+	Pokemon->nombre_pokemon=string_duplicate("Charmander");
+	Pokemon->id_mensaje = 1;
+	Pokemon->cantidad = 10;
+	Pokemon->posicion_x = 10;
+	Pokemon->posicion_y = 5;
+
+	NewPokemon(Pokemon);
 //	crearHilos();
 
 	//return EXIT_SUCCESS;

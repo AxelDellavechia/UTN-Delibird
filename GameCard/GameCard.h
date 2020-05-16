@@ -33,54 +33,6 @@ typedef struct{
 }Suscriptor;
 
 
-
-
-typedef struct{
-	uint32_t largo_nombre;
-	char* nombre_pokemon;
-	uint32_t  posicion_x;
-	uint32_t posicion_y;
-}NEW_POKEMON;
-
-typedef struct{
-	uint32_t largo_nombre;
-	char* nombre_pokemon;
-	uint32_t cantidad;
-	t_list* lista_posiciones;
-}LOCALIZED_POKEMON;
-
-typedef struct{
-	uint32_t posicion_x;
-	uint32_t posicion_y;
-}posicion;
-
-typedef struct{
-	uint32_t largo_nombre;
-	char* nombre_pokemon;
-}GET_POKEMON;
-
-typedef struct{
-	uint32_t largo_nombre;
-	char* nombre_pokemon;
-	uint32_t posicion_x;
-	uint32_t posicion_y;
-}APPEARED_POKEMON;
-
-typedef struct{
-	uint32_t largo_nombre;
-	char* nombre_pokemon;
-	uint32_t posicion_x;
-	uint32_t posicion_y;
-}CATCH_POKEMON;
-
-typedef struct{
-	uint32_t atrapo_pokemon;
-}CAUGHT_POKEMON;
-
-
-
-
-
 void leer_configFile();
 void iniciar_log();
 void iniciar_servicio_broker();
