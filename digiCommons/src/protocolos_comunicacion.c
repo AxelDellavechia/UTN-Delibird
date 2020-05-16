@@ -41,33 +41,59 @@ int validar_conexion(int ret, int modo,t_log* logger) {
 	}
 }
 
-void handshake(int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) {
+int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) {
 
-		int handshake_esperado = (int) malloc(strlen(mensajeEsperado) + 1);
+	enviarPorSocket(sockClienteDe, mensajeEnviado, string_length(mensajeEnviado));
 
-		char *buff =  handshake_esperado;
+	char *buff = (char*) malloc(string_length(mensajeEsperado));
 
-		int status = enviarPorSocket(sockClienteDe, mensajeEnviado, strlen(mensajeEnviado) + 1 );
+	int status = recibirPorSocket(sockClienteDe, buff, string_length(mensajeEsperado));
+
+	if( validar_recive(status, 0) ) { // El cliente envió un mensaje
+
+		buff[string_length(mensajeEsperado)] = '\0';
+		if (validar_servidor(buff , mensajeEsperado,logger)) {
+			log_info(logger,"Hice el handshake y me respondieron: %s\n", buff);
+			free(buff);
+			return TRUE;
+		} else {
+			free(buff);
+			return FALSE;
+		}
+
+	} else { // Hubo algún error o se desconectó el cliente
+
+		free(buff);
+		return FALSE;
+	}
+	return FALSE; // No debería llegar acá pero lo pongo por el warning
+}
+
+
+void handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) {
+
+	char *buff = (char*) malloc(string_length(mensajeEsperado));
+
+	int status = recibirPorSocket(sockClienteDe, buff, string_length(mensajeEsperado));
 
 		validar_recive(status, 1); // Es terminante ya que la conexión es con el servidor
 
-		recibirPorSocket(sockClienteDe, buff, handshake_esperado);
-
-		buff[handshake_esperado-1] = '\0';
-
-		if( validar_servidor(buff , mensajeEsperado,logger) == FALSE) {
+		buff[string_length(mensajeEsperado)] = '\0';
+		if( ! validar_servidor(buff , mensajeEsperado,logger) ) {
 			free(buff);
 			exit(ERROR);
 		} else {
 			log_info(logger,"Handshake recibido: %s\n", buff);
 			free(buff);
-
+			enviarPorSocket(sockClienteDe, mensajeEnviado, string_length(mensajeEnviado));
 		}
 }
 
+
+
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger) {
 
-		log_info(logger,"fdSacServer:%d", fdServer);
+		log_info(logger,"fdServer:%d", fdServer);
 		log_info(logger,"ipServer:%s", ipServer);
 		log_info(logger,"portServer:%d", portServer);
 
