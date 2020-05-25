@@ -6,7 +6,7 @@
 #include <commons/string.h>
 #include <commons/collections/list.h>
 #include <signal.h>
-
+#include <pthread.h>
 #include <limits.h>
 
 #define LOG_PATH "../CatedraTeam.log"
@@ -27,7 +27,14 @@ t_list* colaExit;
 t_list* mapaPokemon;
 t_list* entrenadoresEnDeadlock;
 
-pthread_mutex_t semaforo;
+int fdBroker;
+int ciclosEnCPU;
+int fdTeam;
+pthread_t hilo_servidor;
+pthread_t hilo_consola;
+
+pthread_mutex_t mxHilos;
+pthread_mutex_t mxSocketsFD;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -40,6 +47,7 @@ typedef struct archivoConfigFile {
 	char* ipBroker;
 	int estimacionInicial;
 	int puertoBroker;
+	int puertoTeam;
 	char* logFile;
 } archivoConfigFile;
 
@@ -61,9 +69,7 @@ typedef struct entrenadorPokemon {
 	char* proximaAccion;
 } entrenadorPokemon;
 
-int fdBroker;
 entrenadorPokemon* exec;
-int ciclosEnCPU;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void crearLogger(char * nombre , char * path);
@@ -77,6 +83,11 @@ char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador);
 char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador);
 void quitarDeColaBlocked(entrenadorPokemon* entrenador);
 void realizarAccion(char* accion, int tiempo);
+void servidor();
+void consola();
+int thread_Team(int fdCliente);
+void crearHilos();
+
 int calcularRafagaCPU(accion);
 
 #endif

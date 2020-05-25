@@ -3,9 +3,24 @@
 #include <math.h>
 #include "../digiCommons/src/mensajeria.h"
 
-void crearLogger(char * nombre , char * path) {
-	char * archivoLog = strdup(nombre);
-	logger = log_create(path, archivoLog, FALSE, LOG_LEVEL_INFO);
+void iniciar_logCatedra(){
+	char ** aux = string_split(configFile->logFile,"/") ;
+	int i = 0 ;
+	while (aux[i] != NULL) {
+		if ( string_contains(aux[i],"log") ) {
+			char * archivoLogCatedra = strdup(aux[i]);
+			loggerCatedra = log_create(configFile->logFile, archivoLogCatedra, FALSE, LOG_LEVEL_INFO);
+			free(archivoLogCatedra);
+			archivoLogCatedra = NULL;
+		}
+		i++;
+	}
+	free(aux);
+}
+
+void iniciar_log(){
+	char * archivoLog = strdup("Team.log");
+	logger = log_create(LOG_PATH_INTERNO, archivoLog, FALSE, LOG_LEVEL_INFO);
 	free(archivoLog);
 	archivoLog = NULL;
 }
@@ -25,6 +40,7 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 	configFile->ipBroker = config_get_string_value(config, "IP_BROKER");
 	configFile->estimacionInicial = config_get_int_value(config, "ESTIMACION_INICIAL");
 	configFile->puertoBroker = config_get_int_value(config, "PUERTO_BROKER");
+	configFile->puertoTeam = config_get_int_value(config, "PUERTO_TEAM");
 	configFile->logFile = config_get_string_value(config, "LOG_FILE");
 	configFile->posicionEntrenadores = list_create();
 	configFile->pokemonEntrenadores = list_create();
@@ -419,7 +435,7 @@ int calcularRafagaCPU(accion) {
 void realizarAccion(char* accion, int tiempo) {
 	int accionInt = -1;
 	if (strcmp("AtraparPokemon", accion)) {
-		accionInt = 0;
+
 	}
 	switch(accionInt) {
 	case 0:
@@ -452,5 +468,73 @@ void localized_pokemon(posicionPokemon* pokemonEncontrado) {
 		}
 		void* pokemonYaConocido = list_find(mapaPokemon, (void*) buscarPokemon);
 	}
+}
 
+void inicializar_semaforos(){
+	//inicializo semaforos de nodos
+	pthread_mutex_init(&mxSocketsFD, NULL);
+	pthread_mutex_init(&mxHilos, NULL);
+}
+
+void crearHilos() {
+	hilo_servidor = 0;
+	hilo_consola = 0;
+	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
+	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	pthread_join(hilo_servidor, NULL);
+	pthread_join(hilo_consola, NULL);
+}
+
+void consola() {
+	printf("Hola! Ingresá \"salir\" para finalizar módulo\n");
+	size_t buffer_size = 100; //por el momento restringido a 100 caracteres
+	char* comando = (char *) calloc(1, buffer_size);
+	while (!string_equals_ignore_case(comando, "salir\n")) {
+		printf(">");
+		int bytes_read = getline(&comando, &buffer_size, stdin);
+		if (bytes_read == -1) {
+			log_error(logger,"Error en getline");
+		}
+		if (bytes_read == 1) {
+			continue;
+		}
+	}
+	log_destroy(logger);
+	log_destroy(loggerCatedra);
+	free(comando);
+	pthread_detach(hilo_servidor);
+	pthread_detach( pthread_self() );
+	pthread_cancel(hilo_servidor);
+}
+
+void servidor() {
+	fdTeam = nuevoSocket();
+	asociarSocket(fdTeam, configFile->puertoTeam);
+	escucharSocket(fdTeam, CONEXIONES_PERMITIDAS);
+	log_info(logger," Escuchando conexiones");
+	while(TRUE) {
+		int conexionNueva = 0;
+		int comandoNuevo;//= reservarMemoria(INT);
+		while(conexionNueva == 0) {
+			comandoNuevo = aceptarConexionSocket(fdTeam);
+			conexionNueva = handshake_servidor ( comandoNuevo,"Team" , "Broker",logger);
+			if(!validar_conexion(conexionNueva, 0,logger) ) {
+				pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+				cerrarSocket(fdTeam);
+				pthread_mutex_unlock(&mxSocketsFD);
+			}
+		}
+	pthread_t hilo;
+	pthread_mutex_lock(&mxHilos);
+	pthread_create(&hilo, NULL, (void*) thread_Team,comandoNuevo);
+	pthread_mutex_unlock(&mxHilos);
+	}
+}
+
+int thread_Team(int fdCliente) {
+	aplicar_protocolo_recibir(fdCliente , logger); // recibo mensajes
+	pthread_mutex_lock(&mxHilos);
+	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
+	return FALSE;
 }
