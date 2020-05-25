@@ -357,39 +357,72 @@ char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador) {
 
 void ejecutar() {
 	char* algoritmo = configFile->algoritmoPlanificacion;
+	int algoritmoInt = -1;
 	char* accion;
-	switch(algoritmo) {
-	case "FIFO":
-		entrenadorPokemon* entrenador = list_get(colaReady, 0);
-		exec = entrenador->idEntrenador;
-		accion = entrenador->proximaAccion;
+	int quantum;
+	char* accionAComparar;
+	int posicionProximoAEjecutar;
+	int rafagaCPUAccion;
+	entrenadorPokemon* entrenador = list_get(colaReady, 0);
+	accion = entrenador->proximaAccion;
+	if (strcmp("FIFO", algoritmo)) {
+		exec = entrenador;
 		list_remove(colaReady, 0);
 		realizarAccion(accion, 0);
-	break;
-	case "RR":
-		int quantum = configFile->quantum;
-		entrenadorPokemon* entrenador = list_get(colaReady, 0);
-		exec = entrenador->idEntrenador;
-		accion = entrenador->proximaAccion;
+	} else if (strcmp("RR", algoritmo)) {
+		quantum = configFile->quantum;
+		exec = entrenador;
 		list_remove(colaReady, 0);
 		realizarAccion(accion, quantum);
-	break;
-	case "SJF sin desalojo":
-		char* accionAComparar;
-		for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
+	}else if (strcmp("SJF sin desalojo", algoritmo)) {
+		rafagaCPUAccion = calcularRafagaCPU(accion);
+		for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
 			entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
 			accionAComparar = entrenador->proximaAccion;
+			int rafagaCPUComparacion = calcularRafagaCPU(accionAComparar);
+			if(rafagaCPUComparacion > rafagaCPUAccion) {
+				rafagaCPUAccion = rafagaCPUComparacion;
+				accion = accionAComparar;
+				posicionProximoAEjecutar = posicionEntrenador;
+			}
 		}
-	break;
-	case "SJF con desalojo":
-
-	break;
+		exec = entrenador;
+		list_remove(colaReady, posicionProximoAEjecutar);
+		realizarAccion(accion, 0);
+	} else if (strcmp("SJF con desalojo", algoritmo)){
+		rafagaCPUAccion = calcularRafagaCPU(accion);
+		for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
+			entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
+			accionAComparar = entrenador->proximaAccion;
+			int rafagaCPUComparacion = calcularRafagaCPU(accionAComparar);
+			if(rafagaCPUComparacion > rafagaCPUAccion) {
+				rafagaCPUAccion = rafagaCPUComparacion;
+				accion = accionAComparar;
+				posicionProximoAEjecutar = posicionEntrenador;
+			}
+		}
+		if (exec != NULL) {
+			list_add(colaReady, exec);
+		}
+		exec = entrenador;
+		list_remove(colaReady, posicionProximoAEjecutar);
+		realizarAccion(accion, 0);
+	} else {
+		printf("Algoritmo incorrecto/n");
 	}
 }
 
+int calcularRafagaCPU(accion) {
+
+}
+
 void realizarAccion(char* accion, int tiempo) {
-	switch(accion) {
-	case "AtraparPokemon":
+	int accionInt = -1;
+	if (strcmp("AtraparPokemon", accion)) {
+		accionInt = 0;
+	}
+	switch(accionInt) {
+	case 0:
 
 	break;
 	}

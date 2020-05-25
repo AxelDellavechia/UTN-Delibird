@@ -62,7 +62,7 @@ typedef struct entrenadorPokemon {
 } entrenadorPokemon;
 
 int fdBroker;
-int exec;
+entrenadorPokemon* exec;
 int ciclosEnCPU;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
@@ -76,5 +76,7 @@ void verificarIntercambios();
 char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador);
 char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador);
 void quitarDeColaBlocked(entrenadorPokemon* entrenador);
+void realizarAccion(char* accion, int tiempo);
+int calcularRafagaCPU(accion);
 
 #endif
