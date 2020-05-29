@@ -44,8 +44,11 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 
 int calcularTamanioMensaje(int head, void* mensaje);
 
-void* aplicar_protocolo_recibir(int fdEmisor , t_log * logger);
+void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
+void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
-int conectar_y_enviar(int fdServer, char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) ;
+
+int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) ;
 
 #endif /* SRC_PROTOCOLOS_COMUNICACION_H_ */

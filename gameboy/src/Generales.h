@@ -41,14 +41,13 @@ typedef struct config {
 
 archivoConfigGB *configGB;
 
-int fdGB;
 int conexion;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void crearLogger( char * nombre , char * otroLog );
 void * reservarMemoria(int size);
 void inicializar_semaforos();
-void conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
+int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
 void consola();
 
 #endif

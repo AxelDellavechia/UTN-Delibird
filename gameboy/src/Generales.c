@@ -116,14 +116,16 @@ void* reservarMemoria(int size) {
 		return puntero;
 }
 
-void conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
+int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra) {
 
 	conexion = conectarCon(fdServer,ipServer,portServer,logger) ;
 
 		if (conexion == 1 ) {
 					log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",modulo,ipServer,portServer);
+					return 1 ;
 				} else {
 					log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",modulo,ipServer,portServer);
+					return 0;
 	}
 
 }

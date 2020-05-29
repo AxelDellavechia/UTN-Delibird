@@ -485,93 +485,37 @@ int calcularTamanioMensaje(int head, void* mensaje){
 	return tamanio;
 }
 
-void* aplicar_protocolo_recibir(int fdEmisor , t_log * logger){
+void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
 	setlocale(LC_ALL,"");
 
-	int head = 0 ;
+
 	// Validar contra NULL al recibir en cada módulo.
 	// Recibo primero el head:
-	int recibido = recibirPorSocket(fdEmisor, &head, sizeof(int));
+	int recibido = recibirPorSocket(fdEmisor, head, sizeof(int));
 
-	log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
-
-	if (head < 1 || head > FIN_DEL_PROTOCOLO || recibido <= 0){ // DESCONEXIÓN
+	if (*head < 1 || *head > FIN_DEL_PROTOCOLO || recibido <= 0){ // DESCONEXIÓN
 		//printf("Error al recibir mensaje.\n");
 		return ERROR;
 	}
 	// Recibo ahora el tamaño del mensaje:
-	int bufferTam;
 
-	recibido = recibirPorSocket(fdEmisor, &bufferTam, sizeof(int));
+	recibido = recibirPorSocket(fdEmisor, bufferTam, sizeof(int));
 
 	if (recibido <= 0) return ERROR;
 
-	log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
-
 	// Recibo por último el mensaje serealizado:
-	void * mensaje = malloc( bufferTam );
-
-	recibido = recibirPorSocket(fdEmisor, mensaje, bufferTam);
-
-	log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar",recibido);
-
-	// Deserealizo el mensaje según el protocolo:
-
-	switch(head){
-
-				case NEW_POKEMON :{
-					cola_NEW_POKEMON  new_poke ;
-					deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
-					log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-					break;
-				}
-				case APPEARED_POKEMON :{
-					cola_APPEARED_POKEMON app_poke;
-					deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-					log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-					free(app_poke.nombre_pokemon);
-					break;
-				}
-				case CATCH_POKEMON :{
-					cola_CATCH_POKEMON cath_poke;
-					deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-					log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-					break;
-				}
-				case CAUGHT_POKEMON :{
-					cola_CAUGHT_POKEMON caug_poke ;
-					deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
-					log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-					break;
-				}
-				case GET_POKEMON :{
-					cola_GET_POKEMON get_poke ;
-					deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
-					log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-					break;
-				}
-				case LOCALIZED_POKEMON :{
-					cola_LOCALIZED_POKEMON loc_poke ;
-					deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-					for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-					log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-					i++;
-					}
-					break;
-				}
-				default:
-					log_info(logger, "Instrucción no reconocida");
-					break;
-			}
-	free(mensaje); mensaje = NULL;
-
-	return buffer;
 }
 
-int conectar_y_enviar(int fdServer, char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) {
+void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
 
-	fdServer = nuevoSocket();
+	int recibido = recibirPorSocket(fdEmisor, mensaje, bufferTam);
+
+}
+
+int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) {
+
+	int fdServer = nuevoSocket();
 
 	if ( conectarCon( fdServer ,ipServer,puertoServer,logger) )	{
 
@@ -606,6 +550,8 @@ int conectar_y_enviar(int fdServer, char * modulo , char * ipServer , int puerto
 		free(buffer);
 
 		//free(mensajeSerealizado);
+
+		cerrarSocket(fdServer);
 
 		return enviados;
 
