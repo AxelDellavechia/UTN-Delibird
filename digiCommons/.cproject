@@ -30,6 +30,10 @@
 								<option id="gnu.c.compiler.option.debugging.level.1115878570" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.pic.1568206065" name="Position Independent Code (-fPIC)" superClass="gnu.c.compiler.option.misc.pic" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="gnu.c.compiler.option.include.paths.820303813" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath"/>
+<<<<<<< HEAD
+=======
+								<option id="gnu.c.compiler.option.dialect.std.1444489583" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
+>>>>>>> origin/AxelBranch
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1251187396" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.997205316" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
@@ -38,7 +42,13 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.800564884" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
 								<option defaultValue="true" id="gnu.c.link.option.shared.288765955" name="Shared (-shared)" superClass="gnu.c.link.option.shared" valueType="boolean"/>
+<<<<<<< HEAD
 								<option id="gnu.c.link.option.libs.916217131" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs"/>
+=======
+								<option id="gnu.c.link.option.libs.916217131" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+									<listOptionValue builtIn="false" value="commons"/>
+								</option>
+>>>>>>> origin/AxelBranch
 								<option id="gnu.c.link.option.paths.1535024601" name="Library search path (-L)" superClass="gnu.c.link.option.paths" useByScannerDiscovery="false" valueType="libPaths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1926210975" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

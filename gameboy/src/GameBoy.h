@@ -10,14 +10,6 @@
 
 #include "Generales.h"
 
-<<<<<<< HEAD
-char * pokemon ;
-int pokemon_posx;
-int pokemon_posy;
-int pokemon_cantidad;
-
-=======
->>>>>>> origin/master
 int flujoGameCard( char * comando,int argc, char *argv[]);
 int flujoTeam( char * comando,int argc, char *argv[]);
 int flujoBroker( char * comando,int argc, char *argv[]);
