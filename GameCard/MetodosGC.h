@@ -12,7 +12,13 @@ typedef struct{
 	char* open;
 	int size;
 	t_list* blocks;
+	t_list* positions;
 }t_files;
+
+typedef struct{
+	char* LatLong;
+	int Cantidad;
+} t_positions;
 
 int NewPokemon(cola_NEW_POKEMON* Pokemon);
 

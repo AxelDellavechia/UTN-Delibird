@@ -3,6 +3,54 @@
 #include "src/sockets.h"
 
 
+
+
+
+int NewPokemon(cola_NEW_POKEMON* Pokemon){
+
+	int step = 0;
+	t_files dataPokemon;// = malloc (sizeof(t_files));
+	while(step != ERROR){
+	switch(step){
+
+	case 0:{ //Paso 1: Verificar si existe
+			leerFiles();
+				step = findPokemon(Pokemon->nombre_pokemon, &dataPokemon);
+			break;
+
+			}
+	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
+
+				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000);
+				step = 0;
+				break;
+			}
+	case OK:{ //el Pokemon existe y se puede utilizar
+				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
+				leerBloques(Pokemon, &dataPokemon);
+				for(int j = 0; j < list_size(dataPokemon.positions); j++ ){
+					 t_positions* pos = malloc (sizeof(t_positions));
+					pos = list_get(dataPokemon.positions,j);
+					printf("\nPosicion: %s  Cantidad:%i",pos->LatLong, pos->Cantidad);
+				}
+				break;
+			}
+	case ERROR:{ //el Pokemon no existe
+				printf("\n El Pokemon no existe, se debe crear");
+				break;
+				}
+	}
+	}
+return OK; //retornar resultado
+}
+
+
+
+
+
+
+
 void leerFiles(){
 	cantFiles = 0;
 	dirList = list_create();
@@ -120,52 +168,34 @@ int leer_metaData_files(){
 }
 
 
-int NewPokemon(cola_NEW_POKEMON* Pokemon){
-
-	int step = 0;
-	while(step != ERROR){
-	switch(step){
-
-	case 0:{ //Paso 1: Verificar si existe
-			leerFiles();
-			step = findPokemon(Pokemon->nombre_pokemon);
-			break;
-
-			}
-	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe loopear
-
-				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
-				break;
-			}
-	case OK:{ //el Pokemon existe y se puede utilizar
-				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
-				break;
-			}
-	case ERROR:{ //el Pokemon no existe
-				printf("\n Error");
-				break;
-				}
-	}
-	}
-return OK; //retornar resultado
-}
 
 
-
-
-int findPokemon(char* Pokemon){
+int findPokemon(char* Pokemon, t_files *dataPokemon){
 
 	int exist = 0;
-
+	t_files* tempPokemon = malloc(sizeof(t_files));
 	for(int j = 0; j < list_size(dirList); j++ ){
 
-		t_files* tempPokemon = malloc (sizeof(t_files));
 		tempPokemon = list_get(dirList,j);
 		if (string_equals_ignore_case(tempPokemon->file,Pokemon)){   //Recorriendo se fija si encuentra el archivo en el FS
 			if (string_equals_ignore_case(tempPokemon->type,"N")){   //Si lo encuentra, se fija que efectivamente sea un Pokemon y no un directorio
 				if (string_equals_ignore_case(tempPokemon->open,"N")){  //Verifica si el archivo ya está abierto o no
 					//Marco el archivo como abierto para que no lo utilice nadie mas
-					updateStatusFile(tempPokemon,"Y");
+					dataPokemon->file = malloc(string_length(tempPokemon->file));
+					strcpy(dataPokemon->file, tempPokemon->file);
+					dataPokemon->open = malloc(string_length(tempPokemon->open));
+					strcpy(dataPokemon->open, tempPokemon->open);
+					dataPokemon->parent = malloc(string_length(tempPokemon->parent));
+					strcpy(dataPokemon->parent, tempPokemon->parent);
+					dataPokemon->type = malloc(string_length(tempPokemon->type));
+					strcpy(dataPokemon->type, tempPokemon->type);
+					dataPokemon->size = tempPokemon->size;
+					dataPokemon->blocks = list_create();
+					list_add_all(dataPokemon->blocks, tempPokemon->blocks);
+
+					//list_add_all(dataPokemon->positions, tempPokemon->positions);
+
+					updateStatusFile(dataPokemon,"Y");
 					return OK;
 				}
 				else{
@@ -186,7 +216,7 @@ int updateStatusFile(t_files* tempPokemon, char* estado){
 	int res = getMetadataDir(&dirMetadata, tempPokemon);
 	archivo_MetaData=config_create(dirMetadata);
 	config_set_value(archivo_MetaData, "OPEN", estado);
-
+	config_save(archivo_MetaData);
 	return OK;
 }
 
@@ -200,4 +230,113 @@ void getMetadataDir(char** result, t_files* tempPokemon){
 	*result = realloc(*result, strlen(*result) + strlen(dirMetadata) + 1);
 	string_append(result,dirMetadata);
 }
+
+
+
+
+void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
+{
+	t_files* tempPokemon = malloc(sizeof(t_files));
+	for(int j = 0; j < list_size(dirList); j++ ){
+			tempPokemon = list_get(dirList,j);
+			if ((string_equals_ignore_case(tempPokemon->file,Pokemon->nombre_pokemon)) && (string_equals_ignore_case(tempPokemon->type,"N" ))){   //Recorriendo se fija si encuentra el archivo en el FS
+				dataPokemon->positions = list_create();
+				for(int i = 0; i< list_size(tempPokemon->blocks); i++){
+					FILE* block;
+					char* bloque = list_get(tempPokemon->blocks,i);
+					char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+					strcpy(dirBloque,PuntoMontaje->BLOCKS);
+					strcat(dirBloque,bloque);
+					strcat(dirBloque,".bin");
+					block = fopen(dirBloque,"r");
+				    //Lee línea a línea para cargar todas las posiciones en la data del Pokemon
+				    char* linea = malloc (config_MetaData->tamanio_bloques);
+				    tempPokemon->positions = list_create();
+					while(fgets(linea, config_MetaData->tamanio_bloques, (FILE*) block)) {
+				        t_positions* pos = malloc (sizeof(t_positions));
+				        char** posCant = string_n_split(linea, 2, "=");
+				        pos->LatLong = malloc(string_length(posCant[0]));
+				        strcpy(pos->LatLong,posCant[0]);
+				        pos->Cantidad = atoi(posCant[1]);
+				        list_add(tempPokemon->positions, pos);
+				    }
+
+					list_add_all(dataPokemon->positions, tempPokemon->positions);
+				    fclose(block);
+
+				}
+
+			}
+		}
+}
+
+
+/*
+void insertPosition(cola_NEW_POKEMON* Pokemon)
+{
+
+	char* row = string_new();
+	row = malloc (1+ string_length(Pokemon->posicion_x) + string_length(Pokemon->posicion_y) + string_length(Pokemon->cantidad) + string_length("-=\n"));
+
+	strcpy(row,Pokemon->posicion_x);
+	strcat(row,"-");
+	strcat(row,Pokemon->posicion_y);
+	strcat(row,"=");
+	strcat(row,Pokemon->cantidad);
+
+
+ 		ptr_aux = realloc(ptr,tamanio_total + 1 );
+		ptr = ptr_aux;
+		ptr[tamanio_total] = '\0';
+		//printf("ptr finalll: %s\n",ptr);
+
+		ptr_aux = NULL;
+		int tam_bloque = config_MetaData.tamanio_bloques;
+		//printf("tam_bloque: %i\n",tam_bloque);
+		int tamanio_a_grabar = tamanio_total ;
+		int desplazamiento = 0;
+
+		//Una vez que tengo el buffer con la info de una tabla los guardo en los
+		//bloques, guardando los nros de bloques utilizados
+		while(tamanio_a_grabar > 0){
+			int bloque_libre = proximobloqueLibre();
+			printf("bloque_libre : %i\n",bloque_libre);
+
+			if(tamanio_a_grabar >= tam_bloque){//Si lo que voy a grabar ocupa mas de un bloque
+				ptr_aux = malloc(tam_bloque + 1);
+				memcpy(ptr_aux,ptr + desplazamiento,tam_bloque);
+				memcpy(ptr_aux + tam_bloque,"\0",CHAR);
+				grabarBloque(ptr_aux,bloque_libre);
+				tamanio_a_grabar -= tam_bloque;
+				desplazamiento += tam_bloque;
+			}else{//Si lo que voy a grabar ocupa menos de un bloque
+				ptr_aux = malloc(tamanio_a_grabar + 1);
+				memcpy(ptr_aux,ptr + desplazamiento,tamanio_a_grabar);
+				memcpy(ptr_aux + tamanio_a_grabar,"\0",CHAR);
+				grabarBloque(ptr_aux,bloque_libre);
+				tamanio_a_grabar -= tam_bloque;
+				desplazamiento += tamanio_a_grabar;
+			}
+
+			free(ptr_aux);
+			ptr_aux =  NULL;
+
+			int* nro_particion = malloc(INT);
+			*nro_particion = bloque_libre;
+
+			list_add(lista_bloques,nro_particion);
+
+
+		}
+
+		dump_crear_tmp(tabla->nombre_tabla,tamanio_total,lista_bloques);
+
+
+	}
+
+	limpiar_memtable();
+
+}
+
+*/
 
