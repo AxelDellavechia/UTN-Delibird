@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/Generales.c \
-../src/Team.c 
+../src/Team.c \
+../src/operaciones.c 
 
 OBJS += \
 ./src/Generales.o \
-./src/Team.o 
+./src/Team.o \
+./src/operaciones.o 
 
 C_DEPS += \
 ./src/Generales.d \
-./src/Team.d 
+./src/Team.d \
+./src/operaciones.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

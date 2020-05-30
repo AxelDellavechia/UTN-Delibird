@@ -276,9 +276,31 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		break;
 	}
 
+	case ACK: {
+			memcpy(buffer, mensaje, tamanio);
+			break;
+	}
+
   } // fin switch head
 
 	return buffer;
+}
+
+void * recibirACK(int fdEmisor ){
+
+	int head ; int bufferTam ;
+
+	recibirProtocolo(&head,&bufferTam,fdEmisor);
+
+	void * mensajeSeriealizado = malloc(bufferTam);
+
+	void * mensaje = malloc(bufferTam);
+
+	recibirMensaje(fdEmisor , bufferTam , mensajeSeriealizado );
+
+	memcpy(mensaje, mensajeSeriealizado, bufferTam);
+
+	return mensaje;
 }
 
 void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){
@@ -408,25 +430,25 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 		desplazamiento += sizeof(uint32_t);
 	*/
 
-	loc_poke_des->nombre_pokemon = malloc(1);
-	loc_poke_des->lista_posiciones = list_create();
-
 							memcpy(&loc_poke_des->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
 							memcpy(&loc_poke_des->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
+							loc_poke_des->nombre_pokemon = malloc(loc_poke_des->tamanio_nombre + 1);
 							/*
 							 	cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
 								memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
 								desplazamiento += cat_poke->tamanio_nombre;
 							 */
-							loc_poke_des->nombre_pokemon = realloc(loc_poke_des->nombre_pokemon,loc_poke_des->tamanio_nombre);
 							memcpy(loc_poke_des->nombre_pokemon,(buffer+desplazamiento),loc_poke_des->tamanio_nombre);
 							desplazamiento += loc_poke_des->tamanio_nombre;
 
 							memcpy(&loc_poke_des->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
+							loc_poke_des->lista_posiciones = list_create();
 
 							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) - sizeof(uint32_t) - loc_poke_des->tamanio_nombre ) / sizeof(uint32_t) ;
 
@@ -437,7 +459,7 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 							list_add(loc_poke_des->lista_posiciones,aux);
 							}
 
-							loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
+							//loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
 
 							//return loc_poke;
 }

@@ -26,7 +26,7 @@ endif
 all: team
 
 dependents:
-	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) all
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) clean all
 
 # Tool invocations
 team: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
