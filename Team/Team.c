@@ -22,7 +22,7 @@ int main(void) {
 	entrenador->posicion_x = 1;
 	entrenador->posicion_y = 2;
 	entrenador->ciclosEnCPU = 0;
-	entrenador->proximaAccion = "AtraparPokemon Pikachu 3 4";
+	entrenador->proximaAccion = "HacerIntercambio 1 3 4 Squirtle Pikachu";
 	realizarAccion(entrenador, 0);
 
 	//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD]

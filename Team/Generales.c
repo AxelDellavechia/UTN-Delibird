@@ -306,10 +306,14 @@ void verificarIntercambios() {
 				char* objetivoFaltanteEntrenador2 = obtenerPokemonObjetivoFaltante(entrenador2);
 				char* atrapadoInnecesarioEntrenador2 = obtenerPokemonAtrapadoInnecesario(entrenador2);
 				if ((strcmp(objetivoFaltanteEntrenador1, atrapadoInnecesarioEntrenador2)) || (strcmp(atrapadoInnecesarioEntrenador1, objetivoFaltanteEntrenador2))) {
-					realizarIntercambio(entrenador1, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
-					verificarDeadlock(entrenador1);
+					int idEntrenador2 = entrenador2->idEntrenador;
+					int posicionXEntrenador2 = entrenador2->posicion_x;
+					int posicionYEntrenador2 = entrenador2->posicion_y;
+					entrenador1->proximaAccion = "HacerIntercambio %i %i %i %s %s", idEntrenador2, posicionXEntrenador2, posicionYEntrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2;
+					//realizarIntercambio(entrenador1, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
+					/*verificarDeadlock(entrenador1);
 					verificarDeadlock(entrenador2);
-					verificarIntercambios();
+					verificarIntercambios();*/
 				}
 			}
 		}
@@ -443,6 +447,25 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		int posicionXInt = atoi(posicionXPokemon);
 		int posicionYInt = atoi(posicionYPokemon);
 		moverEntrenador(entrenador, posicionXInt, posicionYInt);
+		//catch_pokemon();
+	} else if(strcmp("HacerIntercambio", accionStr) == 0) {
+		char* idEntrenador2 = strtok(NULL, " ");
+		char* posicionXEntrenador2 = strtok(NULL, " ");
+		char* posicionYEntrenador2 = strtok(NULL, " ");
+		char* atrapadoInnecesarioEntrenador1 = strtok(NULL, " ");
+		char* atrapadoInnecesarioEntrenador2 = strtok(NULL, " ");
+		int idEntrenador2Int = atoi(idEntrenador2);
+		int posicionXEntrenador2Int = atoi(posicionXEntrenador2);
+		int posicionYEntrenador2Int = atoi(posicionYEntrenador2);
+		_Bool buscarEntrenadorPorID(entrenadorPokemon* entrenadorABuscar) {
+			return entrenadorABuscar->idEntrenador == idEntrenador2Int;
+		}
+		entrenadorPokemon* entrenador2 = list_find(entrenadoresEnDeadlock, (void*) buscarEntrenadorPorID);
+		moverEntrenador(entrenador, posicionXEntrenador2Int, posicionYEntrenador2Int);
+		realizarIntercambio(entrenador, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
+		verificarDeadlock(entrenador);
+		verificarDeadlock(entrenador2);
+		verificarIntercambios();
 	}
 }
 
