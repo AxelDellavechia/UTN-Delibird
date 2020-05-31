@@ -8,13 +8,22 @@ int main(void) {
 	//fdBroker = nuevoSocket();
 	//inicializar_semaforos();
 	iniciar_log();
-	inicializar_semaforos();
+	//inicializar_semaforos();
 	crearEstructuras();
 	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
-	iniciar_logCatedra();
+	/*iniciar_logCatedra();
 	crearHilos();
 	obtenerEntrenadores(logger);
-	localizarPokemones();
+	localizarPokemones();*/
+	entrenadorPokemon* entrenador = reservarMemoria(sizeof(entrenadorPokemon));
+	entrenador->pokemonesAtrapados = list_create();
+	entrenador->pokemonesObjetivo = list_create();
+	entrenador->idEntrenador = 0;
+	entrenador->posicion_x = 1;
+	entrenador->posicion_y = 2;
+	entrenador->ciclosEnCPU = 0;
+	entrenador->proximaAccion = "AtraparPokemon Pikachu 3 4";
+	realizarAccion(entrenador, 0);
 
 	//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD]
 

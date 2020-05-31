@@ -69,6 +69,8 @@ typedef struct entrenadorPokemon {
 	char* proximaAccion;
 } entrenadorPokemon;
 
+//entrenadorPokemon fede = {1,1,2,["Pikachu","Squirtle","Pidgey"], ["Pikachu","Pikachu","Squirtle","Pidgey"], 0, "AtraparPokemon Pikachu 3 3"};
+
 entrenadorPokemon* exec;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
@@ -82,7 +84,7 @@ void verificarIntercambios();
 char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador);
 char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador);
 void quitarDeColaBlocked(entrenadorPokemon* entrenador);
-void realizarAccion(char* accion, int tiempo);
+void realizarAccion(entrenadorPokemon* entrenador, int tiempo);
 void servidor();
 void consola();
 int thread_Team(int fdCliente);

@@ -373,7 +373,6 @@ char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador) {
 
 void ejecutar() {
 	char* algoritmo = configFile->algoritmoPlanificacion;
-	int algoritmoInt = -1;
 	char* accion;
 	int quantum;
 	char* accionAComparar;
@@ -384,12 +383,12 @@ void ejecutar() {
 	if (strcmp("FIFO", algoritmo)) {
 		exec = entrenador;
 		list_remove(colaReady, 0);
-		realizarAccion(accion, 0);
+		realizarAccion(entrenador, 0);
 	} else if (strcmp("RR", algoritmo)) {
 		quantum = configFile->quantum;
 		exec = entrenador;
 		list_remove(colaReady, 0);
-		realizarAccion(accion, quantum);
+		realizarAccion(entrenador, quantum);
 	}else if (strcmp("SJF sin desalojo", algoritmo)) {
 		rafagaCPUAccion = calcularRafagaCPU(accion);
 		for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
@@ -404,7 +403,7 @@ void ejecutar() {
 		}
 		exec = entrenador;
 		list_remove(colaReady, posicionProximoAEjecutar);
-		realizarAccion(accion, 0);
+		realizarAccion(entrenador, 0);
 	} else if (strcmp("SJF con desalojo", algoritmo)){
 		rafagaCPUAccion = calcularRafagaCPU(accion);
 		for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
@@ -422,7 +421,7 @@ void ejecutar() {
 		}
 		exec = entrenador;
 		list_remove(colaReady, posicionProximoAEjecutar);
-		realizarAccion(accion, 0);
+		realizarAccion(entrenador, 0);
 	} else {
 		printf("Algoritmo incorrecto/n");
 	}
@@ -432,15 +431,18 @@ int calcularRafagaCPU(accion) {
 
 }
 
-void realizarAccion(char* accion, int tiempo) {
-	int accionInt = -1;
-	if (strcmp("AtraparPokemon", accion)) {
-
-	}
-	switch(accionInt) {
-	case 0:
-
-	break;
+void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
+	char arrayAccion[50];
+	char* accion = entrenador->proximaAccion;
+	strcpy(arrayAccion,accion);
+	char* accionStr = strtok(arrayAccion, " ");
+	if (strcmp("AtraparPokemon", accionStr) == 0) {
+		char* pokemonAAtrapar = strtok(NULL, " ");
+		char* posicionXPokemon = strtok(NULL, " ");
+		char* posicionYPokemon = strtok(NULL, " ");
+		int posicionXInt = atoi(posicionXPokemon);
+		int posicionYInt = atoi(posicionYPokemon);
+		moverEntrenador(entrenador, posicionXInt, posicionYInt);
 	}
 }
 
