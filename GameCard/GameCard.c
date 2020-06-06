@@ -13,7 +13,7 @@ int main(){//int argc, char **argv) {
 	iniciar_log();
 	leer_configFile(CONFIG_PATH);
 
-
+//chequear que el punto de montaje del archivo esté creado, sino crearlo
 //YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
 		//crearBloques();
 	//creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques);
@@ -29,7 +29,7 @@ int main(){//int argc, char **argv) {
 	Pokemon->nombre_pokemon=string_duplicate("Charmander");
 	Pokemon->id_mensaje = 1;
 	Pokemon->cantidad = 10;
-	Pokemon->posicion_x = 10;
+	Pokemon->posicion_x = 6;
 	Pokemon->posicion_y = 5;
 
 	NewPokemon(Pokemon);

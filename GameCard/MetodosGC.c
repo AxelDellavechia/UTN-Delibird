@@ -1,6 +1,7 @@
 #include "MetodosGC.h"
 #include <commons/config.h>
 #include "src/sockets.h"
+#include <string.h>
 
 
 
@@ -26,14 +27,24 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				step = 0;
 				break;
 			}
-	case OK:{ //el Pokemon existe y se puede utilizar
+	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
 				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
 				leerBloques(Pokemon, &dataPokemon);
-				for(int j = 0; j < list_size(dataPokemon.positions); j++ ){
-					 t_positions* pos = malloc (sizeof(t_positions));
-					pos = list_get(dataPokemon.positions,j);
-					printf("\nPosicion: %s  Cantidad:%i",pos->LatLong, pos->Cantidad);
-				}
+				step = NW_UPDATE_POS;
+				break;
+			}
+	case NW_UPDATE_POS:{
+				t_positions* newPosition = malloc (sizeof(t_positions));;
+
+				newPosition->Pos_x = Pokemon->posicion_x;
+				newPosition->Pos_y = Pokemon->posicion_y;
+				newPosition->Cantidad = Pokemon->cantidad;
+				InsertUpdatePosition(newPosition, &dataPokemon);
+				step = NW_SAVE;
+				break;
+			}
+	case NW_SAVE:{
+				SavePositionInBlocks(&dataPokemon);
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
@@ -47,8 +58,21 @@ return OK; //retornar resultado
 
 
 
+void InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 
-
+	for(int j = 0; j < list_size(posPokemon->positions) ; j++ ){
+		t_positions* pos = malloc (sizeof(t_positions));
+		pos = list_get(posPokemon->positions,j);
+		if(pos->Pos_x == newPos->Pos_x && pos->Pos_y == newPos->Pos_y){
+			newPos->Cantidad = pos->Cantidad + newPos->Cantidad;
+			list_remove(posPokemon->positions,j);
+			if(newPos->Cantidad > 0)
+				list_add(posPokemon->positions,newPos);
+			return;
+		}
+	}
+	list_add(posPokemon->positions,newPos);
+}
 
 
 void leerFiles(){
@@ -76,6 +100,8 @@ void leerFiles(){
 		  }
 
 }
+
+
 
 void cargarArbolDirectorios(char* Directorio){
 
@@ -240,7 +266,13 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 	for(int j = 0; j < list_size(dirList); j++ ){
 			tempPokemon = list_get(dirList,j);
 			if ((string_equals_ignore_case(tempPokemon->file,Pokemon->nombre_pokemon)) && (string_equals_ignore_case(tempPokemon->type,"N" ))){   //Recorriendo se fija si encuentra el archivo en el FS
-				dataPokemon->positions = list_create();
+
+
+				char* lecturaBloques = string_new();
+				lecturaBloques = (char*) malloc (tempPokemon->size);//config_MetaData->tamanio_bloques * list_size(tempPokemon->blocks));
+				strcpy(lecturaBloques,"");
+				int tamanio_a_leer = tempPokemon->size;
+
 				for(int i = 0; i< list_size(tempPokemon->blocks); i++){
 					FILE* block;
 					char* bloque = list_get(tempPokemon->blocks,i);
@@ -249,94 +281,119 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 					strcat(dirBloque,bloque);
 					strcat(dirBloque,".bin");
 					block = fopen(dirBloque,"r");
-				    //Lee línea a línea para cargar todas las posiciones en la data del Pokemon
-				    char* linea = malloc (config_MetaData->tamanio_bloques);
-				    tempPokemon->positions = list_create();
-					while(fgets(linea, config_MetaData->tamanio_bloques, (FILE*) block)) {
-				        t_positions* pos = malloc (sizeof(t_positions));
-				        char** posCant = string_n_split(linea, 2, "=");
-				        pos->LatLong = malloc(string_length(posCant[0]));
-				        strcpy(pos->LatLong,posCant[0]);
-				        pos->Cantidad = atoi(posCant[1]);
-				        list_add(tempPokemon->positions, pos);
-				    }
 
-					list_add_all(dataPokemon->positions, tempPokemon->positions);
-				    fclose(block);
+					int desplazamiento = 0;
+					char cadena[config_MetaData->tamanio_bloques];
+					 while (fgets(cadena,config_MetaData->tamanio_bloques,(FILE*) block) != NULL)
+						 strcat(lecturaBloques,cadena);
 
+					 fclose(block);
 				}
 
+
+				tempPokemon->positions = list_create();
+				char** strPos = string_split(lecturaBloques,"\n");
+				t_list* tempPos = list_create();
+				int i = 0;
+				while(strPos[i] != NULL){
+					t_positions* pos = malloc (sizeof(t_positions));
+					char** posCant = string_split(strPos[i], "=");
+					char** coordenadas = string_split(posCant[0],"-");
+					pos->Pos_x=atoi(coordenadas[0]);
+					pos->Pos_y =atoi(coordenadas[1]);
+					pos->Cantidad = atoi(posCant[1]);
+					list_add(tempPokemon->positions, pos);
+					i++;
+
+				}
+				dataPokemon->positions = list_create();
+				list_add_all(dataPokemon->positions, tempPokemon->positions);
+
 			}
 		}
 }
 
+int SavePositionInBlocks(t_files *dataPokemon){
+	//Limpio los bloques existentes. Reescribo todos los bloques para evitar fragmentación interna,
+	//o que el tamaño del bloque se exceda del límite.
+	CleanBlocks(dataPokemon);
+	char* buffer = string_new();
+	serializarPosiciones(&buffer,dataPokemon);
+	printf("\n%s",buffer);
+	printf("\n%s",buffer);
 
-/*
-void insertPosition(cola_NEW_POKEMON* Pokemon)
-{
+}
 
-	char* row = string_new();
-	row = malloc (1+ string_length(Pokemon->posicion_x) + string_length(Pokemon->posicion_y) + string_length(Pokemon->cantidad) + string_length("-=\n"));
+void CleanBlocks(t_files *dataPokemon){
 
-	strcpy(row,Pokemon->posicion_x);
-	strcat(row,"-");
-	strcat(row,Pokemon->posicion_y);
-	strcat(row,"=");
-	strcat(row,Pokemon->cantidad);
+	for(int i = 0; i< list_size(dataPokemon->blocks); i++){
+		FILE* block;
+		char* bloque = list_get(dataPokemon->blocks,i);
+		char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+		strcpy(dirBloque,PuntoMontaje->BLOCKS);
+		strcat(dirBloque,bloque);
+		strcat(dirBloque,".bin");
+		block = fopen(dirBloque,"w");
+		fclose(block);
+	}
+}
 
+void serializarPosiciones(char** buffer, t_files *dataPokemon){
 
- 		ptr_aux = realloc(ptr,tamanio_total + 1 );
-		ptr = ptr_aux;
-		ptr[tamanio_total] = '\0';
-		//printf("ptr finalll: %s\n",ptr);
-
-		ptr_aux = NULL;
-		int tam_bloque = config_MetaData.tamanio_bloques;
-		//printf("tam_bloque: %i\n",tam_bloque);
-		int tamanio_a_grabar = tamanio_total ;
-		int desplazamiento = 0;
-
-		//Una vez que tengo el buffer con la info de una tabla los guardo en los
-		//bloques, guardando los nros de bloques utilizados
-		while(tamanio_a_grabar > 0){
-			int bloque_libre = proximobloqueLibre();
-			printf("bloque_libre : %i\n",bloque_libre);
-
-			if(tamanio_a_grabar >= tam_bloque){//Si lo que voy a grabar ocupa mas de un bloque
-				ptr_aux = malloc(tam_bloque + 1);
-				memcpy(ptr_aux,ptr + desplazamiento,tam_bloque);
-				memcpy(ptr_aux + tam_bloque,"\0",CHAR);
-				grabarBloque(ptr_aux,bloque_libre);
-				tamanio_a_grabar -= tam_bloque;
-				desplazamiento += tam_bloque;
-			}else{//Si lo que voy a grabar ocupa menos de un bloque
-				ptr_aux = malloc(tamanio_a_grabar + 1);
-				memcpy(ptr_aux,ptr + desplazamiento,tamanio_a_grabar);
-				memcpy(ptr_aux + tamanio_a_grabar,"\0",CHAR);
-				grabarBloque(ptr_aux,bloque_libre);
-				tamanio_a_grabar -= tam_bloque;
-				desplazamiento += tamanio_a_grabar;
-			}
-
-			free(ptr_aux);
-			ptr_aux =  NULL;
-
-			int* nro_particion = malloc(INT);
-			*nro_particion = bloque_libre;
-
-			list_add(lista_bloques,nro_particion);
-
-
+	for(int j = 0; j < list_size(dataPokemon->positions) ; j++ ){
+			t_positions* pos = malloc (sizeof(t_positions));
+			pos = list_get(dataPokemon->positions,j);
+			char* temp = (char*) malloc(string_length(string_itoa(pos->Pos_x)) + string_length("-") +string_length(string_itoa(pos->Pos_y)) + string_length("=") +string_length(string_itoa(pos->Cantidad))+ string_length("\n"));
+			strcpy(temp,string_itoa(pos->Pos_x));
+			strcat(temp,"-");
+			strcat(temp,string_itoa(pos->Pos_y));
+			strcat(temp,"=");
+			strcat(temp,string_itoa(pos->Cantidad));
+			strcat(temp,"\n");
+			*buffer = realloc(*buffer,string_length(*buffer) + string_length(temp) + 1);
+			//strcat(buffer,temp);
+			string_append(buffer,temp);
 		}
 
-		dump_crear_tmp(tabla->nombre_tabla,tamanio_total,lista_bloques);
+}
 
 
+int grabarBloque(char* data, int bloque)
+{
+	FILE *block;
+
+	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+	strcpy(dirBloque,PuntoMontaje->BLOCKS);
+	strcat(dirBloque,bloque);
+	strcat(dirBloque,".bin");
+
+	block = fopen (dirBloque, "w");
+	//printf("dirBloque: %s\n",dirBloque);
+	if(block != NULL)
+	{
+		fprintf(block,"%s",data);
+		bitarray_set_bit(bitarray, bloque);
+		fclose (block);
+	}else
+	{
+		printf ("\nNo se pudo grabar el bloque %i", bloque);
 	}
 
-	limpiar_memtable();
 
+	int acum=0;
+	int i;
+	for(i=0; i<string_length(data); i++) // se fija cuantas veces aparece el \n para no contarlo entre los bytes que dumpeo.
+	{
+		 if(data[i]=="\n")
+		 {
+	        acum++;
+
+		 }
+	}
+
+
+	free(dirBloque);
+
+
+	return string_length(data) - acum;
 }
-
-*/
-

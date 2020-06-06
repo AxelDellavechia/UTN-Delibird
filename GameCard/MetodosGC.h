@@ -4,6 +4,9 @@
 #include "src/mensajeria.h"
 
 #define OPEN 2
+#define NW_UPDATE_POS 3
+#define NW_INSERT_POS 4
+#define NW_SAVE 5
 
 typedef struct{
 	char* file;
@@ -16,7 +19,8 @@ typedef struct{
 }t_files;
 
 typedef struct{
-	char* LatLong;
+	int Pos_x;
+	int Pos_y;
 	int Cantidad;
 } t_positions;
 
