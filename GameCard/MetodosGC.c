@@ -44,7 +44,10 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				break;
 			}
 	case NW_SAVE:{
-				SavePositionInBlocks(&dataPokemon);
+				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				update_metaData_files(&dataPokemon);
+				updateStatusFile(&dataPokemon,"N");
+				step= ERROR; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
@@ -193,6 +196,39 @@ int leer_metaData_files(){
 	return 0;
 }
 
+int update_metaData_files(t_files *dataPokemon){
+
+	t_config *MetadataFiles;
+	char* dirMetadata = string_new();
+	int res = getMetadataDir(&dirMetadata, dataPokemon);
+	MetadataFiles = config_create(dirMetadata);
+
+	if (config_has_property(MetadataFiles, "SIZE")){
+			char* tempSize = malloc(string_length(string_itoa(dataPokemon->size)));
+			strcpy(tempSize,string_itoa(dataPokemon->size));
+			config_set_value(MetadataFiles,"SIZE", tempSize);
+			free(tempSize);
+	}
+	if (config_has_property(MetadataFiles, "BLOCKS")){
+		char* tempBlocks = (char*) malloc(string_length("[")+string_length("]"));
+		strcpy(tempBlocks,"[");
+		for(int i = 0; i< list_size(dataPokemon->blocks); i++){
+			char* bloque = list_get(dataPokemon->blocks,i);
+			tempBlocks= realloc(tempBlocks, strlen(tempBlocks) + strlen(bloque));
+			strcat(tempBlocks,bloque);
+			if(i+1 < list_size(dataPokemon->blocks) ){
+				tempBlocks= realloc(tempBlocks, strlen(tempBlocks) + strlen(","));
+				strcat(tempBlocks,",");
+			}
+		}
+		strcat(tempBlocks,"]");
+		config_save(MetadataFiles);
+
+	}
+
+
+}
+
 
 
 
@@ -318,10 +354,47 @@ int SavePositionInBlocks(t_files *dataPokemon){
 	//o que el tamaño del bloque se exceda del límite.
 	CleanBlocks(dataPokemon);
 	char* buffer = string_new();
+	int bloquesUsados = 0;
+	bloquesUsados = list_size(dataPokemon->blocks);
 	serializarPosiciones(&buffer,dataPokemon);
-	printf("\n%s",buffer);
-	printf("\n%s",buffer);
 
+	int sizeBuffer = string_length(buffer);
+	int resultBuffer = sizeBuffer;
+	//Me fijo cuantos bloques necesito para grabar la información actualizada.
+	int bloquesNecesarios = 0;
+	if((string_length(buffer)%config_MetaData->tamanio_bloques)==0){
+		bloquesNecesarios = sizeBuffer/config_MetaData->tamanio_bloques;
+	}else{
+		bloquesNecesarios = (sizeBuffer/config_MetaData->tamanio_bloques) + 1;
+	}
+
+
+	//Teniendo armado el buffer que voy a grabar, me fijo si necesito mas bloques
+
+	if(bloquesNecesarios == bloquesUsados){ //si necesito los mismos bloques, los reutilizo
+
+		int desplazamiento = 0;
+				for(int i = 0; i<bloquesNecesarios;i++)
+				{
+					char* bloque = list_get(dataPokemon->blocks,i);
+					int intBloque =atoi(bloque);
+					char* tempData = string_substring(buffer, desplazamiento,config_MetaData->tamanio_bloques);
+					grabarBloque(tempData,intBloque);
+					free(tempData);
+					sizeBuffer -= config_MetaData->tamanio_bloques;
+					desplazamiento += config_MetaData->tamanio_bloques;
+				}
+	}
+	if(bloquesNecesarios < bloquesUsados){
+		printf("nada");	//si necesito menos bloques libero la cantidad de menos que necesito y vuelvo a grabar todo
+	}
+	if(bloquesNecesarios > bloquesUsados){
+		//si necesito mas bloques, pido uno nuevo para ya reservarlo y
+		//grabo de nuevo los que ya tengo usados mas el nuevo
+		printf("nada");
+	}
+
+return resultBuffer;
 }
 
 void CleanBlocks(t_files *dataPokemon){
@@ -353,7 +426,8 @@ void serializarPosiciones(char** buffer, t_files *dataPokemon){
 			*buffer = realloc(*buffer,string_length(*buffer) + string_length(temp) + 1);
 			//strcat(buffer,temp);
 			string_append(buffer,temp);
-		}
+
+	}
 
 }
 
@@ -362,9 +436,9 @@ int grabarBloque(char* data, int bloque)
 {
 	FILE *block;
 
-	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ bloque+ string_length(".bin"));
 	strcpy(dirBloque,PuntoMontaje->BLOCKS);
-	strcat(dirBloque,bloque);
+	strcat(dirBloque,string_itoa(bloque));
 	strcat(dirBloque,".bin");
 
 	block = fopen (dirBloque, "w");
