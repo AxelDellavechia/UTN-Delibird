@@ -43,6 +43,7 @@ int cantHilos;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t * hilo;
+pthread_t hilo_coneccion;
 
 fd_set setMaestro;
 
@@ -114,6 +115,7 @@ int calcularRafagaCPU(accion);
 void planificador();
 void crearHilos();
 void consola();
+void reconectar();
 void bloquearSemaforoEnt( t_list * lista , int indice );
 void desBloquearSemaforoEnt( t_list * lista , int indice );
 

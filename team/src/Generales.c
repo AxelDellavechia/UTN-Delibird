@@ -200,12 +200,21 @@ void inicializar_semaforos(){
 }
 
 void crearHilos() {
+
 	hilo_servidor = 0;
 	hilo_consola = 0;
+
+
 	pthread_create(&hilo_servidor, NULL, (void*) planificador, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	pthread_create(&hilo_coneccion, NULL, (void*) reconectar, NULL);
+
+	pthread_mutex_init(&hilo_coneccion,NULL);
+	pthread_mutex_lock(&hilo_coneccion);
+
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
+	pthread_join(hilo_coneccion, NULL);
 
 	//tener un thread para manejar la reconexión cada x segundos , es un connect por cada msj
 }
@@ -392,5 +401,10 @@ void thread_Entrenador(entrenadorPokemon * elEntrenador) {
 	// VER SITUACIÓN DE EJECUTACIÓN.
 	pthread_mutex_unlock(&elEntrenador->semaforMutex);
 
+}
+
+void reconectar(){
+	pthread_mutex_lock(&hilo_coneccion);
+	pthread_mutex_unlock(&hilo_coneccion);
 }
 
