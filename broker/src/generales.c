@@ -193,8 +193,77 @@ void servidor() {
 
 int thread_Broker(int fdCliente) {
 
-	aplicar_protocolo_recibir(fdCliente , logger); // recibo mensajes
+	int head , bufferTam  ;
 
+	recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+
+						void * mensaje = malloc(bufferTam);
+
+						recibirMensaje(fdCliente , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+						log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+
+						log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+
+						log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
+						 	 /*
+							switch( head ){
+
+										case NEW_POKEMON :{
+											cola_NEW_POKEMON  new_poke ;
+											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+											break;
+										}
+										case CATCH_POKEMON :{
+																cola_CATCH_POKEMON cath_poke;
+																deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+																log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+																break;
+										}
+										case GET_POKEMON :{
+											cola_GET_POKEMON get_poke ;
+											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+											break;
+										}
+
+										case APPEARED_POKEMON :{
+											cola_APPEARED_POKEMON app_poke;
+											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
+
+											//responder por localized_pokemon
+											log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+											free(app_poke.nombre_pokemon);
+											break;
+										}
+
+										case CAUGHT_POKEMON :{
+											cola_CAUGHT_POKEMON caug_poke ;
+
+											//responde por caught_pokemon
+											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
+											log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+											break;
+										}
+
+										case LOCALIZED_POKEMON :{
+											cola_LOCALIZED_POKEMON loc_poke ;
+											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
+											for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
+											log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+											i++;
+											}
+											desBloquearSemaforoEnt(colaNew,1);
+											free(loc_poke.nombre_pokemon);
+											list_destroy(loc_poke.lista_posiciones);
+											break;
+										}
+										default:
+											log_info(logger, "Instrucción no reconocida");
+											break;
+									}
+									*/
 	pthread_mutex_lock(&mxHilos);
 	pthread_detach( pthread_self() );
 	pthread_mutex_unlock(&mxHilos);

@@ -39,16 +39,18 @@ int fdBroker;
 int ciclosEnCPU;
 int fdTeam;
 int cantHilos;
+int conBroker;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t * hilo;
-pthread_t hilo_coneccion;
+pthread_t hilo_conexion;
 
 fd_set setMaestro;
 
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
+pthread_mutex_t h_reconectar;
 
 pthread_cond_t laCondicion ;
 

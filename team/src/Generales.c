@@ -196,6 +196,7 @@ void inicializar_semaforos(){
 	//inicializo semaforos de nodos
 	pthread_mutex_init(&mxSocketsFD, NULL);
 	pthread_mutex_init(&mxHilos, NULL);
+	pthread_mutex_init(&h_reconectar,NULL);
 
 }
 
@@ -207,14 +208,13 @@ void crearHilos() {
 
 	pthread_create(&hilo_servidor, NULL, (void*) planificador, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-	pthread_create(&hilo_coneccion, NULL, (void*) reconectar, NULL);
+	pthread_create(&hilo_conexion, NULL, (void*) reconectar, NULL);
 
-	pthread_mutex_init(&hilo_coneccion,NULL);
-	pthread_mutex_lock(&hilo_coneccion);
+	pthread_mutex_lock(&h_reconectar);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
-	pthread_join(hilo_coneccion, NULL);
+	pthread_join(hilo_conexion, NULL);
 
 	//tener un thread para manejar la reconexión cada x segundos , es un connect por cada msj
 }
@@ -271,6 +271,12 @@ void desBloquearSemaforoEnt( t_list * lista , int indice ) {
 	list_add_in_index(lista,indice,elEntrenador);
 }
 
+void tiempoEspera(){
+
+
+
+}
+
 
 
 void planificador() {
@@ -282,9 +288,16 @@ void planificador() {
 
 	fdTeam = nuevoSocket();
 
+	fdBroker = nuevoSocket();
+
 	asociarSocket(fdTeam, configFile->puertoTeam);
 
 	escucharSocket(fdTeam, CONEXIONES_PERMITIDAS);
+
+	conBroker = conectarCon(fdBroker,configFile->ipBroker,configFile->puertoBroker,logger);
+
+	if ( conBroker == 1) handshake_cliente(fdBroker,"Team","Broker",logger);
+	else pthread_mutex_unlock(&h_reconectar);
 
 	log_info(logger," Escuchando conexiones");
 
@@ -315,6 +328,7 @@ void planificador() {
 				cerrarSocket(fdTeam);
 
 			}
+
 		}
 
 		recibirProtocolo(&head,&bufferTam,comandoNuevo); // recibo head y tamaño de msj
@@ -404,7 +418,19 @@ void thread_Entrenador(entrenadorPokemon * elEntrenador) {
 }
 
 void reconectar(){
-	pthread_mutex_lock(&hilo_coneccion);
-	pthread_mutex_unlock(&hilo_coneccion);
+
+	pthread_mutex_lock(&h_reconectar);
+
+	while ( conBroker != 1 ) {
+
+		sleep(configFile->tiempoReconexion);
+
+		conBroker = conectarCon(fdBroker,configFile->ipBroker,configFile->puertoBroker,logger);
+
+	}
+
+	handshake_cliente(fdBroker,"Team","Broker",logger);
+
+	pthread_mutex_unlock(&h_reconectar);
 }
 
