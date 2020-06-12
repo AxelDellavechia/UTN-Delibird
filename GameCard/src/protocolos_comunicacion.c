@@ -1,3 +1,4 @@
+/*
 #include "protocolos_comunicacion.h"
 
 int validar_recive(int status, int modo) {
@@ -97,12 +98,12 @@ int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEs
 
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger) {
 
-		/*
-		log_info(logger,"metodo conectarCon");
-		log_info(logger,"fdServer:%d", fdServer);
-		log_info(logger,"ipServer:%s", ipServer);
-		log_info(logger,"portServer:%d", portServer);
-		 */
+
+		//log_info(logger,"metodo conectarCon");
+		//log_info(logger,"fdServer:%d", fdServer);
+		//log_info(logger,"ipServer:%s", ipServer);
+		//log_info(logger,"portServer:%d", portServer);
+
 		int conexion = conectarSocket(fdServer, ipServer, portServer);
 
 		if(conexion == ERROR){
@@ -129,16 +130,16 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 	cola_GET_POKEMON * get_pokemon = (cola_GET_POKEMON *) mensaje;
 	cola_LOCALIZED_POKEMON * localized_pokemon = (cola_LOCALIZED_POKEMON *) mensaje;
 
-	/*
-			typedef struct{
-				uint32_t id_mensaje;
-				char* nombre_pokemon;
-				uint32_t  tamanio_nombre;
-				uint32_t  posicion_x;
-				uint32_t posicion_y;
-				uint32_t cantidad;
-			}cola_NEW_POKEMON;
-	*/
+
+			//typedef struct{
+				//uint32_t id_mensaje;
+				//char* nombre_pokemon;
+				//uint32_t  tamanio_nombre;
+				//uint32_t  posicion_x;
+				//uint32_t posicion_y;
+				//uint32_t cantidad;
+			//}cola_NEW_POKEMON;
+
 	switch(head) {
 
 	case NEW_POKEMON: {
@@ -161,15 +162,15 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 				break;
 
 	}
-	/*
-		typedef struct{
-			uint32_t id_mensaje;
-			char* nombre_pokemon;
-			uint32_t  tamanio_nombre;
-			uint32_t posicion_x;
-			uint32_t posicion_y;
-		}cola_APPEARED_POKEMON;
-	*/
+
+		//typedef struct{
+			//uint32_t id_mensaje;
+			//char* nombre_pokemon;
+			//uint32_t  tamanio_nombre;
+			//uint32_t posicion_x;
+			//uint32_t posicion_y;
+		//}cola_APPEARED_POKEMON;
+
 
 	case APPEARED_POKEMON: {
 
@@ -186,15 +187,14 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 
 		break;
 	}
-	/*
-		typedef struct{
-			uint32_t id_mensaje;
-			char* nombre_pokemon;
-			uint32_t  tamanio_nombre;
-			uint32_t posicion_x;
-			uint32_t posicion_y;
-		}cola_CATCH_POKEMON;
-	 */
+
+		//typedef struct{
+			//uint32_t id_mensaje;
+			//char* nombre_pokemon;
+			//uint32_t  tamanio_nombre;
+			//uint32_t posicion_x;
+			//uint32_t posicion_y;
+		//}cola_CATCH_POKEMON;
 
 	case CATCH_POKEMON: {
 
@@ -211,12 +211,12 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 
 		break;
 	}
-	/*
-		typedef struct{
-			uint32_t id_mensaje;
-			uint32_t atrapo_pokemon;
-		}cola_CAUGHT_POKEMON;
-	 */
+
+		//typedef struct{
+			//uint32_t id_mensaje;
+			//uint32_t atrapo_pokemon;
+		//}cola_CAUGHT_POKEMON;
+
 	case CAUGHT_POKEMON: {
 
 
@@ -228,13 +228,13 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 
 				break;
 	}
-	/*
-		typedef struct{
-			uint32_t id_mensaje;
-			char* nombre_pokemon;
-			uint32_t  tamanio_nombre;
-		}cola_GET_POKEMON;
-	 */
+
+		//typedef struct{
+			//uint32_t id_mensaje;
+			//char* nombre_pokemon;
+			//uint32_t  tamanio_nombre;
+		//}cola_GET_POKEMON;
+
 	case GET_POKEMON: {
 
 
@@ -247,15 +247,15 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += get_pokemon->tamanio_nombre;
 		break;
 	}
-	/*
-		typedef struct{
-			uint32_t id_mensaje;
-			char* nombre_pokemon;
-			uint32_t  tamanio_nombre;
-			uint32_t cantidad;
-			t_list* lista_posiciones;
-		}cola_LOCALIZED_POKEMON;
-	 */
+
+		//typedef struct{
+			//uint32_t id_mensaje;
+			//char* nombre_pokemon;
+			//uint32_t  tamanio_nombre;
+			//uint32_t cantidad;
+			//t_list* lista_posiciones;
+		//}cola_LOCALIZED_POKEMON;
+
 	case LOCALIZED_POKEMON: {
 
 		int desplazamiento = 0;
@@ -394,19 +394,19 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 
 	int desplazamiento = 0;
 
-	/*
-	 	int desplazamiento = 0;
-		memcpy(buffer+desplazamiento,&localized_pokemon->id_mensaje,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
-		desplazamiento += localized_pokemon->tamanio_nombre;
-		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->lista_posiciones,sizeof(uint32_t) * list_size(localized_pokemon->lista_posiciones));
-		desplazamiento += sizeof(uint32_t);
-	*/
+
+	 	//int desplazamiento = 0;
+		//memcpy(buffer+desplazamiento,&localized_pokemon->id_mensaje,sizeof(uint32_t));
+		//desplazamiento += sizeof(uint32_t);
+		//memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
+		//desplazamiento += sizeof(uint32_t);
+		//memcpy(buffer+desplazamiento,&localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
+		//desplazamiento += localized_pokemon->tamanio_nombre;
+		//memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
+		//desplazamiento += sizeof(uint32_t);
+		//memcpy(buffer+desplazamiento,&localized_pokemon->lista_posiciones,sizeof(uint32_t) * list_size(localized_pokemon->lista_posiciones));
+		//desplazamiento += sizeof(uint32_t);
+
 
 	loc_poke_des->nombre_pokemon = malloc(1);
 	loc_poke_des->lista_posiciones = list_create();
@@ -416,11 +416,11 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 
 							memcpy(&loc_poke_des->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-							/*
-							 	cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
-								memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
-								desplazamiento += cat_poke->tamanio_nombre;
-							 */
+
+							 	//cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
+								//memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
+								//desplazamiento += cat_poke->tamanio_nombre;
+
 							loc_poke_des->nombre_pokemon = realloc(loc_poke_des->nombre_pokemon,loc_poke_des->tamanio_nombre);
 							memcpy(loc_poke_des->nombre_pokemon,(buffer+desplazamiento),loc_poke_des->tamanio_nombre);
 							desplazamiento += loc_poke_des->tamanio_nombre;
@@ -594,3 +594,5 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 
 	return enviados;
 }
+
+*/

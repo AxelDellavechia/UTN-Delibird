@@ -14,6 +14,7 @@ typedef enum {
 	CAUGHT_POKEMON,
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
+	ACK,
 	FIN_DEL_PROTOCOLO
 } protocolo;
 
@@ -32,6 +33,8 @@ int validar_conexion(int ret, int modo,t_log* logger);
 int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger);
 int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) ;
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
+
+void * recibirACK(int fdEmisor );
 
 void * serealizar(int head, void * mensaje ,  int tamanio);
 

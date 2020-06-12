@@ -11,11 +11,14 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <pthread.h>
+#include "../digiCommons/src/protocolos_comunicacion.h"
 
 
 
-#define CONFIG_PATH "./config.txt"
-#define LOG_PATH "./GAMECARD.log"
+
+#define CONFIG_PATH "../config.txt"
+#define LOG_PATH "../GAMECARD.log"
+#define CONFIG_PATH_METADATA "../configGBM.txt"
 #define CONEXIONES_PERMITIDAS 100
 
 #define FALSE 0
@@ -56,6 +59,7 @@ void crearPuntoMontaje();
 void consola();
 void servidor();
 void cargarArbolDirectorios(char* Directorio);
+void thread_cliente(int fdSocket);
 
 ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
@@ -66,6 +70,10 @@ t_log* logger;
 t_bitarray *bitarray;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
+
+pthread_mutex_t mxHilos;
+pthread_mutex_t mxSocketsFD;
+pthread_mutex_t h_reconectar;
 
 int cantFiles;
 int comandoIn;

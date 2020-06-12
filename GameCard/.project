@@ -5,6 +5,7 @@
 	<projects>
 		<project>so-commons-library</project>
 		<project>tp-2020-1c-Digimon</project>
+		<project>digiCommons</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

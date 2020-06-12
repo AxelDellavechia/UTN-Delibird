@@ -1,10 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "Team.h"
 
 int main(void) {
 
-	iniciar_log();
+	setlocale(LC_ALL,"");
 
-	inicializar_semaforos();
+	iniciar_log();
 
 	crearEstructuras();
 
@@ -12,9 +14,10 @@ int main(void) {
 
 	iniciar_logCatedra();
 
+	inicializar_semaforos();
+
 	crearHilos();
 
-	//return EXIT_SUCCESS;
 }
 
 

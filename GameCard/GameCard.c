@@ -10,19 +10,22 @@
 
 
 int main(){//int argc, char **argv) {
+
 	iniciar_log();
+
 	leer_configFile(CONFIG_PATH);
 
-//chequear que el punto de montaje del archivo esté creado, sino crearlo
-//YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
-		//crearBloques();
+	//chequear que el punto de montaje del archivo esté creado, sino crearlo
+	//YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
+	//crearBloques();
 	//creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques);
 
 
 	crearBitmap();
+
 	//leerFiles();
 
-	/* CASO DE PRUEBA */
+	/* CASO DE PRUEBA
 	cola_NEW_POKEMON* Pokemon;
 	Pokemon = reservarMemoria(sizeof(cola_NEW_POKEMON));
 
@@ -33,7 +36,8 @@ int main(){//int argc, char **argv) {
 	Pokemon->posicion_y = 5;
 
 	NewPokemon(Pokemon);
-//	crearHilos();
+	*/
+	crearHilos();
 
 	//return EXIT_SUCCESS;
 }

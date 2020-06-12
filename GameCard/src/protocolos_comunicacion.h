@@ -1,3 +1,4 @@
+/*
 #ifndef SRC_PROTOCOLOS_COMUNICACION_H_
 #define SRC_PROTOCOLOS_COMUNICACION_H_
 
@@ -52,3 +53,4 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
 int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) ;
 
 #endif /* SRC_PROTOCOLOS_COMUNICACION_H_ */
+*/

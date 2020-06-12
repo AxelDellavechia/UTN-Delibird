@@ -103,7 +103,13 @@ int leer_metaData_principal(){
 	config_MetaData = reservarMemoria(sizeof(t_config_MetaData));
 
 	t_config *archivo_MetaData;
+
+	archivo_MetaData = reservarMemoria (sizeof(t_config));
+
+	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
+
 	archivo_MetaData=config_create(PuntoMontaje->METADATA_FILE);
+
 	config_MetaData->cantidad_bloques=config_get_int_value(archivo_MetaData,"BLOCKS");
     config_MetaData->magic_number=string_duplicate(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
 	config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
@@ -167,7 +173,7 @@ void consola() {
 */
 }
 
-
+/*
 void servidor() {
 
 	comandoIn = nuevoSocket();
@@ -215,8 +221,7 @@ void servidor() {
 								return;
 							}
 
-							conexionNueva = handshake_servidor(comandoNuevo, KEY_HANDSHAKE);
-							if( validar_conexion(conexionNueva, 0) == FALSE ) {
+							if( ! validar_conexion(conexionNueva, 0 , logger) ) {
 				//					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
 									FD_CLR(i, &setMaestro); // borra el file descriptor del set
 				//					pthread_mutex_unlock(&mxSocketsFD);
@@ -231,21 +236,129 @@ void servidor() {
 						}
 						}else { // Hay actividad nueva en algún socket conectado
 							//SI RECIBO TRUE EN CONEXIONNUEVA, ABRO UN HILO POR CADA UNO QUE SE CONECTE
-						/*	pthread_t hilo_SacCli;
+							pthread_t hilo_thread;
 							pthread_mutex_lock(&mxHilos);
-							pthread_create(&hilo_SacCli, NULL, (void*) thread_SacCli, i);
+							pthread_create(&hilo_thread, NULL, (void*) thread_cliente, i);
 							pthread_mutex_unlock(&mxHilos);
-*/
-						printf("Ingresó un nuevo pedido, debo crear un hilo");
 						}
 					}
 
 		}
 		//free(comandoNuevo);
+	}
+}
+*/
+
+void servidor() {
+
+	comandoIn = nuevoSocket();
+	asociarSocket(comandoIn, config_File->PUERTO_GAMECARD);
+	escucharSocket(comandoIn, CONEXIONES_PERMITIDAS);
+
+	log_info(logger," Escuchando conexiones");
+
+	while(TRUE) {
+
+		int conexionNueva = 0;
+		int comandoNuevo;//= reservarMemoria(INT);
+
+		while(conexionNueva == 0) {
+
+			comandoNuevo = aceptarConexionSocket(comandoIn);
+
+			// handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger)
+			conexionNueva = handshake_servidor (comandoNuevo, KEY_HANDSHAKE , "Broker", logger) ;
+
+
+			if( ! validar_conexion(conexionNueva, 0,logger) ) {
+					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+					cerrarSocket(comandoIn);
+					pthread_mutex_unlock(&mxSocketsFD);
+			}
+		}
+		pthread_t hilo;
+		pthread_mutex_lock(&mxHilos);
+		pthread_create(&hilo, NULL, (void*) thread_cliente, comandoNuevo);
+		pthread_mutex_unlock(&mxHilos);
 
 	}
+}
 
+void thread_cliente(int fdSocket) {
 
+	int head , bufferTam  ;
+
+	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
+
+	void * mensaje = malloc(bufferTam);
+
+	recibirMensaje(fdSocket , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+	log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+
+	log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+
+	log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
+
+							switch( head ){
+
+										case NEW_POKEMON :{
+											cola_NEW_POKEMON  new_poke ;
+											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+											NewPokemon(new_poke);
+											break;
+										}
+										case CATCH_POKEMON :{
+											cola_CATCH_POKEMON cath_poke;
+											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+											break;
+										}
+										case GET_POKEMON :{
+											cola_GET_POKEMON get_poke ;
+											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+											break;
+										}
+
+										case APPEARED_POKEMON :{
+											cola_APPEARED_POKEMON app_poke;
+											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
+
+											//responder por localized_pokemon
+											log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+											free(app_poke.nombre_pokemon);
+											break;
+										}
+
+										case CAUGHT_POKEMON :{
+											cola_CAUGHT_POKEMON caug_poke ;
+											//responde por caught_pokemon
+											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
+											log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+											break;
+										}
+
+										case LOCALIZED_POKEMON :{
+											cola_LOCALIZED_POKEMON loc_poke ;
+											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
+											for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
+											log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+											i++;
+											}
+											free(loc_poke.nombre_pokemon);
+											list_destroy(loc_poke.lista_posiciones);
+											break;
+										}
+										default:
+											log_info(logger, "Instrucción no reconocida");
+											break;
+									}
+
+			pthread_mutex_lock(&mxHilos);
+			pthread_detach( pthread_self() );
+			pthread_mutex_unlock(&mxHilos);
 }
 
 /*
@@ -277,7 +390,7 @@ int handshake_servidor(int sockCliente, char *mensaje) {
 		return FALSE;
 	}
 	return FALSE; // No debería llegar acá pero lo pongo por el warning
-}*/
+}
 
 int validar_cliente(char *id) {
 	if( !strcmp(id, KEY_HANDSHAKE)) {
@@ -288,6 +401,7 @@ int validar_cliente(char *id) {
 		return FALSE;
 	}
 }
+*/
 
 void crearBloques(void)
 {
