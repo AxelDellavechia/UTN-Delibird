@@ -85,7 +85,7 @@ typedef struct entrenadorPokemon {
 	int posicion_y;
 	t_list* pokemonesAtrapados;
 	t_list* pokemonesObjetivo;
-	pthread_t semaforMutex;
+	pthread_mutex_t semaforMutex;
 	int ciclosEnCPU;
 	char* proximaAccion;
 	int idMsjEsperado;

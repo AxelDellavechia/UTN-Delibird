@@ -4,6 +4,8 @@
 
 int main(void) {
 
+	setlocale(LC_ALL,"");
+
 	iniciar_log();
 
 	crearEstructuras();

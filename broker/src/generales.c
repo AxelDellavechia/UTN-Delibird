@@ -206,8 +206,10 @@ int thread_Broker(int fdCliente) {
 						log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
 
 						log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
-						 	 /*
+
 							switch( head ){
+
+							setlocale(LC_ALL,"");
 
 										case NEW_POKEMON :{
 											cola_NEW_POKEMON  new_poke ;
@@ -254,7 +256,6 @@ int thread_Broker(int fdCliente) {
 											log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
 											i++;
 											}
-											desBloquearSemaforoEnt(colaNew,1);
 											free(loc_poke.nombre_pokemon);
 											list_destroy(loc_poke.lista_posiciones);
 											break;
@@ -263,7 +264,7 @@ int thread_Broker(int fdCliente) {
 											log_info(logger, "Instrucción no reconocida");
 											break;
 									}
-									*/
+
 	pthread_mutex_lock(&mxHilos);
 	pthread_detach( pthread_self() );
 	pthread_mutex_unlock(&mxHilos);

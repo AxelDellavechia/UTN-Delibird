@@ -25,7 +25,7 @@ void iniciar_log(){
 
 void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 
-	setlocale(LC_ALL,"");
+	//setlocale(LC_ALL,"");
 
 	int posicionLista = 0;
 
@@ -237,15 +237,20 @@ void consola() {
 	}
 
 	log_destroy(logger);
+	log_destroy(loggerCatedra);
 	free(comando);
 
 	pthread_detach(hilo_servidor);
+	pthread_cancel(hilo_servidor);
+
+	pthread_detach(hilo_conexion);
+	pthread_cancel(hilo_conexion);
 
 	for ( int i = 0 ; i < list_size(configFile->posicionEntrenadores) ; i++){
 		pthread_detach(hilo);
 		pthread_cancel(hilo);
 	}
-	pthread_cancel(hilo_servidor);
+
 	pthread_detach( pthread_self() );
 
 }
@@ -406,7 +411,7 @@ void planificador() {
 
 void thread_Entrenador(entrenadorPokemon * elEntrenador) {
 
-	pthread_mutex_lock( (pthread_t) & elEntrenador->semaforMutex);
+	pthread_mutex_lock(& elEntrenador->semaforMutex);
 	log_info(logger,"Trabajando con el Entrenador Nro %d",elEntrenador->idEntrenador);
 	//realizarAccion()
 	//EN EL CATCH -> APLICAR_PROTOCOLO_ENVIAR -> CATCH
