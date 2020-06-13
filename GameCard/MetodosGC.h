@@ -3,6 +3,7 @@
 #include "src/sockets.h"
 #include "src/mensajeria.h"
 
+#define NOT_EXIST 6
 #define OPEN 2
 #define NW_UPDATE_POS 3
 #define NW_INSERT_POS 4

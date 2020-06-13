@@ -16,9 +16,14 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 
 	case 0:{ //Paso 1: Verificar si existe
 			leerFiles();
-				step = findPokemon(Pokemon->nombre_pokemon, &dataPokemon);
+			step = findPokemon(Pokemon->nombre_pokemon, &dataPokemon);
 			break;
 
+			}
+
+	case NOT_EXIST:{
+				step = CreatePokemon(Pokemon);
+				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
@@ -59,7 +64,31 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 return OK; //retornar resultado
 }
 
+int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 
+	char* dirFile = malloc( string_length(PuntoMontaje->FILES) + string_length(Pokemon->nombre_pokemon));
+	strcpy(dirFile,PuntoMontaje->FILES);
+	strcat(dirFile,Pokemon->nombre_pokemon);
+	int result = mkdir(dirFile,0777);
+	if (result  == 0){
+		char* dirMetadata = malloc (string_length(dirFile) + string_length("/Metadata.bin"));
+		strcpy(dirMetadata,dirFile);
+		strcat(dirMetadata,"/Metadata.bin");
+		FILE *fMetadata = fopen (dirMetadata, "wb");
+		if(fMetadata == NULL){
+		printf("No se puede crear el Metadata del Pokemon %s\n", Pokemon->nombre_pokemon);
+		return ERROR;
+		}else{
+		fprintf(fMetadata,"DIRECTORY=N\nOPEN=Y\nSIZE=0\nBLOCKS=[]\n");
+		}
+		fclose(fMetadata);
+
+	}else
+	{
+		return ERROR;
+	}
+	return result;
+}
 
 void InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 
@@ -267,7 +296,7 @@ int findPokemon(char* Pokemon, t_files *dataPokemon){
 			}
 		}
 	}
-	return ERROR; //No se encontró el Pokemon
+	return NOT_EXIST; //No se encontró el Pokemon
 }
 
 

@@ -499,17 +499,21 @@ void crearBitmap(){
 
 int creacionDeArchivoBitmap(char *path,int cantidad){
     int x = 0;
-    FILE *fh = fopen (path, "wb");
-    if(fh == NULL){
-    	printf("Error en el fopen\n");
+
+    int fd=fopen(path, "r");
+    if (fd<=0){
+			FILE *fh = fopen (path, "wb");
+			if(fh == NULL){
+				printf("Error en el fopen\n");
+			}
+			int i;
+			for( i=0;i<cantidad;i++){
+				if (fh != NULL) {
+						fwrite (&x, sizeof (x), 1, fh);
+				}
+			}
+			fclose(fh);
     }
-    int i;
-    for( i=0;i<cantidad;i++){
-        if (fh != NULL) {
-                fwrite (&x, sizeof (x), 1, fh);
-        }
-    }
-    fclose(fh);
     return 0;
 
 }
