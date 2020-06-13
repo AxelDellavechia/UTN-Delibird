@@ -306,7 +306,7 @@ void thread_cliente(int fdSocket) {
 											cola_NEW_POKEMON  new_poke ;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-											NewPokemon(new_poke);
+											NewPokemon(&new_poke);
 											break;
 										}
 										case CATCH_POKEMON :{
