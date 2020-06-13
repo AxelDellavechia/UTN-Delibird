@@ -79,7 +79,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		printf("No se puede crear el Metadata del Pokemon %s\n", Pokemon->nombre_pokemon);
 		return ERROR;
 		}else{
-		fprintf(fMetadata,"DIRECTORY=N\nOPEN=Y\nSIZE=0\nBLOCKS=[]\n");
+		fprintf(fMetadata,"DIRECTORY=N\nOPEN=N\nSIZE=0\nBLOCKS=[]\n");
 		}
 		fclose(fMetadata);
 

@@ -22,7 +22,7 @@ int main(){//int argc, char **argv) {
 	crearBitmap(); //Cargo el contenigo del bitmap.
 
 
-
+/*
 	// ------ CASO DE PRUEBA NEW POKEMON-----------------------------
 	cola_NEW_POKEMON* Pokemon;
 	Pokemon = reservarMemoria(sizeof(cola_NEW_POKEMON));
@@ -46,8 +46,8 @@ int main(){//int argc, char **argv) {
 	Pokemon2->posicion_y = 5;
 
 	NewPokemon(Pokemon2);
-//-----------------------------------------------------------
-		//crearHilos();
+//-----------------------------------------------------------*/
+	crearHilos();
 
 	//return EXIT_SUCCESS;
 }
