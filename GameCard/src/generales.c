@@ -1,5 +1,9 @@
 /*
-
+ * generales.c
+ *
+ *  Created on: 29 abr. 2020
+ *      Author: utnso
+ */
 #include "generales.h"
 #include <time.h>
 #include <sys/time.h>
@@ -13,4 +17,3 @@ unsigned long long obtener_timestamp()
 	return timestamp;
 }
 
-*/

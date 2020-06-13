@@ -12,12 +12,12 @@
 #include <sys/mman.h>
 #include <pthread.h>
 #include "../digiCommons/src/protocolos_comunicacion.h"
+#include "../digiCommons/src/mensajeria.h"
 
 
 
-
-#define CONFIG_PATH "../config.txt"
-#define LOG_PATH "../GAMECARD.log"
+#define CONFIG_PATH "./config.txt"
+#define LOG_PATH "./GAMECARD.log"
 #define CONFIG_PATH_METADATA "../configGBM.txt"
 #define CONEXIONES_PERMITIDAS 100
 

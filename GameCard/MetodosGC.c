@@ -222,11 +222,12 @@ int update_metaData_files(t_files *dataPokemon){
 			}
 		}
 		strcat(tempBlocks,"]");
-		config_save(MetadataFiles);
+		config_set_value(MetadataFiles,"BLOCKS", tempBlocks);
+
 
 	}
 
-
+	config_save(MetadataFiles);
 }
 
 
@@ -368,33 +369,51 @@ int SavePositionInBlocks(t_files *dataPokemon){
 		bloquesNecesarios = (sizeBuffer/config_MetaData->tamanio_bloques) + 1;
 	}
 
+	/*1° Verifico si tengo la cantidad de bloques que necesito.
+	 * 2° Si necesito los mismos o mas bloques
+	 * */
 
-	//Teniendo armado el buffer que voy a grabar, me fijo si necesito mas bloques
+if (bloquesNecesarios <= bloquesUsados + cantidadDeBloquesLibres()){
 
-	if(bloquesNecesarios == bloquesUsados){ //si necesito los mismos bloques, los reutilizo
+	if(bloquesNecesarios >= bloquesUsados){ //si necesito los mismos bloques, los reutilizo y si faltan pido mas
+		t_list* bloquesExtras = list_create();
+
+		for (int i = 0; i < (bloquesNecesarios - bloquesUsados); i++) //Si necesito bloques extra, ya los reservo para que otro hilo no me los utilice.
+		{
+			int nextBlock = proximobloqueLibre();
+			list_add(bloquesExtras,nextBlock);
+		}
 
 		int desplazamiento = 0;
 				for(int i = 0; i<bloquesNecesarios;i++)
 				{
 					char* bloque = list_get(dataPokemon->blocks,i);
-					int intBloque =atoi(bloque);
+					int intBloque;
+					if(bloque != NULL){
+						intBloque =atoi(bloque);
+					}else{
+						intBloque = list_get(bloquesExtras,0);
+						list_add(dataPokemon->blocks, string_itoa(intBloque));
+						list_remove(bloquesExtras,0);
+					}
+
 					char* tempData = string_substring(buffer, desplazamiento,config_MetaData->tamanio_bloques);
 					grabarBloque(tempData,intBloque);
 					free(tempData);
 					sizeBuffer -= config_MetaData->tamanio_bloques;
 					desplazamiento += config_MetaData->tamanio_bloques;
+
 				}
 	}
 	if(bloquesNecesarios < bloquesUsados){
 		printf("nada");	//si necesito menos bloques libero la cantidad de menos que necesito y vuelvo a grabar todo
 	}
-	if(bloquesNecesarios > bloquesUsados){
-		//si necesito mas bloques, pido uno nuevo para ya reservarlo y
-		//grabo de nuevo los que ya tengo usados mas el nuevo
-		printf("nada");
-	}
+	return resultBuffer;
+}else{
+	log_info(logger,"No hay bloques suficientes para grabar lo solicitado. Se descarta solicitud.");
+	return ERROR;
+}
 
-return resultBuffer;
 }
 
 void CleanBlocks(t_files *dataPokemon){
@@ -436,7 +455,7 @@ int grabarBloque(char* data, int bloque)
 {
 	FILE *block;
 
-	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ bloque+ string_length(".bin"));
+	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(bloque))+ string_length(".bin"));
 	strcpy(dirBloque,PuntoMontaje->BLOCKS);
 	strcat(dirBloque,string_itoa(bloque));
 	strcat(dirBloque,".bin");

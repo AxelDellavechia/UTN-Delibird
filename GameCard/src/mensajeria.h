@@ -1,4 +1,10 @@
 /*
+ * mensajeria.h
+ *
+ *  Created on: 22 abr. 2020
+ *      Author: utnso
+ */
+
 #ifndef SRC_MENSAJERIA_H_
 #define SRC_MENSAJERIA_H_
 #include <commons/collections/list.h>
@@ -54,5 +60,4 @@ typedef struct{
 }cola_CAUGHT_POKEMON;
 
 
-#endif SRC_MENSAJERIA_H_
-*/
+#endif /* SRC_MENSAJERIA_H_ */

@@ -271,15 +271,15 @@ void servidor() {
 
 
 			if( ! validar_conexion(conexionNueva, 0,logger) ) {
-					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+				//	pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
 					cerrarSocket(comandoIn);
-					pthread_mutex_unlock(&mxSocketsFD);
+				//	pthread_mutex_unlock(&mxSocketsFD);
 			}
 		}
 		pthread_t hilo;
-		pthread_mutex_lock(&mxHilos);
+	//	pthread_mutex_lock(&mxHilos);
 		pthread_create(&hilo, NULL, (void*) thread_cliente, comandoNuevo);
-		pthread_mutex_unlock(&mxHilos);
+	//	pthread_mutex_unlock(&mxHilos);
 
 	}
 }
@@ -312,7 +312,7 @@ void thread_cliente(int fdSocket) {
 										case CATCH_POKEMON :{
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
 											break;
 										}
 										case GET_POKEMON :{
@@ -356,9 +356,9 @@ void thread_cliente(int fdSocket) {
 											break;
 									}
 
-			pthread_mutex_lock(&mxHilos);
+			//pthread_mutex_lock(&mxHilos);
 			pthread_detach( pthread_self() );
-			pthread_mutex_unlock(&mxHilos);
+		//	pthread_mutex_unlock(&mxHilos);
 }
 
 /*
@@ -406,17 +406,47 @@ int validar_cliente(char *id) {
 void crearBloques(void)
 {
 	int i;
-	for (i=0; i< config_MetaData->cantidad_bloques;i++ )
-	{
-			FILE *block;
-			char* bloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(i))+ string_length(".bin"));
-			strcpy(bloque,PuntoMontaje->BLOCKS);
-			strcat(bloque,string_itoa(i));
-			strcat(bloque,".bin");
-			block = fopen(bloque,"a");
-			fclose(block);
-			free(bloque);
+	int countBlocks = 0;
+	  //Verificamos la cantidad de bloques existentes.
+	DIR *dir;
+	  /* en *ent habrá información sobre el archivo que se está "sacando" a cada momento */
+	struct dirent *ent;
+
+		  /* Empezaremos a leer en el directorio actual */
+	dir = opendir (PuntoMontaje->BLOCKS);
+
+		  /* Miramos que no haya error */
+	if (dir == NULL){
+	   log_info(logger,"No se puden cargar los bloques. Revisar que el directorio BLOCKS exista.");
+	}else{
+		  /* Leyendo uno a uno todos los archivos que hay */
+		while ((ent = readdir (dir)) != NULL)
+		{
+		      /* Nos devolverá el directorio actual (.) y el anterior (..), como hace ls, así que esos no los contamos. */
+			if ( (strcmp(ent->d_name, ".")!=0) && (strcmp(ent->d_name, "..")!=0))
+		    {
+				countBlocks++;
+		    }
+		 }
+		closedir (dir);
 	}
+	if (countBlocks < config_MetaData->cantidad_bloques){
+		for (i=countBlocks; i< config_MetaData->cantidad_bloques;i++ )
+		{
+				FILE *block;
+				char* bloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(i))+ string_length(".bin"));
+				strcpy(bloque,PuntoMontaje->BLOCKS);
+				strcat(bloque,string_itoa(i));
+				strcat(bloque,".bin");
+				block = fopen(bloque,"a");
+				fclose(block);
+				free(bloque);
+		}
+	}else if(countBlocks > config_MetaData->cantidad_bloques){
+		log_info(logger,"No se pude reducir la cantidad de bloques ya que se podría perder información. El número de bloques permitido es %i bloques", countBlocks);
+		}
+
+
 }
 
 void crearBitmap(){
@@ -505,6 +535,7 @@ int proximobloqueLibre (void){
 	//pthread_mutex_lock(&mxBitmap);
 	for (i=0;i<cantidadDebits;i++){
 		if(bitarray_test_bit(bitarray,i)==0){
+			bitarray_set_bit(bitarray,i);
 			libre=i;
 			break;
 		}
