@@ -307,29 +307,34 @@ void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW
 
 	int desplazamiento = 0;
 
-							new_poke->nombre_pokemon = malloc(1);
+
 							memcpy(&new_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
 							memcpy(&new_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
+							new_poke->nombre_pokemon = malloc(1);
+
 							new_poke->nombre_pokemon = realloc(new_poke->nombre_pokemon,new_poke->tamanio_nombre);
-							memcpy(&new_poke->nombre_pokemon,(buffer+desplazamiento),new_poke->tamanio_nombre);
+							memcpy(new_poke->nombre_pokemon,(buffer+desplazamiento),new_poke->tamanio_nombre);
 							desplazamiento += new_poke->tamanio_nombre;
+
 							memcpy(&new_poke->posicion_x,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
 							memcpy(&new_poke->posicion_y,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
 							memcpy(&new_poke->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
-							free(new_poke->nombre_pokemon);
-							//return new_poke;
+
+							new_poke->nombre_pokemon[new_poke->tamanio_nombre] = '\0';
 
 }
 
 void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) {
 
 	int desplazamiento = 0;
-
-	setlocale(LC_ALL,"");
 
 			app_poke->nombre_pokemon = malloc(1);
 
@@ -417,16 +422,19 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 	int desplazamiento = 0;
 
 	/*
-	 	int desplazamiento = 0;
+		int desplazamiento = 0;
 		memcpy(buffer+desplazamiento,&localized_pokemon->id_mensaje,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
+		memcpy(buffer+desplazamiento,localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
 		desplazamiento += localized_pokemon->tamanio_nombre;
 		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->lista_posiciones,sizeof(uint32_t) * list_size(localized_pokemon->lista_posiciones));
+		int tamLista = list_size(localized_pokemon->lista_posiciones);
+		for (int i = 0 ; i < tamLista ; i++){
+		int elemento = list_get(localized_pokemon->lista_posiciones,i) ;
+		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 	*/
 
@@ -436,12 +444,9 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 							memcpy(&loc_poke_des->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							loc_poke_des->nombre_pokemon = malloc(loc_poke_des->tamanio_nombre + 1);
-							/*
-							 	cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
-								memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
-								desplazamiento += cat_poke->tamanio_nombre;
-							 */
+							loc_poke_des->nombre_pokemon = malloc(1);
+
+							loc_poke_des->nombre_pokemon = realloc(loc_poke_des->nombre_pokemon,loc_poke_des->tamanio_nombre);
 							memcpy(loc_poke_des->nombre_pokemon,(buffer+desplazamiento),loc_poke_des->tamanio_nombre);
 							desplazamiento += loc_poke_des->tamanio_nombre;
 
@@ -459,7 +464,7 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 							list_add(loc_poke_des->lista_posiciones,aux);
 							}
 
-							//loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
+							loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
 
 							//return loc_poke;
 }
@@ -509,7 +514,7 @@ int calcularTamanioMensaje(int head, void* mensaje){
 
 void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
-	setlocale(LC_ALL,"");
+	//setlocale(LC_ALL,"");
 
 
 	// Validar contra NULL al recibir en cada módulo.
