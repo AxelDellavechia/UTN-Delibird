@@ -3,11 +3,15 @@
 #include "src/sockets.h"
 #include "src/mensajeria.h"
 
-#define NOT_EXIST 6
+
 #define OPEN 2
 #define NW_UPDATE_POS 3
 #define NW_INSERT_POS 4
 #define NW_SAVE 5
+#define NOT_EXIST 6
+#define RESPONDER 7
+#define CHECK_POSITION 8
+
 
 typedef struct{
 	char* file;

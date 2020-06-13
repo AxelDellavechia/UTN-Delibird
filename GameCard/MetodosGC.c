@@ -52,17 +52,94 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
 				update_metaData_files(&dataPokemon);
 				updateStatusFile(&dataPokemon,"N");
-				step= ERROR; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
+				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
 				printf("\n El Pokemon no existe, se debe crear");
 				break;
 				}
+
+	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
+				printf("\n El Proceso finalizó correctamente.");
+				break;
+				}
 	}
 	}
 return OK; //retornar resultado
 }
+
+
+
+
+int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
+
+	int step = 0;
+	t_files dataPokemon;// = malloc (sizeof(t_files));
+	while(step != ERROR){
+	switch(step){
+
+	case 0:{ //Paso 1: Verificar si existe
+			leerFiles();
+			step = findPokemon(Pokemon->nombre_pokemon, &dataPokemon);
+			break;
+
+			}
+
+	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
+				printf("El Pokemon no existe");
+				break;
+			}
+	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
+
+				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000);
+				step = 0;
+				break;
+			}
+	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
+				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
+				leerBloques(Pokemon, &dataPokemon);
+				step = NW_UPDATE_POS;
+				break;
+			}
+
+	case NW_UPDATE_POS:{
+				t_positions* newPosition = malloc (sizeof(t_positions));;
+				newPosition->Pos_x = Pokemon->posicion_x;
+				newPosition->Pos_y = Pokemon->posicion_y;
+				newPosition->Cantidad = -1; //decrementa la posición
+				//Intenta actualizar la posición. Si la encuentra continua grabandola en los bloques
+				//Si no encuentra la posición, devuelve NOT_EXIST para que se le informa el broker el error.
+				step = InsertUpdatePosition(newPosition, &dataPokemon);
+
+				break;
+			}
+	case NW_SAVE:{
+				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				update_metaData_files(&dataPokemon);
+				updateStatusFile(&dataPokemon,"N");
+				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
+				break;
+			}
+	case ERROR:{ //el Pokemon no existe
+				printf("\n El Pokemon no existe, se debe crear");
+				return ERROR;
+				break;
+				}
+
+	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
+				printf("\n El Proceso finalizó correctamente.");
+				step= ERROR; //le pongo ERROR para que salga del switch nada mas.
+				break;
+				}
+	}
+	}
+return OK; //retornar resultado
+}
+
+
+
 
 int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 
@@ -90,7 +167,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 	return result;
 }
 
-void InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
+int InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 
 	for(int j = 0; j < list_size(posPokemon->positions) ; j++ ){
 		t_positions* pos = malloc (sizeof(t_positions));
@@ -100,10 +177,11 @@ void InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 			list_remove(posPokemon->positions,j);
 			if(newPos->Cantidad > 0)
 				list_add(posPokemon->positions,newPos);
-			return;
+			return NW_SAVE; //Si encontró y actualizó la posición, retorna para que grabe los cambios.
 		}
 	}
 	list_add(posPokemon->positions,newPos);
+	return NOT_EXIST; //Si no retorna la posición retorna ERROR.
 }
 
 
@@ -404,41 +482,49 @@ int SavePositionInBlocks(t_files *dataPokemon){
 
 if (bloquesNecesarios <= bloquesUsados + cantidadDeBloquesLibres()){
 
-	if(bloquesNecesarios >= bloquesUsados){ //si necesito los mismos bloques, los reutilizo y si faltan pido mas
-		t_list* bloquesExtras = list_create();
+	t_list* bloquesExtras = list_create();
 
-		for (int i = 0; i < (bloquesNecesarios - bloquesUsados); i++) //Si necesito bloques extra, ya los reservo para que otro hilo no me los utilice.
-		{
-			int nextBlock = proximobloqueLibre();
-			list_add(bloquesExtras,nextBlock);
+	for (int i = 0; i < (bloquesNecesarios - bloquesUsados); i++) //Si necesito bloques extra, ya los reservo para que otro hilo no me los utilice.
+	{
+		int nextBlock = proximobloqueLibre();
+		list_add(bloquesExtras,nextBlock);
+	}
+
+	int desplazamiento = 0;
+	for(int i = 0; i<bloquesNecesarios;i++)
+	{
+		char* bloque = list_get(dataPokemon->blocks,i);
+		int intBloque;
+		if(bloque != NULL){
+			intBloque =atoi(bloque);
+		}else{
+			intBloque = list_get(bloquesExtras,0);
+			list_add(dataPokemon->blocks, string_itoa(intBloque));
+			list_remove(bloquesExtras,0);
 		}
 
-		int desplazamiento = 0;
-				for(int i = 0; i<bloquesNecesarios;i++)
-				{
-					char* bloque = list_get(dataPokemon->blocks,i);
-					int intBloque;
-					if(bloque != NULL){
-						intBloque =atoi(bloque);
-					}else{
-						intBloque = list_get(bloquesExtras,0);
-						list_add(dataPokemon->blocks, string_itoa(intBloque));
-						list_remove(bloquesExtras,0);
-					}
+		char* tempData = string_substring(buffer, desplazamiento,config_MetaData->tamanio_bloques);
+		grabarBloque(tempData,intBloque);
+		free(tempData);
+		sizeBuffer -= config_MetaData->tamanio_bloques;
+		desplazamiento += config_MetaData->tamanio_bloques;
 
-					char* tempData = string_substring(buffer, desplazamiento,config_MetaData->tamanio_bloques);
-					grabarBloque(tempData,intBloque);
-					free(tempData);
-					sizeBuffer -= config_MetaData->tamanio_bloques;
-					desplazamiento += config_MetaData->tamanio_bloques;
+	}
 
-				}
-	}
-	if(bloquesNecesarios < bloquesUsados){
-		printf("nada");	//si necesito menos bloques libero la cantidad de menos que necesito y vuelvo a grabar todo
-	}
-	return resultBuffer;
-}else{
+	//Ahora debo liberar los bloques de mas
+		while( bloquesNecesarios < list_size(dataPokemon->blocks))
+		{
+			int bit = atoi(list_get(dataPokemon->blocks,bloquesNecesarios));
+			list_remove(dataPokemon->blocks,bloquesNecesarios);
+			bitarray_clean_bit(bitarray,bit);
+		}
+
+
+
+		return resultBuffer;
+}
+
+else{
 	log_info(logger,"No hay bloques suficientes para grabar lo solicitado. Se descarta solicitud.");
 	return ERROR;
 }

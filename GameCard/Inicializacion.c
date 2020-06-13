@@ -313,6 +313,7 @@ void thread_cliente(int fdSocket) {
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
 											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
+											CatchPokemon(&cath_poke);
 											break;
 										}
 										case GET_POKEMON :{
