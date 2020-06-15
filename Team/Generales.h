@@ -8,6 +8,9 @@
 #include <signal.h>
 #include <pthread.h>
 #include <limits.h>
+#include "../digiCommons/src/protocolos_comunicacion.h"
+#include <math.h>
+#include "../digiCommons/src/mensajeria.h"
 
 #define LOG_PATH "../CatedraTeam.log"
 #define LOG_PATH_INTERNO "../Team.log"
@@ -17,24 +20,27 @@
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
-t_log * logger;
-t_log * loggerCatedra;
+t_log* logger;
+t_log* loggerCatedra;
 t_list* objetivoTeam;
 t_list* colaNew;
 t_list* colaReady;
 t_list* colaBlocked;
 t_list* colaExit;
-t_list* mapaPokemon;
 t_list* entrenadoresEnDeadlock;
 
 int fdBroker;
 int ciclosEnCPU;
 int fdTeam;
+int conBroker;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
+pthread_t * hilo;
+pthread_t hilo_conexion;
 
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
+pthread_mutex_t h_reconectar;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -67,14 +73,13 @@ typedef struct entrenadorPokemon {
 	t_list* pokemonesObjetivo;
 	int ciclosEnCPU;
 	char* proximaAccion;
+	pthread_mutex_t semaforMutex;
 } entrenadorPokemon;
 
-//entrenadorPokemon fede = {1,1,2,["Pikachu","Squirtle","Pidgey"], ["Pikachu","Pikachu","Squirtle","Pidgey"], 0, "AtraparPokemon Pikachu 3 3"};
-
 entrenadorPokemon* exec;
+char ** aux ;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
-void crearLogger(char * nombre , char * path);
 void capturarError(int signal);
 void * reservarMemoria(int size);
 void inicializar_semaforos();
@@ -89,6 +94,16 @@ void servidor();
 void consola();
 int thread_Team(int fdCliente);
 void crearHilos();
+void planificador();
+void reconectar();
+void thread_Entrenador(entrenadorPokemon * elEntrenador);
+void iniciar_log();
+void iniciar_logCatedra();
+void crearLogger(char * nombre , char * path);
+void obtenerEntrenadores();
+void planificador();
+void crearEstructuras();
+void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido);
 
 int calcularRafagaCPU(accion);
 
