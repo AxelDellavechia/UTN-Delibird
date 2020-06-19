@@ -59,5 +59,15 @@ typedef struct{
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
+typedef struct{
+	char * mi_ip;
+	int tam_mi_ip;
+	int mi_puerto;
+	char * cola_a_suscribir;
+	int tam_nom_cola;
+	char tipo_suscripcion;
+	int tiempoSuscripcion;
+} suscriptor;
+
 
 #endif /* SRC_MENSAJERIA_H_ */

@@ -128,6 +128,7 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 	cola_CAUGHT_POKEMON * caug_poke = (cola_CAUGHT_POKEMON * ) mensaje;
 	cola_GET_POKEMON * get_pokemon = (cola_GET_POKEMON *) mensaje;
 	cola_LOCALIZED_POKEMON * localized_pokemon = (cola_LOCALIZED_POKEMON *) mensaje;
+	suscriptor * sucriptor = (suscriptor *) mensaje ;
 
 	/*
 			typedef struct{
@@ -281,6 +282,38 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 			break;
 	}
 
+	case SUSCRIPCION: {
+
+		/*
+			typedef struct{
+			char * mi_ip;
+			int tam_mi_ip;
+			int mi_puerto;
+			char * cola_a_suscribir;
+			int tam_nom_cola;
+			char * tipo_suscripcion;
+			int tiempoSuscripcion;
+			} suscriptor;
+		*/
+
+		int desplazamiento = 0;
+		memcpy(buffer+desplazamiento,&sucriptor->tam_mi_ip,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,&sucriptor->mi_puerto,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,sucriptor->mi_ip,string_length(sucriptor->mi_ip));
+		desplazamiento += sucriptor->tam_mi_ip;
+		memcpy(buffer+desplazamiento,&sucriptor->tam_nom_cola,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,sucriptor->cola_a_suscribir,string_length(sucriptor->cola_a_suscribir));
+		desplazamiento += sucriptor->tam_nom_cola;
+		memcpy(buffer+desplazamiento,&sucriptor->tipo_suscripcion,sizeof(char));
+		desplazamiento += sizeof(char);
+		memcpy(buffer+desplazamiento,&sucriptor->tiempoSuscripcion,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		break;
+		}
+
   } // fin switch head
 
 	return buffer;
@@ -301,6 +334,42 @@ void * recibirACK(int fdEmisor ){
 	memcpy(mensaje, mensajeSeriealizado, bufferTam);
 
 	return mensaje;
+}
+
+void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor){
+
+	int desplazamiento = 0;
+
+							memcpy(&suscriptor->tam_mi_ip,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+
+							memcpy(&suscriptor->mi_puerto,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+
+							suscriptor->mi_ip = malloc(1);
+
+							suscriptor->mi_ip = realloc(suscriptor->mi_ip,suscriptor->tam_mi_ip);
+							memcpy(suscriptor->mi_ip,(buffer+desplazamiento),suscriptor->tam_mi_ip);
+							desplazamiento += suscriptor->tam_mi_ip;
+
+							memcpy(&suscriptor->tam_nom_cola,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+
+							suscriptor->cola_a_suscribir = malloc(1);
+
+							suscriptor->cola_a_suscribir = realloc(suscriptor->cola_a_suscribir,suscriptor->tam_nom_cola);
+							memcpy(suscriptor->cola_a_suscribir,(buffer+desplazamiento),suscriptor->tam_nom_cola);
+							desplazamiento += suscriptor->tam_nom_cola;
+
+							memcpy(&suscriptor->tipo_suscripcion,(buffer+desplazamiento),sizeof(char));
+							desplazamiento += sizeof(char);
+
+							memcpy(&suscriptor->tiempoSuscripcion,(buffer+desplazamiento),sizeof(uint32_t));
+
+
+							suscriptor->mi_ip[suscriptor->tam_mi_ip] = '\0';
+							suscriptor->cola_a_suscribir[suscriptor->tam_nom_cola] = '\0';
+
 }
 
 void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){

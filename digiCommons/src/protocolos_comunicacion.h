@@ -15,6 +15,7 @@ typedef enum {
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
 	ACK,
+	SUSCRIPCION,
 	FIN_DEL_PROTOCOLO
 } protocolo;
 
@@ -44,6 +45,7 @@ void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio , cola_C
 void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
 void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
 void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
+void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor);
 
 int calcularTamanioMensaje(int head, void* mensaje);
 
