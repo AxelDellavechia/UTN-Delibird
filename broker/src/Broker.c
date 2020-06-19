@@ -4,8 +4,46 @@
  *  Created on: 11 abr. 2020
  *      Author: utnso
  */
-#include "Broker.h"
 
+#include "Broker.h"
+#include "generales.h"
+
+void dummyDump(){
+
+	int a = 1 ;
+	int b = 2;
+
+	void * ptInicial = &a ;
+	void * ptFinal = &b ;
+
+		Particion * el_ejemplo;
+
+		el_ejemplo = reservarMemoria(sizeof(Particion));
+
+		el_ejemplo->libre = true ;
+		el_ejemplo->tamano = 345 ;
+		el_ejemplo->punteroInicial = ptInicial ;
+		el_ejemplo->punteroFinal = ptFinal ;
+
+		Particion * el_ejemplo2;
+
+		el_ejemplo2 = reservarMemoria(sizeof(Particion));
+
+
+		el_ejemplo2->colaAsignada = NEW_POKEMON ;
+		el_ejemplo2->idColaAsignada = 1 ;
+		el_ejemplo2->libre =false ;
+		el_ejemplo2->punteroInicial = ptInicial ;
+		el_ejemplo2->punteroFinal = ptFinal ;
+		el_ejemplo2->tamano =456 ;
+		el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
+
+	 	lista_particiones = list_create() ;
+
+		list_add(lista_particiones,el_ejemplo);
+
+		list_add(lista_particiones,el_ejemplo2);
+}
 
 int main(){//int argc, char **argv) {
 
@@ -13,61 +51,48 @@ int main(){//int argc, char **argv) {
 	iniciar_log();
 
 	//Leo el Archivo de Configuracion
-	leer_configFile();
+
+	config_File = reservarMemoria(sizeof(ConfigFile));
+
+	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
 	//Iniciar Estructuras
 	iniciar_estructuras();
 
+	//Capturar señal SIGUSR1 para el Dump de Memoria
+	dummyDump();
+	signal(SIGUSR1,dumpMemoria);
+
 	//Multi-Hilos por conexion
-	iniciar_servicio_broker();
+	crearHilosBroker();
 
-	printf("Hola Mundo");
-	return EXIT_SUCCESS;
+	//return EXIT_SUCCESS;
 }
 
-void leer_configFile(){
-	t_config *config;
-		config = config_create("/BROKER.config");
-		if (config != NULL) {
-			config_File->TAMANO_MEMORIA = config_get_int_value(config, "TAMANO_MEMORIA");
-			config_File->TAMANO_MINIMO_PARTICION = config_get_int_value(config, "TAMANO_MINIMO_PARTICION");
-			config_File->ALGORITMO_MEMORIA = config_get_string_value(config, "ALGORITMO_MEMORIA");
-			config_File->ALGORITMO_REEMPLAZO = config_get_string_value(config,"ALGORITMO_REEMPLAZO");
-			config_File->ALGORITMO_PARTICION_LIBRE = config_get_string_value(config,"ALGORITMO_PARTICION_LIBRE");
-			config_File->ALGORITMO_REEMPLAZO = config_get_string_value(config,"ALGORITMO_REEMPLAZO");
-			config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
-			config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
-			config_File->FRECUENCIA_COMPACTACION = config_get_int_value(config,"FRECUENCIA_COMPACTACION");
-			config_File->LOG_FILE = config_get_string_value(config,"LOG_FILE");
-			config_destroy(config);
-		}
-}
-
-void iniciar_log(){
-	char *archivoLog = string_duplicate("Broker.log");
-	logger = log_create(config_File->LOG_FILE, archivoLog, false, LOG_LEVEL_INFO);
-	free(archivoLog);
-	archivoLog = NULL;
-}
-
+/*
 void iniciar_servicio_broker(){
 	int socket = nuevoSocket();
 	asociarSocket(socket, config_File->PUERTO_BROKER);
 	while(true){
-		esperar_conexion(socket);
+		//esperar_conexion(socket);
 	}
 }
 
 void esperar_conexion(int servidor){
+
 	int socket = aceptarConexionSocket(servidor);
+
 	pthread_t cliente;
-	pthread_create(&cliente, NULL,(void*)atender,(void*)socket);
+
+	pthread_create(&cliente, NULL, (void *) atender , (void *) socket ) ;
+
 	pthread_detach(cliente);
 }
+
 void atender(int socket){
-	void operacion;
+	void * operacion = NULL ;
 	while(recv(socket,&operacion,4,MSG_WAITALL) >0){
-		switch(operacion){
+		switch( (int) operacion){
 		case NEW_POKEMON:;
 			log_info(logger,"-NEW_POKEMON");
 			aplicar_protocolo_recibir(socket, 1);
@@ -95,6 +120,7 @@ void atender(int socket){
 		}
 	}
 }
+*/
 
 void iniciar_estructuras(){
 	//Se reserva la Memoria total del Broker
@@ -104,9 +130,10 @@ void iniciar_estructuras(){
 	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
-	pthread_mutex_init(mutex_memoria_cache, NULL);
+	pthread_mutex_init(&mutex_memoria_cache, NULL);
 
 }
+
 void reservar_particion(int tamano, Mensaje msj){
 	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION){
 		if(strcmp(config_File->ALGORITMO_MEMORIA, PARTICIONES) == 0){
@@ -157,6 +184,7 @@ void reservar_particion_dinamica(int tamano, Mensaje mensaje){
 void reservar_particion_bs(int tamano, Mensaje mensaje){
 
 }
+
 /*
 Particion* algoritmo_primer_ajuste(int tamano){
 	int cantidad_particiones = list_size(lista_particiones);
@@ -167,10 +195,12 @@ Particion* algoritmo_primer_ajuste(int tamano){
 	return NULL;
 }
 */
+
 Particion* algoritmo_primer_ajuste(int tamano){
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
 	return list_find(lista_particiones, (void*)particion_libre);
 }
+
 /*
 void algoritmo_mejor_ajuste(int tamano){
 	int cantidad_particiones = list_size(lista_particiones);
@@ -178,6 +208,7 @@ void algoritmo_mejor_ajuste(int tamano){
 
 }
 */
+
 Particion* algoritmo_mejor_ajuste(int tamano){
 	_Bool ordenar(Particion* particion1, Particion* particion2){return particion1->tamano < particion2->tamano;}
 	t_list* lista_ordenada = lista_particiones;
@@ -188,6 +219,74 @@ Particion* algoritmo_mejor_ajuste(int tamano){
 }
 
 void algoritmo_fifo(int tamano){}
+
 void algoritmo_lru(int tamano){}
+
 void compactacion(){}
+
 void eliminar_particion(){}
+
+int dumpMemoria (int senial) {
+
+	setlocale(LC_ALL,"");
+
+	FILE * dump ;
+
+	time_t raw ;
+
+	time(&raw);
+
+	struct tm * tiempoActual ;
+
+	tiempoActual = localtime(&raw);
+
+	char filename[PATH_MAX];
+
+	strftime(filename,PATH_MAX,"dump_%d%m%Y_%X.txt",tiempoActual);
+
+	dump = fopen(filename,"a");
+
+	if (dump != NULL) {
+		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+		fprintf(dump,"Dump: %s \n",ctime(&raw));
+		int i ;
+		for ( i = 0 ; i < list_size(lista_particiones) ; i++) {
+			Particion * actual = list_get(lista_particiones,i) ;
+			if ( actual->libre ) {
+				fprintf(dump,"Partición %d: %p - %p		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
+			} else {
+				char * colaNombre ;
+				switch (actual->colaAsignada) {
+					case NEW_POKEMON :
+						colaNombre = strdup("NEW_POKEMON");
+					break;
+					case APPEARED_POKEMON :
+						colaNombre = strdup("APPEARED_POKEMON");
+					break;
+					case CATCH_POKEMON :
+						colaNombre = strdup("CATCH_POKEMON");
+					break;
+					case CAUGHT_POKEMON :
+						colaNombre = strdup("CAUGHT_POKEMON");
+					break;
+					case GET_POKEMON :
+						colaNombre = strdup("GET_POKEMON");
+					break;
+					case LOCALIZED_POKEMON :
+						colaNombre = strdup("LOCALIZED_POKEMON");
+					break;
+				}
+				fprintf(dump,"Partición %d: %p - %p		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->idColaAsignada);
+				free(colaNombre);
+			}
+
+			free(actual);
+		}
+		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+	} else {
+		printf("No se puede abrir el archivo\n");
+		return -1 ;
+	}
+	fclose(dump);
+	return 0 ;
+}

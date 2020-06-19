@@ -4,20 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Broker.c 
+../src/Broker.c \
+../src/generales.c 
 
 OBJS += \
-./Broker.o 
+./src/Broker.o \
+./src/generales.o 
 
 C_DEPS += \
-./Broker.d 
+./src/Broker.d \
+./src/generales.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-%.o: ../%.c
+src/%.o: ../src/%.c
 	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C Compiler'
-	gcc -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Invoking: Cross GCC Compiler'
+	gcc -I"/home/utnso/workspace/digiCommons" -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

@@ -5,6 +5,7 @@
 #include <commons/config.h>
 #include <commons/string.h>
 #include <commons/collections/list.h>
+#include <pthread.h>
 #include <signal.h>
 
 #include <limits.h>
@@ -15,7 +16,7 @@
 #include "../digiCommons/src/mensajeria.h"
 #include "../digiCommons/src/protocolos_comunicacion.h"
 
-#define LOG_PATH "../CatedraGB.log"
+#define LOG_PATH "../GameBoyCatedra.log"
 #define LOG_PATH_INTERNO "../GameBoy.log"
 #define RUTA_CONFIG_MEM "../configGB.txt"
 #define FALSE 0
@@ -40,17 +41,13 @@ typedef struct config {
 
 archivoConfigGB *configGB;
 
-int fdBroker;
-int fdTeam;
-int fdGameCard;
-int cxBroker;
-int cxTeam;
-int cxGameCard;
+int conexion;
 
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void crearLogger( char * nombre , char * otroLog );
 void * reservarMemoria(int size);
 void inicializar_semaforos();
-void conectaryLoguear(int modulo , int conexion , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
+int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
+void consola();
 
 #endif

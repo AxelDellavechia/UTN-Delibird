@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Broker</name>
+	<name>GameCard</name>
 	<comment></comment>
 	<projects>
+		<project>so-commons-library</project>
+		<project>tp-2020-1c-Digimon</project>
 		<project>digiCommons</project>
 	</projects>
 	<buildSpec>

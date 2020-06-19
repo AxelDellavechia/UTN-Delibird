@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -22,21 +23,25 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Broker
+all: broker
+
+dependents:
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) clean all
 
 # Tool invocations
-Broker: $(OBJS) $(USER_OBJS)
+broker: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
 	@echo 'Building target: $@'
-	@echo 'Invoking: GCC C Linker'
-	gcc  -o "Broker" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cross GCC Linker'
+	gcc -L"/home/utnso/workspace/digiCommons/Debug" -o "broker" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) Broker
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) broker
 	-@echo ' '
 
 .PHONY: all clean dependents
+/home/utnso/workspace/digiCommons/Debug/libdigiCommons.so:
 
 -include ../makefile.targets
