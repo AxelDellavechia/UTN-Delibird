@@ -1,6 +1,7 @@
 #include "Inicializacion.h"
 #include <commons/config.h>
 #include "src/sockets.h"
+#include "MetodosGC.h"
 
 
 /*void leer_configFile(char* ruta) {
@@ -316,20 +317,38 @@ void thread_cliente(int fdSocket) {
 											cola_NEW_POKEMON  new_poke ;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-											NewPokemon(&new_poke);
+											int result = NewPokemon(&new_poke);
+											if(result==OK){
+												printf("enviar la respuesta APPEARED");
+												cola_APPEARED_POKEMON appeared_pokemon;
+												appeared_pokemon.id_mensaje = new_poke.id_mensaje;
+												appeared_pokemon.nombre_pokemon = malloc(string_length(new_poke.nombre_pokemon));
+												strcpy(appeared_pokemon.nombre_pokemon,new_poke.nombre_pokemon);
+												appeared_pokemon.posicion_x = new_poke.posicion_x;
+												appeared_pokemon.posicion_y = new_poke.posicion_y;
+												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
+
+											}
 											break;
 										}
 										case CATCH_POKEMON :{
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
 											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
-											CatchPokemon(&cath_poke);
+											int result = CatchPokemon(&cath_poke);
+											cola_CAUGHT_POKEMON caught_pokemon;
+											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
+											caught_pokemon.atrapo_pokemon = result;
 											break;
 										}
 										case GET_POKEMON :{
 											cola_GET_POKEMON get_poke ;
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
 											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+											cola_LOCALIZED_POKEMON* locPokemon;
+											locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
+											GetPokemon(&get_poke, locPokemon);
+
 											break;
 										}
 
