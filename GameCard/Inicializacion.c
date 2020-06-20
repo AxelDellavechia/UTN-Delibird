@@ -348,7 +348,7 @@ void thread_cliente(int fdSocket) {
 											cola_LOCALIZED_POKEMON* locPokemon;
 											locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
 											GetPokemon(&get_poke, locPokemon);
-
+											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
 											break;
 										}
 
