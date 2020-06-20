@@ -160,12 +160,12 @@ void localizarPokemones() {
 void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido) {
 	entrenadorPokemon* proximoEntrenadorAReady;
 	int movimientoDeProximoEntrenadorAReady = 0;
+	int posicionXPokemon = pokemonAparecido->posicion_x;
+	int posicionYPokemon = pokemonAparecido->posicion_y;
 	for(int posicionEntrenador = 0; posicionEntrenador < list_size(colaNew); posicionEntrenador++) {
 		entrenadorPokemon* entrenador = list_get(colaNew, posicionEntrenador);
 		int posicionXEntrenador = entrenador->posicion_x;
 		int posicionYEntrenador = entrenador->posicion_y;
-		int posicionXPokemon = pokemonAparecido->posicion_x;
-		int posicionYPokemon = pokemonAparecido->posicion_y;
 		int movimientoEnX = fabs(posicionXEntrenador - posicionXPokemon);
 		int movimientoEnY = fabs(posicionYEntrenador - posicionYPokemon);
 		int movimientoEntrenador = movimientoEnX + movimientoEnY;
@@ -174,8 +174,9 @@ void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido) {
 			proximoEntrenadorAReady = entrenador;
 		}
 	}
-	//proximoEntrenadorAReady->proximaAccion = "AtraparPokemon %s %i %i", pokemonAparecido->nombre_pokemon, pokemonAparecido->posicion_x, pokemonAparecido->posicion_y;
-	strcpy(proximoEntrenadorAReady->proximaAccion, "AtraparPokemon %s %i %i", pokemonAparecido->nombre_pokemon, pokemonAparecido->posicion_x, pokemonAparecido->posicion_y);
+	char* proximaAccionEntrenador = string_new();
+	string_append_with_format(&proximaAccionEntrenador, "AtraparPokemon %s %i %i",pokemonAparecido->nombre_pokemon, posicionXPokemon, posicionYPokemon);
+	proximoEntrenadorAReady->proximaAccion = proximaAccionEntrenador;
 	list_add(colaReady, proximoEntrenadorAReady);
 	//log_info(logger, "Entrenador %i a cola de Ready por ser el más cercano", proximoEntrenadorAReady->idEntrenador);
 	printf("Entrenador %i a cola de Ready por ser el más cercano\n", proximoEntrenadorAReady->idEntrenador);
@@ -212,7 +213,8 @@ void moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int po
 	entrenador->ciclosEnCPU = ciclosEnCPUEntrenador;
 	entrenador->posicion_x = posicionXEntrenador;
 	entrenador->posicion_y = posicionYEntrenador;
-	log_info(logger, "Entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
+	printf("Entrenador %i se movió a la posición %i %i\n", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
+	//log_info(logger, "Entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
 }
 
 void realizarIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, char* pokemonEntrenador1, char* pokemonEntrenador2) {
@@ -447,7 +449,10 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		int posicionYInt = atoi(posicionYPokemon);
 		printf("La accion es %s\n", accion);
 		moverEntrenador(entrenador, posicionXInt, posicionYInt);
-		//catch_pokemon();
+		//enviar catch_pokemon() al broker;
+		pthread_mutex_lock(&entrenador->semaforMutex);
+		exec = NULL;
+		list_add(colaBlocked, entrenador);
 	} else if(strcmp("HacerIntercambio", accionStr) == 0) {
 		char* idEntrenador2 = strtok(NULL, " ");
 		char* posicionXEntrenador2 = strtok(NULL, " ");
@@ -467,7 +472,6 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		verificarDeadlock(entrenador2);
 		verificarIntercambios();
 	}
-	pthread_mutex_lock(&entrenador->semaforMutex);
 }
 
 void catch_pokemon(posicionPokemon* pokemon, int entrenador) {
