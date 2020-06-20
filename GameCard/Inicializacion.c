@@ -142,6 +142,16 @@ void iniciar_log(){
 }
 
 
+void inicializar_semaforos(){
+
+	  mxPokemones = malloc(sizeof(pthread_mutex_t)); //Este se inicializa cuando se agreguen nuevos
+	//inicializo semaforos de nodos
+
+	pthread_mutex_init(&mxPokeList,NULL);
+
+}
+
+
 
 
 void consola() {
@@ -570,3 +580,57 @@ void listarArchivos(char *archivo)
 }
 
 
+void loadPokemons()
+{
+	  	  DIR *dir;
+
+		  /* en *ent habrá información sobre el archivo que se está "sacando" a cada momento */
+		  struct dirent *ent;
+		  pokeList = list_create();
+		  /* Empezaremos a leer en el directorio actual */
+		  dir = opendir (PuntoMontaje->FILES);
+
+		  /* Miramos que no haya error */
+		  if (dir == NULL){
+		    log_info(logger,"No se pudo cargar la estructura de Directorios");
+		  }else{
+
+		  /* Leyendo uno a uno todos los archivos que hay */
+		  while ((ent = readdir (dir)) != NULL)
+		    {
+		      /* Nos devolverá el directorio actual (.) y el anterior (..), como hace ls */
+		      if ( (strcmp(ent->d_name, ".")!=0) && (strcmp(ent->d_name, "..")!=0) && (strcmp(ent->d_name, "Metadata.bin")!=0))
+		      {
+		      /* Una vez tenemos el archivo, lo pasamos a una función para procesarlo. */
+
+
+		    	  t_Pokemones* Pokemon = malloc (sizeof(t_Pokemones));
+		    	  Pokemon->pokemon = malloc (string_length(ent->d_name) + 1) ;
+		    	  strcpy(Pokemon->pokemon,ent->d_name);
+		    	  Pokemon->idPokemon = list_size(pokeList);
+
+		    	  t_config *MetadataFiles;
+
+		    	  char* dirMetadata = string_new();
+		    	  int res = getMetadataDir(&dirMetadata, Pokemon);
+		    	  MetadataFiles = config_create(dirMetadata);
+		    	  if (config_has_property(MetadataFiles, "DIRECTORY")){
+
+		    	  if( string_equals_ignore_case(config_get_string_value(MetadataFiles,"DIRECTORY"),"N")){
+		    		  list_add(pokeList, Pokemon);
+		    		  addMxPokemon(Pokemon);
+		    	  }
+
+		    	}
+		    }
+		    }
+		  	closedir (dir);
+
+		  }
+}
+
+void addMxPokemon(t_Pokemones* Pokemon){
+	mxPokemones = realloc(mxPokemones,sizeof(pthread_mutex_t)*(list_size(pokeList)));
+	pthread_mutex_init(mxPokemones + Pokemon->idPokemon, NULL);
+
+}

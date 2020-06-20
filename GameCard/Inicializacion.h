@@ -54,6 +54,12 @@ typedef struct{
 
 }t_config_PuntosMontaje;
 
+typedef struct{
+	char* pokemon;
+	int idPokemon;
+}t_Pokemones;
+
+
 void leer_configFile(char* ruta);
 void crearPuntoMontaje();
 void consola();
@@ -65,6 +71,7 @@ ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
 t_config_PuntosMontaje* PuntoMontaje;
 
+t_list* pokeList;
 t_list* dirList;
 t_log* logger;
 t_bitarray *bitarray;
@@ -74,6 +81,8 @@ pthread_t hilo_consola;
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
+pthread_mutex_t *mxPokemones;
+pthread_mutex_t mxPokeList;
 
 int cantFiles;
 int comandoIn;

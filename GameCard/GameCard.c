@@ -15,14 +15,13 @@ int main(){//int argc, char **argv) {
 
 	leer_configFile(CONFIG_PATH);
 
-	//chequear que el punto de montaje del archivo esté creado, sino crearlo
-
+	inicializar_semaforos();
 	crearBloques();  //Verifico si los bloques existen y si coinciden con la cantidad de bloques del archivo de configuración.
 	creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques); //Verifico la existencia del Bitmap.
 	crearBitmap(); //Cargo el contenigo del bitmap.
+	loadPokemons();
+	/*
 
-
-/*
 	// ------ CASO DE PRUEBA NEW POKEMON-----------------------------
 	cola_NEW_POKEMON* Pokemon;
 	Pokemon = reservarMemoria(sizeof(cola_NEW_POKEMON));
