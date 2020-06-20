@@ -63,11 +63,15 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case ERROR:{ //el Pokemon no existe
 				printf("\n El Pokemon no existe, se debe crear");
+
 				break;
 				}
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
 				printf("\n El Proceso finalizó correctamente.");
+				step = ERROR;
+				return OK;
+				replyNew(&dataPokemon);
 				break;
 				}
 	}
@@ -96,8 +100,20 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 				}
 
+	case NOT_EXIST_POSITION:{ //el Pokemon no existe, se debe informar el error
+				printf("La posición no existe");
+				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
+				updateStatusFile(&idPokemon,"N");
+				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+				step = ERROR;
+				return OK;
+				break;
+			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
 				printf("El Pokemon no existe");
+				pthread_mutex_unlock (&mxPokeList);
+				step = ERROR;
+				return OK;
 				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
@@ -142,7 +158,9 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
 				printf("\n El Proceso finalizó correctamente.");
+				pthread_detach( pthread_self() );
 				step= ERROR; //le pongo ERROR para que salga del switch nada mas.
+				return OK;
 				break;
 				}
 	}
@@ -202,11 +220,11 @@ int InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 		}
 	}
 	list_add(posPokemon->positions,newPos);
-	return NOT_EXIST; //Si no retorna la posición retorna ERROR.
+	return NOT_EXIST_POSITION; //Si no retorna la posición retorna ERROR.
 }
 
 
-void leerFiles(){
+/*void leerFiles(){
 	cantFiles = 0;
 	dirList = list_create();
 	cargarArbolDirectorios(PuntoMontaje->FILES);
@@ -232,32 +250,31 @@ void leerFiles(){
 
 }
 
+*/
 
 
 
-
-
+/*
 void cargarArbolDirectorios(char* Directorio){
 
 	  DIR *dir;
-	  /* en *ent habrá información sobre el archivo que se está "sacando" a cada momento */
+
 	  struct dirent *ent;
 
-	  /* Empezaremos a leer en el directorio actual */
 	  dir = opendir (Directorio);
 
-	  /* Miramos que no haya error */
+
 	  if (dir == NULL){
 	    log_info(logger,"No se pudo cargar la estructura de Directorios");
 	  }else{
 
-	  /* Leyendo uno a uno todos los archivos que hay */
+
 	  while ((ent = readdir (dir)) != NULL)
 	    {
-	      /* Nos devolverá el directorio actual (.) y el anterior (..), como hace ls */
+
 	      if ( (strcmp(ent->d_name, ".")!=0) && (strcmp(ent->d_name, "..")!=0) && (strcmp(ent->d_name, "Metadata.bin")!=0))
 	      {
-	      /* Una vez tenemos el archivo, lo pasamos a una función para procesarlo. */
+
 
 	    	  t_files* File = malloc (sizeof(t_files));
 	    	  File->file = malloc (string_length(ent->d_name) + 1) ;
@@ -291,14 +308,14 @@ void cargarArbolDirectorios(char* Directorio){
 	    	  }
 
 	    	  list_add(dirList, File);
-	    //mantengo la cantidad de archivos que voy leyendo para luego ir recorriendolos y agregando los nuevos
+
 	    	  cantFiles++;
 	    	}
 	    }
 	  	  closedir (dir);
 	  }
 }
-
+*/
 
 int leer_metaData_files(){
 
@@ -623,4 +640,9 @@ int grabarBloque(char* data, int bloque)
 
 
 	return string_length(data) - acum;
+}
+
+int replyNew()
+{
+printf("holu");
 }

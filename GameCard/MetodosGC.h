@@ -11,15 +11,16 @@
 #define NW_SAVE 5
 #define EXIST 8
 #define NOT_EXIST 6
+#define NOT_EXIST_POSITION 9
 #define RESPONDER 7
 #define CHECK_POSITION 8
 
 
 typedef struct{
 	char* file;
-	char* parent;
+	/*char* parent;
 	char* type;
-	char* open;
+	char* open;*/
 	int size;
 	t_list* blocks;
 	t_list* positions;
