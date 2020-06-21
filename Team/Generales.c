@@ -56,28 +56,30 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 		list_add(configFile->objetivosEntrenadores, string_duplicate(objetivosEntrenadoresAux[posicionLista]));
 		posicionLista++;
 	}
-	config_destroy(config); // Libero la estructura archivoConfig
-	free(posicionEntrenadoresAux);
+	//config_destroy(config); // Libero la estructura archivoConfig
+	/*free(posicionEntrenadoresAux);
 	free(pokemonEntrenadoresAux);
-	free(objetivosEntrenadoresAux);
+	free(objetivosEntrenadoresAux);*/
 }
 
 void* reservarMemoria(int size) {
-		void *puntero = malloc(size);
-		if(puntero == NULL) {
-			fprintf(stderr, "Error al reservar %d bytes de memoria", size);
-			exit(ERROR);
-		}
-		return puntero;
+	void *puntero = malloc(size);
+	if(puntero == NULL) {
+		fprintf(stderr, "Error al reservar %d bytes de memoria", size);
+		exit(ERROR);
+	}
+	return puntero;
 }
 
 void crearEstructuras() {
+	listaCatchPokemon = list_create();
 	objetivoTeam = list_create();
 	colaNew = list_create();
 	colaReady = list_create();
 	colaBlocked = list_create();
 	colaExit = list_create();
 	entrenadoresEnDeadlock = list_create();
+	idMensajeEsperado = 0;
 }
 
 void obtenerEntrenadores() {
@@ -389,6 +391,36 @@ entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido) {
 	return entrenador;
 }
 
+void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemonRecibido) {
+	for(int posicionPokemon = 0; posicionPokemon < list_size(listaCatchPokemon); posicionPokemon++) {
+	cola_CATCH_POKEMON* pokemon = list_get(listaCatchPokemon, posicionPokemon);
+	if(pokemon->id_mensaje == pokemonRecibido->id_mensaje) {
+		list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemon->nombre_pokemon));
+		list_remove(listaCatchPokemon, posicionPokemon);
+		verificarDeadlock(entrenador);
+		break;
+		}
+	}
+}
+
+void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY) {
+	pokemon* pokemon = reservarMemoria(sizeof(pokemon));
+	pokemon->id_mensaje = 0;
+	pokemon->nombre_pokemon = string_duplicate(nombrePokemon);
+	pokemon->tamanio_nombre = string_length(nombrePokemon);
+	pokemon->posicion_x = posicionX;
+	pokemon->posicion_y = posicionY;
+	//int enviado = conectar_y_enviar("BROKER", configFile->ipBroker, configFile->puertoBroker, "TEAM", "BROKER", CATCH_POKEMON, pokemon, logger, loggerCatedra);
+	//if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+
+	//Aca deberia recibir el id del mensaje del broker y ponerselo al entrenador en edMsjEsperado y al pokemon en id_mensaje
+	idMensajeEsperado++;
+	entrenador->idMsjEsperado = idMensajeEsperado;
+	pokemon->id_mensaje = idMensajeEsperado;
+	printf("Se agrega el pokemon %s a la lista de Catch Pokemon\n", pokemon->nombre_pokemon);
+	list_add(listaCatchPokemon, pokemon);
+}
+
 void ejecutar() {
 	char* algoritmo = configFile->algoritmoPlanificacion;
 	char* accion;
@@ -462,9 +494,9 @@ int calcularRafagaCPU(accion) {
 }
 
 void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
-	char arrayAccion[50];
+	char* arrayAccion = string_new();
 	char* accion = entrenador->proximaAccion;
-	strcpy(arrayAccion,accion);
+	arrayAccion = string_duplicate(accion);
 	char* accionStr = strtok(arrayAccion, " ");
 	if (strcmp("AtraparPokemon", accionStr) == 0) {
 		char* pokemonAAtrapar = strtok(NULL, " ");
@@ -497,20 +529,6 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		verificarDeadlock(entrenador2);
 		verificarIntercambios();
 	}
-}
-
-void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY) {
-	cola_CATCH_POKEMON* pokemon = malloc(sizeof(cola_CATCH_POKEMON));
-	pokemon->id_mensaje = 0;
-	pokemon->nombre_pokemon = nombrePokemon;
-	pokemon->tamanio_nombre = string_length(nombrePokemon);
-	pokemon->posicion_x = posicionX;
-	pokemon->posicion_y = posicionY;
-	//int enviado = conectar_y_enviar("BROKER", configFile->ipBroker, configFile->puertoBroker, "TEAM", "BROKER", CATCH_POKEMON, pokemon, logger, loggerCatedra);
-	//if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
-
-	//Aca deberia recibir el id del mensaje del broker y ponerselo al entrenador en edMsjEsperado
-	entrenador->idMsjEsperado = 1;
 }
 
 void caught_pokemon(posicionPokemon* pokemon, void* resultadoCatch) {
@@ -669,15 +687,18 @@ void planificador() {
 			//log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 			printf("Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d \n",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 			free(app_poke.nombre_pokemon);
-			free(proximoEntrenadorEnEjecutar);
-			free(proximaAccionEntrenador);
 		break;
 		}
 		case CAUGHT_POKEMON :{
 			cola_CAUGHT_POKEMON caug_poke ;
 			//responde por caught_pokemon
 			deserealizar_CAUGHT_POKEMON(head, mensaje, bufferTam, & caug_poke);
-			verificarMensajeRecibido(caug_poke.id_mensaje);
+			entrenadorPokemon* entrenador = verificarMensajeRecibido(caug_poke.id_mensaje);
+			if (entrenador != NULL) {
+				if (caug_poke.atrapo_pokemon == OK) {
+					pokemonAtrapado(entrenador, &caug_poke);
+				}
+			}
 			//log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
 			printf("Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d\n",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
 		break;

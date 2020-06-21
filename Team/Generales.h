@@ -17,6 +17,7 @@
 #define RUTA_CONFIG_MEM "configTeam.txt"
 #define FALSE 0
 #define TRUE 1
+#define OK 1
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
@@ -28,11 +29,13 @@ t_list* colaReady;
 t_list* colaBlocked;
 t_list* colaExit;
 t_list* entrenadoresEnDeadlock;
+t_list* listaCatchPokemon;
 
 int fdBroker;
 int ciclosEnCPU;
 int fdTeam;
 int conBroker;
+int idMensajeEsperado;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t * hilo;
@@ -64,6 +67,14 @@ typedef struct posicionPokemon {
 	int posicion_x;
 	int posicion_y;
 } posicionPokemon;
+
+typedef struct pokemon {
+	int id_mensaje;
+	char* nombre_pokemon;
+	int tamanio_nombre;
+	int posicion_x;
+	int posicion_y;
+}pokemon;
 
 typedef struct entrenadorPokemon {
 	int idEntrenador;
@@ -107,6 +118,7 @@ void crearEstructuras();
 entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido);
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
+void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
 
 int calcularRafagaCPU(accion);
 
