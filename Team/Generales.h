@@ -74,6 +74,7 @@ typedef struct entrenadorPokemon {
 	int ciclosEnCPU;
 	char* proximaAccion;
 	pthread_mutex_t semaforMutex;
+	int idMsjEsperado;
 } entrenadorPokemon;
 
 entrenadorPokemon* exec;
@@ -103,7 +104,9 @@ void crearLogger(char * nombre , char * path);
 void obtenerEntrenadores();
 void planificador();
 void crearEstructuras();
-void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido);
+entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido);
+void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
+entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 
 int calcularRafagaCPU(accion);
 

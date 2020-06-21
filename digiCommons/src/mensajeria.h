@@ -49,7 +49,7 @@ typedef struct{
 typedef struct{
 	uint32_t id_mensaje;
 	char* nombre_pokemon;
-	uint32_t  tamanio_nombre;
+	uint32_t tamanio_nombre;
 	uint32_t posicion_x;
 	uint32_t posicion_y;
 }cola_CATCH_POKEMON;
