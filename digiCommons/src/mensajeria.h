@@ -60,13 +60,10 @@ typedef struct{
 }cola_CAUGHT_POKEMON;
 
 typedef struct{
-	char * mi_ip;
-	int tam_mi_ip;
-	int mi_puerto;
-	char * cola_a_suscribir;
-	int tam_nom_cola;
-	char tipo_suscripcion;
-	int tiempoSuscripcion;
+	int tam_mac_adress;
+	char * mac_adress;
+	t_list cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
 } suscriptor;
 
 
