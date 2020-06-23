@@ -62,9 +62,8 @@ typedef struct{
 typedef struct{
 	int tam_mac_adress;
 	char * mac_adress;
-	int cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	t_list cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
 	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
-	char tipo_suscripcion; // VALOR POSIBLES -> G (GOBLAL) ó L (LOCAL POR ID MSJ)
 } suscriptor;
 
 

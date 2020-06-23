@@ -288,9 +288,8 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 			typedef struct{
 				int tam_mac_adress;
 				char * mac_adress;
-				int cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+				t_list cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
 				int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
-				char tipo_suscripcion; // VALOR POSIBLES -> G (GOBLAL) ó L (LOCAL POR ID MSJ)
 			} suscriptor;
 		*/
 
@@ -301,14 +300,15 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		memcpy(buffer+desplazamiento,sucriptor->mac_adress,string_length(sucriptor->mac_adress));
 		desplazamiento += sucriptor->tam_mac_adress;
 
-		memcpy(buffer+desplazamiento,&sucriptor->cola_a_suscribir,sizeof(uint32_t));
+		int tamLista = list_size(sucriptor->cola_a_suscribir);
+		for (int i = 0 ; i < tamLista ; i++){
+		int elemento = list_get(sucriptor->cola_a_suscribir,i) ;
+		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
+		}
 
 		memcpy(buffer+desplazamiento,&sucriptor->modulo,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-
-		memcpy(buffer+desplazamiento,&sucriptor->tipo_suscripcion,sizeof(char));
-		desplazamiento += sizeof(char);
 
 		break;
 		}
@@ -348,14 +348,19 @@ void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscripto
 							memcpy(suscriptor->mac_adress,(buffer+desplazamiento),suscriptor->tam_mac_adress);
 							desplazamiento += suscriptor->tam_mac_adress;
 
-							memcpy(&suscriptor->cola_a_suscribir,(buffer+desplazamiento),sizeof(uint32_t));
+							suscriptor->cola_a_suscribir = list_create();
+
+							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) - suscriptor->tam_mac_adress ) / sizeof(uint32_t) ;
+
+							for (int i = 0 ; i < cantidadElementos ; i++){
+							int aux = 0;
+							memcpy(&aux,buffer+desplazamiento,sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+							list_add(suscriptor->cola_a_suscribir,aux);
+							}
 
 							memcpy(&suscriptor->modulo,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-
-							memcpy(&suscriptor->tipo_suscripcion,(buffer+desplazamiento),sizeof(char));
-							desplazamiento += sizeof(char);
 
 							suscriptor->mac_adress[suscriptor->tam_mac_adress] = '\0';
 
