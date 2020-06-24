@@ -79,10 +79,16 @@ typedef struct{
 
 typedef struct{
 	uint32_t atrapo_pokemon;
-}tamano_sCAUGHT_POKEMON;
+}tamano_CAUGHT_POKEMON;
 
 void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
+pthread_mutex_t mutex_cola_new_pokemon;
+pthread_mutex_t mutex_cola_localized_pokemon;
+pthread_mutex_t mutex_cola_get_pokemon;
+pthread_mutex_t mutex_cola_appeared_pokemon;
+pthread_mutex_t mutex_cola_catch_pokemon;
+
 
 t_list* lista_particiones;
 t_list* cola_new_pokemon;
@@ -90,11 +96,6 @@ t_list* cola_localized_pokemon;
 t_list* cola_get_pokemon;
 t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
-
-char FIRST_FIT[2]= "FF";
-char BEST_FIT[2] = "BF";
-char PARTICIONES[11] = "PARTICIONES";
-char BUDDY_SYSTEM[2] = "BS";
 
 int cantidad_fallidas;
 

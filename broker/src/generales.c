@@ -40,7 +40,7 @@ void crearHilosBroker() {
 	hilo_consola= 0;
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
-	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	//pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
@@ -59,9 +59,21 @@ void consola() {
 		if (bytes_read == -1) {
 			log_error(logger,"Error en getline");
 		}
-		if (bytes_read == 1) {
-			continue;
+		char splitComando[4];
+		int i = 0;
+		char * token = strtok(comando, " ");
+		while(token != NULL)
+		{
+			printf(" %s \n", token);
+			splitComando[i] = token;
+			token = strtok(NULL, " ");
+			i++;
 		}
+		if(splitComando[1] == "NEW_POKEMON")
+		{
+			printf("cola_NEW_POKEMON");
+		}
+
 	}
 
 	log_destroy(logger);
@@ -78,84 +90,6 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mxSocketsFD, NULL);
 }
 
-/*
-void servidor() {
-
-	fdBroker = nuevoSocket();
-	asociarSocket(fdBroker, config_File->PUERTO_BROKER);
-	escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
-
-	fd_set setAux;
-	int maxFD,i,socket_nuevo;
-
-	FD_ZERO(&setMaestro); 	// borra los conjuntos maestro y temporal
-	FD_ZERO(&setAux);
-
-	maxFD = fdBroker; //Llevo control del FD maximo de los sockets
-	FD_SET(fdBroker, &setMaestro); //agrego el FD del socketEscucha al setMaestro
-
-
-	log_info(logger," Escuchando conexiones. Socket: %d",fdBroker);
-
-	while(TRUE) {
-		pthread_mutex_lock(&semaforo);
-		setAux = setMaestro;
-		pthread_mutex_unlock(&semaforo);
-
-				if (select((maxFD + 1), &setAux, NULL, NULL, NULL ) == -1) {
-					printf("Error en la escucha.\n");
-					log_error(logger,"Error en la escucha.\n" );
-					return;
-				}
-
-		int conexionNueva = 0;
-		int comandoNuevo;//= reservarMemoria(INT);
-
-		for (i = 0; i <= maxFD; i++) {
-					pthread_mutex_lock(&semaforo);
-					int check = FD_ISSET(i,&setAux);
-					pthread_mutex_unlock(&semaforo);
-					if (check) { // Me fijo en el set de descriptores a ver cual respondió
-						if (i == fdBroker) { //Tengo un nuevo hilo de Sac Cli queriendose conectar
-							//Esta funcion acepta una nueva conexion de Sac Cli
-							//y agrega un nuevo nodo a la lista de scripts con el nuevo socket
-
-							log_info(logger,"Nuevo Cliente Conectado");
-							comandoNuevo = aceptarConexionSocket(fdBroker);
-							if (comandoNuevo == -1){
-								return;
-							}
-
-							conexionNueva = handshake_servidor(comandoNuevo, "Broker" , "Team", logger);
-
-							if( validar_conexion(conexionNueva, 0,logger) == FALSE ) {
-									pthread_mutex_lock(&semaforo); //desbloquea el semaforo
-									FD_CLR(i, &setMaestro); // borra el file descriptor del set
-									pthread_mutex_unlock(&semaforo);
-									cerrarSocket(i);
-
-									continue; // vuelve al inicio del while
-							}else{
-									pthread_mutex_lock(&semaforo);
-									FD_SET(comandoNuevo, &setMaestro); //agrego el nuevo socket al setMaestro
-									pthread_mutex_unlock(&semaforo);
-									if (comandoNuevo > maxFD) maxFD = comandoNuevo;
-						}
-						}else { // Hay actividad nueva en algún hilo de kernel
-							//SI RECIBO TRUE EN CONEXIONNUEVA, ABRO UN HILO POR CADA UNO QUE SE CONECTE
-							pthread_t hilo_SacCli;
-
-							pthread_create(&hilo_SacCli, NULL, (void*) thread_Broker, i);
-							//pthread_join(hilo_SacCli, NULL);
-						}
-					}
-
-		}
-		//free(comandoNuevo);
-
-	}
-}
-*/
 
 void servidor() {
 
@@ -215,13 +149,14 @@ int thread_Broker(int fdCliente) {
 											cola_NEW_POKEMON  new_poke ;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+											reenviarMsjCola_NEW_POKEMON(mensaje);
 											break;
 										}
 										case CATCH_POKEMON :{
-																cola_CATCH_POKEMON cath_poke;
-																deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-																log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-																break;
+											cola_CATCH_POKEMON cath_poke;
+											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+											break;
 										}
 										case GET_POKEMON :{
 											cola_GET_POKEMON get_poke ;
@@ -260,6 +195,12 @@ int thread_Broker(int fdCliente) {
 											list_destroy(loc_poke.lista_posiciones);
 											break;
 										}
+										case ACK :{
+											suscriptor * suscp;
+											//suscp = recibir_ACK(fdCliente);
+											//Suscribirse(&suscp);
+											break;
+										}
 										default:
 											log_info(logger, "Instrucción no reconocida");
 											break;
@@ -284,7 +225,7 @@ void* reservarMemoria(int size) {
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 
 	t_config *config;
-
+	config = reservarMemoria (sizeof(t_config));
 	config = config_create(ruta);
 
 	if (config != NULL) {
@@ -401,3 +342,73 @@ void iniciar_log(){
 	free(archivoLogCatedra);
 	archivoLogCatedra = NULL;
 }
+
+void reenviarMsjCola_NEW_POKEMON(void * mensaje){
+	int tam_list, i = 0;
+	suscriptor *suscriptor;
+	tam_list = list_size(cola_new_pokemon);
+	while(i != tam_list){
+		suscriptor = list_get(cola_new_pokemon, i);
+		int fdSuscriptor = nuevoSocket();
+		int conexion = conectarSocket(fdSuscriptor, suscriptor->mi_ip, suscriptor->mi_puerto);
+		if(conexion == ERROR){
+			log_info(logger,"[SOCKETS] No se pudo realizar la conexión entre el socket y el suscriptor(Gamecard).");
+		}
+		aplicar_protocolo_enviar(fdSuscriptor, NEW_POKEMON, mensaje);
+		//SE DEBE DE AGREGAR UNA ESPERA PENDIENTE DEL ACK LUEGO DE QUE LE LLEGUE EL MSJ
+	}
+
+}
+/*
+void Suscribirse(suscriptor * suscp){
+	int i, cantColas;
+	t_list colas_suscp = suscp->cola_a_suscribir;
+	cantColas = list_size(colas_suscp);
+	while(i != cantColas){
+		protocolo cola;
+		cola = list_get(colas_suscp,i);
+		switch (cola){
+		case NEW_POKEMON :{
+			pthread_mutex_lock(&mutex_cola_new_pokemon);
+			list_add(cola_new_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_cola_new_pokemon);
+			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			break;
+			}
+		case APPEARED_POKEMON :{
+			pthread_mutex_lock(&mutex_cola_appeared_pokemon);
+			list_add(cola_appeared_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			break;
+			}
+		case CATCH_POKEMON :{
+			pthread_mutex_lock(&mutex_cola_catch_pokemon);
+			list_add(cola_catch_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			break;
+			}
+		case GET_POKEMON :{
+			pthread_mutex_lock(&mutex_cola_get_pokemon);
+			list_add(cola_get_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_cola_get_pokemon);
+			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			break;
+			}
+		case LOCALIZED_POKEMON :{
+			pthread_mutex_lock(&mutex_cola_localized_pokemon);
+			list_add(cola_localized_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			break;
+			}
+		default:
+			log_info(logger, "Instrucción para suscribirse alguna cola no reconocida");
+			break;
+		}
+		i++;
+	}
+
+}
+*/

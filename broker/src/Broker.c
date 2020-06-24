@@ -54,7 +54,7 @@ int main(){//int argc, char **argv) {
 
 	config_File = reservarMemoria(sizeof(ConfigFile));
 
-	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
+	leerArchivoDeConfiguracion(CONFIG_BROKER,logger);
 
 	//Iniciar Estructuras
 	iniciar_estructuras();
@@ -131,15 +131,20 @@ void iniciar_estructuras(){
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
+	pthread_mutex_init(&mutex_cola_new_pokemon, NULL);
+	pthread_mutex_init(&mutex_cola_localized_pokemon, NULL);
+	pthread_mutex_init(&mutex_cola_get_pokemon, NULL);
+	pthread_mutex_init(&mutex_cola_appeared_pokemon, NULL);
+	pthread_mutex_init(&mutex_cola_catch_pokemon, NULL);
 
 }
 
 void reservar_particion(int tamano, Mensaje msj){
 	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION){
-		if(strcmp(config_File->ALGORITMO_MEMORIA, PARTICIONES) == 0){
+		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
 			reservar_particion_dinamica(tamano, msj);
 		}
-		else if(strcmp(config_File->ALGORITMO_MEMORIA, BUDDY_SYSTEM) == 0){
+		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
 			reservar_particion_bs(tamano, msj);
 		}
 		else{/*ERROR CONFIG*/}
@@ -151,7 +156,7 @@ void reservar_particion(int tamano, Mensaje msj){
 void reservar_particion_dinamica(int tamano, Mensaje mensaje){
 	Particion* particion_libre;
 	int contador_busquedas_fallidas;
-	if(config_File->ALGORITMO_PARTICION_LIBRE == FIRST_FIT){
+	if(config_File->ALGORITMO_PARTICION_LIBRE == "FF"){
 		while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL){
 		particion_libre = algoritmo_primer_ajuste(tamano);
 		if(particion_libre == NULL){contador_busquedas_fallidas++;}
@@ -168,7 +173,7 @@ void reservar_particion_dinamica(int tamano, Mensaje mensaje){
 			}
 		}
 	}
-	else if(config_File->ALGORITMO_PARTICION_LIBRE == BEST_FIT){
+	else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF"){
 		while(cantidad_fallidas <= contador_busquedas_fallidas){
 		particion_libre = algoritmo_mejor_ajuste(tamano);
 		if(particion_libre == NULL && cantidad_fallidas ){contador_busquedas_fallidas++;}

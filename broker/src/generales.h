@@ -20,6 +20,7 @@
 #include <commons/string.h>
 #include <commons/collections/list.h>
 
+#include <../broker/src/Broker.h>
 #include <../digiCommons/src/sockets.h>
 #include <../digiCommons/src/mensajeria.h>
 #include <../digiCommons/src/protocolos_comunicacion.h>
@@ -32,7 +33,7 @@
 #define LOG_PATH "../brokerCatedra.log"
 #define LOG_PATH_INTERNO "../broker.log"
 
-#define RUTA_CONFIG_MEM "../configBroker.txt"
+#define CONFIG_BROKER "../configBroker.txt"
 
 #define CONEXIONES_PERMITIDAS 100
 
@@ -70,5 +71,7 @@ void servidor();
 void crearHilosBroker();
 int thread_Broker(int fdCliente);
 void inicializar_semaforos();
+void reenviarMsjCola_NEW_POKEMON(void * mensaje);
+void Suscribirse(suscriptor * suscp);
 
 #endif /* SRC_GENERALES_H_ */
