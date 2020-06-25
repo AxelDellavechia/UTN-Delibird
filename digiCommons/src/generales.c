@@ -17,3 +17,21 @@ unsigned long long obtener_timestamp()
 	return timestamp;
 }
 
+unsigned int token() {
+
+	srand(time(NULL));
+
+	return rand() % random();
+}
+
+int devolverTipoMsj (char * comando) {
+
+	if (strcasecmp("NEW_POKEMON",comando) == 0 ) return NEW_POKEMON ;
+	if (strcasecmp("GET_POKEMON",comando) == 0 ) return GET_POKEMON ;
+	if (strcasecmp("LOCALIZED_POKEMON",comando) == 0 ) return LOCALIZED_POKEMON ;
+	if (strcasecmp("APPEARED_POKEMON",comando) == 0 ) return APPEARED_POKEMON ;
+	if (strcasecmp("CATCH_POKEMON",comando) == 0 ) return CATCH_POKEMON ;
+	if (strcasecmp("CAUGHT_POKEMON",comando) == 0 ) return CAUGHT_POKEMON ;
+}
+
+

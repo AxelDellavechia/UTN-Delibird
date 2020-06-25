@@ -225,7 +225,10 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 				cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
 
 				cau_poke->id_mensaje = atoi(argv[3]);
-				cau_poke->atrapo_pokemon = atoi(argv[4]) ;
+
+				if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = TRUE ;
+				else cau_poke->atrapo_pokemon = ERROR ;
+
 
 				int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
 
@@ -340,8 +343,8 @@ log_info(logger,"Trabajando con el BROKER");
 
 							cau_poke->id_mensaje = atoi(argv[3]);
 
-							if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = 0 ;
-							else cau_poke->atrapo_pokemon = 1 ;
+							if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = TRUE ;
+							else cau_poke->atrapo_pokemon = ERROR ;
 
 
 							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
@@ -456,20 +459,21 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 			return EXIT_FAILURE;
 		} else {
 				free(comando);
+
 				comando = strdup(argv[2]);
+
+				suscriptor * laSuscripcion ;
+
+				laSuscripcion->modulo = GAMEBOY ;
+				laSuscripcion->token = token();
+				laSuscripcion->cola_a_suscribir = list_create();
+				list_add(laSuscripcion->cola_a_suscribir,devolverTipoMsj(comando));
+
 				int tiempoSuscripcion = atoi(argv[3]);
 
-				int fdGB = nuevoSocket();
+				int enviado = conectar_y_enviar("GAMEBOY",configGB->ipBroker,configGB->puertoBroker,"TEAM","BROKER",SUSCRIPCION,laSuscripcion,logger, loggerCatedra);
 
-				int enviado = conectaryLoguear("BROKER" ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
-
-				if (enviado == 0) { return -1 ;}
-
-				handshake_cliente(fdGB, "Team" , "Broker", logger);
-
-				//aplicar_protocolo_enviar
-
-				log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
+				if (enviado != ERROR) log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
 
 				log_info(logger,"Aqui loguearia los mensajes de los x segundos");
 

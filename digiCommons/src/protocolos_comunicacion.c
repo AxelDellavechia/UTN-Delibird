@@ -286,19 +286,15 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 
 		/*
 			typedef struct{
-				int tam_mac_adress;
-				char * mac_adress;
-				t_list cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+				int token;
+				t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
 				int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
 			} suscriptor;
 		*/
 
 		int desplazamiento = 0;
-		memcpy(buffer+desplazamiento,&sucriptor->tam_mac_adress,sizeof(uint32_t));
+		memcpy(buffer+desplazamiento,&sucriptor->token,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-
-		memcpy(buffer+desplazamiento,sucriptor->mac_adress,string_length(sucriptor->mac_adress));
-		desplazamiento += sucriptor->tam_mac_adress;
 
 		int tamLista = list_size(sucriptor->cola_a_suscribir);
 		for (int i = 0 ; i < tamLista ; i++){
@@ -339,18 +335,12 @@ void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscripto
 
 	int desplazamiento = 0;
 
-							memcpy(&suscriptor->tam_mac_adress,(buffer+desplazamiento),sizeof(uint32_t));
+							memcpy(&suscriptor->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-
-							suscriptor->mac_adress = malloc(1);
-
-							suscriptor->mac_adress = realloc(suscriptor->mac_adress,suscriptor->tam_mac_adress);
-							memcpy(suscriptor->mac_adress,(buffer+desplazamiento),suscriptor->tam_mac_adress);
-							desplazamiento += suscriptor->tam_mac_adress;
 
 							suscriptor->cola_a_suscribir = list_create();
 
-							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) - suscriptor->tam_mac_adress ) / sizeof(uint32_t) ;
+							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) ) / sizeof(uint32_t) ;
 
 							for (int i = 0 ; i < cantidadElementos ; i++){
 							int aux = 0;
@@ -361,8 +351,6 @@ void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscripto
 
 							memcpy(&suscriptor->modulo,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-
-							suscriptor->mac_adress[suscriptor->tam_mac_adress] = '\0';
 
 }
 
