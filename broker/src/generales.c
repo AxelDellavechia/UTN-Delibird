@@ -196,9 +196,9 @@ int thread_Broker(int fdCliente) {
 											break;
 										}
 										case ACK :{
-											suscriptor * suscp;
-											//suscp = recibir_ACK(fdCliente);
-											//Suscribirse(&suscp);
+											suscriptor suscp;
+											suscp = recibirACK(fdCliente);
+											Suscribirse(&suscp);
 											break;
 										}
 										default:
@@ -359,47 +359,47 @@ void reenviarMsjCola_NEW_POKEMON(void * mensaje){
 	}
 
 }
-/*
+
 void Suscribirse(suscriptor * suscp){
 	int i, cantColas;
-	t_list colas_suscp = suscp->cola_a_suscribir;
-	cantColas = list_size(colas_suscp);
+	//t_list * colas_suscp = suscp->cola_a_suscribir;
+	cantColas = list_size(suscp->cola_a_suscribir);
 	while(i != cantColas){
-		protocolo cola;
-		cola = list_get(colas_suscp,i);
+		int cola;
+		cola = list_get(suscp->cola_a_suscribir,i);
 		switch (cola){
 		case NEW_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_new_pokemon);
-			list_add(cola_new_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_new_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
+			list_add(suscriptores_new_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
+			enviarConfirmacion(suscp);//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case APPEARED_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_appeared_pokemon);
-			list_add(cola_appeared_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
+			list_add(suscriptores_appeared_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case CATCH_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_catch_pokemon);
-			list_add(cola_catch_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
+			list_add(suscriptores_catch_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case GET_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_get_pokemon);
-			list_add(cola_get_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_get_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
+			list_add(suscriptores_get_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case LOCALIZED_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_localized_pokemon);
-			list_add(cola_localized_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
+			list_add(suscriptores_localized_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
@@ -411,4 +411,7 @@ void Suscribirse(suscriptor * suscp){
 	}
 
 }
-*/
+
+void enviarConfirmacion(){
+
+}

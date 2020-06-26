@@ -131,6 +131,11 @@ void iniciar_estructuras(){
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
+	pthread_mutex_init(&mutex_suscriptores_new_pokemon, NULL);
+	pthread_mutex_init(&mutex_suscriptores_localized_pokemon, NULL);
+	pthread_mutex_init(&mutex_suscriptores_get_pokemon, NULL);
+	pthread_mutex_init(&mutex_suscriptores_appeared_pokemon, NULL);
+	pthread_mutex_init(&mutex_suscriptores_catch_pokemon, NULL);
 	pthread_mutex_init(&mutex_cola_new_pokemon, NULL);
 	pthread_mutex_init(&mutex_cola_localized_pokemon, NULL);
 	pthread_mutex_init(&mutex_cola_get_pokemon, NULL);
