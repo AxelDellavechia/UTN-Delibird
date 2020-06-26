@@ -18,7 +18,7 @@ void iniciar_logCatedra(){
 void iniciar_log(){
 	char * archivoLog = string_duplicate("Team.log");
 	logger = log_create(LOG_PATH_INTERNO, archivoLog, FALSE, LOG_LEVEL_INFO);
-	free(archivoLog);
+	//free(archivoLog);
 	archivoLog = NULL;
 }
 
@@ -72,7 +72,7 @@ void* reservarMemoria(int size) {
 }
 
 void crearEstructuras() {
-	listaCatchPokemon = list_create();
+	//listaCatchPokemon = list_create();
 	objetivoTeam = list_create();
 	colaNew = list_create();
 	colaReady = list_create();
@@ -80,6 +80,7 @@ void crearEstructuras() {
 	colaExit = list_create();
 	entrenadoresEnDeadlock = list_create();
 	idMensajeEsperado = 0;
+	crearLista = 1;
 }
 
 void obtenerEntrenadores() {
@@ -241,6 +242,7 @@ void quitarPokemonDeAtrapados(entrenadorPokemon* entrenador, char* pokemon) {
 	}
 }
 
+//Verifica si el entrenador esta en deadlock. Si no lo esta, lo quita de blocked y lo pasa a ready seteandole "" como proxima accion
 void verificarDeadlock(entrenadorPokemon* entrenador) {
 	int pokemonEncontrado;
 	int entrenadorEnDeadlock;
@@ -254,6 +256,7 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 			char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
 			for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
 				char* pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
+				printf("Pokemon Atrapado: %s - Pokemon Objetivo: %s\n", pokemonAtrapado, pokemonObjetivo);
 				if (strcmp(pokemonAtrapado, pokemonObjetivo)) {
 					list_remove(listaObjetivosAuxiliar, posicionObjetivos);
 					cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
@@ -272,6 +275,7 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 				}
 				if (entrenadorEnDeadlock == FALSE) {
 					list_add(entrenadoresEnDeadlock, entrenador);
+					printf("Entrenador %i en deadlock\n", entrenador->idEntrenador);
 					verificarIntercambios();
 				}
 			}
@@ -286,7 +290,18 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 			}
 			quitarDeColaBlocked(entrenador);
 			list_add(colaExit, entrenador);
+			printf("Se movio al entrenador de id %i a Exit\n", entrenador->idEntrenador);
 		}
+	} else {
+		list_add(colaReady, entrenador);
+		printf("Se movio al entrenador de id %i a la cola de Ready\n", entrenador->idEntrenador);
+		//log_info("Se movio al entrenador de id %i a la cola de Ready\n", entrenador->idEntrenador);
+		for (int i=0; i < list_size(colaReady);i++) {
+			entrenadorPokemon* entrenador = list_get(colaReady, i);
+			printf("Entrenador posicion %i es %i\n", i, entrenador->idEntrenador);
+		}
+		quitarDeColaBlocked(entrenador);
+		entrenador->proximaAccion = "";
 	}
 }
 
@@ -391,19 +406,25 @@ entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido) {
 	return entrenador;
 }
 
+//Agrega el pokemon atrapado a la lista de pokemones atrapados del entrenador, quita al pokemon de la lista CatchPokemon y verifica si el entrenador esta en Deadlock
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemonRecibido) {
 	for(int posicionPokemon = 0; posicionPokemon < list_size(listaCatchPokemon); posicionPokemon++) {
-	cola_CATCH_POKEMON* pokemon = list_get(listaCatchPokemon, posicionPokemon);
-	if(pokemon->id_mensaje == pokemonRecibido->id_mensaje) {
-		list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemon->nombre_pokemon));
-		list_remove(listaCatchPokemon, posicionPokemon);
-		verificarDeadlock(entrenador);
-		break;
+		cola_CATCH_POKEMON* pokemon = list_get(listaCatchPokemon, posicionPokemon);
+		if(pokemon->id_mensaje == pokemonRecibido->id_mensaje) {
+			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemon->nombre_pokemon));
+			list_remove(listaCatchPokemon, posicionPokemon);
+			verificarDeadlock(entrenador);
+			break;
 		}
 	}
 }
 
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY) {
+	if (crearLista == TRUE) {
+		listaCatchPokemon = list_create();
+		crearLista = FALSE;
+	}
+	pokemon* pokemonEnLista;
 	pokemon* pokemon = reservarMemoria(sizeof(pokemon));
 	pokemon->id_mensaje = 0;
 	pokemon->nombre_pokemon = string_duplicate(nombrePokemon);
@@ -510,6 +531,11 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		pthread_mutex_lock(&entrenador->semaforMutex);
 		exec = NULL;
 		list_add(colaBlocked, entrenador);
+		log_info("Se movio al entrenador id %i a la lista de blocked", entrenador->idEntrenador);
+		for (int i=0; i < list_size(colaBlocked);i++) {
+			entrenadorPokemon* entrenador = list_get(colaBlocked, i);
+			printf("Entrenador %i en lista blocked\n", entrenador->idEntrenador);
+		}
 	} else if(strcmp("HacerIntercambio", accionStr) == 0) {
 		char* idEntrenador2 = strtok(NULL, " ");
 		char* posicionXEntrenador2 = strtok(NULL, " ");
@@ -581,7 +607,7 @@ void consola() {
 		}
 	}
 	log_destroy(logger);
-	free(comando);
+	//free(comando);
 	pthread_detach(hilo_servidor);
 	for ( int i = 0 ; i < list_size(configFile->posicionEntrenadores) ; i++){
 		pthread_detach(hilo);
@@ -686,7 +712,8 @@ void planificador() {
 			//responder por localized_pokemon
 			//log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 			printf("Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d \n",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-			free(app_poke.nombre_pokemon);
+			ejecutar();
+			//free(app_poke.nombre_pokemon);
 		break;
 		}
 		case CAUGHT_POKEMON :{
@@ -695,7 +722,7 @@ void planificador() {
 			deserealizar_CAUGHT_POKEMON(head, mensaje, bufferTam, & caug_poke);
 			entrenadorPokemon* entrenador = verificarMensajeRecibido(caug_poke.id_mensaje);
 			if (entrenador != NULL) {
-				if (caug_poke.atrapo_pokemon == OK) {
+				if (caug_poke.atrapo_pokemon == 0) {
 					pokemonAtrapado(entrenador, &caug_poke);
 				}
 			}
@@ -712,7 +739,7 @@ void planificador() {
 			i++;
 		}
 			desBloquearSemaforoEnt(colaNew,1);
-			free(loc_poke.nombre_pokemon);
+			//free(loc_poke.nombre_pokemon);
 			list_destroy(loc_poke.lista_posiciones);
 		break;
 		}
@@ -741,7 +768,7 @@ void planificador() {
 												break;
 											}
 											*/
-		ejecutar();
+		//ejecutar();
 	}
 }
 

@@ -17,7 +17,7 @@
 #define RUTA_CONFIG_MEM "configTeam.txt"
 #define FALSE 0
 #define TRUE 1
-#define OK 1
+#define OK 0
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
@@ -36,6 +36,7 @@ int ciclosEnCPU;
 int fdTeam;
 int conBroker;
 int idMensajeEsperado;
+int crearLista;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t * hilo;
