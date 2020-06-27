@@ -66,4 +66,9 @@ typedef struct{
 } suscriptor;
 
 
+typedef struct{
+	int ack;
+	int id_msj;
+}respuesta_ACK;
+
 #endif /* SRC_MENSAJERIA_H_ */

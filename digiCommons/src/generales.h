@@ -13,6 +13,8 @@
 unsigned long long obtener_timestamp();
 unsigned int token() ;
 int devolverTipoMsj (char * comando);
+char * tipoMsjIntoToChar (int head);
+char * devolverModulo(int modulo);
 
 
 #endif /* SRC_GENERALES_H_ */

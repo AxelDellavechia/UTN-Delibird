@@ -72,6 +72,6 @@ void crearHilosBroker();
 int thread_Broker(int fdCliente);
 void inicializar_semaforos();
 void reenviarMsjCola_NEW_POKEMON(void * mensaje);
-void suscribirse(suscriptor * suscp);
+void Suscribirse(suscriptor * suscp);
 
 #endif /* SRC_GENERALES_H_ */

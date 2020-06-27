@@ -282,6 +282,17 @@ void tiempoEspera(){
 
 }
 
+void * generarSus( suscriptor * suscriptor ){
+
+		suscriptor->modulo = TEAM;
+		suscriptor->token = token();
+		suscriptor->cola_a_suscribir = list_create();
+		list_add(suscriptor->cola_a_suscribir,GET_POKEMON);
+		list_add(suscriptor->cola_a_suscribir,LOCALIZED_POKEMON);
+		list_add(suscriptor->cola_a_suscribir,CATCH_POKEMON);
+		list_add(suscriptor->cola_a_suscribir,CAUGHT_POKEMON);
+		list_add(suscriptor->cola_a_suscribir,APPEARED_POKEMON);
+}
 
 
 void planificador() {
@@ -301,12 +312,32 @@ void planificador() {
 
 	conBroker = conectarCon(fdBroker,configFile->ipBroker,configFile->puertoBroker,logger);
 
-	if ( conBroker == 1) handshake_cliente(fdBroker,"Team","Broker",logger);
+	int head , bufferTam  ;
+
+	generarSus(&laSus);
+
+	for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
+		log_info(logger,"El modulo %s se va a suscribir a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
+	}
+
+	if ( conBroker == 1) {
+		handshake_cliente(fdBroker,"Team","Broker",logger);
+		aplicar_protocolo_enviar(fdBroker,SUSCRIPCION,&laSus);
+		void * mensaje = malloc(bufferTam);
+		recibirProtocolo(head,bufferTam,fdBroker);
+		if ( head == ACK) {
+			recibirMensaje(fdBroker,bufferTam,mensaje);
+			respuesta_ACK elACK;
+			deserealizar_ACK(head,mensaje,bufferTam,&elACK);
+			if (elACK.ack == TRUE)	;//guardotoken con el metodo en el config by Javi
+		}
+	}
+
 	else pthread_mutex_unlock(&h_reconectar);
 
 	log_info(logger," Escuchando conexiones");
 
-	int head , bufferTam  ;
+
 
 	for ( int i = 0 ; i < list_size(configFile->posicionEntrenadores) ; i++){
 			entrenadorPokemon * entrenador = list_get(colaNew,i) ;
@@ -369,6 +400,13 @@ void planificador() {
 										break;
 									}
 									*/
+									case ACK :{
+										respuesta_ACK ack;
+										deserealizar_ACK( head, mensaje, bufferTam, & ack);
+										log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+										break;
+									}
+
 									case APPEARED_POKEMON :{
 										cola_APPEARED_POKEMON app_poke;
 										deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
@@ -396,6 +434,7 @@ void planificador() {
 										i++;
 										}
 										desBloquearSemaforoEnt(colaNew,1);
+										//aplicar_proto falla devuelvo respuesta default y despierta el hilo reconectar
 										free(loc_poke.nombre_pokemon);
 										list_destroy(loc_poke.lista_posiciones);
 										break;
@@ -426,9 +465,11 @@ void reconectar(){
 
 	pthread_mutex_lock(&h_reconectar);
 
+	int head , bufferTam  ;
+
 	while ( conBroker != 1 ) {
 
-		sleep(configFile->tiempoReconexion);
+		usleep(configFile->tiempoReconexion * 1000000);
 
 		conBroker = conectarCon(fdBroker,configFile->ipBroker,configFile->puertoBroker,logger);
 
@@ -436,6 +477,18 @@ void reconectar(){
 
 	handshake_cliente(fdBroker,"Team","Broker",logger);
 
-	pthread_mutex_unlock(&h_reconectar);
+	if (configFile->token == 0 ){
+		generarSus(&laSus);
+		aplicar_protocolo_enviar(fdBroker,SUSCRIPCION,&laSus);
+		void * mensaje = malloc(bufferTam);
+		recibirProtocolo(head,bufferTam,fdBroker);
+		if ( head == ACK) {
+			recibirMensaje(fdBroker,bufferTam,mensaje);
+			respuesta_ACK elACK;
+			deserealizar_ACK(head,mensaje,bufferTam,&elACK);
+			if (elACK.ack == TRUE)	;//guardotoken con el metodo en el config by Javi
+		}
+	}
+
 }
 

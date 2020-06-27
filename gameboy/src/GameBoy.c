@@ -173,6 +173,20 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 
 			free(comando);
 
+			//./gameboy TEAM ACK ESTADO ID_MSJ
+
+			if (strcasecmp("ACK",comando) == 0 ) {
+
+				respuesta_ACK * ack =  malloc( sizeof(respuesta_ACK) );
+
+				ack->ack = atoi(argv[3]);
+				ack->id_msj = atoi(argv[4]);
+
+				int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,APPEARED_POKEMON, ack , logger , loggerCatedra);
+
+
+			}
+
 			//./gameboy TEAM APPEARED_POKEMON [POKEMON] [POSX] [POSY]
 
 			comando = strdup(argv[2]);
@@ -242,6 +256,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 			}
 			//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
 
+			//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 [1|2,3|4,5|6] 45
 			else if (strcasecmp("LOCALIZED_POKEMON",comando) == 0 ) {
 
 
@@ -256,16 +271,15 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 
 						char ** listapokemon = string_split(argv[5],",");
 
-						int posicion = 0 ;
-						while (listapokemon[posicion] != NULL){
-							if ( string_starts_with(listapokemon[posicion],"[")) listapokemon[posicion] = string_substring_from(listapokemon[posicion],1);
-							if ( string_ends_with(listapokemon[posicion],"]")) {
-								listapokemon[posicion]= string_reverse(listapokemon[posicion]);
-								listapokemon[posicion] = string_substring_from(listapokemon[posicion],1);
-								listapokemon[posicion]= string_reverse(listapokemon[posicion]);
-							}
-							list_add(loc_poke->lista_posiciones, (int) atoi(listapokemon[posicion]));
-							posicion++;
+						int laposicion = 0 ;
+						while (listapokemon[laposicion] != NULL){
+
+							char ** posicionPokemon =  string_split(listapokemon[laposicion],"|");
+							posicion * laPosicion = malloc( sizeof(posicion));
+							laPosicion->posicion_x = posicionPokemon[0];
+							laPosicion->posicion_y = posicionPokemon[1];
+							list_add(loc_poke->lista_posiciones,laPosicion);
+							laposicion++;
 
 						}
 
@@ -486,8 +500,12 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 			    time_t endwait;
 
 			    endwait = time (NULL) + tiempoSuscripcion ;
+
+			    int head = devolverTipoMsj(comando) ;
+
 			    while (time (NULL) < endwait)
 			    {
+
 			        log_info(logger,"bucleo por 10 segundos");
 			    }
 		}

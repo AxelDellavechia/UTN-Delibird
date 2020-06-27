@@ -40,7 +40,7 @@ void crearHilosBroker() {
 	hilo_consola= 0;
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
-	//pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
@@ -65,11 +65,14 @@ void consola() {
 	}
 
 	log_destroy(logger);
+	log_destroy(loggerCatedra);
 	free(comando);
 
 	pthread_detach(hilo_servidor);
-	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
+
+	pthread_detach( pthread_self() );
+
 }
 
 void inicializar_semaforos(){
@@ -138,42 +141,37 @@ int thread_Broker(int fdCliente) {
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
 											//reenviarMsjCola_NEW_POKEMON(mensaje);
-											reservar_particion(bufferTam,&new_poke);
-											free(new_poke.nombre_pokemon);
 											break;
 										}
 										case CATCH_POKEMON :{
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
 											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-											reservar_particion(bufferTam,&cath_poke);
 											break;
 										}
 										case GET_POKEMON :{
 											cola_GET_POKEMON get_poke ;
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
 											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-											reservar_particion(bufferTam,&get_poke);
-											free(get_poke.nombre_pokemon);
 											break;
 										}
 
 										case APPEARED_POKEMON :{
 											cola_APPEARED_POKEMON app_poke;
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
+
 											//responder por localized_pokemon
 											log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-											reservar_particion(bufferTam,&app_poke);
 											free(app_poke.nombre_pokemon);
 											break;
 										}
 
 										case CAUGHT_POKEMON :{
 											cola_CAUGHT_POKEMON caug_poke ;
+
 											//responde por caught_pokemon
 											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
 											log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-											reservar_particion(bufferTam,&caug_poke);
 											break;
 										}
 
@@ -189,17 +187,22 @@ int thread_Broker(int fdCliente) {
 											break;
 										}
 										case ACK :{
-											int ack = recibirACK(fdCliente) ;
+											respuesta_ACK ack;
+											deserealizar_ACK( head, mensaje, bufferTam, & ack);
+											log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
 											break;
 										}
+
 										case SUSCRIPCION :{
-											suscriptor suscp;
-											deserealizar_suscriptor(head,mensaje,bufferTam,&suscp);
-											for (int i = 0 ; i < list_size(suscp.cola_a_suscribir); i++){
-											log_info(logger,"El modulo %s con token nro %d se suscribirio a la cola: %s",
-											devolverStringModlo(suscp.modulo),suscp.token,list_get(suscp.cola_a_suscribir,i));
-											i++;
+											suscriptor laSus;
+											deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
+											for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
+												log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
 											}
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = 0;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											break;
 										}
 										default:
@@ -343,7 +346,7 @@ void iniciar_log(){
 	free(archivoLogCatedra);
 	archivoLogCatedra = NULL;
 }
-
+/*
 void reenviarMsjCola_NEW_POKEMON(void * mensaje){
 	int tam_list, i = 0;
 	suscriptor *suscriptor;
@@ -351,56 +354,56 @@ void reenviarMsjCola_NEW_POKEMON(void * mensaje){
 	while(i != tam_list){
 		suscriptor = list_get(cola_new_pokemon, i);
 		int fdSuscriptor = nuevoSocket();
-		/*int conexion = conectarSocket(fdSuscriptor, suscriptor->mi_ip, suscriptor->mi_puerto);
+		int conexion = conectarSocket(fdSuscriptor, suscriptor->mi_ip, suscriptor->mi_puerto);
 		if(conexion == ERROR){
 			log_info(logger,"[SOCKETS] No se pudo realizar la conexión entre el socket y el suscriptor(Gamecard).");
-		}*/
+		}
 		aplicar_protocolo_enviar(fdSuscriptor, NEW_POKEMON, mensaje);
 		//SE DEBE DE AGREGAR UNA ESPERA PENDIENTE DEL ACK LUEGO DE QUE LE LLEGUE EL MSJ
 	}
 
 }
-/*
+*/
 void Suscribirse(suscriptor * suscp){
 	int i, cantColas;
-	t_list colas_suscp = suscp->cola_a_suscribir;
-	cantColas = list_size(colas_suscp);
+	//t_list * colas_suscp = suscp->cola_a_suscribir;
+	cantColas = list_size(suscp->cola_a_suscribir);
 	while(i != cantColas){
-		protocolo cola;
-		cola = list_get(colas_suscp,i);
+		int cola;
+		cola = list_get(suscp->cola_a_suscribir,i);
 		switch (cola){
 		case NEW_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_new_pokemon);
-			list_add(cola_new_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_new_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
+			pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
+			list_add(suscriptores_new_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
+			enviarConfirmacion(suscp);//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case APPEARED_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_appeared_pokemon);
-			list_add(cola_appeared_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
+			list_add(suscriptores_appeared_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case CATCH_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_catch_pokemon);
-			list_add(cola_catch_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
+			list_add(suscriptores_catch_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case GET_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_get_pokemon);
-			list_add(cola_get_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_get_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
+			list_add(suscriptores_get_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case LOCALIZED_POKEMON :{
-			pthread_mutex_lock(&mutex_cola_localized_pokemon);
-			list_add(cola_localized_pokemon, &suscp);
-			pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+			pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
+			list_add(suscriptores_localized_pokemon, &suscp);
+			pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
@@ -412,4 +415,7 @@ void Suscribirse(suscriptor * suscp){
 	}
 
 }
-*/
+
+void enviarConfirmacion(){
+
+}
