@@ -9,6 +9,8 @@
 #define GAMEBOY_H_
 
 #include "Generales.h"
+#include <time.h>
+
 
 int flujoGameCard( char * comando,int argc, char *argv[]);
 int flujoTeam( char * comando,int argc, char *argv[]);

@@ -4,6 +4,7 @@
 void inicializar_semaforos(){
 
 	pthread_mutex_init(&semaforo, NULL);
+	pthread_mutex_init(&semaforo2, NULL);
 
 }
 
@@ -130,25 +131,49 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 
 }
 
-void consola() {
+void crearHilos(suscriptor * laSuscripcion) {
 
-	printf("Hola! Ingresá \"salir\" para finalizar módulo\n");
-	size_t buffer_size = 100; //por el momento restringido a 100 caracteres
-	char* comando = (char *) calloc(1, buffer_size);
+	hilo_servidor = 0;
+	hilo_consola = 0 ;
 
-	while (!string_equals_ignore_case(comando, "salir\n")) {
-		printf(">");
-		int bytes_read = getline(&comando, &buffer_size, stdin);
-		if (bytes_read == -1) {
-			log_error(logger,"Error en getline");
-		}
-		if (bytes_read == 1) {
-			continue;
-		}
-	}
+	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
+	pthread_create(&hilo_consola, NULL, (void*) consola, (void *) laSuscripcion);
 
-	log_destroy(logger);
-	free(comando);
+	pthread_mutex_lock(&semaforo);
+
+	pthread_join(hilo_servidor, NULL);
+	pthread_join(hilo_consola, NULL);
+
 }
 
+void servidor() {
 
+	pthread_mutex_lock(&semaforo);
+
+	for ( cantidadSegundos ; cantidadSegundos < segundosMaximos ; cantidadSegundos ++) {
+		sleep(1);
+		printf("paso 1 segundo metodo servidor\n");
+	}
+
+	pthread_mutex_unlock(&semaforo);
+	pthread_detach(hilo_servidor);
+	pthread_cancel(hilo_servidor);
+}
+
+void consola(suscriptor * laSuscripcion) {
+
+	int enviado = conectar_y_enviar("GAMEBOY",configGB->ipBroker,configGB->puertoBroker,"TEAM","BROKER",SUSCRIPCION,laSuscripcion,logger, loggerCatedra);
+
+	if (enviado != ERROR) log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
+
+	pthread_mutex_unlock(&semaforo);
+
+	while ( tiempoSuscripcion != 0 ) {
+			log_info(logger,"El tiempo restante es %d",tiempoSuscripcion);
+			tiempoSuscripcion = tiempoSuscripcion - cantidadSegundos ;
+	}
+
+	pthread_detach(hilo_consola);
+	pthread_cancel(hilo_consola);
+
+}

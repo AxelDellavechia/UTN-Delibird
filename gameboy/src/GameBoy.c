@@ -29,7 +29,7 @@ int main (int argc, char *argv[]) {
 
 		leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
-		char * comando = strdup( argv[1] ) ;
+		comando = strdup( argv[1] ) ;
 
 		//char * comando = strdup( "MEME" ) ;
 
@@ -41,6 +41,8 @@ int main (int argc, char *argv[]) {
 			Llegada de un nuevo mensaje afdReceptor una cola de mensajes.
 			Envío de un mensaje a un suscriptor específico.
 		 */
+
+		log_info(logger, "Verificando los comandos ingresados");
 
 		if (strcasecmp("BROKER",comando) == 0 ) flujoBroker(  comando, argc , argv) ;
 
@@ -262,7 +264,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 								listapokemon[posicion] = string_substring_from(listapokemon[posicion],1);
 								listapokemon[posicion]= string_reverse(listapokemon[posicion]);
 							}
-							list_add(loc_poke->lista_posiciones,atoi(listapokemon[posicion]));
+							list_add(loc_poke->lista_posiciones, (int) atoi(listapokemon[posicion]));
 							posicion++;
 
 						}
@@ -283,6 +285,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 				free(comando);
 				return EXIT_FAILURE;
 			}
+			return EXIT_FAILURE;
 }
 
 int flujoBroker( char * comando,int argc, char *argv[]){
@@ -451,36 +454,42 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 
 	log_info(logger,"Trabajando con el SUSCRIPTOR");
 
-
-
 		if ( argc < 4){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			free(comando);
 			return EXIT_FAILURE;
 		} else {
+
 				free(comando);
 
 				comando = strdup(argv[2]);
 
-				suscriptor * laSuscripcion ;
+				tiempoSuscripcion = 0 ;
+
+				cantidadSegundos = 0 ;
+
+				tiempoSuscripcion = atoi(argv[3]);
+
+				segundosMaximos = tiempoSuscripcion ;
+
+				log_info(logger,"Ingresaron el comando -> %s durante %d segundos ",comando,tiempoSuscripcion);
+
+				suscriptor * laSuscripcion = (suscriptor * ) malloc(sizeof(suscriptor));
 
 				laSuscripcion->modulo = GAMEBOY ;
 				laSuscripcion->token = token();
 				laSuscripcion->cola_a_suscribir = list_create();
-				list_add(laSuscripcion->cola_a_suscribir,devolverTipoMsj(comando));
+				list_add(laSuscripcion->cola_a_suscribir, (int) devolverTipoMsj(comando));
 
-				int tiempoSuscripcion = atoi(argv[3]);
+				//crearHilos(laSuscripcion);
 
-				int enviado = conectar_y_enviar("GAMEBOY",configGB->ipBroker,configGB->puertoBroker,"TEAM","BROKER",SUSCRIPCION,laSuscripcion,logger, loggerCatedra);
+			    time_t endwait;
 
-				if (enviado != ERROR) log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
-
-				log_info(logger,"Aqui loguearia los mensajes de los x segundos");
-
-				//aplicar_protocolo_recibir(fdBroker)
-
-				free(comando);
-				return EXIT_SUCCESS;
+			    endwait = time (NULL) + tiempoSuscripcion ;
+			    while (time (NULL) < endwait)
+			    {
+			        log_info(logger,"bucleo por 10 segundos");
+			    }
 		}
 }
 

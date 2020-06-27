@@ -26,13 +26,13 @@ endif
 all: gameboy
 
 dependents:
-	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) all
+	-cd /home/utnso/workspace_2/digiCommons/Debug && $(MAKE) all
 
 # Tool invocations
-gameboy: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
+gameboy: $(OBJS) $(USER_OBJS) /home/utnso/workspace_2/digiCommons/Debug/libdigiCommons.so
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc -L"/home/utnso/workspace/digiCommons/Debug" -o "gameboy" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L"/home/utnso/workspace_2/digiCommons/Debug" -o "gameboy" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -42,6 +42,6 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
-/home/utnso/workspace/digiCommons/Debug/libdigiCommons.so:
+/home/utnso/workspace_2/digiCommons/Debug/libdigiCommons.so:
 
 -include ../makefile.targets
