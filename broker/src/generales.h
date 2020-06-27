@@ -58,6 +58,7 @@ pthread_mutex_t mxSocketsFD;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
+pthread_t hilo_Publisher;
 
 fd_set setMaestro;
 
@@ -71,7 +72,8 @@ void servidor();
 void crearHilosBroker();
 int thread_Broker(int fdCliente);
 void inicializar_semaforos();
-void reenviarMsjCola_NEW_POKEMON(void * mensaje);
+void reenviarMsjs_Cola(t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores);
+//void reenviarMsjCola_NEW_POKEMON(void * mensaje);
 void Suscribirse(suscriptor * suscp);
 
 #endif /* SRC_GENERALES_H_ */

@@ -27,14 +27,6 @@ typedef struct Particion{
 	int tiempoLRU;
 }Particion;
 
-typedef struct{
-
-}Suscriptor;
-
-typedef struct{
-
-}particion_memoria;
-
 
 typedef struct{
 	uint32_t largo_nombre;
@@ -88,6 +80,7 @@ pthread_mutex_t mutex_suscriptores_localized_pokemon;
 pthread_mutex_t mutex_suscriptores_get_pokemon;
 pthread_mutex_t mutex_suscriptores_appeared_pokemon;
 pthread_mutex_t mutex_suscriptores_catch_pokemon;
+pthread_mutex_t mutex_contador_msjs_en_cola;
 pthread_mutex_t mutex_cola_new_pokemon;
 pthread_mutex_t mutex_cola_localized_pokemon;
 pthread_mutex_t mutex_cola_get_pokemon;

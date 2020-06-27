@@ -15,6 +15,7 @@ typedef enum {
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
 	ACK,
+	SUSCRIPTOR,
 	FIN_DEL_PROTOCOLO
 } protocolo;
 

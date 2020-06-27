@@ -70,5 +70,10 @@ typedef struct{
 	char tipo_suscripcion; // VALOR POSIBLES -> G (GOBLAL) ó L (LOCAL POR ID MSJ)
 } suscriptor;
 
+typedef struct{
+	int ack;
+	int id_msj;
+}ACK;
+
 
 #endif /* SRC_MENSAJERIA_H_ */
