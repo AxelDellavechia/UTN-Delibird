@@ -316,7 +316,7 @@ void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW
 
 							new_poke->nombre_pokemon = malloc(1);
 
-							new_poke->nombre_pokemon = realloc(new_poke->nombre_pokemon,new_poke->tamanio_nombre);
+							new_poke->nombre_pokemon = realloc(new_poke->nombre_pokemon,new_poke->tamanio_nombre+1);
 							memcpy(new_poke->nombre_pokemon,(buffer+desplazamiento),new_poke->tamanio_nombre);
 							desplazamiento += new_poke->tamanio_nombre;
 
@@ -372,7 +372,7 @@ void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CA
 			memcpy(&cat_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
 
-			cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,cat_poke->tamanio_nombre);
+			cat_poke->nombre_pokemon = realloc(cat_poke->nombre_pokemon,1 + cat_poke->tamanio_nombre);
 			memcpy(cat_poke->nombre_pokemon,(buffer+desplazamiento),cat_poke->tamanio_nombre);
 			desplazamiento += cat_poke->tamanio_nombre;
 
@@ -409,7 +409,7 @@ void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET
 							memcpy(&get_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							get_poke->nombre_pokemon = realloc(get_poke->nombre_pokemon,get_poke->tamanio_nombre);
+							get_poke->nombre_pokemon = realloc(get_poke->nombre_pokemon,1 + get_poke->tamanio_nombre);
 							memcpy(get_poke->nombre_pokemon,(buffer+desplazamiento),get_poke->tamanio_nombre);
 
 							get_poke->nombre_pokemon[get_poke->tamanio_nombre] = '\0';

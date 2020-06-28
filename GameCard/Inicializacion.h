@@ -36,6 +36,7 @@ typedef struct{
 	char* IP_BROKER;
 	int PUERTO_BROKER;
 	int PUERTO_GAMECARD;
+	unsigned int TOKEN;
 } ConfigFile;
 
 typedef struct{
@@ -66,7 +67,7 @@ void crearPuntoMontaje();
 void consola();
 void servidor();
 void cargarArbolDirectorios(char* Directorio);
-void thread_cliente(int fdSocket);
+void thread_Broker(int fdSocket);
 
 ConfigFile* config_File;
 t_config_MetaData* config_MetaData;

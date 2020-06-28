@@ -32,6 +32,7 @@ typedef struct{
 	uint32_t posicion_y;
 }posicion;
 
+
 typedef struct{
 	uint32_t id_mensaje;
 	char* nombre_pokemon;
@@ -59,5 +60,9 @@ typedef struct{
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
+typedef struct{
+	int ack;
+	int id_msj;
+}respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

@@ -20,6 +20,8 @@ int main(){//int argc, char **argv) {
 	creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques); //Verifico la existencia del Bitmap.
 	crearBitmap(); //Cargo el contenigo del bitmap.
 	loadPokemons();
+	crearHilos();
+
 	/*
 
 	// ------ CASO DE PRUEBA NEW POKEMON-----------------------------
@@ -63,7 +65,7 @@ int main(){//int argc, char **argv) {
 		printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
 	}*/
 
-	crearHilos();
+
 
 	//return EXIT_SUCCESS;
 }

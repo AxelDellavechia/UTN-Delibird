@@ -4,27 +4,6 @@
 #include "MetodosGC.h"
 
 
-/*void leer_configFile(char* ruta) {
-
-
-	t_config *config;
-	char *ptrRuta = ruta;
-	config = config_create(ptrRuta);
-		if (config != NULL) {
-			config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
-			config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
-			config_File->PUNTO_MONTAJE_TALLGRASS = config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS");
-			config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
-			config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
-			config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
-			config_destroy(config);
-
-			crearPuntoMontaje();
-			leer_metaData_principal();
-		}
-
-
-}*/
 
 void* reservarMemoria(int size) {
 	void *puntero = malloc(size);
@@ -39,9 +18,9 @@ void* reservarMemoria(int size) {
 
 void leer_configFile(char* ruta) {
 
-	config_File = reservarMemoria(sizeof(ConfigFile));
+	config_File = malloc(1 + sizeof(ConfigFile));
 	t_config *config;
-	config = reservarMemoria (sizeof(t_config));
+	config = malloc (1+sizeof(t_config));
 	config = config_create(ruta);
 	log_info(logger, "Por setear los valores del archivo de configuracion");
 	if (config != NULL) {
@@ -49,30 +28,50 @@ void leer_configFile(char* ruta) {
 
 		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
 		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
-		config_File->PUNTO_MONTAJE_TALLGRASS = config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS");
+		config_File->PUNTO_MONTAJE_TALLGRASS = string_duplicate(config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS"));
 		config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
 		config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
 		config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
+		if (config_get_int_value(config,"TOKEN") != 0 ){
+			config_File->TOKEN = config_get_int_value(config,"TOKEN");
+		}else
+		{
+			config_File->TOKEN = token();
+			grabarToken(config_File->TOKEN);
+		}
+
 
 		}
-	//config_destroy(config);
+	config_destroy(config);
 	crearPuntoMontaje();
 	leer_metaData_principal();
 
 }
 
+void grabarToken(unsigned int token)
+{
+
+		t_config *config;
+		config = reservarMemoria (sizeof(t_config));
+		config = config_create(CONFIG_PATH);
+		log_info(logger, "Guardar Token");
+		if (config != NULL) {
+			config_set_value(config, "TOKEN", string_itoa(token));
+			config_save(config);
+		}
+
+}
+
 void crearPuntoMontaje()
 {
-		PuntoMontaje = malloc (sizeof(t_config_PuntosMontaje));
+		PuntoMontaje = malloc (  sizeof(t_config_PuntosMontaje));
 
-		PuntoMontaje->PUNTOMONTAJE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
+		PuntoMontaje->PUNTOMONTAJE = malloc ( 1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
 		PuntoMontaje->FILES = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
 		PuntoMontaje->BLOCKS = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
 		PuntoMontaje->METADATA = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/") ) ;
 		PuntoMontaje->METADATA_FILE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Metadata.bin") ) ;
-		PuntoMontaje->BITMAP = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
-
-
+		PuntoMontaje->BITMAP = malloc (1 +string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
 
 		strcpy(PuntoMontaje->PUNTOMONTAJE,config_File->PUNTO_MONTAJE_TALLGRASS);
 		//printf("puntoMontaje %s\n",configFile->puntoMontaje);
@@ -101,11 +100,11 @@ int leer_metaData_principal(){
 	string_append(&direccionArchivoMedata,PuntoMontaje->METADATA);
 	printf("direccionArchivoMedata: %s\n",direccionArchivoMedata);*/
 
-	config_MetaData = reservarMemoria(sizeof(t_config_MetaData));
+	config_MetaData = malloc (sizeof(t_config_MetaData));
 
 	t_config *archivo_MetaData;
 
-	archivo_MetaData = reservarMemoria (sizeof(t_config));
+	archivo_MetaData = malloc (sizeof(t_config));
 
 	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
 
@@ -115,7 +114,8 @@ int leer_metaData_principal(){
     config_MetaData->magic_number=string_duplicate(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
 	config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
 	//free(direccionArchivoMedata);
-	//config_destroy(archivo_MetaData);
+
+	config_destroy(archivo_MetaData);
 	return 0;
 }
 
@@ -172,93 +172,19 @@ void consola() {
 		}
 
 	}
-
+	list_destroy(pokeList);
 	free(comando);
-/*
- *
- 	bitarray_destroy(bitarray);
-  log_destroy(logger);
+	free(mxPokemones);
+	free(PuntoMontaje);
+	free(config_File);
+ 	log_destroy(logger);
 	pthread_detach(hilo_servidor);
+	pthread_detach(thread_Broker);
 	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
-*/
+
 }
 
-/*
-void servidor() {
-
-	comandoIn = nuevoSocket();
-	asociarSocket(comandoIn, config_File->PUERTO_GAMECARD);
-	escucharSocket(comandoIn, CONEXIONES_PERMITIDAS);
-
-	fd_set setAux;
-	int maxFD,i,socket_nuevo;
-
-	FD_ZERO(&setMaestro); 	// borra los conjuntos maestro y temporal
-	FD_ZERO(&setAux);
-
-	maxFD = comandoIn; //Llevo control del FD maximo de los sockets
-	FD_SET(comandoIn, &setMaestro); //agrego el FD del socketEscucha al setMaestro
-
-
-	log_info(logger," Escuchando conexiones. Socket: %d\n",comandoIn);
-
-	while(TRUE) {
-		//pthread_mutex_lock(&mxSocketsFD);
-		setAux = setMaestro;
-		//pthread_mutex_unlock(&mxSocketsFD);
-
-				if (select((maxFD + 1), &setAux, NULL, NULL, NULL ) == -1) {
-					printf("Error en la escucha.\n");
-					log_error(logger,"Error en la escucha.\n" );
-					return;
-				}
-
-		int conexionNueva = 0;
-		int comandoNuevo;//= reservarMemoria(INT);
-
-		for (i = 0; i <= maxFD; i++) {
-			//		pthread_mutex_lock(&mxSocketsFD);
-					int check = FD_ISSET(i,&setAux);
-			//		pthread_mutex_unlock(&mxSocketsFD);
-					if (check) { // Me fijo en el set de descriptores a ver cual respondió
-						if (i == comandoIn) { //Tengo un nuevo hilo de Sac Cli queriendose conectar
-							//Esta funcion acepta una nueva conexion del Broker o del Gameboy
-							//y agrega un nuevo nodo a la lista de scripts con el nuevo socket
-
-							log_info(logger,"Nuevo Cliente Conectado");
-							comandoNuevo = aceptarConexionSocket(comandoIn);
-							if (comandoNuevo == -1){
-								return;
-							}
-
-							if( ! validar_conexion(conexionNueva, 0 , logger) ) {
-				//					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
-									FD_CLR(i, &setMaestro); // borra el file descriptor del set
-				//					pthread_mutex_unlock(&mxSocketsFD);
-									cerrarSocket(i);
-
-									continue; // vuelve al inicio del while
-							}else{
-					//				pthread_mutex_lock(&mxSocketsFD);
-									FD_SET(comandoNuevo, &setMaestro); //agrego el nuevo socket al setMaestro
-					//				pthread_mutex_unlock(&mxSocketsFD);
-									if (comandoNuevo > maxFD) maxFD = comandoNuevo;
-						}
-						}else { // Hay actividad nueva en algún socket conectado
-							//SI RECIBO TRUE EN CONEXIONNUEVA, ABRO UN HILO POR CADA UNO QUE SE CONECTE
-							pthread_t hilo_thread;
-							pthread_mutex_lock(&mxHilos);
-							pthread_create(&hilo_thread, NULL, (void*) thread_cliente, i);
-							pthread_mutex_unlock(&mxHilos);
-						}
-					}
-
-		}
-		//free(comandoNuevo);
-	}
-}
-*/
 
 void servidor() {
 
@@ -287,15 +213,19 @@ void servidor() {
 				//	pthread_mutex_unlock(&mxSocketsFD);
 			}
 		}
+		/*
+		 * Enviar colas a las que me suscribo
+		 *
+		 */
 		pthread_t hilo;
 	//	pthread_mutex_lock(&mxHilos);
-		pthread_create(&hilo, NULL, (void*) thread_cliente, comandoNuevo);
+		pthread_create(&hilo, NULL, (void*) thread_Broker, comandoNuevo);
 	//	pthread_mutex_unlock(&mxHilos);
 
 	}
 }
 
-void thread_cliente(int fdSocket) {
+void thread_Broker(int fdSocket) {
 
 	int head , bufferTam  ;
 
@@ -322,7 +252,7 @@ void thread_cliente(int fdSocket) {
 												printf("enviar la respuesta APPEARED");
 												cola_APPEARED_POKEMON appeared_pokemon;
 												appeared_pokemon.id_mensaje = new_poke.id_mensaje;
-												appeared_pokemon.nombre_pokemon = malloc(string_length(new_poke.nombre_pokemon));
+												appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke.nombre_pokemon));
 												strcpy(appeared_pokemon.nombre_pokemon,new_poke.nombre_pokemon);
 												appeared_pokemon.posicion_x = new_poke.posicion_x;
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
@@ -348,39 +278,16 @@ void thread_cliente(int fdSocket) {
 											cola_LOCALIZED_POKEMON* locPokemon;
 											locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
 											GetPokemon(&get_poke, locPokemon);
+											locPokemon->nombre_pokemon = string_duplicate(get_poke.nombre_pokemon);
+											locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
+											locPokemon->id_mensaje = get_poke.id_mensaje;
 											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
+											list_destroy(locPokemon->lista_posiciones);
+											//free(locPokemon->lista_posiciones);
+											free(locPokemon);
 											break;
 										}
 
-										case APPEARED_POKEMON :{
-											cola_APPEARED_POKEMON app_poke;
-											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-
-											//responder por localized_pokemon
-											log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-											free(app_poke.nombre_pokemon);
-											break;
-										}
-
-										case CAUGHT_POKEMON :{
-											cola_CAUGHT_POKEMON caug_poke ;
-											//responde por caught_pokemon
-											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
-											log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-											break;
-										}
-
-										case LOCALIZED_POKEMON :{
-											cola_LOCALIZED_POKEMON loc_poke ;
-											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-											for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-											log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-											i++;
-											}
-											free(loc_poke.nombre_pokemon);
-											list_destroy(loc_poke.lista_posiciones);
-											break;
-										}
 										default:
 											log_info(logger, "Instrucción no reconocida");
 											break;
@@ -638,9 +545,12 @@ void loadPokemons()
 		    	  if( string_equals_ignore_case(config_get_string_value(MetadataFiles,"DIRECTORY"),"N")){
 		    		  list_add(pokeList, Pokemon);
 		    		  addMxPokemon(Pokemon);
+		    	  	  }
 		    	  }
-
-		    	}
+		    	  //free(Pokemon->pokemon);
+		    	  //Pokemon->pokemon=NULL;
+		    	  free(dirMetadata);
+		    	  config_destroy(MetadataFiles);
 		    }
 		    }
 		  	closedir (dir);

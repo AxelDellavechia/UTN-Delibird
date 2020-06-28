@@ -32,7 +32,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
 				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
-				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000);
+				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
@@ -63,6 +63,8 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case ERROR:{ //el Pokemon no existe
 				printf("\n El Pokemon no existe, se debe crear");
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return ERROR;
 				break;
 				}
@@ -70,6 +72,8 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
 				printf("\n El Proceso finalizó correctamente.");
 				step = ERROR;
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return OK;
 				break;
 				}
@@ -105,6 +109,8 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
 				step = ERROR;
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return ERROR;
 				break;
 			}
@@ -112,13 +118,15 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				printf("El Pokemon no existe");
 				pthread_mutex_unlock (&mxPokeList);
 				step = ERROR;
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return ERROR;
 				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
 				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
-				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000);
+				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
@@ -151,6 +159,8 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case ERROR:{ //el Pokemon no existe
 				printf("\n El Pokemon no existe, se debe crear");
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return ERROR;
 				break;
 				}
@@ -159,6 +169,8 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				printf("\n El Proceso finalizó correctamente.");
 				pthread_detach( pthread_self() );
 				step= ERROR; //le pongo ERROR para que salga del switch nada mas.
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
 				return OK;
 				break;
 				}
@@ -193,6 +205,9 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+				list_destroy(dataPokemon.positions);
+				list_destroy(dataPokemon.blocks);
+				free(dataPokemon.file);
 				return ERROR;
 				break;
 			}
@@ -206,7 +221,7 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
 				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
-				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000);
+				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
@@ -217,6 +232,8 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+			//	list_destroy(dataPokemon.positions);
+			//	list_destroy(dataPokemon.blocks);
 				return OK;
 				break;
 			}
@@ -232,12 +249,12 @@ return OK; //retornar resultado
 
 int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 
-	char* dirFile = malloc( string_length(PuntoMontaje->FILES) + string_length(Pokemon->nombre_pokemon));
+	char* dirFile = malloc( 1 + string_length(PuntoMontaje->FILES) + string_length(Pokemon->nombre_pokemon));
 	strcpy(dirFile,PuntoMontaje->FILES);
 	strcat(dirFile,Pokemon->nombre_pokemon);
 	int result = mkdir(dirFile,0777);
 	if (result  == 0){
-		char* dirMetadata = malloc (string_length(dirFile) + string_length("/Metadata.bin"));
+		char* dirMetadata = malloc (1 + string_length(dirFile) + string_length("/Metadata.bin"));
 		strcpy(dirMetadata,dirFile);
 		strcat(dirMetadata,"/Metadata.bin");
 		FILE *fMetadata = fopen (dirMetadata, "wb");
@@ -277,6 +294,7 @@ int InsertUpdatePosition(t_positions* newPos, t_files *posPokemon){
 				list_add(posPokemon->positions,newPos);
 			return NW_SAVE; //Si encontró y actualizó la posición, retorna para que grabe los cambios.
 		}
+		//free(pos);
 	}
 	list_add(posPokemon->positions,newPos);
 	return NOT_EXIST_POSITION; //Si no retorna la posición retorna ERROR.
@@ -397,23 +415,25 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 	MetadataFiles = config_create(dirMetadata);
 
 	if (config_has_property(MetadataFiles, "SIZE")){
-			char* tempSize = malloc(string_length(string_itoa(dataPokemon->size)));
+			char* tempSize = malloc(1+string_length(string_itoa(dataPokemon->size)));
 			strcpy(tempSize,string_itoa(dataPokemon->size));
 			config_set_value(MetadataFiles,"SIZE", tempSize);
 			free(tempSize);
+			tempSize=NULL;
 	}
 	if (config_has_property(MetadataFiles, "BLOCKS")){
 		char* tempBlocks = (char*) malloc(string_length("[")+string_length("]"));
 		strcpy(tempBlocks,"[");
 		for(int i = 0; i< list_size(dataPokemon->blocks); i++){
 			char* bloque = list_get(dataPokemon->blocks,i);
-			tempBlocks= realloc(tempBlocks, strlen(tempBlocks) + strlen(bloque));
+			tempBlocks= realloc(tempBlocks, 1+ strlen(tempBlocks) + strlen(bloque));
 			strcat(tempBlocks,bloque);
 			if(i+1 < list_size(dataPokemon->blocks) ){
-				tempBlocks= realloc(tempBlocks, strlen(tempBlocks) + strlen(","));
+				tempBlocks= realloc(tempBlocks,1 + strlen(tempBlocks) + strlen(","));
 				strcat(tempBlocks,",");
 			}
 		}
+		tempBlocks= realloc(tempBlocks, 1 + strlen(tempBlocks) + strlen("]"));
 		strcat(tempBlocks,"]");
 		config_set_value(MetadataFiles,"BLOCKS", tempBlocks);
 
@@ -421,6 +441,9 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 	}
 
 	config_save(MetadataFiles);
+	config_destroy(MetadataFiles);
+	free(dirMetadata);
+	dirMetadata=NULL;
 }
 
 
@@ -437,13 +460,13 @@ int findPokemon(char* Pokemon,t_Pokemones *idPokemon){
 		if (string_equals_ignore_case(tempPokemon->pokemon,Pokemon)){   //Recorriendo se fija si encuentra el archivo en el FS
 
 					pthread_mutex_unlock (&mxPokeList);
-					idPokemon->pokemon = malloc(string_length(tempPokemon->pokemon));
+					idPokemon->pokemon = malloc(1 + string_length(tempPokemon->pokemon));
 					strcpy(idPokemon->pokemon , tempPokemon->pokemon);
 					idPokemon->idPokemon = tempPokemon->idPokemon;
+
 					return EXIST;
 			}
 		}
-
 	return NOT_EXIST; //No se encontró el Pokemon, no desbloqueo la lista porque lo tengo que agregar.
 }
 
@@ -457,6 +480,9 @@ int updateStatusFile(t_Pokemones* tempPokemon, char* estado){
 	archivo_MetaData=config_create(dirMetadata);
 	config_set_value(archivo_MetaData, "OPEN", estado);
 	config_save(archivo_MetaData);
+	config_destroy(archivo_MetaData);
+	free(dirMetadata);
+	dirMetadata=NULL;
 	return OK;
 }
 
@@ -482,18 +508,30 @@ int loadMetadataFile(t_Pokemones* tempPokemon, t_files *dataPokemon){
    			    while(BlocksAux[posicionLista] != NULL) {
    			    	list_add(dataPokemon->blocks, string_duplicate(BlocksAux[posicionLista]));
    			    			  posicionLista++;
-   			  }
-   		 }
 
+   			    }
+   			 for(int a = 0;a < list_size(dataPokemon->blocks);a++){
+   			 	free(BlocksAux[a]);
+   			}
+   			    free(BlocksAux);
+   		 }
+   		config_destroy(archivo_MetaData);
+   		free(dirMetadata);
+   		dirMetadata=NULL;
    		  return OK;
 		 }
    	  else{
    		  pthread_mutex_unlock(mxPokemones + tempPokemon->idPokemon);
-
+   		config_destroy(archivo_MetaData);
+   		free(dirMetadata);
+   		dirMetadata=NULL;
    		  return OPEN;
    	  }
 	}
 	pthread_mutex_unlock(mxPokemones + tempPokemon->idPokemon);
+	config_destroy(archivo_MetaData);
+	free(dirMetadata);
+	dirMetadata=NULL;
 	return ERROR;
 }
 
@@ -506,6 +544,8 @@ void getMetadataDir(char** result, t_Pokemones* tempPokemon){
 
 	*result = realloc(*result, strlen(*result) + strlen(dirMetadata) + 1);
 	string_append(result,dirMetadata);
+	free(dirMetadata);
+	dirMetadata = NULL;
 }
 
 
@@ -514,14 +554,14 @@ void getMetadataDir(char** result, t_Pokemones* tempPokemon){
 void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 {
 	t_files* tempPokemon = malloc(sizeof(t_files));
-	char* lecturaBloques = string_new();
-	lecturaBloques = (char*) malloc (dataPokemon->size);//config_MetaData->tamanio_bloques * list_size(tempPokemon->blocks));
+	char* lecturaBloques;// = string_new();
+	lecturaBloques = malloc (1 + dataPokemon->size);//config_MetaData->tamanio_bloques * list_size(tempPokemon->blocks));
 	strcpy(lecturaBloques,"");
 	int tamanio_a_leer = dataPokemon->size;
 	for(int i = 0; i< list_size(dataPokemon->blocks); i++){
 		FILE* block;
 		char* bloque = list_get(dataPokemon->blocks,i);
-		char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+		char* dirBloque = (char*) malloc(1 + string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
 		strcpy(dirBloque,PuntoMontaje->BLOCKS);
 		strcat(dirBloque,bloque);
 		strcat(dirBloque,".bin");
@@ -531,7 +571,9 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 		char cadena[config_MetaData->tamanio_bloques];
 		while (fgets(cadena,config_MetaData->tamanio_bloques,(FILE*) block) != NULL)
 			strcat(lecturaBloques,cadena);
-			fclose(block);
+		fclose(block);
+		free(dirBloque);
+		dirBloque=NULL;
 		}
 
 		dataPokemon->positions = list_create();
@@ -539,7 +581,7 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 		t_list* tempPos = list_create();
 		int i = 0;
 		while(strPos[i] != NULL){
-			t_positions* pos = malloc (sizeof(t_positions));
+			t_positions* pos= malloc (sizeof(t_positions));
 			char** posCant = string_split(strPos[i], "=");
 			char** coordenadas = string_split(posCant[0],"-");
 			pos->Pos_x=atoi(coordenadas[0]);
@@ -547,7 +589,26 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 			pos->Cantidad = atoi(posCant[1]);
 			list_add(dataPokemon->positions, pos);
 			i++;
+			/*free(pos);
+			for(int a = 0;a < 2;a++){
+						free(posCant[a]);
+						free(coordenadas[a]);
+			}*/
+			free(posCant[0]);
+			free(posCant[1]);
+			free(coordenadas[0]);
+			free(coordenadas[1]);
+//			free(pos);
+			free(posCant);
+			free(coordenadas);
 		}
+		for(int a = 0;a < list_size(dataPokemon->positions);a++){
+			free(strPos[a]);
+		}
+		free(strPos);
+		free(tempPokemon);
+		free(lecturaBloques);
+		lecturaBloques=NULL;
 
 }
 
@@ -631,7 +692,7 @@ void CleanBlocks(t_files *dataPokemon){
 	for(int i = 0; i< list_size(dataPokemon->blocks); i++){
 		FILE* block;
 		char* bloque = list_get(dataPokemon->blocks,i);
-		char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
+		char* dirBloque = (char*) malloc(1 + string_length(PuntoMontaje->BLOCKS)+ string_length(bloque)+ string_length(".bin"));
 		strcpy(dirBloque,PuntoMontaje->BLOCKS);
 		strcat(dirBloque,bloque);
 		strcat(dirBloque,".bin");
@@ -645,7 +706,7 @@ void serializarPosiciones(char** buffer, t_files *dataPokemon){
 	for(int j = 0; j < list_size(dataPokemon->positions) ; j++ ){
 			t_positions* pos = malloc (sizeof(t_positions));
 			pos = list_get(dataPokemon->positions,j);
-			char* temp = (char*) malloc(string_length(string_itoa(pos->Pos_x)) + string_length("-") +string_length(string_itoa(pos->Pos_y)) + string_length("=") +string_length(string_itoa(pos->Cantidad))+ string_length("\n"));
+			char* temp = (char*) malloc(1 + string_length(string_itoa(pos->Pos_x)) + string_length("-") +string_length(string_itoa(pos->Pos_y)) + string_length("=") +string_length(string_itoa(pos->Cantidad))+ string_length("\n"));
 			strcpy(temp,string_itoa(pos->Pos_x));
 			strcat(temp,"-");
 			strcat(temp,string_itoa(pos->Pos_y));
@@ -655,6 +716,7 @@ void serializarPosiciones(char** buffer, t_files *dataPokemon){
 			*buffer = realloc(*buffer,string_length(*buffer) + string_length(temp) + 1);
 			//strcat(buffer,temp);
 			string_append(buffer,temp);
+			free(temp);
 
 	}
 
@@ -665,7 +727,7 @@ int grabarBloque(char* data, int bloque)
 {
 	FILE *block;
 
-	char* dirBloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(bloque))+ string_length(".bin"));
+	char* dirBloque = (char*) malloc(1 + string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(bloque))+ string_length(".bin"));
 	strcpy(dirBloque,PuntoMontaje->BLOCKS);
 	strcat(dirBloque,string_itoa(bloque));
 	strcat(dirBloque,".bin");
