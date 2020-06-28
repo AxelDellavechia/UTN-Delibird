@@ -109,7 +109,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
 				step = ERROR;
-				list_destroy(dataPokemon.positions);
+
 				list_destroy(dataPokemon.blocks);
 				return ERROR;
 				break;
@@ -118,8 +118,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				printf("El Pokemon no existe");
 				pthread_mutex_unlock (&mxPokeList);
 				step = ERROR;
-				list_destroy(dataPokemon.positions);
-				list_destroy(dataPokemon.blocks);
+
 				return ERROR;
 				break;
 			}
@@ -159,8 +158,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case ERROR:{ //el Pokemon no existe
 				printf("\n El Pokemon no existe, se debe crear");
-				list_destroy(dataPokemon.positions);
-				list_destroy(dataPokemon.blocks);
+
 				return ERROR;
 				break;
 				}

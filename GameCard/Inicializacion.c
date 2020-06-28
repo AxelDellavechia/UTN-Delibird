@@ -282,6 +282,12 @@ void thread_Broker(int fdSocket) {
 											locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
 											locPokemon->id_mensaje = get_poke.id_mensaje;
 											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
+
+											/*for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
+													t_positions* pos = malloc (sizeof(t_positions));
+													pos = list_get(locPokemon->lista_posiciones,i);
+													printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
+												}*/
 											list_destroy(locPokemon->lista_posiciones);
 											//free(locPokemon->lista_posiciones);
 											free(locPokemon);
