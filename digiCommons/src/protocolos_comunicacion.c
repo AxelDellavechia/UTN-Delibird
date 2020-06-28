@@ -269,10 +269,12 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += localized_pokemon->tamanio_nombre;
 		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
-		int tamLista = list_size(localized_pokemon->lista_posiciones);
-		for (int i = 0 ; i < tamLista ; i++){
-		int elemento = list_get(localized_pokemon->lista_posiciones,i) ;
-		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
+
+		for (int i = 0 ; i < list_size(localized_pokemon->lista_posiciones) ; i++){
+		posicion * elemento = list_get(localized_pokemon->lista_posiciones,i) ;
+		memcpy(buffer+desplazamiento,&elemento->posicion_x,sizeof(uint32_t));
+		desplazamiento += sizeof(uint32_t);
+		memcpy(buffer+desplazamiento,&elemento->posicion_y,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		}
 		break;
@@ -511,9 +513,11 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 							loc_poke_des->lista_posiciones = list_create();
 
 							for (int i = 0 ; i < loc_poke_des->cantidad ; i++){
-							posicion *laPosicion ;
-							memcpy(laPosicion,buffer+desplazamiento,sizeof(posicion));
-							desplazamiento += sizeof(posicion);
+							posicion *laPosicion = malloc (sizeof(posicion));
+							memcpy(&laPosicion->posicion_x,buffer+desplazamiento,sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+							memcpy(&laPosicion->posicion_y,buffer+desplazamiento,sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
 							list_add(loc_poke_des->lista_posiciones,laPosicion);
 							}
 
@@ -562,7 +566,17 @@ int calcularTamanioMensaje(int head, void* mensaje){
 
 		case LOCALIZED_POKEMON:{
 
-			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + ( sizeof(uint32_t) * list_size(loc_poke->lista_posiciones) ) ;
+			/*
+				typedef struct{
+					char* nombre_pokemon;
+					uint32_t id_mensaje;
+					uint32_t  tamanio_nombre;
+					uint32_t cantidad;
+					t_list* lista_posiciones;
+				}cola_LOCALIZED_POKEMON;
+			 */
+
+			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + ( ( sizeof(uint32_t) + sizeof(uint32_t) ) * loc_poke->cantidad ) ;
 			break;
 		}
 	} // fin switch head
