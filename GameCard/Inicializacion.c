@@ -20,7 +20,7 @@ void leer_configFile(char* ruta) {
 
 	config_File = malloc(1 + sizeof(ConfigFile));
 	t_config *config;
-	config = malloc (1+sizeof(t_config));
+	//config = malloc (1+sizeof(t_config));
 	config = config_create(ruta);
 	log_info(logger, "Por setear los valores del archivo de configuracion");
 	if (config != NULL) {
@@ -28,7 +28,8 @@ void leer_configFile(char* ruta) {
 
 		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
 		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
-		config_File->PUNTO_MONTAJE_TALLGRASS = string_duplicate(config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS"));
+		config_File->PUNTO_MONTAJE_TALLGRASS = malloc( 1 + string_length(config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS")));
+		strcpy(config_File->PUNTO_MONTAJE_TALLGRASS,config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS"));
 		config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
 		config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
 		config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
@@ -104,15 +105,16 @@ int leer_metaData_principal(){
 
 	t_config *archivo_MetaData;
 
-	archivo_MetaData = malloc (sizeof(t_config));
+	//archivo_MetaData = malloc (sizeof(t_config));
 
 	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
 
 	archivo_MetaData=config_create(PuntoMontaje->METADATA_FILE);
 
 	config_MetaData->cantidad_bloques=config_get_int_value(archivo_MetaData,"BLOCKS");
-    config_MetaData->magic_number=string_duplicate(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
-	config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
+    config_MetaData->magic_number= malloc(1 + string_length(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER")));
+    strcpy(config_MetaData->magic_number,config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
+    config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
 	//free(direccionArchivoMedata);
 
 	config_destroy(archivo_MetaData);
@@ -172,11 +174,34 @@ void consola() {
 		}
 
 	}
+
+	for(int i = 0;i<list_size(pokeList);i++){
+		t_Pokemones* poke = list_get(pokeList,i);
+		free(poke->pokemon);
+		free(poke);
+	}
 	list_destroy(pokeList);
 	free(comando);
 	free(mxPokemones);
+
+
+	free(PuntoMontaje->PUNTOMONTAJE);
+	free(PuntoMontaje->FILES);
+	free(PuntoMontaje->BLOCKS);
+	free(PuntoMontaje->METADATA);
+	free(PuntoMontaje->METADATA_FILE);
+	free(PuntoMontaje->BITMAP);
 	free(PuntoMontaje);
+
+
+	free(config_MetaData->magic_number);
+	free(config_MetaData);
+	free(config_File->PUNTO_MONTAJE_TALLGRASS);
 	free(config_File);
+	bitarray_destroy(bitarray);
+	//config_destroy(config_MetaData);
+//	free(config_File->IP_BROKER);
+//	config_destroy(config_File);
  	log_destroy(logger);
 	pthread_detach(hilo_servidor);
 	pthread_detach(thread_Broker);
@@ -244,7 +269,7 @@ void thread_Broker(int fdSocket) {
 							switch( head ){
 
 										case NEW_POKEMON :{
-											cola_NEW_POKEMON  new_poke ;
+											cola_NEW_POKEMON  new_poke;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
 											int result = NewPokemon(&new_poke);
@@ -257,8 +282,10 @@ void thread_Broker(int fdSocket) {
 												appeared_pokemon.posicion_x = new_poke.posicion_x;
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
 												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
-
+												free(new_poke.nombre_pokemon);
+												free(appeared_pokemon.nombre_pokemon);
 											}
+											free(new_poke.nombre_pokemon);
 											break;
 										}
 										case CATCH_POKEMON :{
@@ -269,6 +296,7 @@ void thread_Broker(int fdSocket) {
 											cola_CAUGHT_POKEMON caught_pokemon;
 											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
 											caught_pokemon.atrapo_pokemon = result;
+											free(cath_poke.nombre_pokemon);
 											break;
 										}
 										case GET_POKEMON :{
@@ -278,7 +306,8 @@ void thread_Broker(int fdSocket) {
 											cola_LOCALIZED_POKEMON* locPokemon;
 											locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
 											GetPokemon(&get_poke, locPokemon);
-											locPokemon->nombre_pokemon = string_duplicate(get_poke.nombre_pokemon);
+											locPokemon->nombre_pokemon = malloc (1 + get_poke.nombre_pokemon);
+											strcpy(locPokemon->nombre_pokemon,get_poke.nombre_pokemon);
 											locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
 											locPokemon->id_mensaje = get_poke.id_mensaje;
 											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
@@ -288,8 +317,17 @@ void thread_Broker(int fdSocket) {
 													pos = list_get(locPokemon->lista_posiciones,i);
 													printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
 												}*/
+											for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
+												t_positions* pos;// = malloc (sizeof(t_positions));
+												pos = list_get(locPokemon->lista_posiciones,i);
+												printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
+												free(pos);
+											}
+
 											list_destroy(locPokemon->lista_posiciones);
 											//free(locPokemon->lista_posiciones);
+											free(get_poke.nombre_pokemon);
+											free(locPokemon->nombre_pokemon);
 											free(locPokemon);
 											break;
 										}
@@ -298,7 +336,7 @@ void thread_Broker(int fdSocket) {
 											log_info(logger, "Instrucción no reconocida");
 											break;
 									}
-
+			free(mensaje);
 			//pthread_mutex_lock(&mxHilos);
 			pthread_detach( pthread_self() );
 		//	pthread_mutex_unlock(&mxHilos);
@@ -443,7 +481,7 @@ void crearBitmap(){
 int creacionDeArchivoBitmap(char *path,int cantidad){
     int x = 0;
 
-    int fd=fopen(path, "r");
+    int fd = fopen(path, "r");
     if (fd<=0){
 			FILE *fh = fopen (path, "wb");
 			if(fh == NULL){
@@ -457,6 +495,7 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 			}
 			fclose(fh);
     }
+    fclose(fd);
     return 0;
 
 }
@@ -534,7 +573,6 @@ void loadPokemons()
 		      if ( (strcmp(ent->d_name, ".")!=0) && (strcmp(ent->d_name, "..")!=0) && (strcmp(ent->d_name, "Metadata.bin")!=0))
 		      {
 		      /* Una vez tenemos el archivo, lo pasamos a una función para procesarlo. */
-
 
 		    	  t_Pokemones* Pokemon = malloc (sizeof(t_Pokemones));
 		    	  Pokemon->pokemon = malloc (string_length(ent->d_name) + 1) ;

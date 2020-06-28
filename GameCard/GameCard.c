@@ -11,6 +11,7 @@
 
 int main(){//int argc, char **argv) {
 
+
 	iniciar_log();
 
 	leer_configFile(CONFIG_PATH);

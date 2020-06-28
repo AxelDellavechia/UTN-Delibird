@@ -14,6 +14,7 @@
 #define NOT_EXIST_POSITION 9
 #define RESPONDER 7
 #define CHECK_POSITION 8
+#define NW_SAVE_DEL_POSITION 10
 
 
 typedef struct{
