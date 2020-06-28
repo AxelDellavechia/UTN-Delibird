@@ -52,7 +52,7 @@ void catch_pokemon( cola_CATCH_POKEMON * pokemon , entrenadorPokemon * entrenado
 
 	aplicar_protocolo_enviar(fdServer,CATCH_POKEMON,pokemon);
 
-	entrenador->idMsjEsperado = recibirACK(fdServer);
+	//entrenador->idMsjEsperado = recibirACK(fdServer);
 
 	list_add(colaBlocked, entrenador);
 

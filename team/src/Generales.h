@@ -35,6 +35,8 @@ t_list* mapaPokemon;
 t_list* entrenadoresEnDeadlock;
 t_list* misHilos;
 
+suscriptor laSus ;
+
 int fdBroker;
 int ciclosEnCPU;
 int fdTeam;
@@ -69,6 +71,7 @@ typedef struct archivoConfigFile {
 	int puertoBroker;
 	int puertoTeam;
 	char* logFile;
+	int token;
 } archivoConfigFile;
 
 archivoConfigFile *configFile;
@@ -120,5 +123,7 @@ void consola();
 void reconectar();
 void bloquearSemaforoEnt( t_list * lista , int indice );
 void desBloquearSemaforoEnt( t_list * lista , int indice );
+void * generarSus( suscriptor * suscriptor );
+void grabarToken(unsigned int token);
 
 #endif

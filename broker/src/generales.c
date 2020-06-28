@@ -238,6 +238,13 @@ int thread_Broker(int fdCliente) {
 											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
 											ack->ack = TRUE;
 											ack->id_msj = 0;
+
+											struct sockaddr_in peer;
+											int peer_len = sizeof(peer);
+											if (getpeername(fdCliente, &peer, &peer_len) != -1) {
+											log_info(logger,"Cliente IP address is: %s", inet_ntoa(peer.sin_addr));
+											log_info(logger,"Cliente port is: %d", (int) ntohs(peer.sin_port));
+											 }
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											break;
 										}
@@ -437,6 +444,7 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 		list_remove(lista_Msjs_Cola, 1);
 	}
 }
+
 void Suscribirse(suscriptor * suscp){
 	int i, cantColas;
 	//t_list * colas_suscp = suscp->cola_a_suscribir;
@@ -481,7 +489,6 @@ void Suscribirse(suscriptor * suscp){
 			pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
 			list_add(suscriptores_localized_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
-			break;
 			}
 		default:
 			log_info(logger, "Instrucción para suscribirse alguna cola no reconocida");

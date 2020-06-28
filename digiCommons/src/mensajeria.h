@@ -63,17 +63,15 @@ typedef struct{
 	char * mi_ip;
 	int tam_mi_ip;
 	int mi_puerto;
-	int tam_mac_adress;
-	char * mac_adress;
+	int token;
 	t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
 	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
-	char tipo_suscripcion; // VALOR POSIBLES -> G (GOBLAL) ó L (LOCAL POR ID MSJ)
 } suscriptor;
 
-typedef struct{
-	int ack;
-	int id_msj;
-}ACK;
 
+typedef struct{
+	uint32_t ack;
+	uint32_t id_msj;
+}respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

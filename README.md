@@ -24,3 +24,6 @@ Flujo en Común
 6) En value ingresar -> ${workspace_loc}/digiCommons/Debug
 7) Reiniciar Eclipse
 
+## Problemas de RED
+
+Look into /etc/NetworkManager/NetworkManager.conf and change the line managed=false to managed=true then restart network-manager: sudo service network-manager restart

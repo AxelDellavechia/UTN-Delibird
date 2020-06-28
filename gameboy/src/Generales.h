@@ -28,7 +28,17 @@ t_log * logger;
 
 t_log * loggerCatedra;
 
+pthread_t hilo_servidor;
+pthread_t hilo_consola;
+
+int cantidadSegundos;
+int segundosMaximos;
+int tiempoSuscripcion;
+char * comando;
+
+
 pthread_mutex_t semaforo;
+pthread_mutex_t semaforo2;
 
 typedef struct config {
 	int puertoBroker;
@@ -48,6 +58,8 @@ void crearLogger( char * nombre , char * otroLog );
 void * reservarMemoria(int size);
 void inicializar_semaforos();
 int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
-void consola();
+void servidor();
+void crearHilos(suscriptor * laSuscripcion) ;
+void consola(suscriptor * laSuscripcion) ;
 
 #endif

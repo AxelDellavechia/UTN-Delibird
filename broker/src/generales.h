@@ -75,6 +75,6 @@ void inicializar_semaforos();
 void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores);
 void Suscribirse(suscriptor * suscp);
 Mensaje * obtener_msj(int id_msj);
-void agregar_contador_msj()
+void agregar_contador_msj();
 
 #endif /* SRC_GENERALES_H_ */
