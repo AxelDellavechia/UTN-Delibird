@@ -31,7 +31,7 @@ int main (int argc, char *argv[]) {
 
 		comando = strdup( argv[1] ) ;
 
-		//char * comando = strdup( "MEME" ) ;
+		//char * comando = strdup( "TEAM" ) ;
 
 		/*
 			Logs obligatorios
@@ -173,6 +173,10 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 
 			free(comando);
 
+			//comando = strdup(argv[2]);
+
+			comando = strdup("LOCALIZED_POKEMON");
+
 			//./gameboy TEAM ACK ESTADO ID_MSJ
 
 			if (strcasecmp("ACK",comando) == 0 ) {
@@ -189,9 +193,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 
 			//./gameboy TEAM APPEARED_POKEMON [POKEMON] [POSX] [POSY]
 
-			comando = strdup(argv[2]);
 
-			//comando = strdup("APPEARED_POKEMON");
 
 			if (strcasecmp("APPEARED_POKEMON",comando) == 0 ) {
 
@@ -256,32 +258,55 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 			}
 			//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
 
-			//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 [1|2,3|4,5|6] 45
+			//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 "1,2,3,4,5,6" 45
+
 			else if (strcasecmp("LOCALIZED_POKEMON",comando) == 0 ) {
 
 
 				cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
 
+
 						loc_poke->lista_posiciones = list_create(); // 16
 
 						loc_poke->id_mensaje = atoi(argv[6])  ; //4
 						loc_poke->cantidad = atoi(argv[4]) ; // 4
-						loc_poke->nombre_pokemon = strdup(argv[3]);; //  "raichu" 6
+						loc_poke->nombre_pokemon = strdup(argv[3]);//  "raichu" 6
+
+						char * posiciones = strdup(argv[5]);
+
+						char ** listapokemon = string_split(posiciones,",");
+
+						//char ** listapokemon = string_split("1,2,3,4",",");
+
+						/*
+						loc_poke->id_mensaje = 22  ; //4
+						loc_poke->cantidad = 2 ; // 4
+						loc_poke->nombre_pokemon = strdup("Pikachu");; //  "raichu" 6
+						*/
 						loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
+						/*
+						posicion * laPosicion1 = malloc(sizeof(posicion));
+						posicion * laPosicion2 = malloc(sizeof(posicion));
 
-						char ** listapokemon = string_split(argv[5],",");
+						laPosicion1->posicion_x = 1 ;
+						laPosicion1->posicion_y = 2 ;
+						laPosicion2->posicion_x = 3 ;
+						laPosicion2->posicion_y = 4 ;
 
-						int laposicion = 0 ;
-						while (listapokemon[laposicion] != NULL){
+						list_add(loc_poke->lista_posiciones,laPosicion1);
+						list_add(loc_poke->lista_posiciones,laPosicion2);
+						*/
 
-							char ** posicionPokemon =  string_split(listapokemon[laposicion],"|");
+						int unaposicion = 0 ;
+						while (listapokemon[unaposicion] != NULL){
 							posicion * laPosicion = malloc( sizeof(posicion));
-							laPosicion->posicion_x = posicionPokemon[0];
-							laPosicion->posicion_y = posicionPokemon[1];
+							laPosicion->posicion_x = atoi(listapokemon[unaposicion]);
+							unaposicion++;
+							laPosicion->posicion_y = atoi(listapokemon[unaposicion]);
 							list_add(loc_poke->lista_posiciones,laPosicion);
-							laposicion++;
-
+							unaposicion++;
 						}
+
 
 						log_info(logger,"estoy enviando un LOCALIZED_POKEMON con tamaño %d",calcularTamanioMensaje(LOCALIZED_POKEMON,loc_poke));
 
