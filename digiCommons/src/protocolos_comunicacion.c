@@ -287,7 +287,6 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 	int id_msj;
 	}respuesta_ACK;
  */
-			int desplazamiento = 0;
 			memcpy(buffer+desplazamiento,&ack->ack,sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
 			memcpy(buffer+desplazamiento,&ack->id_msj,sizeof(uint32_t));
@@ -451,7 +450,6 @@ void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_
 
 							memcpy(&cau_poke->atrapo_pokemon,(buffer+desplazamiento),sizeof(uint32_t));
 
-							return cau_poke;
 }
 
 void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) {

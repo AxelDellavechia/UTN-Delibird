@@ -124,5 +124,6 @@ void reconectar();
 void bloquearSemaforoEnt( t_list * lista , int indice );
 void desBloquearSemaforoEnt( t_list * lista , int indice );
 void * generarSus( suscriptor * suscriptor );
+void grabarToken(unsigned int token);
 
 #endif

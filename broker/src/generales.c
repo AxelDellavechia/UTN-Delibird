@@ -202,6 +202,14 @@ int thread_Broker(int fdCliente) {
 											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
 											ack->ack = TRUE;
 											ack->id_msj = 0;
+
+											struct sockaddr_in peer;
+											int peer_len = sizeof(peer);
+											if (getpeername(fdCliente, &peer, &peer_len) != -1) {
+											log_info(logger,"Cliente IP address is: %s", inet_ntoa(peer.sin_addr));
+											log_info(logger,"Cliente port is: %d", (int) ntohs(peer.sin_port));
+											 }
+
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											break;
 										}

@@ -67,8 +67,8 @@ typedef struct{
 
 
 typedef struct{
-	int ack;
-	int id_msj;
+	uint32_t ack;
+	uint32_t id_msj;
 }respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

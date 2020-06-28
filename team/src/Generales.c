@@ -42,31 +42,31 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 	objetivosEntrenadoresAux =  config_get_array_value(config, "OBJETIVOS_ENTRENADORES") ;
 
 	configFile->tiempoReconexion = config_get_int_value(config, "TIEMPO_RECONEXION");
-	log_info(logger,"Se encontró y cargó el contido del TIEMPO_RECONEXION. Valor: %d",configFile->tiempoReconexion);
+	log_info(logger,"Se encontró y cargó el contenido del TIEMPO_RECONEXION. Valor: %d",configFile->tiempoReconexion);
 
 	configFile->retardoCicloCPU = config_get_int_value(config, "RETARDO_CICLO_CPU");
-	log_info(logger,"Se encontró y cargó el contido del RETARDO_CICLO_CPU. Valor: %d",configFile->retardoCicloCPU);
+	log_info(logger,"Se encontró y cargó el contenido del RETARDO_CICLO_CPU. Valor: %d",configFile->retardoCicloCPU);
 
 	configFile->algoritmoPlanificacion = strdup ( config_get_string_value(config, "ALGORITMO_PLANIFICACION"));
-	log_info(logger,"Se encontró y cargó el contido del ALGORITMO_PLANIFICACION. Valor: %s",configFile->algoritmoPlanificacion);
+	log_info(logger,"Se encontró y cargó el contenido del ALGORITMO_PLANIFICACION. Valor: %s",configFile->algoritmoPlanificacion);
 
 	configFile->quantum = config_get_int_value(config, "QUANTUM");
-	log_info(logger,"Se encontró y cargó el contido del QUANTUM. Valor: %d",configFile->quantum);
+	log_info(logger,"Se encontró y cargó el contenido del QUANTUM. Valor: %d",configFile->quantum);
 
 	configFile->ipBroker = strdup ( config_get_string_value(config, "IP_BROKER"));
-	log_info(logger,"Se encontró y cargó el contido del IP_BROKER. Valor: %s",configFile->ipBroker);
+	log_info(logger,"Se encontró y cargó el contenido del IP_BROKER. Valor: %s",configFile->ipBroker);
 
 	configFile->estimacionInicial = config_get_int_value(config, "ESTIMACION_INICIAL");
-	log_info(logger,"Se encontró y cargó el contido del ESTIMACION_INICIAL. Valor: %d",configFile->estimacionInicial);
+	log_info(logger,"Se encontró y cargó el contenido del ESTIMACION_INICIAL. Valor: %d",configFile->estimacionInicial);
 
 	configFile->puertoBroker = config_get_int_value(config, "PUERTO_BROKER");
-	log_info(logger,"Se encontró y cargó el contido del PUERTO_BROKER. Valor: %d",configFile->puertoBroker);
+	log_info(logger,"Se encontró y cargó el contenido del PUERTO_BROKER. Valor: %d",configFile->puertoBroker);
 
 	configFile->puertoTeam = config_get_int_value(config, "PUERTO_TEAM");
-	log_info(logger,"Se encontró y cargó el contido del PUERTO_TEAM. Valor: %d",configFile->puertoTeam);
+	log_info(logger,"Se encontró y cargó el contenido del PUERTO_TEAM. Valor: %d",configFile->puertoTeam);
 
 	configFile->logFile = strdup ( config_get_string_value(config, "LOG_FILE"));
-	log_info(logger,"Se encontró y cargó el contido del LOG_FILE. Valor: %s",configFile->logFile);
+	log_info(logger,"Se encontró y cargó el contenido del LOG_FILE. Valor: %s",configFile->logFile);
 
 	configFile->posicionEntrenadores = list_create();
 	configFile->pokemonEntrenadores = list_create();
@@ -90,8 +90,22 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 		posicionLista++;
 	}
 
+	configFile->token = config_get_int_value(config,"TOKEN");
+	log_info(logger,"Se encontró y cargó el contenido del TOKEN. Valor: %s",configFile->token);
+
 	config_destroy(config); // Libero la estructura archivoConfig
 
+}
+
+void grabarToken(unsigned int token) {
+t_config *config;
+config = reservarMemoria (sizeof(t_config));
+config = config_create(RUTA_CONFIG_MEM);
+log_info(logger, "Guardar Token");
+	if (config != NULL) {
+	config_set_value(config, "TOKEN", string_itoa(token));
+	config_save(config);
+	}
 }
 
 void* reservarMemoria(int size) {
@@ -306,6 +320,8 @@ void planificador() {
 
 	fdBroker = nuevoSocket();
 
+	int comandoNuevo;
+
 	asociarSocket(fdTeam, configFile->puertoTeam);
 
 	escucharSocket(fdTeam, CONEXIONES_PERMITIDAS);
@@ -321,15 +337,21 @@ void planificador() {
 	}
 
 	if ( conBroker == 1) {
+
 		handshake_cliente(fdBroker,"Team","Broker",logger);
+
 		aplicar_protocolo_enviar(fdBroker,SUSCRIPCION,&laSus);
+
+		recibirProtocolo(&head,&bufferTam,fdBroker); // recibo head y tamaño de msj
+
 		void * mensaje = malloc(bufferTam);
-		recibirProtocolo(head,bufferTam,fdBroker);
+
 		if ( head == ACK) {
 			recibirMensaje(fdBroker,bufferTam,mensaje);
 			respuesta_ACK elACK;
 			deserealizar_ACK(head,mensaje,bufferTam,&elACK);
-			if (elACK.ack == TRUE)	;//guardotoken con el metodo en el config by Javi
+			log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+			if (elACK.ack == TRUE)	grabarToken(laSus.token) ;
 		}
 	}
 
@@ -351,7 +373,7 @@ void planificador() {
 
 		int conexionNueva = 0;
 
-		int comandoNuevo;//= reservarMemoria(INT);
+		//= reservarMemoria(INT);
 
 		while(conexionNueva == 0) {
 
@@ -430,8 +452,8 @@ void planificador() {
 										cola_LOCALIZED_POKEMON loc_poke ;
 										deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
 										for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-										log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-										i++;
+										posicion * laPosicion = list_get(loc_poke.lista_posiciones,i) ;
+										log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,laPosicion->posicion_x,laPosicion->posicion_y);
 										}
 										desBloquearSemaforoEnt(colaNew,1);
 										//aplicar_proto falla devuelvo respuesta default y despierta el hilo reconectar
@@ -480,15 +502,17 @@ void reconectar(){
 	if (configFile->token == 0 ){
 		generarSus(&laSus);
 		aplicar_protocolo_enviar(fdBroker,SUSCRIPCION,&laSus);
+		recibirProtocolo(&head,&bufferTam,fdBroker); // recibo head y tamaño de msj
 		void * mensaje = malloc(bufferTam);
-		recibirProtocolo(head,bufferTam,fdBroker);
 		if ( head == ACK) {
 			recibirMensaje(fdBroker,bufferTam,mensaje);
 			respuesta_ACK elACK;
 			deserealizar_ACK(head,mensaje,bufferTam,&elACK);
-			if (elACK.ack == TRUE)	;//guardotoken con el metodo en el config by Javi
+			log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+			if (elACK.ack == TRUE)	grabarToken(laSus.token) ;
 		}
 	}
-
 }
+
+
 
