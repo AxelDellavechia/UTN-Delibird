@@ -75,12 +75,28 @@ void iniciar_estructuras(){
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
 	//Setea cantidad fallidas
 	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
-	int id_msj = 0;
-	int contador_msjs_en_cola = 0;
+	id_msj = 0;
+	contador_msjs_en_cola = 0;
+
+	//SE CREAN TODAS LAS LISTAS
+	lista_msjs = list_create();
+	lista_particiones = list_create();
+	suscriptores_new_pokemon = list_create();
+	suscriptores_localized_pokemon = list_create();
+	suscriptores_get_pokemon = list_create();
+	suscriptores_appeared_pokemon = list_create();
+	suscriptores_catch_pokemon = list_create();
+	cola_new_pokemon = list_create();
+	cola_localized_pokemon = list_create();
+	cola_get_pokemon = list_create();
+	cola_appeared_pokemon = list_create();
+	cola_catch_pokemon = list_create();
 
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
+	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR
+	pthread_mutex_init();
 	//SE DEFINE MUTEX PARA LA LISTA DE SUSCRIPTORES
 	pthread_mutex_init(&mutex_suscriptores_new_pokemon, NULL);
 	pthread_mutex_init(&mutex_suscriptores_localized_pokemon, NULL);

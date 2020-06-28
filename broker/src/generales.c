@@ -79,11 +79,14 @@ void consola() {
 	}
 
 	log_destroy(logger);
+	log_destroy(loggerCatedra);
 	free(comando);
 
 	pthread_detach(hilo_servidor);
-	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
+
+	pthread_detach( pthread_self() );
+
 }
 
 void inicializar_semaforos(){
@@ -154,6 +157,7 @@ int thread_Broker(int fdCliente) {
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											list_add(cola_new_pokemon, &new_poke);
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
+											agregar_contador_msj();
 											break;
 										}
 										case CATCH_POKEMON :{
@@ -163,6 +167,7 @@ int thread_Broker(int fdCliente) {
 											pthread_mutex_lock(&mutex_cola_catch_pokemon);
 											list_add(cola_catch_pokemon, &cath_poke);
 											pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+											agregar_contador_msj();
 											break;
 										}
 										case GET_POKEMON :{
@@ -172,6 +177,7 @@ int thread_Broker(int fdCliente) {
 											pthread_mutex_lock(&mutex_cola_get_pokemon);
 											list_add(cola_catch_pokemon, &get_poke);
 											pthread_mutex_unlock(&mutex_cola_get_pokemon);
+											agregar_contador_msj();
 											break;
 										}
 
@@ -182,6 +188,7 @@ int thread_Broker(int fdCliente) {
 											pthread_mutex_lock(&mutex_cola_appeared_pokemon);
 											list_add(cola_appeared_pokemon, &app_poke);
 											pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+											agregar_contador_msj();
 											free(app_poke.nombre_pokemon);
 											break;
 										}
@@ -208,29 +215,30 @@ int thread_Broker(int fdCliente) {
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
 											list_add(cola_localized_pokemon, &loc_poke);
 											pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+											agregar_contador_msj();
 											free(loc_poke.nombre_pokemon);
 											list_destroy(loc_poke.lista_posiciones);
 											break;
 										}
-										/*
 										case ACK :{
-											//REVISAR SI SE REQUIERE UN STRUCT ACK(ID_MSJ, CONFIRMACION)
-											//ACK ack;
-											//ack = recibirACK(fdCliente);
+											respuesta_ACK ack;
+											deserealizar_ACK( head, mensaje, bufferTam, & ack);
+											log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+											Mensaje * msj = obtener_msj(ack->id_msj);
 											break;
 										}
-										*/
-										case SUSCRIPTOR :{
-											//REVISAR SI SE REQUIERE DE UN METODO PARA RECIBIR EL SUSCRIPTOR
-											suscriptor suscp;
-											if(/*VERIFICAR POR TOKEN SI EL SUSCRIPTOR YA ESTA DADO DE ALTA*/){
-												//SI YA ESTA DADO DE ALTA PASARLE TODOS LOS MENSAJES QUE NO LE LLEGO DURANTE LA RECONEXION
+
+										case SUSCRIPCION :{
+											suscriptor laSus;
+											deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
+											for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
+												log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
 											}
-											else{
-												//SI NO ESTA DADO DE ALTA SE REALIZA LA SUSCRIPCION Y SE LE REENVIA TODOS LOS MSJ DE LA MEMORIA CACHE
-											}
-											//suscp = recibirSuscriptor(fdCliente);
-											Suscribirse(&suscp);
+											Suscribirse(&laSus);
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = 0;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											break;
 										}
 										default:
@@ -245,7 +253,6 @@ int thread_Broker(int fdCliente) {
 }
 
 void* reservarMemoria(int size) {
-
 		void *puntero = malloc(size);
 		if(puntero == NULL) {
 			fprintf(stderr, "Error al reservar %d bytes de memoria", size);
@@ -378,22 +385,21 @@ void iniciar_log(){
 void publisher(){
 	while(TRUE){
 
-		while(/*contador_msjs_en_cola*/1 != 0){
+		while(contador_msjs_en_cola != 0){
 			if(list_size(cola_new_pokemon) != 0){
-				//reenviarMsjCola_NEW_POKEMON();
-				reenviarMsjs_Cola(cola_new_pokemon, suscriptores_new_pokemon);
+				reenviarMsjs_Cola(NEW_POKEMON, cola_new_pokemon, suscriptores_new_pokemon);
 			}
 			else if(list_size(cola_localized_pokemon) != 0){
-				reenviarMsjs_Cola(cola_localized_pokemon, suscriptores_localized_pokemon);
+				reenviarMsjs_Cola(LOCALIZED_POKEMON, cola_localized_pokemon, suscriptores_localized_pokemon);
 			}
 			else if(list_size(cola_get_pokemon) != 0){
-				reenviarMsjs_Cola(cola_get_pokemon, suscriptores_get_pokemon);
+				reenviarMsjs_Cola(GET_POKEMON, cola_get_pokemon, suscriptores_get_pokemon);
 			}
 			else if(list_size(cola_appeared_pokemon) != 0){
-				reenviarMsjs_Cola(cola_appeared_pokemon, suscriptores_appeared_pokemon);
+				reenviarMsjs_Cola(APPEARED_POKEMON, cola_appeared_pokemon, suscriptores_appeared_pokemon);
 			}
 			else if(list_size(cola_catch_pokemon) != 0){
-				reenviarMsjs_Cola(cola_catch_pokemon, suscriptores_catch_pokemon);
+				reenviarMsjs_Cola(CATCH_POKEMON, cola_catch_pokemon, suscriptores_catch_pokemon);
 			}
 			else if(){}
 		}
@@ -404,37 +410,33 @@ void publisher(){
 
 }
 
-void reenviarMsjs_Cola(t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores){
+void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores){
 	while(!list_is_empty(lista_Msjs_Cola)){
 		int i = 1;
 		void * mensaje = list_get(lista_Msjs_Cola);
 		t_list * aux_lista_de_suscriptores;
+		aux_lista_de_suscriptores = list_duplicate(lista_de_suscriptores);
 		while(!list_is_empty(aux_lista_de_suscriptores)){
 
+			//SE ENVIA POR SOCKET EL MENSAJE
+			suscriptor * suscriptor = list_get(aux_lista_de_suscriptores);
+			char * modulo;
+			if(suscriptor->modulo == 1){modulo = "GAMECARD";}
+			else if(suscriptor->modulo == 3){modulo = "TEAM";}
+			else{modulo ="GAMEBOY";}
+			int fdSuscriptor = nuevoSocket();
+			if (conectarCon(fdSuscriptor ,suscriptor->mi_ip,suscriptor->mi_puerto,logger)) {
+				handshake_cliente(fdSuscriptor,"Broker", modulo,logger);
+				aplicar_protocolo_enviar(fdSuscriptor, head, mensaje);
+			}
+			else{
+				log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",suscriptor->mi_ip,suscriptor->mi_puerto);
+			}
+			list_remove(aux_lista_de_suscriptores, 1);
 		}
-
+		list_remove(lista_Msjs_Cola, 1);
 	}
 }
-
-/*
-void reenviarMsjCola_NEW_POKEMON(){
-	int tam_list, i = 0;
-
-	suscriptor *suscriptor;
-	tam_list = list_size(cola_new_pokemon);
-	while(i != tam_list){
-		suscriptor = list_get(cola_new_pokemon, i);
-		int fdSuscriptor = nuevoSocket();
-		int conexion = conectarSocket(fdSuscriptor, suscriptor->mi_ip, suscriptor->mi_puerto);
-		if(conexion == ERROR){
-			log_info(logger,"[SOCKETS] No se pudo realizar la conexión entre el socket y el suscriptor(Gamecard).");
-		}
-		aplicar_protocolo_enviar(fdSuscriptor, NEW_POKEMON, mensaje);
-		//SE DEBE DE AGREGAR UNA ESPERA PENDIENTE DEL ACK LUEGO DE QUE LE LLEGUE EL MSJ
-	}
-
-}
-*/
 void Suscribirse(suscriptor * suscp){
 	int i, cantColas;
 	//t_list * colas_suscp = suscp->cola_a_suscribir;
@@ -443,39 +445,42 @@ void Suscribirse(suscriptor * suscp){
 		int cola;
 		cola = list_get(suscp->cola_a_suscribir,i);
 		switch (cola){
-		case "" :{
+		case NEW_POKEMON :{
+			//VERIFICO SI YA ESTABA INSCRIPTO
+			_Bool buscar_token(suscriptor* suscriptor_lista){return suscriptor_lista->token == suscp->token;}
+			 suscriptor * suscrp = list_find(suscriptores_new_pokemon, (void*)buscar_token);
+			if(){
+				//YA ESTA DADO DE ALTA COMO SUSCRIPTOR
+			}else{
+				//REENVIAR MSJS CACHEADOS
+			}
 			pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
 			list_add(suscriptores_new_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
-			enviarConfirmacion(suscp);//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case APPEARED_POKEMON :{
 			pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
 			list_add(suscriptores_appeared_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case CATCH_POKEMON :{
 			pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
 			list_add(suscriptores_catch_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case GET_POKEMON :{
 			pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
 			list_add(suscriptores_get_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		case LOCALIZED_POKEMON :{
 			pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
 			list_add(suscriptores_localized_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
-			//LE ENVIO CONFIRMACION AL PROCESO (GAMECARD O TEAM)
 			break;
 			}
 		default:
@@ -487,6 +492,12 @@ void Suscribirse(suscriptor * suscp){
 
 }
 
-void enviarConfirmacion(){
-
+Mensaje * obtener_msj(int id_msj){
+	_Bool particion_libre(Mensaje* msj){return msj->id_msj == id_msj;}
+	return list_find(lista_msjs, (void*)particion_libre);
+}
+void agregar_contador_msj(){
+	pthread_mutex_lock(&mutex_contador_msjs_cola);
+	contador_msjs_en_cola++;
+	ptread_mutex_unlock(&mutex_contador_msjs_cola);
 }

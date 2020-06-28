@@ -75,6 +75,7 @@ typedef struct{
 
 void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
+pthread_mutex_t mutex_contador_msjs_cola;
 pthread_mutex_t mutex_suscriptores_new_pokemon;
 pthread_mutex_t mutex_suscriptores_localized_pokemon;
 pthread_mutex_t mutex_suscriptores_get_pokemon;
@@ -87,7 +88,7 @@ pthread_mutex_t mutex_cola_get_pokemon;
 pthread_mutex_t mutex_cola_appeared_pokemon;
 pthread_mutex_t mutex_cola_catch_pokemon;
 
-
+t_list* lista_msjs;
 t_list* lista_particiones;
 t_list* suscriptores_new_pokemon;
 t_list* suscriptores_localized_pokemon;
@@ -101,6 +102,8 @@ t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
 
 int cantidad_fallidas;
+int id_msj;
+int contador_msjs_en_cola;
 
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
