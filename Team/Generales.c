@@ -231,6 +231,7 @@ void realizarIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entr
 	list_add(entrenador2->pokemonesAtrapados, pokemonEntrenador1);
 	quitarPokemonDeAtrapados(entrenador1, pokemonEntrenador1);
 	quitarPokemonDeAtrapados(entrenador2, pokemonEntrenador2);
+	printf("Se realizo el intercambio del pokemon %s del entrenador %i por el pokemon %s del entrenador %i\n", pokemonEntrenador1, entrenador1->idEntrenador, pokemonEntrenador2, entrenador2->idEntrenador);
 }
 
 void quitarPokemonDeAtrapados(entrenadorPokemon* entrenador, char* pokemon) {
@@ -249,6 +250,14 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 	t_list* listaObjetivosAuxiliar = list_duplicate(entrenador->pokemonesObjetivo);
 	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
 	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
+	for (int i=0; i < cantidadPokemonesAtrapados;i++) {
+		char* pokemon = list_get(entrenador->pokemonesAtrapados, i);
+		printf("Pokemon atrapado %s\n", i, pokemon);
+	}
+	for (int i=0; i < cantidadPokemonesAtrapados;i++) {
+			char* pokemon = list_get(entrenador->pokemonesObjetivo, i);
+			printf("Pokemon objetivo %s\n", i, pokemon);
+		}
 	int cantidadObjetivosAuxiliar = cantidadPokemonesObjetivo;
 	if (cantidadPokemonesAtrapados == cantidadPokemonesObjetivo) {
 		for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
@@ -256,8 +265,7 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 			char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
 			for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
 				char* pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
-				printf("Pokemon Atrapado: %s - Pokemon Objetivo: %s\n", pokemonAtrapado, pokemonObjetivo);
-				if (strcmp(pokemonAtrapado, pokemonObjetivo)) {
+				if (string_equals_ignore_case(pokemonAtrapado, pokemonObjetivo)) {
 					list_remove(listaObjetivosAuxiliar, posicionObjetivos);
 					cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
 					pokemonEncontrado = TRUE;
@@ -276,8 +284,8 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 				if (entrenadorEnDeadlock == FALSE) {
 					list_add(entrenadoresEnDeadlock, entrenador);
 					printf("Entrenador %i en deadlock\n", entrenador->idEntrenador);
-					verificarIntercambios();
 				}
+				verificarIntercambios();
 			}
 		}
 		if (cantidadObjetivosAuxiliar == 0) {
@@ -288,7 +296,7 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 					break;
 				}
 			}
-			quitarDeColaBlocked(entrenador);
+			//quitarDeColaBlocked(entrenador);
 			list_add(colaExit, entrenador);
 			printf("Se movio al entrenador de id %i a Exit\n", entrenador->idEntrenador);
 		}
@@ -316,6 +324,7 @@ void quitarDeColaBlocked(entrenadorPokemon* entrenador) {
 }
 
 void verificarIntercambios() {
+	char* proximaAccionEntrenador = string_new();
 	if (list_size(entrenadoresEnDeadlock) > 1) {
 		for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
 			entrenadorPokemon* entrenador1 = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
@@ -329,7 +338,12 @@ void verificarIntercambios() {
 					int idEntrenador2 = entrenador2->idEntrenador;
 					int posicionXEntrenador2 = entrenador2->posicion_x;
 					int posicionYEntrenador2 = entrenador2->posicion_y;
-					entrenador1->proximaAccion = "HacerIntercambio %i %i %i %s %s", idEntrenador2, posicionXEntrenador2, posicionYEntrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2;
+					entrenador1->proximaAccion = "";
+					string_append_with_format(&proximaAccionEntrenador, "HacerIntercambio %i %i %i %s %s", idEntrenador2, posicionXEntrenador2, posicionYEntrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
+					entrenador1->proximaAccion = proximaAccionEntrenador;
+					quitarDeColaBlocked(entrenador1);
+					list_add(colaReady, entrenador1);
+					ejecutar();
 					//realizarIntercambio(entrenador1, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
 					/*verificarDeadlock(entrenador1);
 					verificarDeadlock(entrenador2);
@@ -553,7 +567,7 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 		realizarIntercambio(entrenador, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
 		verificarDeadlock(entrenador);
 		verificarDeadlock(entrenador2);
-		verificarIntercambios();
+		//verificarIntercambios();
 	}
 }
 

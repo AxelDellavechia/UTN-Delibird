@@ -120,6 +120,7 @@ entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemo
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
+void ejecutar();
 
 int calcularRafagaCPU(accion);
 
