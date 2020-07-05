@@ -121,6 +121,7 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
 void ejecutar();
+int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino, int tiempo);
 
 int calcularRafagaCPU(accion);
 
