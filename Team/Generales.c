@@ -100,7 +100,7 @@ void obtenerEntrenadores() {
 		entrenador->posicion_x = posicionX;
 		entrenador->posicion_y = posicionY;
 		entrenador->ciclosEnCPU = 0;
-		entrenador->proximaAccion = "AtraparPokemon";
+		entrenador->proximaAccion = "";
 		pthread_mutex_lock(&entrenador->semaforMutex);
 		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
 		while (pokemonAtrapado != NULL) {
@@ -173,15 +173,18 @@ entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemo
 	int posicionYPokemon = pokemonAparecido->posicion_y;
 	for(int posicionEntrenador = 0; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
 		entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
-		int posicionXEntrenador = entrenador->posicion_x;
-		int posicionYEntrenador = entrenador->posicion_y;
-		int movimientoEnX = fabs(posicionXEntrenador - posicionXPokemon);
-		int movimientoEnY = fabs(posicionYEntrenador - posicionYPokemon);
-		int movimientoEntrenador = movimientoEnX + movimientoEnY;
-		if((movimientoEntrenador < movimientoDeProximoEntrenadorAReady) || (posicionEntrenador == 0)) {
-			movimientoDeProximoEntrenadorAReady = movimientoEntrenador;
-			proximoEntrenadorEnEjecutar = entrenador;
-			posicionProximoEntrenador = posicionEntrenador;
+		char* proximaAccionEntrenador = entrenador->proximaAccion;
+		if (string_equals_ignore_case(proximaAccionEntrenador, "")) {
+			int posicionXEntrenador = entrenador->posicion_x;
+			int posicionYEntrenador = entrenador->posicion_y;
+			int movimientoEnX = fabs(posicionXEntrenador - posicionXPokemon);
+			int movimientoEnY = fabs(posicionYEntrenador - posicionYPokemon);
+			int movimientoEntrenador = movimientoEnX + movimientoEnY;
+			if((movimientoEntrenador < movimientoDeProximoEntrenadorAReady) || (posicionEntrenador == 0)) {
+				movimientoDeProximoEntrenadorAReady = movimientoEntrenador;
+				proximoEntrenadorEnEjecutar = entrenador;
+				posicionProximoEntrenador = posicionEntrenador;
+			}
 		}
 	}
 	list_add_in_index(colaReady, 0, proximoEntrenadorEnEjecutar);
@@ -198,8 +201,11 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 	int posicionYEntrenador = entrenador->posicion_y;
 	int ciclosEnCPUEntrenador = entrenador->ciclosEnCPU;
 	int ciclosEnCPUEntrenadorMasTiempo = ciclosEnCPUEntrenador + tiempo;
+	if (tiempo == 0) {
+		ciclosEnCPUEntrenadorMasTiempo = -1;
+	}
 	while (moverEntrenadorEnX == TRUE) {
-		if (ciclosEnCPUEntrenador < ciclosEnCPUEntrenadorMasTiempo) {
+		if (ciclosEnCPUEntrenador != ciclosEnCPUEntrenadorMasTiempo) {
 			if (posicionXEntrenador < posicionXDestino) {
 				posicionXEntrenador++;
 				ciclosEnCPUEntrenador++;
@@ -214,7 +220,7 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 		}
 	}
 	while (moverEntrenadorEnY == TRUE) {
-		if(ciclosEnCPUEntrenador < ciclosEnCPUEntrenadorMasTiempo) {
+		if(ciclosEnCPUEntrenador != ciclosEnCPUEntrenadorMasTiempo) {
 			if (posicionYEntrenador < posicionYDestino) {
 				posicionYEntrenador++;
 				ciclosEnCPUEntrenador++;
@@ -231,7 +237,7 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 	entrenador->ciclosEnCPU = ciclosEnCPUEntrenador;
 	entrenador->posicion_x = posicionXEntrenador;
 	entrenador->posicion_y = posicionYEntrenador;
-	printf("Entrenador %i se movió a la posición %i %i\n", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
+	printf("Entrenador %i se movió a la posición %i %i estando %i ciclos en la CPU\n", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y, entrenador->ciclosEnCPU);
 	//log_info(logger, "Entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
 	if ((posicionXEntrenador == posicionXDestino) && (posicionYEntrenador == posicionYDestino)){
 		return 1;
@@ -444,6 +450,7 @@ void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon
 	for(int posicionPokemon = 0; posicionPokemon < list_size(listaCatchPokemon); posicionPokemon++) {
 		cola_CATCH_POKEMON* pokemon = list_get(listaCatchPokemon, posicionPokemon);
 		if(pokemon->id_mensaje == pokemonRecibido->id_mensaje) {
+			entrenador->proximaAccion = "";
 			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemon->nombre_pokemon));
 			list_remove(listaCatchPokemon, posicionPokemon);
 			verificarDeadlock(entrenador);
@@ -457,7 +464,7 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 		listaCatchPokemon = list_create();
 		crearLista = FALSE;
 	}
-	pokemon* pokemonEnLista;
+	//pokemon* pokemonEnLista;
 	pokemon* pokemon = reservarMemoria(sizeof(pokemon));
 	pokemon->id_mensaje = 0;
 	pokemon->nombre_pokemon = string_duplicate(nombrePokemon);
@@ -482,12 +489,11 @@ void ejecutar() {
 	char* accionAComparar;
 	int posicionProximoAEjecutar;
 	int rafagaCPUAccion;
-	entrenadorPokemon* entrenador = list_get(colaReady, 0);
-	/*for (int i=0; i < list_size(colaReady);i++) {
-		entrenadorPokemon* entrenador = list_get(colaReady, i);
-		printf("Entrenador posicion %i es %i\n", i, entrenador->idEntrenador);
-	}*/
-	accion = entrenador->proximaAccion;
+	entrenadorPokemon* entrenador;
+	if (list_size(colaReady) > 0) {
+		entrenador = list_get(colaReady, 0);
+		accion = entrenador->proximaAccion;
+	}
 	if (strcmp("FIFO", algoritmo)) {
 		exec = entrenador;
 		pthread_mutex_unlock(&exec->semaforMutex);
@@ -585,8 +591,10 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 			return entrenadorABuscar->idEntrenador == idEntrenador2Int;
 		}
 		entrenadorPokemon* entrenador2 = list_find(entrenadoresEnDeadlock, (void*) buscarEntrenadorPorID);
-		moverEntrenador(entrenador, posicionXEntrenador2Int, posicionYEntrenador2Int);
+		moverEntrenador(entrenador, posicionXEntrenador2Int, posicionYEntrenador2Int, tiempo);
 		realizarIntercambio(entrenador, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
+		entrenador->proximaAccion = "";
+		entrenador2->proximaAccion = "";
 		verificarDeadlock(entrenador);
 		verificarDeadlock(entrenador2);
 		//verificarIntercambios();
