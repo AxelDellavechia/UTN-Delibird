@@ -54,10 +54,12 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case NW_SAVE:{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				pthread_rwlock_rdlock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+				pthread_rwlock_unlock(&mxNewPokemonsList);
 				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
@@ -150,7 +152,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
 				printf("El Pokemon no existe");
-				pthread_mutex_unlock (&mxPokeList);
+				pthread_mutex_unlock(&mxPokeList);
 				step = ERROR;
 
 				return ERROR;
@@ -185,10 +187,12 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case NW_SAVE: case NW_SAVE_DEL_POSITION :{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				pthread_rwlock_rdlock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+				pthread_rwlock_unlock(&mxNewPokemonsList);
 				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
@@ -275,9 +279,11 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
 				leerBloques(Pokemon, &dataPokemon);
 				list_add_all(locPokemon->lista_posiciones, dataPokemon.positions);
+				pthread_rwlock_rdlock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
+				pthread_rwlock_unlock(&mxNewPokemonsList);
 				list_destroy(dataPokemon.positions);
 				for(int i = 0;i<list_size(dataPokemon.blocks);i++){
 					char* block = list_get(dataPokemon.blocks,i);
@@ -326,7 +332,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		newPokemon->idPokemon = list_size(pokeList);
 		list_add(pokeList, newPokemon);
 		addMxPokemon(newPokemon);
-		pthread_mutex_unlock (&mxPokeList);
+
 
 	}else
 	{
@@ -334,6 +340,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		return ERROR;
 	}
 	free(dirFile);
+	pthread_mutex_unlock (&mxPokeList);
 	return result;
 }
 
@@ -740,7 +747,9 @@ if (bloquesNecesarios <= bloquesUsados + cantidadDeBloquesLibres()){
 			char* tmpBlock = list_get(dataPokemon->blocks,bloquesNecesarios);
 			free (tmpBlock);
 			list_remove(dataPokemon->blocks,bloquesNecesarios);
+			pthread_rwlock_wrlock(&mxBitmap);
 			bitarray_clean_bit(bitarray,bit);
+			pthread_rwlock_unlock(&mxBitmap);
 		}
 
 	list_destroy(bloquesExtras);
@@ -813,7 +822,9 @@ int grabarBloque(char* data, int bloque)
 	if(block != NULL)
 	{
 		fprintf(block,"%s",data);
+		pthread_rwlock_wrlock(&mxBitmap);
 		bitarray_set_bit(bitarray, bloque);
+		pthread_rwlock_unlock(&mxBitmap);
 		fclose (block);
 	}else
 	{

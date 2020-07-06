@@ -85,6 +85,8 @@ pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
 pthread_mutex_t *mxPokemones;
 pthread_mutex_t mxPokeList;
+pthread_rwlock_t mxBitmap;
+pthread_rwlock_t mxNewPokemonsList;
 
 int cantFiles;
 int comandoIn;

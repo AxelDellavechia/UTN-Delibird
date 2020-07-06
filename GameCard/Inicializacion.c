@@ -151,6 +151,8 @@ void inicializar_semaforos(){
 	//inicializo semaforos de nodos
 
 	pthread_mutex_init(&mxPokeList,NULL);
+	pthread_rwlock_init(&mxBitmap, NULL);
+	pthread_rwlock_init(&mxNewPokemonsList, NULL);
 
 }
 
@@ -174,13 +176,15 @@ void consola() {
 		}
 
 	}
-
+	pthread_mutex_lock (&mxPokeList);
 	for(int i = 0;i<list_size(pokeList);i++){
 		t_Pokemones* poke = list_get(pokeList,i);
 		free(poke->pokemon);
 		free(poke);
 	}
+
 	list_destroy(pokeList);
+	pthread_mutex_unlock (&mxPokeList);
 	free(comando);
 	free(mxPokemones);
 
@@ -198,7 +202,10 @@ void consola() {
 	free(config_MetaData);
 	free(config_File->PUNTO_MONTAJE_TALLGRASS);
 	free(config_File);
+	pthread_rwlock_wrlock(&mxBitmap);
 	bitarray_destroy(bitarray);
+	pthread_rwlock_unlock(&mxBitmap);
+	pthread_rwlock_destroy(&mxBitmap);
 	//config_destroy(config_MetaData);
 //	free(config_File->IP_BROKER);
 //	config_destroy(config_File);
@@ -282,7 +289,7 @@ void thread_Broker(int fdSocket) {
 												appeared_pokemon.posicion_x = new_poke.posicion_x;
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
 												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
-												free(new_poke.nombre_pokemon);
+												//free(new_poke.nombre_pokemon);
 												free(appeared_pokemon.nombre_pokemon);
 											}
 											free(new_poke.nombre_pokemon);
@@ -502,6 +509,7 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 
 
 int cantidadDeBloquesLibres (void){
+	pthread_rwlock_rdlock(&mxBitmap);
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
 	int libre =ERROR;
 	int i;
@@ -510,15 +518,15 @@ int cantidadDeBloquesLibres (void){
 			libre++;
 		}
 	}
+	pthread_rwlock_unlock(&mxBitmap);
 	return libre;
 }
 
 int proximobloqueLibre (void){
-
+	pthread_rwlock_wrlock(&mxBitmap);
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
 	int i;
 	int libre= ERROR;
-	//pthread_mutex_lock(&mxBitmap);
 	for (i=0;i<cantidadDebits;i++){
 		if(bitarray_test_bit(bitarray,i)==0){
 			bitarray_set_bit(bitarray,i);
@@ -526,8 +534,9 @@ int proximobloqueLibre (void){
 			break;
 		}
 	}
-//	pthread_mutex_unlock(&mxBitmap);
+	pthread_rwlock_unlock(&mxBitmap);
 	return libre;
+
 }
 
 void listarArchivos(char *archivo)
@@ -557,12 +566,14 @@ void loadPokemons()
 
 		  /* en *ent habrá información sobre el archivo que se está "sacando" a cada momento */
 		  struct dirent *ent;
+		  pthread_mutex_lock (&mxPokeList);
 		  pokeList = list_create();
 		  /* Empezaremos a leer en el directorio actual */
 		  dir = opendir (PuntoMontaje->FILES);
 
 		  /* Miramos que no haya error */
 		  if (dir == NULL){
+			  pthread_mutex_unlock (&mxPokeList);
 		    log_info(logger,"No se pudo cargar la estructura de Directorios");
 		  }else{
 
@@ -600,10 +611,13 @@ void loadPokemons()
 		  	closedir (dir);
 
 		  }
+		  pthread_mutex_unlock (&mxPokeList);
 }
 
 void addMxPokemon(t_Pokemones* Pokemon){
+	pthread_rwlock_wrlock(&mxNewPokemonsList);
 	mxPokemones = realloc(mxPokemones,sizeof(pthread_mutex_t)*(list_size(pokeList)));
 	pthread_mutex_init(mxPokemones + Pokemon->idPokemon, NULL);
+	pthread_rwlock_unlock(&mxNewPokemonsList);
 
 }
