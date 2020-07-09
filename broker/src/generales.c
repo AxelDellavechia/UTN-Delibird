@@ -489,6 +489,7 @@ void Suscribirse(suscriptor * suscp){
 			pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
 			list_add(suscriptores_localized_pokemon, &suscp);
 			pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
+			break;
 			}
 		default:
 			log_info(logger, "Instrucción para suscribirse alguna cola no reconocida");

@@ -96,7 +96,7 @@ void iniciar_estructuras(){
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
 	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR
-	pthread_mutex_init();
+	pthread_mutex_init(&mutex_id_msj, NULL);
 	//SE DEFINE MUTEX PARA LA LISTA DE SUSCRIPTORES
 	pthread_mutex_init(&mutex_suscriptores_new_pokemon, NULL);
 	pthread_mutex_init(&mutex_suscriptores_localized_pokemon, NULL);
