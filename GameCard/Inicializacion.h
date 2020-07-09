@@ -11,8 +11,8 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <pthread.h>
-#include "../digiCommons/src/protocolos_comunicacion.h"
-#include "../digiCommons/src/mensajeria.h"
+#include "src/protocolos_comunicacion.h"
+#include "src/mensajeria.h"
 
 
 
@@ -22,11 +22,13 @@
 #define CONFIG_PATH_METADATA "../configGBM.txt"
 #define CONEXIONES_PERMITIDAS 100
 
-#define FALSE 0
-#define TRUE 1
+
+#define SUSCRIBIR 2
+#define RECIBIR 3
+#define INIT 5
+#define ESCUCHANDO 4
 //codigos de error
-#define OK 1
-#define ERROR -1
+
 #define KEY_HANDSHAKE "GameCard"
 
 typedef struct{
@@ -44,6 +46,13 @@ typedef struct{
 	 	char* magic_number;
 	 	int cantidad_bloques;
 }t_config_MetaData;
+
+typedef struct{
+	int token;
+	t_list* cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	int modulo; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
+}suscriptor;
+
 
 
 typedef struct{
@@ -65,6 +74,7 @@ typedef struct{
 void leer_configFile(char* ruta);
 void crearPuntoMontaje();
 void consola();
+void suscribir();
 void servidor();
 void cargarArbolDirectorios(char* Directorio);
 void thread_Broker(int fdSocket);
@@ -78,6 +88,7 @@ t_list* dirList;
 t_log* logger;
 t_bitarray *bitarray;
 pthread_t hilo_servidor;
+pthread_t hilo_suscribir;
 pthread_t hilo_consola;
 
 pthread_mutex_t mxHilos;
@@ -90,6 +101,7 @@ pthread_rwlock_t mxNewPokemonsList;
 
 int cantFiles;
 int comandoIn;
+int comandoBroker;
 int HANDSHAKE_SIZE;
 fd_set setMaestro;
 

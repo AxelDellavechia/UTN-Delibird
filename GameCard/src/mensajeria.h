@@ -60,9 +60,11 @@ typedef struct{
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
+
 typedef struct{
 	int ack;
 	int id_msj;
 }respuesta_ACK;
+
 
 #endif /* SRC_MENSAJERIA_H_ */

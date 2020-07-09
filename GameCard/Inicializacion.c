@@ -1,6 +1,7 @@
 #include "Inicializacion.h"
 #include <commons/config.h>
 #include "src/sockets.h"
+#include "src/mensajeria.h"
 #include "MetodosGC.h"
 
 
@@ -30,7 +31,9 @@ void leer_configFile(char* ruta) {
 		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
 		config_File->PUNTO_MONTAJE_TALLGRASS = malloc( 1 + string_length(config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS")));
 		strcpy(config_File->PUNTO_MONTAJE_TALLGRASS,config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS"));
-		config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
+		config_File->IP_BROKER = malloc( 1 + string_length(config_get_string_value(config, "IP_BROKER")));
+		strcpy(config_File->IP_BROKER,config_get_string_value(config,"IP_BROKER"));
+
 		config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
 		config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
 		if (config_get_int_value(config,"TOKEN") != 0 ){
@@ -125,13 +128,16 @@ void crearHilos() {
 
 
 	hilo_servidor= 0;
+	hilo_suscribir= 0;
 	hilo_consola= 0;
 
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
 
 	pthread_join(hilo_servidor, NULL);
+	pthread_join(hilo_suscribir, NULL);
 	pthread_join(hilo_consola, NULL);
 
 }
@@ -218,6 +224,70 @@ void consola() {
 }
 
 
+
+void suscribir() {
+
+
+
+	int fdBroker = nuevoSocket();
+
+	int step = INIT;
+	while(TRUE) {
+	switch(step){
+	case INIT:{
+			step = conectarCon( fdBroker,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+					break;
+			}
+	case FALSE:{
+				usleep(config_File->TIEMPO_DE_REINTENTO_CONEXION *1000000);
+				step = INIT;
+				fdBroker = nuevoSocket();
+				break;
+
+			}
+	case TRUE:{
+				int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+				if (res == TRUE){
+					step = SUSCRIBIR;
+				}else{
+					step = FALSE;
+				}
+				break;
+			}
+	case SUSCRIBIR:{
+
+				suscriptor* laSuscripcion = malloc(sizeof(suscriptor));
+				laSuscripcion->modulo = GAMECARD; // @suppress("Symbol is not resolved")
+				laSuscripcion->token = token();
+				laSuscripcion->cola_a_suscribir = list_create();
+				list_add(laSuscripcion->cola_a_suscribir, NEW_POKEMON); // @suppress("Symbol is not resolved")
+				list_add(laSuscripcion->cola_a_suscribir, CATCH_POKEMON);
+				list_add(laSuscripcion->cola_a_suscribir, GET_POKEMON);
+				aplicar_protocolo_enviar(fdBroker, SUSCRIPCION, laSuscripcion);
+				step = ESCUCHANDO;
+				break;
+			}
+	case ESCUCHANDO:{
+				int head = 0;
+				int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL); //recibirPorSocket(fdEmisor, &head, INT);
+
+				if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+					//printf("Error al recibir mensaje.\n");
+				step = FALSE;
+				}else{
+					pthread_t hilo;
+					pthread_create(&hilo, NULL, (void*) thread_Broker, fdBroker);
+				}
+
+			}
+
+
+	}
+	}
+
+}
+
+
 void servidor() {
 
 	comandoIn = nuevoSocket();
@@ -245,10 +315,7 @@ void servidor() {
 				//	pthread_mutex_unlock(&mxSocketsFD);
 			}
 		}
-		/*
-		 * Enviar colas a las que me suscribo
-		 *
-		 */
+
 		pthread_t hilo;
 	//	pthread_mutex_lock(&mxHilos);
 		pthread_create(&hilo, NULL, (void*) thread_Broker, comandoNuevo);
@@ -341,6 +408,7 @@ void thread_Broker(int fdSocket) {
 
 										default:
 											log_info(logger, "Instrucción no reconocida");
+											enviarPorSocket(fdSocket, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
 											break;
 									}
 			free(mensaje);

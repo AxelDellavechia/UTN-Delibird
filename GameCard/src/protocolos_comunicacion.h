@@ -7,6 +7,11 @@
 #include <commons/string.h>
 #include <locale.h>
 
+#define FALSE 0
+#define TRUE 1
+#define OK 1
+#define ERROR -1
+
 typedef enum {
 	NEW_POKEMON = 1,
 	APPEARED_POKEMON,
@@ -15,14 +20,18 @@ typedef enum {
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
 	ACK,
+	SUSCRIPCION,
 	FIN_DEL_PROTOCOLO
 } protocolo;
 
 typedef enum {
 	GAMECARD = 1,
 	BROKER,
-	TEAM
+	TEAM,
+	GAMEBOY
 } modulos;
+
+
 
 void * buffer ;
 
