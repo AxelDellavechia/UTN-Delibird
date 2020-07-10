@@ -528,6 +528,8 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 
 			    handshake_cliente(fdCliente,"Team","Broker",logger);
 
+			    aplicar_protocolo_enviar(fdCliente,SUSCRIPCION,laSuscripcion);
+
 			    while (time (NULL) < endwait)
 			    {
 
@@ -536,6 +538,8 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 				    void * mensaje = malloc(bufferTam);
 
 				    recibirMensaje(fdCliente,bufferTam,mensaje);
+
+				    printf("Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos",comando,tiempoSuscripcion);
 
 			    	switch( head ){
 
