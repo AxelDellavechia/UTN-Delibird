@@ -17,11 +17,11 @@ int main (int argc, char *argv[]) {
 
 		configGB = reservarMemoria(sizeof(archivoConfigGB));
 
-		if (argc < 2 || argc > 7 ){
+	if (argc < 2 || argc > 7 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			log_info(logger,"No se ingreso la cantidad de parametros necesarios");
 			return EXIT_FAILURE ;
-		}
+	}
 
 		inicializar_semaforos();
 
@@ -493,11 +493,11 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 
 	log_info(logger,"Trabajando con el SUSCRIPTOR");
 
-		/*if ( argc < 4){
+		if ( argc < 4){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			free(comando);
 			return EXIT_FAILURE;
-		} else {*/
+		} else {
 
 				free(comando);
 
@@ -518,121 +518,8 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 				laSuscripcion->cola_a_suscribir = list_create();
 				list_add(laSuscripcion->cola_a_suscribir, devolverTipoMsj(comando));
 
-				//crearHilos(laSuscripcion);
-
-			    int fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
-
-			    int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker, logger);
-
-			    if (conexion == TRUE ) {
-
-			    	handshake_cliente(fdCliente,"Team","Broker",logger);
-
-			    				    aplicar_protocolo_enviar(fdCliente,SUSCRIPCION,laSuscripcion);
-
-			    				    //recibirProtocolo(&head, &bufferTam,fdCliente);
-
-			    				    //if (head == ACK) log_info(logger,"El flujo suscripción termino bien");
-
-			    				    printf("Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos",comando,tiempoSuscripcion);
-
-			    				    time_t endwait;
-
-			    				    time_t start = time (NULL);
-
-			    				    endwait = time (NULL) + tiempoSuscripcion ;
-
-			    				    while (start  < endwait)
-			    				    {
-
-			    					    if (recibirProtocoloSinEspera(&head, &bufferTam,fdCliente) != -1) {
-			    					    	void * mensaje = malloc(bufferTam);
-			    					    	recibirMensajeSinEspera(fdCliente,bufferTam,mensaje);
-
-			    					    				    				    	switch( head ){
-
-			    					    				    				    								setlocale(LC_ALL,"");
-
-			    					    				    				    											case NEW_POKEMON :{
-			    					    				    				    												cola_NEW_POKEMON  new_poke ;
-			    					    				    				    												deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
-			    					    				    				    												log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-			    					    				    				    												//reenviarMsjCola_NEW_POKEMON(mensaje);
-			    					    				    				    												break;
-			    					    				    				    											}
-			    					    				    				    											case CATCH_POKEMON :{
-			    					    				    				    												cola_CATCH_POKEMON cath_poke;
-			    					    				    				    												deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-			    					    				    				    												log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-			    					    				    				    												break;
-			    					    				    				    											}
-			    					    				    				    											case GET_POKEMON :{
-			    					    				    				    												cola_GET_POKEMON get_poke ;
-			    					    				    				    												deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
-			    					    				    				    												log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-			    					    				    				    												break;
-			    					    				    				    											}
-
-			    					    				    				    											case APPEARED_POKEMON :{
-			    					    				    				    												cola_APPEARED_POKEMON app_poke;
-			    					    				    				    												deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-
-			    					    				    				    												//responder por localized_pokemon
-			    					    				    				    												log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-			    					    				    				    												free(app_poke.nombre_pokemon);
-			    					    				    				    												break;
-			    					    				    				    											}
-
-			    					    				    				    											case CAUGHT_POKEMON :{
-			    					    				    				    												cola_CAUGHT_POKEMON caug_poke ;
-
-			    					    				    				    												//responde por caught_pokemon
-			    					    				    				    												deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
-			    					    				    				    												log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-			    					    				    				    												break;
-			    					    				    				    											}
-
-			    					    				    				    											case LOCALIZED_POKEMON :{
-			    					    				    				    												cola_LOCALIZED_POKEMON loc_poke ;
-			    					    				    				    												deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-			    					    				    				    												for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-			    					    				    				    												log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-			    					    				    				    												i++;
-			    					    				    				    												}
-			    					    				    				    												free(loc_poke.nombre_pokemon);
-			    					    				    				    												list_destroy(loc_poke.lista_posiciones);
-			    					    				    				    												break;
-			    					    				    				    											}
-			    					    				    				    											case ACK :{
-			    					    				    				    												respuesta_ACK ack;
-			    					    				    				    												deserealizar_ACK( head, mensaje, bufferTam, & ack);
-			    					    				    				    												log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
-			    					    				    				    												break;
-			    					    				    				    											}
-
-			    					    				    				    											case SUSCRIPCION :{
-			    					    				    				    												suscriptor laSus;
-			    					    				    				    												deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
-			    					    				    				    												for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
-			    					    				    				    													log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
-			    					    				    				    												}
-			    					    				    				    												break;
-			    					    				    				    											}
-			    					    				    				    											default:
-			    					    				    				    												log_info(logger, "Instrucción no reconocida");
-			    					    				    				    												break;
-			    					    				    				    										}
-			    					    }
-			    				    	start = time (NULL);
-
-			    				    }
-			    				    return EXIT_SUCCESS;
-			    } else {
-			    	return EXIT_FAILURE ;
-			    }
-
-
-		//}
+				crearHilos(laSuscripcion);
+		}
 }
 
 

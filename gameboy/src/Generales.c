@@ -131,7 +131,7 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 
 }
 
-/*
+
 void crearHilos(suscriptor * laSuscripcion) {
 
 	hilo_servidor = 0;
@@ -151,31 +151,122 @@ void servidor() {
 
 	pthread_mutex_lock(&semaforo);
 
-	for ( cantidadSegundos ; cantidadSegundos < segundosMaximos ; cantidadSegundos ++) {
-		sleep(1);
-		printf("paso 1 segundo metodo servidor\n");
+	time_t start = time (NULL);
+
+	time_t endwait = time (NULL) + tiempoSuscripcion ;
+
+	while (start  < endwait) {
+		start = time (NULL);
 	}
 
+	fprintf(stderr,"Transcurrio la cantidad %d segundos se finaliza el programa",comando,tiempoSuscripcion);
+	pthread_detach(hilo_consola);
+	pthread_cancel(hilo_consola);
+
 	pthread_mutex_unlock(&semaforo);
+
 	pthread_detach(hilo_servidor);
 	pthread_cancel(hilo_servidor);
 }
 
 void consola(suscriptor * laSuscripcion) {
 
-	int enviado = conectar_y_enviar("GAMEBOY",configGB->ipBroker,configGB->puertoBroker,"TEAM","BROKER",SUSCRIPCION,laSuscripcion,logger, loggerCatedra);
+int fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
+int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker, logger);
 
-	pthread_mutex_unlock(&semaforo);
+	if (conexion == TRUE ) {
 
-	while ( tiempoSuscripcion != 0 ) {
-			log_info(logger,"El tiempo restante es %d",tiempoSuscripcion);
-			tiempoSuscripcion = tiempoSuscripcion - cantidadSegundos ;
-	}
+		handshake_cliente(fdCliente,"Team","Broker",logger);
 
-	pthread_detach(hilo_consola);
-	pthread_cancel(hilo_consola);
+		aplicar_protocolo_enviar(fdCliente,SUSCRIPCION,laSuscripcion);
 
+		fprintf(stderr,"Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos\n",comando,tiempoSuscripcion);
+
+		pthread_mutex_unlock(&semaforo);
+
+		while (true) {
+
+			recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+
+			void * mensaje = malloc(bufferTam);
+
+			recibirMensaje(fdCliente , bufferTam , mensaje );
+
+			switch( head ){
+
+					setlocale(LC_ALL,"");
+
+					case NEW_POKEMON :{
+						cola_NEW_POKEMON  new_poke ;
+						deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+						log_info(loggerCatedra,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+						//reenviarMsjCola_NEW_POKEMON(mensaje);
+						break;
+					}
+					case CATCH_POKEMON :{
+						cola_CATCH_POKEMON cath_poke;
+						deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+						log_info(loggerCatedra,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+						break;
+					}
+					case GET_POKEMON :{
+						cola_GET_POKEMON get_poke ;
+						deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+						log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+						break;
+					}
+
+					case APPEARED_POKEMON :{
+						cola_APPEARED_POKEMON app_poke;
+						deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
+
+						//responder por localized_pokemon
+						log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+						free(app_poke.nombre_pokemon);
+						break;
+					}
+
+					case CAUGHT_POKEMON :{
+						cola_CAUGHT_POKEMON caug_poke ;
+
+						//responde por caught_pokemon
+						deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
+						log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+						break;
+					}
+
+					case LOCALIZED_POKEMON :{
+						cola_LOCALIZED_POKEMON loc_poke ;
+						deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
+						for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
+						log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+						i++;
+						}
+						free(loc_poke.nombre_pokemon);
+						list_destroy(loc_poke.lista_posiciones);
+						break;
+					}
+					case ACK :{
+						respuesta_ACK ack;
+						deserealizar_ACK( head, mensaje, bufferTam, & ack);
+						log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+						break;
+					}
+
+					case SUSCRIPCION :{
+						suscriptor laSus;
+						deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
+						for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
+							log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
+						}
+						break;
+					}
+					default:
+						log_info(logger, "Instrucción no reconocida");
+						break;			    					    				    				    										}
+			}
+		}
 }
-*/
+
+

@@ -47,7 +47,7 @@ typedef struct ConfigFile{
 } ConfigFile;
 
 typedef struct {
-	suscriptor laSus;
+	suscriptor * laSus;
 	int suSocket;
 } losSuscriptores;
 
