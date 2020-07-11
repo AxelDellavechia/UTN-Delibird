@@ -11,6 +11,24 @@
 #include <stdint.h>
 
 typedef struct{
+	uint32_t fdSocket;
+	uint32_t head;
+} new_msj_broker;
+
+
+typedef struct{
+	uint32_t id_mensaje;
+	char* nombre_pokemon;
+	uint32_t  tamanio_nombre;
+	uint32_t  posicion_x;
+	uint32_t posicion_y;
+	uint32_t cantidad;
+	uint32_t fdSocket;
+	uint32_t head;
+}GENERIC_POKEMON;
+
+
+typedef struct{
 	uint32_t id_mensaje;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
@@ -60,11 +78,6 @@ typedef struct{
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
-
-typedef struct{
-	int ack;
-	int id_msj;
-}respuesta_ACK;
 
 
 #endif /* SRC_MENSAJERIA_H_ */

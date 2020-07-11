@@ -47,12 +47,6 @@ typedef struct{
 	 	int cantidad_bloques;
 }t_config_MetaData;
 
-typedef struct{
-	int token;
-	t_list* cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
-	int modulo; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
-}suscriptor;
-
 
 
 typedef struct{
@@ -77,7 +71,10 @@ void consola();
 void suscribir();
 void servidor();
 void cargarArbolDirectorios(char* Directorio);
-void thread_Broker(int fdSocket);
+void thread_GameBoy(int fdSocket);
+void thread_GetPokemon(cola_GET_POKEMON* get_poke);
+void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke);
+void thread_NewPokemon(cola_NEW_POKEMON* new_poke);
 
 ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
@@ -99,6 +96,8 @@ pthread_mutex_t mxPokeList;
 pthread_rwlock_t mxBitmap;
 pthread_rwlock_t mxNewPokemonsList;
 
+
+int fdBroker;
 int cantFiles;
 int comandoIn;
 int comandoBroker;

@@ -217,7 +217,7 @@ void consola() {
 //	config_destroy(config_File);
  	log_destroy(logger);
 	pthread_detach(hilo_servidor);
-	pthread_detach(thread_Broker);
+	//pthread_detach(thread_GameBoy);
 	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
 
@@ -229,7 +229,7 @@ void suscribir() {
 
 
 
-	int fdBroker = nuevoSocket();
+	fdBroker = nuevoSocket();
 
 	int step = INIT;
 	while(TRUE) {
@@ -246,7 +246,8 @@ void suscribir() {
 
 			}
 	case TRUE:{
-				int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+				//int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+		int res = handshake_cliente(fdBroker, "Team" , "Broker", logger);
 				if (res == TRUE){
 					step = SUSCRIBIR;
 				}else{
@@ -256,18 +257,74 @@ void suscribir() {
 			}
 	case SUSCRIBIR:{
 
-				suscriptor* laSuscripcion = malloc(sizeof(suscriptor));
-				laSuscripcion->modulo = GAMECARD; // @suppress("Symbol is not resolved")
-				laSuscripcion->token = token();
-				laSuscripcion->cola_a_suscribir = list_create();
-				list_add(laSuscripcion->cola_a_suscribir, NEW_POKEMON); // @suppress("Symbol is not resolved")
-				list_add(laSuscripcion->cola_a_suscribir, CATCH_POKEMON);
-				list_add(laSuscripcion->cola_a_suscribir, GET_POKEMON);
-				aplicar_protocolo_enviar(fdBroker, SUSCRIPCION, laSuscripcion);
+				suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+				laSuscripcion.modulo = GAMECARD; // @suppress("Symbol is not resolved")
+				laSuscripcion.token = token();
+				laSuscripcion.cola_a_suscribir = list_create();
+				list_add(laSuscripcion.cola_a_suscribir, NEW_POKEMON); // @suppress("Symbol is not resolved")
+				list_add(laSuscripcion.cola_a_suscribir, CATCH_POKEMON);
+				list_add(laSuscripcion.cola_a_suscribir, GET_POKEMON);
+				aplicar_protocolo_enviar(fdBroker, SUSCRIPCION, &laSuscripcion);
 				step = ESCUCHANDO;
 				break;
 			}
 	case ESCUCHANDO:{
+			int head , bufferTam  ;
+
+			//int recibido = recibirProtocolo(&head,&bufferTam,fdBroker); // recibo head y tamaño de msj
+			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
+			void * mensaje = malloc(bufferTam);
+
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+								//printf("Error al recibir mensaje.\n");
+							step = FALSE;
+			}else{
+			recibirMensaje(fdBroker , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+			log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+
+			log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+
+
+			switch( head ){
+
+						case NEW_POKEMON :{
+							cola_NEW_POKEMON new_poke;
+							deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+							log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+							sendACK(fdBroker, new_poke.id_mensaje);
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_NewPokemon, &new_poke);
+							break;
+						}
+						case CATCH_POKEMON :{
+							cola_CATCH_POKEMON cath_poke;
+							deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+							log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
+							sendACK(fdBroker, cath_poke.id_mensaje);
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_CatchPokemon, &cath_poke);
+							break;
+						}
+						case GET_POKEMON :{
+							cola_GET_POKEMON get_poke ;
+							deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+							log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+							sendACK(fdBroker, get_poke.id_mensaje);
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, &get_poke);
+							break;
+						}
+
+						default:
+							log_info(logger, "Instrucción no reconocida");
+							enviarPorSocket(fdBroker, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
+							break;
+					}
+
+			}
+	}
+	/*case ESCUCHANDO:{
 				int head = 0;
 				int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL); //recibirPorSocket(fdEmisor, &head, INT);
 
@@ -275,17 +332,90 @@ void suscribir() {
 					//printf("Error al recibir mensaje.\n");
 				step = FALSE;
 				}else{
+					new_msj_broker msjBroker;
+					msjBroker.head = head;
+					msjBroker.fdSocket = fdBroker;
+
 					pthread_t hilo;
-					pthread_create(&hilo, NULL, (void*) thread_Broker, fdBroker);
+					pthread_create(&hilo, NULL, (void*) thread_Broker, msjBroker);
 				}
 
-			}
+			}*/
 
 
 	}
 	}
 
 }
+
+void sendACK(int fdSocket, int idMsj){
+
+	respuesta_ACK ack;
+	ack.ack = OK;
+	int id_msj;
+
+	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
+
+}
+
+void thread_GetPokemon(cola_GET_POKEMON* get_poke){
+	cola_LOCALIZED_POKEMON* locPokemon;
+	locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
+	GetPokemon(get_poke, locPokemon);
+	locPokemon->nombre_pokemon = malloc (1 + get_poke->nombre_pokemon);
+	strcpy(locPokemon->nombre_pokemon,get_poke->nombre_pokemon);
+	locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
+	locPokemon->id_mensaje = get_poke->id_mensaje;
+	locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
+
+	aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
+
+	for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
+		t_positions* pos;// = malloc (sizeof(t_positions));
+		pos = list_get(locPokemon->lista_posiciones,i);
+		//printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
+		free(pos);
+	}
+
+	list_destroy(locPokemon->lista_posiciones);
+	//free(locPokemon->lista_posiciones);
+	free(get_poke->nombre_pokemon);
+	free(locPokemon->nombre_pokemon);
+	free(locPokemon);
+	pthread_detach( pthread_self() );
+}
+
+void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
+	int result = CatchPokemon(catch_poke);
+	cola_CAUGHT_POKEMON caught_pokemon;
+	caught_pokemon.id_mensaje = catch_poke->id_mensaje;
+	caught_pokemon.atrapo_pokemon = result;
+	aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
+	free(catch_poke->nombre_pokemon);
+
+	pthread_detach( pthread_self() );
+}
+
+void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
+	int result = NewPokemon(new_poke);
+	if(result==OK){
+		printf("enviar la respuesta APPEARED");
+		cola_APPEARED_POKEMON appeared_pokemon;
+		appeared_pokemon.id_mensaje = new_poke->id_mensaje;
+		appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke->nombre_pokemon));
+		strcpy(appeared_pokemon.nombre_pokemon,new_poke->nombre_pokemon);
+		appeared_pokemon.posicion_x = new_poke->posicion_x;
+		appeared_pokemon.posicion_y = new_poke->posicion_y;
+		appeared_pokemon.tamanio_nombre = string_length(new_poke->nombre_pokemon);
+
+		aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
+		free(appeared_pokemon.nombre_pokemon);
+	}
+	free(new_poke->nombre_pokemon);
+
+	pthread_detach( pthread_self() );
+}
+
 
 
 void servidor() {
@@ -318,15 +448,15 @@ void servidor() {
 
 		pthread_t hilo;
 	//	pthread_mutex_lock(&mxHilos);
-		pthread_create(&hilo, NULL, (void*) thread_Broker, comandoNuevo);
+		pthread_create(&hilo, NULL, (void*) thread_GameBoy, comandoNuevo);
 	//	pthread_mutex_unlock(&mxHilos);
 
 	}
 }
 
-void thread_Broker(int fdSocket) {
+void thread_GameBoy(int fdSocket) {
 
-	int head , bufferTam  ;
+	int head , bufferTam=0  ;
 
 	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
 
@@ -356,6 +486,7 @@ void thread_Broker(int fdSocket) {
 												appeared_pokemon.posicion_x = new_poke.posicion_x;
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
 												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
+												aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
 												//free(new_poke.nombre_pokemon);
 												free(appeared_pokemon.nombre_pokemon);
 											}
@@ -370,6 +501,7 @@ void thread_Broker(int fdSocket) {
 											cola_CAUGHT_POKEMON caught_pokemon;
 											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
 											caught_pokemon.atrapo_pokemon = result;
+											aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
 											free(cath_poke.nombre_pokemon);
 											break;
 										}
@@ -386,15 +518,11 @@ void thread_Broker(int fdSocket) {
 											locPokemon->id_mensaje = get_poke.id_mensaje;
 											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
 
-											/*for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
-													t_positions* pos = malloc (sizeof(t_positions));
-													pos = list_get(locPokemon->lista_posiciones,i);
-													printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
-												}*/
+											aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
 											for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
 												t_positions* pos;// = malloc (sizeof(t_positions));
 												pos = list_get(locPokemon->lista_posiciones,i);
-												printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
+												//printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
 												free(pos);
 											}
 
@@ -417,47 +545,6 @@ void thread_Broker(int fdSocket) {
 		//	pthread_mutex_unlock(&mxHilos);
 }
 
-/*
-// -- CONEXIONES ENTRE MÓDULOS --
-int handshake_servidor(int sockCliente, char *mensaje) {
-
-	enviarPorSocket(sockCliente, mensaje, string_length(mensaje));
-
-	HANDSHAKE_SIZE = sizeof(char) * string_length(KEY_HANDSHAKE);
-	char *buff = (char*) malloc(HANDSHAKE_SIZE);
-	int status = recibirPorSocket(sockCliente, buff, HANDSHAKE_SIZE);
-
-	if( validar_recive(status, 0) == TRUE ) { // El cliente envió un mensaje
-
-		buff[HANDSHAKE_SIZE-1] = '\0';
-		if (validar_cliente(buff)) {
-			log_info(logger,"Hice el handshake y me respondieron: %s\n", buff);
-			//enviarPorSocket(sockCliente, "SacServer", string_length("SacServer"));
-			free(buff);
-			return TRUE;
-		} else {
-			free(buff);
-			return FALSE;
-		}
-
-	} else { // Hubo algún error o se desconectó el cliente
-
-		free(buff);
-		return FALSE;
-	}
-	return FALSE; // No debería llegar acá pero lo pongo por el warning
-}
-
-int validar_cliente(char *id) {
-	if( !strcmp(id, KEY_HANDSHAKE)) {
-		log_info(logger,"Cliente aceptado");
-		return TRUE;
-	} else {
-		printf("Cliente rechazado\n");
-		return FALSE;
-	}
-}
-*/
 
 void crearBloques(void)
 {
