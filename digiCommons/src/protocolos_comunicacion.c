@@ -325,7 +325,7 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 	return buffer;
 }
 
-void * deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * ack ){
+void deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * ack ){
 
 	int desplazamiento = 0;
 
@@ -336,7 +336,7 @@ void * deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * a
 							desplazamiento += sizeof(uint32_t);
 }
 
-void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor){
+void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor){
 
 	int desplazamiento = 0;
 
@@ -359,7 +359,7 @@ void * deserealizar_suscriptor (int head, void * buffer, int tamanio , suscripto
 
 }
 
-void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){
+void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){
 
 	int desplazamiento = 0;
 
@@ -388,7 +388,7 @@ void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW
 
 }
 
-void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) {
+void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) {
 
 	int desplazamiento = 0;
 
@@ -416,7 +416,7 @@ void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , col
 			//return app_poke;
 }
 
-void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATCH_POKEMON* cat_poke) {
+void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATCH_POKEMON* cat_poke) {
 
 	int desplazamiento = 0;
 
@@ -442,7 +442,7 @@ void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CA
 			//return cat_poke;
 }
 
-void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) {
+void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) {
 
 	int desplazamiento = 0;
 							memcpy(&cau_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
@@ -452,7 +452,7 @@ void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_
 
 }
 
-void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) {
+void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) {
 
 	int desplazamiento = 0;
 
@@ -472,7 +472,7 @@ void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET
 							//return get_poke;
 }
 
-void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke_des) {
+void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke_des) {
 
 	int desplazamiento = 0;
 
@@ -582,7 +582,37 @@ int calcularTamanioMensaje(int head, void* mensaje){
 	return tamanio;
 }
 
-void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
+void * recibirProtocoloSinEspera(int * head , int * bufferTam ,int fdEmisor ) {
+
+	//setlocale(LC_ALL,"");
+
+
+	// Validar contra NULL al recibir en cada módulo.
+	// Recibo primero el head:
+	int recibido = recibirPorSocketSinEspera(fdEmisor, head, sizeof(int));
+
+	if (*head < 1 || *head > FIN_DEL_PROTOCOLO || recibido <= 0){ // DESCONEXIÓN
+		//printf("Error al recibir mensaje.\n");
+		return ERROR;
+	}
+	// Recibo ahora el tamaño del mensaje:
+
+	recibido = recibirPorSocketSinEspera(fdEmisor, bufferTam, sizeof(int));
+
+	if (recibido <= 0) return ERROR;
+
+	return TRUE;
+
+	// Recibo por último el mensaje serealizado:
+}
+
+void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje ) {
+
+	recibirPorSocketSinEspera(fdEmisor, mensaje, bufferTam);
+
+}
+
+void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
 	//setlocale(LC_ALL,"");
 
@@ -601,12 +631,14 @@ void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
 	if (recibido <= 0) return ERROR;
 
+	return TRUE;
+
 	// Recibo por último el mensaje serealizado:
 }
 
-void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
+void recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
 
-	int recibido = recibirPorSocket(fdEmisor, mensaje, bufferTam);
+	recibirPorSocket(fdEmisor, mensaje, bufferTam);
 
 }
 

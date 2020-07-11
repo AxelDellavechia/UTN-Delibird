@@ -43,6 +43,7 @@ int conectarSocket(int fd_socket, const char * ipDestino, int puerto);
 // Funciones para el Envío y la Recepción de datos
 int enviarPorSocket(int fdServidor, const void * mensaje, int tamanioBytes); // Retorna el número de bytes enviados, o bien, -1 si falla y 0 si se desconecta
 int recibirPorSocket(int fdCliente, void * buffer, int tamanioBytes) ; // Retorna el número de bytes recibidos, o bien, -1 si falla y 0 si se desconecta
+int recibirPorSocketSinEspera(int fdServidor, void * buffer, int tamanioBytes) ;
 
 // Función para cerrar un File Descriptor
 void cerrarSocket(int fd_socket);
