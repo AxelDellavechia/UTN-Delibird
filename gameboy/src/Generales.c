@@ -131,6 +131,7 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 
 }
 
+/*
 void crearHilos(suscriptor * laSuscripcion) {
 
 	hilo_servidor = 0;
@@ -177,3 +178,4 @@ void consola(suscriptor * laSuscripcion) {
 	pthread_cancel(hilo_consola);
 
 }
+*/

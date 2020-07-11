@@ -6,7 +6,6 @@
  */
 
 #include "Broker.h"
-#include "generales.h"
 
 void dummyDump(){
 
@@ -67,81 +66,6 @@ int main(){//int argc, char **argv) {
 	crearHilosBroker();
 
 	//return EXIT_SUCCESS;
-}
-
-/*
-void iniciar_servicio_broker(){
-	int socket = nuevoSocket();
-	asociarSocket(socket, config_File->PUERTO_BROKER);
-	while(true){
-		//esperar_conexion(socket);
-	}
-}
-
-void esperar_conexion(int servidor){
-
-	int socket = aceptarConexionSocket(servidor);
-
-	pthread_t cliente;
-
-	pthread_create(&cliente, NULL, (void *) atender , (void *) socket ) ;
-
-	pthread_detach(cliente);
-}
-
-void atender(int socket){
-	void * operacion = NULL ;
-	while(recv(socket,&operacion,4,MSG_WAITALL) >0){
-		switch( (int) operacion){
-		case NEW_POKEMON:;
-			log_info(logger,"-NEW_POKEMON");
-			aplicar_protocolo_recibir(socket, 1);
-			break;
-		case APPEARED_POKEMON:;
-			log_info(logger,"-APPEARED_POKEMON");
-			aplicar_protocolo_recibir(socket, 3);
-			break;
-		case CATCH_POKEMON:;
-			log_info(logger,"-APPEARED_POKEMON");
-			aplicar_protocolo_recibir(socket, 4);
-			break;
-		case CAUGHT_POKEMON:;
-			log_info(logger,"-CAUGHT_POKEMON");
-			aplicar_protocolo_recibir(socket, 5);
-			break;
-		case GET_POKEMON:;
-			log_info(logger,"-GET_POKEMON");
-			aplicar_protocolo_recibir(socket, 6);
-			break;
-		case LOCALIZED_POKEMON:;
-			log_info(logger,"-LOCALIZED_POKEMON");
-			aplicar_protocolo_recibir(socket, 2);
-			break;
-		}
-	}
-}
-*/
-
-void iniciar_estructuras(){
-	//Se reserva la Memoria total del Broker
-	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
-	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
-	//Setea cantidad fallidas
-	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
-
-	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
-	pthread_mutex_init(&mutex_memoria_cache, NULL);
-	pthread_mutex_init(&mutex_suscriptores_new_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_localized_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_get_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_appeared_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_catch_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_new_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_localized_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_get_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_appeared_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_catch_pokemon, NULL);
-
 }
 
 void reservar_particion(int tamano, Mensaje msj){

@@ -58,8 +58,9 @@ void crearLogger( char * nombre , char * otroLog );
 void * reservarMemoria(int size);
 void inicializar_semaforos();
 int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
-void servidor();
-void crearHilos(suscriptor * laSuscripcion) ;
-void consola(suscriptor * laSuscripcion) ;
+
+//void servidor();
+//void crearHilos(suscriptor * laSuscripcion) ;
+//void consola(suscriptor * laSuscripcion) ;
 
 #endif

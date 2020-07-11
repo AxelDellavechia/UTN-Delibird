@@ -20,11 +20,9 @@
 #include <commons/string.h>
 #include <commons/collections/list.h>
 
-#include <../broker/src/Broker.h>
 #include <../digiCommons/src/sockets.h>
 #include <../digiCommons/src/mensajeria.h>
 #include <../digiCommons/src/protocolos_comunicacion.h>
-
 
 #define FALSE 0
 #define TRUE 1
@@ -48,6 +46,11 @@ typedef struct ConfigFile{
 	int FRECUENCIA_COMPACTACION;
 } ConfigFile;
 
+typedef struct {
+	suscriptor laSus;
+	int suSocket;
+} losSuscriptores;
+
 ConfigFile* config_File;
 
 t_log* logger;
@@ -58,20 +61,75 @@ pthread_mutex_t mxSocketsFD;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
+pthread_t hilo_Publisher;
 
 fd_set setMaestro;
 
-int fdBroker;
+int fdBroker; //Socket Base
+int comandoNuevo; // Socket de Escucha
+
+int cantidad_fallidas;
+int id_msj;
+int contador_msjs_en_cola;
+
+
+void* memoria_cache;
+
+pthread_mutex_t mutex_memoria_cache;
+pthread_mutex_t mutex_id_msj;
+pthread_mutex_t mutex_contador_msjs_cola;
+
+pthread_mutex_t mutex_suscriptores_new_pokemon;
+pthread_mutex_t mutex_suscriptores_localized_pokemon;
+pthread_mutex_t mutex_suscriptores_get_pokemon;
+pthread_mutex_t mutex_suscriptores_appeared_pokemon;
+pthread_mutex_t mutex_suscriptores_catch_pokemon;
+pthread_mutex_t mutex_suscriptores_caught_pokemon;
+
+pthread_mutex_t mutex_contador_msjs_en_cola;
+
+pthread_mutex_t mutex_cola_new_pokemon;
+pthread_mutex_t mutex_cola_localized_pokemon;
+pthread_mutex_t mutex_cola_get_pokemon;
+pthread_mutex_t mutex_cola_appeared_pokemon;
+pthread_mutex_t mutex_cola_catch_pokemon;
+pthread_mutex_t mutex_cola_caught_pokemon;
+
+
+t_list* lista_msjs;
+t_list* lista_particiones;
+
+t_list* suscriptores_new_pokemon;
+t_list* suscriptores_localized_pokemon;
+t_list* suscriptores_get_pokemon;
+t_list* suscriptores_appeared_pokemon;
+t_list* suscriptores_catch_pokemon;
+t_list* suscriptores_caught_pokemon;
+
+t_list* cola_new_pokemon;
+t_list* cola_localized_pokemon;
+t_list* cola_get_pokemon;
+t_list* cola_appeared_pokemon;
+t_list* cola_catch_pokemon;
+t_list* cola_caught_pokemon;
 
 void* reservarMemoria(int size);
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
 void iniciar_log();
+void iniciar_estructuras();
+
+//FUNCIONES HILOS
 void consola();
 void servidor();
 void crearHilosBroker();
+void publisher();
 int thread_Broker(int fdCliente);
-void inicializar_semaforos();
-void reenviarMsjCola_NEW_POKEMON(void * mensaje);
-void Suscribirse(suscriptor * suscp);
+
+//FUNCIONES MSJ
+void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores);
+void suscribirse(losSuscriptores * suscp);
+void agregar_contador_msj();
+void obtener_msj(int id_msj , Mensaje * msj);
+int buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 
 #endif /* SRC_GENERALES_H_ */
