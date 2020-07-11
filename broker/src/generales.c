@@ -160,12 +160,12 @@ int thread_Broker(int fdCliente) {
 							setlocale(LC_ALL,"");
 
 										case NEW_POKEMON :{
-											cola_NEW_POKEMON  * new_poke ;
-											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, new_poke);
-											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke->nombre_pokemon,new_poke->cantidad,new_poke->posicion_x,new_poke->posicion_y);
+											cola_NEW_POKEMON  new_poke ;
+											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, &new_poke);
+											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
 											//log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
-											list_add(cola_new_pokemon, new_poke);
+											list_add(cola_new_pokemon, &new_poke);
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
 											agregar_contador_msj();
 											break;
