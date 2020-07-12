@@ -141,9 +141,17 @@ void servidor() {
 
 int thread_Broker(int fdCliente) {
 
+	while(TRUE){
 	int head , bufferTam  ;
 
-	recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+	int recibido = recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+
+	if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+		pthread_mutex_lock(&mxHilos);
+		pthread_detach( pthread_self() );
+		pthread_mutex_unlock(&mxHilos);
+		return FALSE;
+	}else{
 
 						void * mensaje = malloc(bufferTam);
 
@@ -275,11 +283,9 @@ int thread_Broker(int fdCliente) {
 											log_info(logger, "Instrucción no reconocida");
 											break;
 									}
+					}
+	}
 
-	pthread_mutex_lock(&mxHilos);
-	pthread_detach( pthread_self() );
-	pthread_mutex_unlock(&mxHilos);
-	return FALSE;
 }
 
 void* reservarMemoria(int size) {
