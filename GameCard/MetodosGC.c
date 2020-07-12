@@ -31,13 +31,12 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
-				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				log_info(logger,"El Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
-				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
 				leerBloques(Pokemon, &dataPokemon);
 				step = NW_UPDATE_POS;
 				break;
@@ -64,7 +63,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
-				printf("\n El Pokemon no existe, se debe crear");
+				log_info(logger,"El Pokemon no existe, se debe crear");
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
 					t_positions* pos;// = malloc (sizeof(t_positions));
 					pos = list_get(dataPokemon.positions,i);
@@ -83,7 +82,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				}
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
-				printf("\n El Proceso finalizó correctamente.");
+				log_info(logger,"El Proceso New Pokemon de %s finalizó correctamente.",dataPokemon.file);
 				step = ERROR;
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
 					t_positions* pos;// = malloc (sizeof(t_positions));
@@ -129,7 +128,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				}
 
 	case NOT_EXIST_POSITION:{ //el Pokemon no existe, se debe informar el error
-				printf("La posición no existe");
+				log_info(logger,"La posición solicitada de %s no existe", Pokemon->nombre_pokemon);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -151,7 +150,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
-				printf("El Pokemon no existe");
+				log_info(logger,"El Pokemon %s no existe",Pokemon->nombre_pokemon);
 				pthread_mutex_unlock(&mxPokeList);
 				step = ERROR;
 
@@ -160,13 +159,13 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
-				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				log_info(logger,"El Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
-				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
+				log_info(logger,"El Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
 				leerBloques(Pokemon, &dataPokemon);
 				step = NW_UPDATE_POS;
 				break;
@@ -197,8 +196,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
-				printf("\n El Pokemon no existe, se debe crear");
-
+				log_info(logger,"El Pokemon %s no existe, se debe crear", Pokemon->nombre_pokemon);
 				return ERROR;
 				break;
 				}
@@ -850,7 +848,4 @@ int grabarBloque(char* data, int bloque)
 	return string_length(data) - acum;
 }
 
-int replyNew()
-{
-printf("holu");
-}
+

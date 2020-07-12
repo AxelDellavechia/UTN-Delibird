@@ -259,7 +259,7 @@ void suscribir() {
 
 				suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
 				laSuscripcion.modulo = GAMECARD; // @suppress("Symbol is not resolved")
-				laSuscripcion.token = token();
+				laSuscripcion.token = config_File->TOKEN;
 				laSuscripcion.cola_a_suscribir = list_create();
 				list_add(laSuscripcion.cola_a_suscribir, NEW_POKEMON); // @suppress("Symbol is not resolved")
 				list_add(laSuscripcion.cola_a_suscribir, CATCH_POKEMON);
@@ -271,8 +271,10 @@ void suscribir() {
 	case ESCUCHANDO:{
 			int head , bufferTam  ;
 
-			//int recibido = recibirProtocolo(&head,&bufferTam,fdBroker); // recibo head y tamaño de msj
-			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
+			int recibido = recibirProtocolo(&head,&bufferTam,fdBroker); // recibo head y tamaño de msj
+		//	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
+
+//			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
 			void * mensaje = malloc(bufferTam);
 
 			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
@@ -313,6 +315,14 @@ void suscribir() {
 							sendACK(fdBroker, get_poke.id_mensaje);
 							pthread_t hilo;
 							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, &get_poke);
+							break;
+						}
+						case ACK :{
+							respuesta_ACK ack;
+							deserealizar_ACK( head, mensaje, bufferTam, & ack);
+							log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+							Mensaje msj ;
+							//obtener_msj(ack.id_msj , &msj);
 							break;
 						}
 
