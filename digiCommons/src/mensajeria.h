@@ -74,4 +74,11 @@ typedef struct{
 	uint32_t id_msj;
 }respuesta_ACK;
 
+typedef struct {
+	int id_msj;
+	int tipo_msj;
+	t_list* lista_suscriptores;
+	t_list* lista_suscriptores_ACK;
+}Mensaje;
+
 #endif /* SRC_MENSAJERIA_H_ */

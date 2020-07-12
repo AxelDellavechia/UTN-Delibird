@@ -6,7 +6,6 @@
  */
 
 #include "Broker.h"
-#include "generales.h"
 
 void dummyDump(){
 
@@ -67,50 +66,6 @@ int main(){//int argc, char **argv) {
 	crearHilosBroker();
 
 	//return EXIT_SUCCESS;
-}
-
-void iniciar_estructuras(){
-	//Se reserva la Memoria total del Broker
-	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
-	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
-	//Setea cantidad fallidas
-	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
-	id_msj = 0;
-	contador_msjs_en_cola = 0;
-
-	//SE CREAN TODAS LAS LISTAS
-	lista_msjs = list_create();
-	lista_particiones = list_create();
-	suscriptores_new_pokemon = list_create();
-	suscriptores_localized_pokemon = list_create();
-	suscriptores_get_pokemon = list_create();
-	suscriptores_appeared_pokemon = list_create();
-	suscriptores_catch_pokemon = list_create();
-	cola_new_pokemon = list_create();
-	cola_localized_pokemon = list_create();
-	cola_get_pokemon = list_create();
-	cola_appeared_pokemon = list_create();
-	cola_catch_pokemon = list_create();
-
-
-	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
-	pthread_mutex_init(&mutex_memoria_cache, NULL);
-	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR
-	pthread_mutex_init(&mutex_id_msj, NULL);
-	//SE DEFINE MUTEX PARA LA LISTA DE SUSCRIPTORES
-	pthread_mutex_init(&mutex_suscriptores_new_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_localized_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_get_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_appeared_pokemon, NULL);
-	pthread_mutex_init(&mutex_suscriptores_catch_pokemon, NULL);
-	//SE DEFINE MUTEX PARA LAS COLAS DE MSJS
-	pthread_mutex_init(&mutex_contador_msjs_en_cola, NULL);
-	pthread_mutex_init(&mutex_cola_new_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_localized_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_get_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_appeared_pokemon, NULL);
-	pthread_mutex_init(&mutex_cola_catch_pokemon, NULL);
-
 }
 
 void reservar_particion(int tamano, Mensaje msj){

@@ -17,11 +17,11 @@ int main (int argc, char *argv[]) {
 
 		configGB = reservarMemoria(sizeof(archivoConfigGB));
 
-		if (argc < 2 || argc > 7 ){
+	if (argc < 2 || argc > 7 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			log_info(logger,"No se ingreso la cantidad de parametros necesarios");
 			return EXIT_FAILURE ;
-		}
+	}
 
 		inicializar_semaforos();
 
@@ -31,7 +31,7 @@ int main (int argc, char *argv[]) {
 
 		comando = strdup( argv[1] ) ;
 
-		//char * comando = strdup( "TEAM" ) ;
+		//char * comando = strdup( "SUSCRIPTOR" ) ;
 
 		/*
 			Logs obligatorios
@@ -186,7 +186,7 @@ int flujoTeam( char * comando,int argc, char *argv[]) {
 				ack->ack = atoi(argv[3]);
 				ack->id_msj = atoi(argv[4]);
 
-				int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,APPEARED_POKEMON, ack , logger , loggerCatedra);
+				conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,APPEARED_POKEMON, ack , logger , loggerCatedra);
 
 
 			}
@@ -503,13 +503,11 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 
 				comando = strdup(argv[2]);
 
-				tiempoSuscripcion = 0 ;
+				//comando = strdup("NEW_POKEMON");
 
-				cantidadSegundos = 0 ;
+				//tiempoSuscripcion = 240 ;
 
 				tiempoSuscripcion = atoi(argv[3]);
-
-				segundosMaximos = tiempoSuscripcion ;
 
 				log_info(logger,"Ingresaron el comando -> %s durante %d segundos ",comando,tiempoSuscripcion);
 
@@ -518,21 +516,9 @@ int flujoSuscriptor( char * comando,int argc, char *argv[]) {
 				laSuscripcion->modulo = GAMEBOY ;
 				laSuscripcion->token = token();
 				laSuscripcion->cola_a_suscribir = list_create();
-				list_add(laSuscripcion->cola_a_suscribir, (int) devolverTipoMsj(comando));
+				list_add(laSuscripcion->cola_a_suscribir, devolverTipoMsj(comando));
 
-				//crearHilos(laSuscripcion);
-
-			    time_t endwait;
-
-			    endwait = time (NULL) + tiempoSuscripcion ;
-
-			    int head = devolverTipoMsj(comando) ;
-
-			    while (time (NULL) < endwait)
-			    {
-
-			        log_info(logger,"bucleo por 10 segundos");
-			    }
+				crearHilos(laSuscripcion);
 		}
 }
 

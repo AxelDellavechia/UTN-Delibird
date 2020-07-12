@@ -10,14 +10,7 @@
 
 #include "generales.h"
 
-typedef struct Mensaje{
-	int id_msj;
-	int tipo_msj;
-	t_list* lista_suscriptores;
-	t_list* lista_suscriptores_ACK;
-} Mensaje;
-
-typedef struct Particion{
+typedef struct {
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
@@ -26,7 +19,6 @@ typedef struct Particion{
 	void* punteroFinal;
 	int tiempoLRU;
 }Particion;
-
 
 typedef struct{
 	uint32_t largo_nombre;
@@ -109,16 +101,17 @@ int contador_msjs_en_cola;
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
-void iniciar_estructuras();
+
 void reservar_particion(int tamano, Mensaje msj);
-void reservar_particion_dinamica(int tamano, Mensaje mensaje);
-void reservar_particion_bs(int tamano, Mensaje mensaje);
-Particion* algoritmo_primer_ajuste(int tamano);
-Particion* algoritmo_mejor_ajuste(int tamano);
+void reservar_particion_dinamica(int tamano, Mensaje msj);
+void reservar_particion_bs(int tamano, Mensaje msj);
+
 void compactacion();
 void eliminar_particion();
 void dummyDump();
 
+Particion * algoritmo_primer_ajuste(int tamano);
+Particion * algoritmo_mejor_ajuste(int tamano);
 
 int dumpMemoria(int senial);
 
