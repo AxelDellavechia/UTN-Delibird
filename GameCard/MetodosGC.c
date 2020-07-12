@@ -82,7 +82,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				}
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
-				log_info(logger,"El Proceso New Pokemon de %s finalizó correctamente.",dataPokemon.file);
+				log_info(logger,"El Proceso New Pokemon de %s finalizó correctamente.",Pokemon->nombre_pokemon);
 				step = ERROR;
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
 					t_positions* pos;// = malloc (sizeof(t_positions));
@@ -315,7 +315,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		strcat(dirMetadata,"/Metadata.bin");
 		FILE *fMetadata = fopen (dirMetadata, "wb");
 		if(fMetadata == NULL){
-		printf("No se puede crear el Metadata del Pokemon %s\n", Pokemon->nombre_pokemon);
+		log_info(logger,"No se puede crear el Metadata del Pokemon %s\n", Pokemon->nombre_pokemon);
 		return ERROR;
 		}else{
 		fprintf(fMetadata,"DIRECTORY=N\nOPEN=N\nSIZE=0\nBLOCKS=[]\n");

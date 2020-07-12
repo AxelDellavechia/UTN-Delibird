@@ -279,7 +279,7 @@ void suscribir() {
 
 			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
 								//printf("Error al recibir mensaje.\n");
-							step = FALSE;
+			step = FALSE;
 			}else{
 			recibirMensaje(fdBroker , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
 
