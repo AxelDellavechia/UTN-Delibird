@@ -59,6 +59,7 @@ typedef struct archivoConfigFile {
 	int puertoBroker;
 	int puertoTeam;
 	char* logFile;
+	double alpha;
 } archivoConfigFile;
 
 archivoConfigFile *configFile;
@@ -87,6 +88,7 @@ typedef struct entrenadorPokemon {
 	char* proximaAccion;
 	pthread_mutex_t semaforMutex;
 	int idMsjEsperado;
+	double estimacionUltimaRafaga;
 } entrenadorPokemon;
 
 entrenadorPokemon* exec;
@@ -123,6 +125,6 @@ void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon
 void ejecutar();
 int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino, int tiempo);
 
-int calcularRafagaCPU(accion);
+double calcularRafagaCPU(entrenadorPokemon* entrenador);
 
 #endif

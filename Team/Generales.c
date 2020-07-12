@@ -39,6 +39,7 @@ void leerArchivoDeConfiguracion(char *ruta, t_log *logger) {
 	configFile->puertoBroker = config_get_int_value(config, "PUERTO_BROKER");
 	configFile->puertoTeam = config_get_int_value(config, "PUERTO_TEAM");
 	configFile->logFile = config_get_string_value(config, "LOG_FILE");
+	configFile->alpha = config_get_double_value(config, "ALPHA");
 	configFile->posicionEntrenadores = list_create();
 	configFile->pokemonEntrenadores = list_create();
 	configFile->objetivosEntrenadores = list_create();
@@ -101,6 +102,7 @@ void obtenerEntrenadores() {
 		entrenador->posicion_y = posicionY;
 		entrenador->ciclosEnCPU = 0;
 		entrenador->proximaAccion = "";
+		entrenador->estimacionUltimaRafaga = 0;
 		pthread_mutex_lock(&entrenador->semaforMutex);
 		char* pokemonAtrapado = strtok(pokemonesEntrenador, "|");
 		while (pokemonAtrapado != NULL) {
@@ -486,9 +488,8 @@ void ejecutar() {
 	char* algoritmo = configFile->algoritmoPlanificacion;
 	char* accion;
 	int quantum;
-	char* accionAComparar;
 	int posicionProximoAEjecutar;
-	int rafagaCPUAccion;
+	double rafagaCPUAccion;
 	entrenadorPokemon* entrenador;
 	while(true) {
 		if (list_size(colaReady) > 0) {
@@ -517,30 +518,29 @@ void ejecutar() {
 				list_remove(colaReady, 0);
 				realizarAccion(entrenador, quantum);
 			}else if (string_equals_ignore_case("SJF sin desalojo", algoritmo)) {
-					rafagaCPUAccion = calcularRafagaCPU(accion);
-					for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
-						entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
-						accionAComparar = entrenador->proximaAccion;
-						int rafagaCPUComparacion = calcularRafagaCPU(accionAComparar);
-						if(rafagaCPUComparacion > rafagaCPUAccion) {
-							rafagaCPUAccion = rafagaCPUComparacion;
-							accion = accionAComparar;
-							posicionProximoAEjecutar = posicionEntrenador;
-						}
+				rafagaCPUAccion = calcularRafagaCPU(entrenador);
+				for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
+					entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
+					double rafagaCPUComparacion = calcularRafagaCPU(entrenador);
+					if(rafagaCPUComparacion > rafagaCPUAccion) {
+						rafagaCPUAccion = rafagaCPUComparacion;
+						accion = entrenador->proximaAccion;
+						posicionProximoAEjecutar = posicionEntrenador;
 					}
-					exec = entrenador;
-					pthread_mutex_unlock(&exec->semaforMutex);
-					list_remove(colaReady, posicionProximoAEjecutar);
-					realizarAccion(entrenador, 0);
+				}
+				exec = entrenador;
+				entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
+				pthread_mutex_unlock(&exec->semaforMutex);
+				list_remove(colaReady, posicionProximoAEjecutar);
+				realizarAccion(entrenador, 0);
 				} else if (string_equals_ignore_case("SJF con desalojo", algoritmo)){
-					rafagaCPUAccion = calcularRafagaCPU(accion);
+					rafagaCPUAccion = calcularRafagaCPU(entrenador);
 					for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
 						entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
-						accionAComparar = entrenador->proximaAccion;
-						int rafagaCPUComparacion = calcularRafagaCPU(accionAComparar);
+						double rafagaCPUComparacion = calcularRafagaCPU(entrenador);
 						if(rafagaCPUComparacion > rafagaCPUAccion) {
 							rafagaCPUAccion = rafagaCPUComparacion;
-							accion = accionAComparar;
+							accion = entrenador->proximaAccion;
 							posicionProximoAEjecutar = posicionEntrenador;
 						}
 					}
@@ -548,6 +548,7 @@ void ejecutar() {
 						list_add(colaReady, exec);
 					}
 					exec = entrenador;
+					entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
 					pthread_mutex_unlock(&exec->semaforMutex);
 					list_remove(colaReady, posicionProximoAEjecutar);
 					realizarAccion(entrenador, 0);
@@ -560,8 +561,11 @@ void ejecutar() {
 	}
 }
 
-int calcularRafagaCPU(accion) {
-
+double calcularRafagaCPU(entrenadorPokemon* entrenador) {
+	double rafagaActual = entrenador->estimacionUltimaRafaga;
+	int tiempoCPUEntrenador = entrenador->ciclosEnCPU;
+	double alpha = configFile->alpha;
+	return (alpha * tiempoCPUEntrenador) + ((1 - alpha) * rafagaActual);
 }
 
 void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
