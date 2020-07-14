@@ -35,6 +35,7 @@ int cantidadSegundos;
 int segundosMaximos;
 int tiempoSuscripcion;
 char * comando;
+void * mensaje;
 
 
 pthread_mutex_t semaforo;
@@ -62,5 +63,7 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 void servidor();
 void crearHilos(suscriptor * laSuscripcion) ;
 void consola(suscriptor * laSuscripcion) ;
+
+void liberarRecursosComunes();
 
 #endif

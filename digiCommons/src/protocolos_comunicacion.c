@@ -678,7 +678,7 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 
 		free(buffer);
 
-		//free(mensajeSerealizado);
+		free(mensajeSerealizado);
 
 		cerrarSocket(fdServer);
 
@@ -719,7 +719,7 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 
 	free(buffer);
 
-	//free(mensajeSerealizado);
+	free(mensajeSerealizado);
 
 	return enviados;
 }

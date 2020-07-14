@@ -23,7 +23,8 @@ typedef enum {
 	GAMECARD = 1,
 	BROKER,
 	TEAM,
-	GAMEBOY
+	GAMEBOY,
+	GBSUSCRIPTOR
 } modulos;
 
 void * buffer ;
