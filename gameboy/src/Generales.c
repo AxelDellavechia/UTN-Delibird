@@ -193,8 +193,8 @@ void servidor() {
 
 	pthread_mutex_lock(&mxHilos);
 
-	pthread_detach(hilo_consola);
 	pthread_cancel(hilo_consola);
+	pthread_detach(hilo_consola);
 
 	pthread_detach( pthread_self() );
 
