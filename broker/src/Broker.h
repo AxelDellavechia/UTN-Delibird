@@ -11,6 +11,7 @@
 #include "generales.h"
 
 typedef struct {
+	int id_msj;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
@@ -69,6 +70,7 @@ void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;
 pthread_mutex_t mutex_contador_msjs_cola;
+pthread_mutex_t mutex_lista_particiones;
 pthread_mutex_t mutex_suscriptores_new_pokemon;
 pthread_mutex_t mutex_suscriptores_localized_pokemon;
 pthread_mutex_t mutex_suscriptores_get_pokemon;
@@ -94,16 +96,24 @@ t_list* cola_get_pokemon;
 t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
 
+typedef enum {
+	First_Fit,
+	Best_Fit,
+	FIFO,
+	LRU
+} Algoritmos;
+
 int cantidad_fallidas;
-int id_msj;
+int32_t id_msj;
 int contador_msjs_en_cola;
 
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
 
+void guardar_msj(int head, void * msj);
 void reservar_particion(int tamano, Mensaje msj);
-void reservar_particion_dinamica(int tamano, Mensaje msj);
+Particion * reservar_particion_dinamica(int tamano, Mensaje msj);
 void reservar_particion_bs(int tamano, Mensaje msj);
 
 void compactacion();

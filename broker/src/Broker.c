@@ -67,56 +67,80 @@ int main(){//int argc, char **argv) {
 
 	//return EXIT_SUCCESS;
 }
+/*
+void guardar_msj(int head, void * msj){
+	int tamanio = calcularTamanioMensaje(head, msj);
 
+
+
+
+}
+*/
 void reservar_particion(int tamano, Mensaje msj){
-	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION){
-		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-			reservar_particion_dinamica(tamano, msj);
+	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION)
+	{
+		Particion * particion_select;
+		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0)
+		{
+			particion_select = reservar_particion_dinamica(tamano, msj);
+			if(particion_select->tamano > tamano){/*SI LA PARTICION ES MAS GRANDE QUE LA NECESARIO SE PARTICIONA EN 2 (AGREGAR A LA LISTA DE PARTICIONES)*/}
+			if else(particion_select->tamano == tamano){}
+			else{/*ERROR, NO PUEDE SER EL TAMANIO MAYOR AL TAMANIO DE LA PARTICION*/}
 		}
-		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-			reservar_particion_bs(tamano, msj);
+		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0)
+		{
+			particion_select = reservar_particion_bs(tamano, msj);
+			if(particion_select->tamano > tamano){/*LA PARTICION ES MAS GRANDE QUE LA NECESARIO SE PARTICIONA EN 2 (AGREGAR A LA LISTA DE PARTICIONES)*/}
+			if else(particion_select->tamano == tamano){/*SOLO SE MODIFICA LA PARTICION AL SER DEL MISMO TAMANIO*/}
+			else{/*ERROR, NO PUEDE SER EL TAMANIO MAYOR AL TAMANIO DE LA PARTICION*/}
 		}
 		else{/*ERROR CONFIG*/}
 	}
-	else{}
+	else{log_info(logger,"No se puede guardar el mensaje con el tamanio %d", tamano);}
 
 }
 
-void reservar_particion_dinamica(int tamano, Mensaje mensaje){
-	Particion* particion_libre;
-	int contador_busquedas_fallidas;
-	if(config_File->ALGORITMO_PARTICION_LIBRE == "FF"){
-		while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL){
-		particion_libre = algoritmo_primer_ajuste(tamano);
-		if(particion_libre == NULL){contador_busquedas_fallidas++;}
-		}
-		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-			compactacion();
-			cantidad_fallidas = 0;
-			while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL){
-				particion_libre = algoritmo_primer_ajuste(tamano);
-				if(particion_libre == NULL){contador_busquedas_fallidas++;}
-			}
-			if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-				eliminar_particion();
-			}
-		}
+Particion * reservar_particion_dinamica(int tamano, Mensaje mensaje){
+	Particion * particion_victima;
+	if(config_File->ALGORITMO_PARTICION_LIBRE == "FF")
+	{
+		particion_victima = buscar_victima(tamano);
 	}
-	else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF"){
-		while(cantidad_fallidas <= contador_busquedas_fallidas){
-		particion_libre = algoritmo_mejor_ajuste(tamano);
-		if(particion_libre == NULL && cantidad_fallidas ){contador_busquedas_fallidas++;}
-		}
-		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-			compactacion();
-		}
+	else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF")
+	{
+		particion_victima = buscar_victima
 
 	}
-	free(particion_libre);
+	//free(particion_libre);
+	return particion_libre;
 }
 
 void reservar_particion_bs(int tamano, Mensaje mensaje){
 
+}
+
+Particion * buscar_victima(int tamano, Algoritmos AlgPartcLibre){
+	Particion* particion_libre;
+	int contador_busquedas_fallidas;
+	while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL)
+	{
+		particion_libre = algoritmo_primer_ajuste(tamano);
+		if(particion_libre == NULL){contador_busquedas_fallidas++;}
+		else{return particion_libre;}
+	}
+	if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas)
+	{
+		compactacion();
+		cantidad_fallidas = 0;
+		while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL)
+		{
+			particion_libre = algoritmo_primer_ajuste(tamano);
+			if(particion_libre == NULL){contador_busquedas_fallidas++;}
+		}
+		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
+			eliminar_particion();
+		}
+	}
 }
 
 /*
@@ -131,6 +155,7 @@ Particion* algoritmo_primer_ajuste(int tamano){
 */
 
 Particion* algoritmo_primer_ajuste(int tamano){
+
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
 	return list_find(lista_particiones, (void*)particion_libre);
 }
