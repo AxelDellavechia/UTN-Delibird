@@ -94,7 +94,7 @@ typedef struct entrenadorPokemon {
 entrenadorPokemon* exec;
 char ** aux ;
 
-void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
+void leerArchivoDeConfiguracion(char *ruta);
 void capturarError(int signal);
 void * reservarMemoria(int size);
 void inicializar_semaforos();
@@ -114,7 +114,7 @@ void reconectar();
 void thread_Entrenador(entrenadorPokemon * elEntrenador);
 void iniciar_log();
 void iniciar_logCatedra();
-void crearLogger(char * nombre , char * path);
+//void crearLogger(char * nombre , char * path);
 void obtenerEntrenadores();
 void planificador();
 void crearEstructuras();

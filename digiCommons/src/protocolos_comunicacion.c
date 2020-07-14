@@ -18,11 +18,9 @@ int validar_recive(int status, int modo) {
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger) {
 	if(strcasecmp(id, mensajeEsperado) == 0 ) {
 		//log_info(logger,"Servidor o Cliente aceptado.");
-		printf("Servidor o Cliente aceptado.\n");
 		return TRUE;
 	} else {
 		//log_info(logger,"Servidor o Cliente rechazado.");
-		printf("Servidor o Cliente rechazado.\n");
 		return FALSE;
 	}
 }
@@ -38,7 +36,6 @@ int validar_conexion(int ret, int modo,t_log* logger) {
 		}
 	} else { // No hubo error
 		//log_info(logger, "Alguien se conectó");
-		printf("Alguien se conectó\n");
 
 		return TRUE;
 	}
@@ -59,7 +56,6 @@ int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeE
 		buff[string_length(mensajeEsperado)] = '\0';
 		if (validar_servidor_o_cliente(buff , mensajeEsperado,logger)) {
 			//log_info(logger,"Hice el handshake y me respondieron: %s", buff);
-			printf("Hice el handshake y me respondieron: %s\n", buff);
 			free(buff);
 			return TRUE;
 		} else {
