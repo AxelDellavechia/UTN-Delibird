@@ -5,6 +5,7 @@ void inicializar_semaforos(){
 
 	pthread_mutex_init(&semaforo, NULL);
 	pthread_mutex_init(&semaforo2, NULL);
+	pthread_mutex_init(&mxHilos, NULL);
 
 }
 
@@ -132,21 +133,46 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 }
 
 
-void crearHilos(suscriptor * laSuscripcion) {
+void crearHilos() {
 
 	hilo_servidor = 0;
 	hilo_consola = 0 ;
+	//hilo_finalizar = 0 ;
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
-	pthread_create(&hilo_consola, NULL, (void*) consola, (void *) laSuscripcion);
+	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
+	//pthread_create(&hilo_consola, NULL, (void*) finalizar, NULL);
 
 	pthread_mutex_lock(&semaforo);
+	//pthread_mutex_lock(&semaforo2);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
 
 }
+/*
+int finalizar() {
 
+	pthread_mutex_lock(&semaforo2);
+
+	pthread_detach(hilo_consola);
+	pthread_cancel(hilo_consola);
+
+	free(mensaje);
+
+	free(comando);
+
+
+
+	liberarRecursosComunes();
+
+	pthread_mutex_lock(&mxHilos);
+	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
+
+	pthread_mutex_unlock(&semaforo2);
+}
+*/
 void servidor() {
 
 	pthread_mutex_lock(&semaforo);
@@ -159,18 +185,23 @@ void servidor() {
 		start = time (NULL);
 	}
 
-	printf("Transcurrio la cantidad %d segundos se finaliza el programa\n",tiempoSuscripcion);
+	//printf("Transcurrio la cantidad %d segundos se finaliza el programa\n",tiempoSuscripcion);
+
+
+	pthread_mutex_unlock(&semaforo);
+	//pthread_mutex_unlock(&semaforo2);
+
+	pthread_mutex_lock(&mxHilos);
 
 	pthread_detach(hilo_consola);
 	pthread_cancel(hilo_consola);
 
-	pthread_mutex_unlock(&semaforo);
+	pthread_detach( pthread_self() );
 
-	pthread_detach(hilo_servidor);
-	pthread_cancel(hilo_servidor);
+	pthread_mutex_unlock(&mxHilos);
 }
 
-void consola(suscriptor * laSuscripcion) {
+void consola() {
 
 int fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
 
@@ -184,7 +215,11 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 
 		aplicar_protocolo_enviar(fdCliente,SUSCRIPCION,laSuscripcion);
 
-		printf("Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos\n",comando,tiempoSuscripcion);
+		list_destroy(laSuscripcion->cola_a_suscribir);
+
+		free(laSuscripcion);
+
+		//printf("Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos\n",comando,tiempoSuscripcion);
 
 		pthread_mutex_unlock(&semaforo);
 
@@ -203,28 +238,32 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 					case NEW_POKEMON :{
 						cola_NEW_POKEMON  new_poke ;
 						deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> NEW_POKEMON : POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-						//reenviarMsjCola_NEW_POKEMON(mensaje);
+						free(new_poke.nombre_pokemon);
 						break;
 					}
 					case CATCH_POKEMON :{
 						cola_CATCH_POKEMON cath_poke;
 						deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> CATCH_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+						free(cath_poke.nombre_pokemon);
 						break;
 					}
 					case GET_POKEMON :{
 						cola_GET_POKEMON get_poke ;
 						deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> GET_POKEMON :  POKEMON: %s",get_poke.nombre_pokemon);
+						free(get_poke.nombre_pokemon);
 						break;
 					}
 
 					case APPEARED_POKEMON :{
 						cola_APPEARED_POKEMON app_poke;
 						deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-
-						//responder por localized_pokemon
+						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 						free(app_poke.nombre_pokemon);
 						break;
@@ -232,9 +271,8 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 
 					case CAUGHT_POKEMON :{
 						cola_CAUGHT_POKEMON caug_poke ;
-
-						//responde por caught_pokemon
 						deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
+						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
 						break;
 					}
@@ -242,6 +280,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 					case LOCALIZED_POKEMON :{
 						cola_LOCALIZED_POKEMON loc_poke ;
 						deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
+						free(mensaje);
 						for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
 						log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
 						i++;
@@ -253,6 +292,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 					case ACK :{
 						respuesta_ACK ack;
 						deserealizar_ACK( head, mensaje, bufferTam, & ack);
+						free(mensaje);
 						log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
 						break;
 					}

@@ -274,6 +274,8 @@ int prc_suscriptor( char * comando,int argc, char *argv[]) {
 
 				comando = strdup(argv[2]);
 
+				int enumComando = devolverTipoMsj(comando) ;
+
 				//comando = strdup("NEW_POKEMON");
 
 				//tiempoSuscripcion = 240 ;
@@ -282,14 +284,16 @@ int prc_suscriptor( char * comando,int argc, char *argv[]) {
 
 				log_info(logger,"Ingresaron el comando -> %s durante %d segundos ",comando,tiempoSuscripcion);
 
-				suscriptor * laSuscripcion = (suscriptor * ) malloc(sizeof(suscriptor));
+				free(comando);
+
+				laSuscripcion = (suscriptor * ) malloc(sizeof(suscriptor));
 
 				laSuscripcion->modulo = GAMEBOY ;
 				laSuscripcion->token = token();
 				laSuscripcion->cola_a_suscribir = list_create();
-				list_add(laSuscripcion->cola_a_suscribir, devolverTipoMsj(comando));
+				list_add(laSuscripcion->cola_a_suscribir, enumComando);
 
-				crearHilos(laSuscripcion);
+				crearHilos();
 				/*
 				for ( int i = 0 ; i < list_size(laSuscripcion->cola_a_suscribir); i ++){
 					int * laPosicion ;
@@ -297,14 +301,6 @@ int prc_suscriptor( char * comando,int argc, char *argv[]) {
 					free(laPosicion);
 				}
 				*/
-
-				free(mensaje);
-
-				free(comando);
-
-				list_destroy(laSuscripcion->cola_a_suscribir);
-
-				free(laSuscripcion);
 
 				liberarRecursosComunes();
 

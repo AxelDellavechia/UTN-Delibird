@@ -30,6 +30,9 @@ t_log * loggerCatedra;
 
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
+pthread_t hilo_finalizar;
+
+pthread_mutex_t mxHilos;
 
 int cantidadSegundos;
 int segundosMaximos;
@@ -37,6 +40,7 @@ int tiempoSuscripcion;
 char * comando;
 void * mensaje;
 
+suscriptor * laSuscripcion ;
 
 pthread_mutex_t semaforo;
 pthread_mutex_t semaforo2;
@@ -61,9 +65,10 @@ void inicializar_semaforos();
 int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portServer,t_log* logger,t_log * loggerCatedra);
 
 void servidor();
-void crearHilos(suscriptor * laSuscripcion) ;
-void consola(suscriptor * laSuscripcion) ;
+void crearHilos() ;
+void consola() ;
 
 void liberarRecursosComunes();
+int finalizar();
 
 #endif
