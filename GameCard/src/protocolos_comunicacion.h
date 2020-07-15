@@ -45,7 +45,6 @@ typedef struct{
 
 
 
-
 void * buffer ;
 
 int validar_recive(int status, int modo);

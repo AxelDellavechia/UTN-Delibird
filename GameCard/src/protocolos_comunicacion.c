@@ -219,9 +219,9 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 				desplazamiento += sizeof(uint32_t);
 				int tamLista = list_size(localized_pokemon->lista_posiciones);
 				for (int i = 0 ; i < tamLista ; i++){
-				int elemento = list_get(localized_pokemon->lista_posiciones,i) ;
-				memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
-				desplazamiento += sizeof(uint32_t);
+				posicion* elemento = list_get(localized_pokemon->lista_posiciones,i) ;
+				memcpy(buffer+desplazamiento,elemento,sizeof(uint32_t)*2);
+				desplazamiento += (sizeof(uint32_t) * 2);
 				}
 				break;
 			}
@@ -431,8 +431,8 @@ void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , co
 
 							for (int i = 0 ; i < cantidadElementos ; i++){
 							int aux = 0;
-							memcpy(&aux,buffer+desplazamiento,sizeof(uint32_t));
-							desplazamiento += sizeof(uint32_t);
+							memcpy(&aux,buffer+desplazamiento,(3*sizeof(uint32_t)));
+							desplazamiento += (3 * sizeof(uint32_t));
 							list_add(loc_poke_des->lista_posiciones,aux);
 							}
 
@@ -577,7 +577,7 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 
-	int desplazamiento = 0, tamanioMensaje, tamanioTotalAEnviar;
+	int desplazamiento = 0, tamanioMensaje, tamanioTotalAEnviar = 0;
 
 	if (head < 1 || head > FIN_DEL_PROTOCOLO) printf("Error al enviar mensaje.\n");
 	// Calculo el tamaño del mensaje:
@@ -604,7 +604,7 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 
 	free(buffer);
 
-	//free(mensajeSerealizado);
+	free(mensajeSerealizado);
 
 	return enviados;
 }

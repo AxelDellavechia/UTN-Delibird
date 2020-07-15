@@ -30,11 +30,7 @@ typedef struct{
 
 
 
-typedef struct{
-	int Pos_x;
-	int Pos_y;
-	int Cantidad;
-} t_positions;
+
 
 int NewPokemon(cola_NEW_POKEMON* Pokemon);
 

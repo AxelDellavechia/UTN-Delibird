@@ -37,7 +37,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				break;
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
-				leerBloques(Pokemon, &dataPokemon);
+				leerBloques(Pokemon, &dataPokemon, NEW_POKEMON);
 				step = NW_UPDATE_POS;
 				break;
 			}
@@ -166,7 +166,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
 				log_info(logger,"El Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
-				leerBloques(Pokemon, &dataPokemon);
+				leerBloques(Pokemon, &dataPokemon, CATCH_POKEMON);
 				step = NW_UPDATE_POS;
 				break;
 			}
@@ -248,7 +248,7 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				}
 
 	case NOT_EXIST_POSITION:{ //el Pokemon no existe, se debe informar el error
-				printf("La posición no existe");
+				log_info(logger,"La posición no existe");
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -260,7 +260,7 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				break;
 			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
-				printf("El Pokemon no existe");
+				log_info(logger,"\n el Pokemon %s no existe",Pokemon->nombre_pokemon);
 				pthread_mutex_unlock (&mxPokeList);
 				step = ERROR;
 				return ERROR;
@@ -268,14 +268,25 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
 
-				printf("\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				log_info(logger,"\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
-				printf("\n el Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
-				leerBloques(Pokemon, &dataPokemon);
+
+				leerBloques(Pokemon, &dataPokemon,GET_POKEMON);
+				/*locPokemon->lista_posiciones = list_create();
+				for(int i = 0;i<list_size(dataPokemon.positions);i++){
+					t_positions* tempPos = list_get(dataPokemon.positions,i);
+					posicion auxLocPos;
+					auxLocPos.posicion_x = tempPos->Pos_x;
+					auxLocPos.posicion_y = tempPos->Pos_y;
+					list_add(locPokemon->lista_posiciones,&auxLocPos);
+
+				}*/
+
+
 				list_add_all(locPokemon->lista_posiciones, dataPokemon.positions);
 				pthread_rwlock_rdlock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
@@ -620,7 +631,7 @@ void getMetadataDir(char** result, t_Pokemones* tempPokemon){
 
 
 
-void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
+void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon,int tipo)
 {
 	t_files* tempPokemon = malloc(sizeof(t_files));
 	char* lecturaBloques;// = string_new();
@@ -654,12 +665,21 @@ void leerBloques(cola_NEW_POKEMON* Pokemon, t_files *dataPokemon)
 
 			char** posCant = string_split(strPos[i], "=");
 			char** coordenadas = string_split(posCant[0],"-");
-
+		if (tipo != GET_POKEMON){
 			t_positions *readedPos= malloc (sizeof(t_positions));
 			readedPos->Pos_x=atoi(coordenadas[0]);
 			readedPos->Pos_y =atoi(coordenadas[1]);
 			readedPos->Cantidad = atoi(posCant[1]);
 			list_add(dataPokemon->positions, readedPos);
+
+		}else{
+			posicion *readedPos= malloc (sizeof(t_positions));
+			readedPos->posicion_x=atoi(coordenadas[0]);
+			readedPos->posicion_y=atoi(coordenadas[1]);
+
+			list_add(dataPokemon->positions, readedPos);
+		}
+
 			i++;
 			/*free(pos);
 			for(int a = 0;a < 2;a++){

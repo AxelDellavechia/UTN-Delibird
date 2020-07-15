@@ -52,6 +52,12 @@ typedef struct{
 
 
 typedef struct{
+	int Pos_x;
+	int Pos_y;
+	int Cantidad;
+} t_positions;
+
+typedef struct{
 	uint32_t id_mensaje;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;

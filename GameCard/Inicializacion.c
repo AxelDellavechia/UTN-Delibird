@@ -203,7 +203,7 @@ void consola() {
 	free(PuntoMontaje->BITMAP);
 	free(PuntoMontaje);
 
-
+	free(config_File->IP_BROKER);
 	free(config_MetaData->magic_number);
 	free(config_MetaData);
 	free(config_File->PUNTO_MONTAJE_TALLGRASS);
@@ -212,14 +212,15 @@ void consola() {
 	bitarray_destroy(bitarray);
 	pthread_rwlock_unlock(&mxBitmap);
 	pthread_rwlock_destroy(&mxBitmap);
-	//config_destroy(config_MetaData);
-//	free(config_File->IP_BROKER);
-//	config_destroy(config_File);
+
  	log_destroy(logger);
-	pthread_detach(hilo_servidor);
-	//pthread_detach(thread_GameBoy);
-	pthread_detach( pthread_self() );
 	pthread_cancel(hilo_servidor);
+ 	pthread_detach(hilo_servidor);
+	pthread_cancel(hilo_suscribir);
+ 	pthread_detach(hilo_suscribir);
+
+ 	//pthread_cancel( hilo_consola );
+	//pthread_detach( hilo_consola );
 
 }
 
@@ -265,6 +266,8 @@ void suscribir() {
 				list_add(laSuscripcion.cola_a_suscribir, CATCH_POKEMON);
 				list_add(laSuscripcion.cola_a_suscribir, GET_POKEMON);
 				aplicar_protocolo_enviar(fdBroker, SUSCRIPCION, &laSuscripcion);
+
+				list_destroy(laSuscripcion.cola_a_suscribir);
 				step = ESCUCHANDO;
 				break;
 			}
@@ -332,25 +335,11 @@ void suscribir() {
 							break;
 					}
 
+
 			}
+			free(mensaje);
 	}
-	/*case ESCUCHANDO:{
-				int head = 0;
-				int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL); //recibirPorSocket(fdEmisor, &head, INT);
 
-				if (head < 1 || recibido <= 0){ // DESCONEXIÓN
-					//printf("Error al recibir mensaje.\n");
-				step = FALSE;
-				}else{
-					new_msj_broker msjBroker;
-					msjBroker.head = head;
-					msjBroker.fdSocket = fdBroker;
-
-					pthread_t hilo;
-					pthread_create(&hilo, NULL, (void*) thread_Broker, msjBroker);
-				}
-
-			}*/
 
 
 	}
@@ -362,7 +351,7 @@ void sendACK(int fdSocket, int idMsj){
 
 	respuesta_ACK ack;
 	ack.ack = OK;
-	int id_msj;
+	ack.id_msj=idMsj;
 
 	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
 
@@ -519,28 +508,27 @@ void thread_GameBoy(int fdSocket) {
 											cola_GET_POKEMON get_poke ;
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
 											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-											cola_LOCALIZED_POKEMON* locPokemon;
-											locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
-											GetPokemon(&get_poke, locPokemon);
-											locPokemon->nombre_pokemon = malloc (1 + get_poke.nombre_pokemon);
-											strcpy(locPokemon->nombre_pokemon,get_poke.nombre_pokemon);
-											locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
-											locPokemon->id_mensaje = get_poke.id_mensaje;
-											locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
+											cola_LOCALIZED_POKEMON locPokemon;
+											//locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
+											GetPokemon(&get_poke, &locPokemon);
+											locPokemon.nombre_pokemon = malloc (1 + string_length(get_poke.nombre_pokemon));
+											strcpy(locPokemon.nombre_pokemon,get_poke.nombre_pokemon);
+											locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
+											locPokemon.id_mensaje = get_poke.id_mensaje;
 
+											locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
 											aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
-											for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
-												t_positions* pos;// = malloc (sizeof(t_positions));
-												pos = list_get(locPokemon->lista_posiciones,i);
+											for(int i = 0;i<list_size(locPokemon.lista_posiciones);i++){
+												posicion* pos;// = malloc (sizeof(t_positions));
+												pos = list_get(locPokemon.lista_posiciones,i);
 												//printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
 												free(pos);
 											}
 
-											list_destroy(locPokemon->lista_posiciones);
-											//free(locPokemon->lista_posiciones);
+											list_destroy(locPokemon.lista_posiciones);
 											free(get_poke.nombre_pokemon);
-											free(locPokemon->nombre_pokemon);
-											free(locPokemon);
+											free(locPokemon.nombre_pokemon);
+										//	free(locPokemon);
 											break;
 										}
 
@@ -551,6 +539,7 @@ void thread_GameBoy(int fdSocket) {
 									}
 			free(mensaje);
 			//pthread_mutex_lock(&mxHilos);
+			pthread_cancel( pthread_self() );
 			pthread_detach( pthread_self() );
 		//	pthread_mutex_unlock(&mxHilos);
 }
@@ -587,11 +576,13 @@ void crearBloques(void)
 		for (i=countBlocks; i< config_MetaData->cantidad_bloques;i++ )
 		{
 				FILE *block;
-				char* bloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(i))+ string_length(".bin"));
+				char * temp = string_itoa(i);
+				char* bloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(temp)+ string_length(".bin") + 1);
 				strcpy(bloque,PuntoMontaje->BLOCKS);
-				strcat(bloque,string_itoa(i));
+				strcat(bloque,temp);
 				strcat(bloque,".bin");
 				block = fopen(bloque,"a");
+				free(temp);
 				fclose(block);
 				free(bloque);
 		}
@@ -666,8 +657,10 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 				}
 			}
 			fclose(fh);
+
+    }else{
+    	fclose(fd);
     }
-    fclose(fd);
     return 0;
 
 }
