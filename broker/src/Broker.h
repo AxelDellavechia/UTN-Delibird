@@ -70,7 +70,6 @@ void* memoria_cache;
 pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;
 pthread_mutex_t mutex_contador_msjs_cola;
-pthread_mutex_t mutex_lista_particiones;
 pthread_mutex_t mutex_suscriptores_new_pokemon;
 pthread_mutex_t mutex_suscriptores_localized_pokemon;
 pthread_mutex_t mutex_suscriptores_get_pokemon;
@@ -82,6 +81,8 @@ pthread_mutex_t mutex_cola_localized_pokemon;
 pthread_mutex_t mutex_cola_get_pokemon;
 pthread_mutex_t mutex_cola_appeared_pokemon;
 pthread_mutex_t mutex_cola_catch_pokemon;
+pthread_rwlock_t mutex_lista_particiones;
+pthread_mutex_t mutex_posicion_puntero_fifo;
 
 t_list* lista_msjs;
 t_list* lista_particiones;
@@ -106,22 +107,22 @@ typedef enum {
 int cantidad_fallidas;
 int32_t id_msj;
 int contador_msjs_en_cola;
+int posicion_puntero_fifo;
 
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
 
-void guardar_msj(int head, void * msj);
-void reservar_particion(int tamano, Mensaje msj);
-Particion * reservar_particion_dinamica(int tamano, Mensaje msj);
-void reservar_particion_bs(int tamano, Mensaje msj);
+void guardar_msj(int head, int tamano, void * msj);
+//Particion * reservar_particion_dinamica(int tamano, Mensaje msj);
+void reservar_particion_bs(int head, int tamano, void * msj);
 
 void compactacion();
 void eliminar_particion();
 void dummyDump();
 
-Particion * algoritmo_primer_ajuste(int tamano);
-Particion * algoritmo_mejor_ajuste(int tamano);
+_Bool algoritmo_primer_ajuste(int tamano);
+_Bool algoritmo_mejor_ajuste(int tamano);
 
 int dumpMemoria(int senial);
 

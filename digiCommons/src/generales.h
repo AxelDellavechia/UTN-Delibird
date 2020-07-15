@@ -15,6 +15,7 @@ unsigned int token() ;
 int devolverTipoMsj (char * comando);
 char * tipoMsjIntoToChar (int head);
 char * devolverModulo(int modulo);
+int devolverEnumModulo (char * modulo);
 
 
 #endif /* SRC_GENERALES_H_ */

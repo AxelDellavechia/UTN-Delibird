@@ -25,13 +25,13 @@ unsigned int token() {
 }
 
 int devolverTipoMsj (char * comando) {
-
 	if (strcasecmp("NEW_POKEMON",comando) == 0 ) return NEW_POKEMON ;
 	if (strcasecmp("GET_POKEMON",comando) == 0 ) return GET_POKEMON ;
 	if (strcasecmp("LOCALIZED_POKEMON",comando) == 0 ) return LOCALIZED_POKEMON ;
 	if (strcasecmp("APPEARED_POKEMON",comando) == 0 ) return APPEARED_POKEMON ;
 	if (strcasecmp("CATCH_POKEMON",comando) == 0 ) return CATCH_POKEMON ;
 	if (strcasecmp("CAUGHT_POKEMON",comando) == 0 ) return CAUGHT_POKEMON ;
+	if (strcasecmp("ACK",comando) == 0 ) return ACK ;
 }
 
 char * tipoMsjIntoToChar (int head) {
@@ -90,4 +90,14 @@ char * devolverModulo (int head) {
 										break;
 									}
 							}
+}
+
+int devolverEnumModulo (char * comando) {
+
+	if (strcasecmp("GAMECARD",comando) == 0 ) return GAMECARD ;
+	if (strcasecmp("BROKER",comando) == 0 ) return BROKER ;
+	if (strcasecmp("TEAM",comando) == 0 ) return TEAM ;
+	if (strcasecmp("GAMEBOY",comando) == 0 ) return GAMEBOY ;
+	if (strcasecmp("SUSCRIPTOR",comando) == 0 ) return GBSUSCRIPTOR ;
+
 }

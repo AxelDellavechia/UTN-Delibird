@@ -14,6 +14,7 @@ void iniciar_estructuras(){
 	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
 	contador_msjs_en_cola = 0;
+	posicion_puntero_fifo = 1;
 
 	//SE CREAN TODAS LAS LISTAS
 	lista_msjs = list_create();
@@ -36,6 +37,8 @@ void iniciar_estructuras(){
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
+	//SE DEFINE MUTEX PARA LA LISTA DE PARTICIONES
+	pthread_rwlock_init(&mutex_lista_particiones, NULL);
 	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR
 	pthread_mutex_init(&mutex_id_msj, NULL);
 	//SE DEFINE MUTEX PARA LA LISTA DE SUSCRIPTORES
@@ -175,7 +178,7 @@ int thread_Broker(int fdCliente) {
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											ptro_new_poke->id_mensaje = obtener_idMsj();
-											//guardar_msj(head, ptro_new_poke);
+											guardar_msj(head, bufferTam, ptro_new_poke);
 											list_add(cola_new_pokemon, ptro_new_poke);
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
 											agregar_contador_msj();
