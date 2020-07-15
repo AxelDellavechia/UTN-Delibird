@@ -37,8 +37,6 @@ int fdTeam;
 int conBroker;
 int idMensajeEsperado;
 int crearLista;
-int cantPokemonesAtrapados;
-int cantPokemonesObjetivo;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t * hilo;
