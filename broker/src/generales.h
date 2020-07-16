@@ -51,6 +51,17 @@ typedef struct {
 	int suSocket;
 } losSuscriptores;
 
+typedef struct {
+	int id_msj;
+	int tamano;
+	_Bool libre;
+	int colaAsignada;
+	int punteroInicial;
+	int punteroFinal;
+	int tiempoLRU;
+}Particion;
+
+
 int posicion_puntero_fifo;
 
 ConfigFile* config_File;
@@ -102,7 +113,7 @@ pthread_mutex_t mutex_cola_appeared_pokemon;
 pthread_mutex_t mutex_cola_catch_pokemon;
 pthread_mutex_t mutex_cola_caught_pokemon;
 
-pthread_mutex_t mutex_lista_particiones;
+pthread_rwlock_t mutex_lista_particiones;
 pthread_mutex_t mutex_posicion_puntero_fifo;
 
 t_list* lista_msjs;
@@ -142,7 +153,6 @@ void suscribirse(losSuscriptores * suscp);
 void agregar_contador_msj();
 void reenviarMsjCache(losSuscriptores * laSus);
 //void obtener_msj(int id_msj , Mensaje * msj);
-int32_t obtener_idMsj();
 int buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 
 #endif /* SRC_GENERALES_H_ */
