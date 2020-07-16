@@ -21,7 +21,7 @@ unsigned int token() {
 
 	srand(time(NULL));
 
-	return rand() % random();
+	return (unsigned int) rand() % random();
 }
 
 int devolverTipoMsj (char * comando) {
@@ -32,6 +32,7 @@ int devolverTipoMsj (char * comando) {
 	if (strcasecmp("CATCH_POKEMON",comando) == 0 ) return CATCH_POKEMON ;
 	if (strcasecmp("CAUGHT_POKEMON",comando) == 0 ) return CAUGHT_POKEMON ;
 	if (strcasecmp("ACK",comando) == 0 ) return ACK ;
+	return false;
 }
 
 char * tipoMsjIntoToChar (int head) {
@@ -66,6 +67,7 @@ char * tipoMsjIntoToChar (int head) {
 										break;
 									}
 							}
+					return false;
 }
 
 char * devolverModulo (int head) {
@@ -90,6 +92,8 @@ char * devolverModulo (int head) {
 										break;
 									}
 							}
+
+				return false;
 }
 
 int devolverEnumModulo (char * comando) {
@@ -99,5 +103,6 @@ int devolverEnumModulo (char * comando) {
 	if (strcasecmp("TEAM",comando) == 0 ) return TEAM ;
 	if (strcasecmp("GAMEBOY",comando) == 0 ) return GAMEBOY ;
 	if (strcasecmp("SUSCRIPTOR",comando) == 0 ) return GBSUSCRIPTOR ;
+	return false;
 
 }

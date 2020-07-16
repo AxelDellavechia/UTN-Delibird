@@ -31,10 +31,10 @@ void dummyDump(){
 
 		el_ejemplo2->colaAsignada = NEW_POKEMON ;
 		el_ejemplo2->libre =false ;
-		el_ejemplo2->punteroInicial = ptInicial ;
-		el_ejemplo2->punteroFinal = ptFinal ;
+		el_ejemplo2->punteroInicial = 0 ;
+		el_ejemplo2->punteroFinal = 35 ;
 		el_ejemplo2->tamano =456 ;
-		el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
+		el_ejemplo2->tiempoLRU = obtener_timestamp() ;
 
 	 	lista_particiones = list_create() ;
 
@@ -42,7 +42,6 @@ void dummyDump(){
 
 		list_add(lista_particiones,el_ejemplo2);
 }
-
 int main(){//int argc, char **argv) {
 
 	//Inicio el Log
@@ -79,7 +78,6 @@ void guardar_msj(int head, int tamano, void * msj){
 			else if(strcmp(config_File->ALGORITMO_PARTICION_LIBRE, "BF") == 0)
 			{
 				buscar_victima(head, tamano, Best_Fit, msj);
-
 			}
 		}
 		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0)
@@ -99,12 +97,14 @@ void reservar_particion_bs(int head, int tamano, void * mensaje){
 
 }
 
+
 void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 	Particion* particion_libre;
 	//PRIMERA VUELTA
 	int contador_busquedas_fallidas = 0;
 	_Bool encontro_particion = false;
 	while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
+
 	{
 		switch (Algoritmo){
 			case First_Fit: {
@@ -128,6 +128,7 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 		//SEGUNDA VUELTA
 		contador_busquedas_fallidas = 0;
 		while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
+
 		{
 			switch (Algoritmo){
 				case First_Fit: {
@@ -167,8 +168,10 @@ Particion* algoritmo_primer_ajuste(int tamano){
 	return list_find(lista_particiones, (void*)particion_libre);
 }
 */
+
 _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 	Particion * aux_particion = reservarMemoria(sizeof(Particion));
+
 	int index = 0;
 	_Bool encontro_particion = false;
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
@@ -189,6 +192,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			Particion * nueva_particion = reservarMemoria(sizeof(Particion));
 			nueva_particion->punteroInicial = aux_particion->punteroFinal + 1;
 			nueva_particion->punteroFinal = nueva_particion->punteroFinal + tamano +1;
+
 			nueva_particion->tamano = desperdicio;
 			nueva_particion->libre = TRUE;
 
@@ -234,6 +238,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 	}
 
 }
+
 _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 	_Bool ordenar(Particion* particion1, Particion* particion2){return particion1->tamano < particion2->tamano;}
 	t_list* lista_ordenada = list_duplicate(lista_particiones);
@@ -434,27 +439,8 @@ int dumpMemoria (int senial) {
 				fprintf(dump,"Partición %d: %p - %p		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
 			} else {
 				char * colaNombre ;
-				switch (actual->colaAsignada) {
-					case NEW_POKEMON :
-						colaNombre = strdup("NEW_POKEMON");
-					break;
-					case APPEARED_POKEMON :
-						colaNombre = strdup("APPEARED_POKEMON");
-					break;
-					case CATCH_POKEMON :
-						colaNombre = strdup("CATCH_POKEMON");
-					break;
-					case CAUGHT_POKEMON :
-						colaNombre = strdup("CAUGHT_POKEMON");
-					break;
-					case GET_POKEMON :
-						colaNombre = strdup("GET_POKEMON");
-					break;
-					case LOCALIZED_POKEMON :
-						colaNombre = strdup("LOCALIZED_POKEMON");
-					break;
-				}
-				fprintf(dump,"Partición %d: %p - %p		[X]		Size: %db		LRU: %d		Cola: %s\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre);
+				colaNombre = strdup( tipoMsjIntoToChar(actual->colaAsignada) ) ;
+				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
 				free(colaNombre);
 			}
 

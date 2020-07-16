@@ -201,9 +201,17 @@ void servidor() {
 	pthread_mutex_unlock(&mxHilos);
 }
 
+void responderACK(int id_msj){
+	respuesta_ACK  * ack = malloc (sizeof(respuesta_ACK)) ;
+	ack->ack = TRUE ;
+	ack->id_msj = id_msj ;
+	aplicar_protocolo_enviar(fdCliente,ACK,ack);
+	free(ack);
+}
+
 void consola() {
 
-int fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
+fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
 
 int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker, logger);
 
@@ -231,6 +239,12 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 
 			recibirMensaje(fdCliente , bufferTam , mensaje );
 
+			if (head < 1 ){ // DESCONEXIÓN
+				pthread_mutex_lock(&mxHilos);
+				pthread_detach( pthread_self() );
+				pthread_mutex_unlock(&mxHilos);
+			}else{
+
 			switch( head ){
 
 					setlocale(LC_ALL,"");
@@ -240,6 +254,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> NEW_POKEMON : POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+						responderACK(new_poke.id_mensaje);
 						free(new_poke.nombre_pokemon);
 						break;
 					}
@@ -248,6 +263,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
 						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> CATCH_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+						responderACK(cath_poke.id_mensaje);
 						free(cath_poke.nombre_pokemon);
 						break;
 					}
@@ -256,6 +272,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
 						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> GET_POKEMON :  POKEMON: %s",get_poke.nombre_pokemon);
+						responderACK(get_poke.id_mensaje);
 						free(get_poke.nombre_pokemon);
 						break;
 					}
@@ -265,6 +282,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
 						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+						responderACK(app_poke.id_mensaje);
 						free(app_poke.nombre_pokemon);
 						break;
 					}
@@ -274,6 +292,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
 						free(mensaje);
 						log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+						responderACK(caug_poke.id_mensaje);
 						break;
 					}
 
@@ -285,10 +304,12 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
 						i++;
 						}
+						responderACK(loc_poke.id_mensaje);
 						free(loc_poke.nombre_pokemon);
 						list_destroy(loc_poke.lista_posiciones);
 						break;
 					}
+					/*
 					case ACK :{
 						respuesta_ACK ack;
 						deserealizar_ACK( head, mensaje, bufferTam, & ack);
@@ -296,7 +317,6 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 						log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
 						break;
 					}
-					/*
 					case SUSCRIPCION :{
 						suscriptor laSus;
 						deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
@@ -308,6 +328,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 					default:
 						log_info(logger, "Instrucción no reconocida");
 						break;			    					    				    				    										}
+				}
 			}
 		}
 }

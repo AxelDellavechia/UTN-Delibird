@@ -24,6 +24,8 @@
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
+int fdCliente ;
+
 t_log * logger;
 
 t_log * loggerCatedra;
@@ -70,5 +72,7 @@ void consola() ;
 
 void liberarRecursosComunes();
 int finalizar();
+
+void responderACK(int id_msj);
 
 #endif

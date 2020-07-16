@@ -122,6 +122,8 @@ log_info(logger,"Trabajando con el GAMECARD");
 
 				}
 			}
+			return EXIT_FAILURE;
+
 }
 
 int team( char * comando,int argc, char *argv[]) {
@@ -192,6 +194,8 @@ log_info(logger,"Trabajando con el TEAM");
 							}
 					}
 			}
+			return EXIT_FAILURE;
+
 }
 
 int broker( char * comando,int argc, char *argv[]){
@@ -248,6 +252,15 @@ log_info(logger,"Trabajando con el BROKER");
 						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
 						"Team" , "BROKER" );
 					break;
+					//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
+
+					//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 "1,2,3,4,5,6" 45
+
+					case LOCALIZED_POKEMON:
+						prc_localized_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+					break;
 					default: {
 						comandoNoR();
 						return EXIT_FAILURE;
@@ -255,6 +268,8 @@ log_info(logger,"Trabajando con el BROKER");
 					}
 			}
 	}
+	return EXIT_FAILURE;
+
 }
 
 int prc_suscriptor( char * comando,int argc, char *argv[]) {
@@ -328,7 +343,7 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 
 	int enviado = conectar_y_enviar(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
 
 	free(comando);
 
@@ -359,7 +374,7 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 
 	int enviado = conectar_y_enviar(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
 
 	free(comando);
 	free(cat_poke->nombre_pokemon);
@@ -398,7 +413,7 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 
 	int enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 
 	free(comando);
 	free(app_poke->nombre_pokemon);
@@ -430,7 +445,7 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	int enviado = conectar_y_enviar( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
 
 	free(comando);
 	free(new_poke->nombre_pokemon);
@@ -502,7 +517,7 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 
 			if (enviado != ERROR ) {
 				for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
-				log_info(loggerCatedra,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
+				log_info(logger,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
 				i++;
 				}
 			}
@@ -564,7 +579,7 @@ int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	int enviado = conectar_y_enviar( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
 
-	if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
 
 	free(comando);
 
