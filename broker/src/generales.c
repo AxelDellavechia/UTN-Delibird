@@ -5,20 +5,27 @@
  *      Author: utnso
  */
 #include "generales.h"
+#include "Broker.h"
 
 void iniciar_estructuras(){
 	//Se reserva la Memoria total del Broker
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
+	//Creo la particion inicial que contenga toda la memoria
+	Particion * particion_memoria;
+	particion_memoria->punteroInicial = 0;
+	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA;
 	//Setea cantidad fallidas
-	int cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
+	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
 	contador_msjs_en_cola = 0;
-	posicion_puntero_fifo = 1;
+	puntero_reemplazo = memoria_cache;
 
 	//SE CREAN TODAS LAS LISTAS
 	lista_msjs = list_create();
 	lista_particiones = list_create();
+	list_add(lista_particiones, particion_memoria);
+
 
 	suscriptores_new_pokemon = list_create();
 	suscriptores_localized_pokemon = list_create();
@@ -37,6 +44,7 @@ void iniciar_estructuras(){
 
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
+	pthread_mutex_init(&mutex_puntero_reemplazo, NULL);
 	//SE DEFINE MUTEX PARA LA LISTA DE PARTICIONES
 	pthread_rwlock_init(&mutex_lista_particiones, NULL);
 	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR

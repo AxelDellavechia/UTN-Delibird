@@ -15,9 +15,8 @@ typedef struct {
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
-	int idColaAsignada;
-	void* punteroInicial;
-	void* punteroFinal;
+	int punteroInicial;
+	int punteroFinal;
 	int tiempoLRU;
 }Particion;
 
@@ -81,8 +80,8 @@ pthread_mutex_t mutex_cola_localized_pokemon;
 pthread_mutex_t mutex_cola_get_pokemon;
 pthread_mutex_t mutex_cola_appeared_pokemon;
 pthread_mutex_t mutex_cola_catch_pokemon;
-pthread_rwlock_t mutex_lista_particiones;
-pthread_mutex_t mutex_posicion_puntero_fifo;
+pthread_mutex_t mutex_lista_particiones;
+pthread_mutex_t mutex_puntero_reemplazo;
 
 t_list* lista_msjs;
 t_list* lista_particiones;
@@ -96,6 +95,7 @@ t_list* cola_localized_pokemon;
 t_list* cola_get_pokemon;
 t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
+t_list* lista_ack;
 
 typedef enum {
 	First_Fit,
@@ -107,7 +107,7 @@ typedef enum {
 int cantidad_fallidas;
 int32_t id_msj;
 int contador_msjs_en_cola;
-int posicion_puntero_fifo;
+int puntero_reemplazo;
 
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
@@ -121,8 +121,8 @@ void compactacion();
 void eliminar_particion();
 void dummyDump();
 
-_Bool algoritmo_primer_ajuste(int tamano);
-_Bool algoritmo_mejor_ajuste(int tamano);
+_Bool algoritmo_primer_ajuste(int head, int tamano, void *msj);
+_Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj);
 
 int dumpMemoria(int senial);
 
