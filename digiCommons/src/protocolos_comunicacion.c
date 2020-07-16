@@ -361,7 +361,9 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 
 void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
 
 
 							memcpy(&new_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
@@ -390,7 +392,9 @@ void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_P
 
 void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) {
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
 
 			app_poke->nombre_pokemon = malloc(1);
 
@@ -418,7 +422,9 @@ void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_
 
 void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATCH_POKEMON* cat_poke) {
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
 
 	cat_poke->nombre_pokemon = malloc(1);
 
@@ -444,7 +450,10 @@ void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATC
 
 void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) {
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
+
 							memcpy(&cau_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
@@ -454,7 +463,9 @@ void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CA
 
 void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) {
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
 
 				get_poke->nombre_pokemon = malloc(1);
 
@@ -474,7 +485,9 @@ void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_P
 
 void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke_des) {
 
-	int desplazamiento = 0;
+	int desplazamiento ;
+	if ( desplazamientoCache != 0 ) desplazamiento = desplazamientoCache ;
+	else desplazamiento = 0;
 
 	/*
 		int desplazamiento = 0;

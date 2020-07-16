@@ -16,7 +16,8 @@ typedef enum {
 	LOCALIZED_POKEMON,
 	ACK,
 	SUSCRIPCION,
-	FIN_DEL_PROTOCOLO
+	FIN_DEL_PROTOCOLO,
+	CACHE
 } protocolo;
 
 typedef enum {
@@ -28,6 +29,8 @@ typedef enum {
 } modulos;
 
 void * buffer ;
+
+int desplazamientoCache ;
 
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);
