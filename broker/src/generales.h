@@ -84,6 +84,8 @@ int comandoNuevo; // Socket de Escucha
 int cantidad_fallidas;
 int32_t id_msj;
 int contador_msjs_en_cola;
+int puntero_reemplazo;
+
 
 int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
@@ -100,6 +102,7 @@ pthread_mutex_t mutex_suscriptores_get_pokemon;
 pthread_mutex_t mutex_suscriptores_appeared_pokemon;
 pthread_mutex_t mutex_suscriptores_catch_pokemon;
 pthread_mutex_t mutex_suscriptores_caught_pokemon;
+pthread_mutex_t mutex_puntero_reemplazo;
 
 pthread_mutex_t mutex_contador_msjs_en_cola;
 
@@ -148,7 +151,7 @@ int thread_Broker(int fdCliente);
 void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores);
 void suscribirse(losSuscriptores * suscp);
 void agregar_contador_msj();
-void reenviarMsjCache(int suSocket, suscriptor * laSus);
+void reenviarMsjCache(losSuscriptores * laSus);
 //void obtener_msj(int id_msj , Mensaje * msj);
 int buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 

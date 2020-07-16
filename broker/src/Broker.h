@@ -29,8 +29,8 @@ void compactacion();
 void eliminar_particion();
 void dummyDump();
 
-_Bool algoritmo_primer_ajuste(int tamano);
-_Bool algoritmo_mejor_ajuste(int tamano);
+_Bool algoritmo_primer_ajuste(int head, int tamano, void *msj);
+_Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj);
 
 int dumpMemoria(int senial);
 

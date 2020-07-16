@@ -291,6 +291,8 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 			desplazamiento += sizeof(uint32_t);
 			memcpy(buffer+desplazamiento,&ack->id_msj,sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
+			memcpy(buffer+desplazamiento,&ack->token,sizeof(uint32_t));
+			desplazamiento += sizeof(uint32_t);
 			break;
 	}
 
@@ -333,6 +335,9 @@ void deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * ack
 							desplazamiento += sizeof(uint32_t);
 
 							memcpy(&ack->id_msj,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
+
+							memcpy(&ack->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 }
 
@@ -541,7 +546,12 @@ int calcularTamanioMensaje(int head, void* mensaje){
 
 	int tamanio = 0 ;
 
-	if ( head == ACK || head == CAUGHT_POKEMON) {
+	if ( head == ACK ) {
+		tamanio = sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t);
+		return tamanio;
+	}
+
+	if ( head == CAUGHT_POKEMON) {
 		tamanio = sizeof(uint32_t) + sizeof(uint32_t);
 		return tamanio;
 	}
