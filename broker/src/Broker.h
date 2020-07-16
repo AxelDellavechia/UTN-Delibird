@@ -10,30 +10,27 @@
 
 #include "generales.h"
 
-typedef struct {
-	int tamano;
-	_Bool libre;
-	int colaAsignada;
-	int idColaAsignada;
-	void* punteroInicial;
-	void* punteroFinal;
-	int tiempoLRU;
-}Particion;
+typedef enum {
+	First_Fit,
+	Best_Fit,
+	FIFO,
+	LRU
+} Algoritmos;
 
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
 
-void reservar_particion(int tamano, Mensaje msj);
-void reservar_particion_dinamica(int tamano, Mensaje msj);
-void reservar_particion_bs(int tamano, Mensaje msj);
+void guardar_msj(int head, int tamano, void * msj);
+//Particion * reservar_particion_dinamica(int tamano, Mensaje msj);
+void reservar_particion_bs(int head, int tamano, void * msj);
 
 void compactacion();
 void eliminar_particion();
 void dummyDump();
 
-Particion * algoritmo_primer_ajuste(int tamano);
-Particion * algoritmo_mejor_ajuste(int tamano);
+_Bool algoritmo_primer_ajuste(int tamano);
+_Bool algoritmo_mejor_ajuste(int tamano);
 
 int dumpMemoria(int senial);
 

@@ -51,6 +51,19 @@ typedef struct {
 	int suSocket;
 } losSuscriptores;
 
+typedef struct {
+	int id_msj;
+	int tamano;
+	_Bool libre;
+	int colaAsignada;
+	int punteroInicial;
+	int punteroFinal;
+	int tiempoLRU;
+}Particion;
+
+
+int posicion_puntero_fifo;
+
 ConfigFile* config_File;
 
 t_log* logger;
@@ -69,8 +82,10 @@ int fdBroker; //Socket Base
 int comandoNuevo; // Socket de Escucha
 
 int cantidad_fallidas;
-int id_msj;
+int32_t id_msj;
 int contador_msjs_en_cola;
+
+int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
 
 void* memoria_cache;
@@ -95,9 +110,12 @@ pthread_mutex_t mutex_cola_appeared_pokemon;
 pthread_mutex_t mutex_cola_catch_pokemon;
 pthread_mutex_t mutex_cola_caught_pokemon;
 
+pthread_rwlock_t mutex_lista_particiones;
+pthread_mutex_t mutex_posicion_puntero_fifo;
 
 t_list* lista_msjs;
 t_list* lista_particiones;
+t_list* lista_ack;
 
 t_list* suscriptores_new_pokemon;
 t_list* suscriptores_localized_pokemon;
@@ -112,6 +130,7 @@ t_list* cola_get_pokemon;
 t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
 t_list* cola_caught_pokemon;
+
 
 void* reservarMemoria(int size);
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger);
@@ -129,7 +148,8 @@ int thread_Broker(int fdCliente);
 void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_suscriptores);
 void suscribirse(losSuscriptores * suscp);
 void agregar_contador_msj();
-void obtener_msj(int id_msj , Mensaje * msj);
+void reenviarMsjCache(int suSocket, suscriptor * laSus);
+//void obtener_msj(int id_msj , Mensaje * msj);
 int buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 
 #endif /* SRC_GENERALES_H_ */

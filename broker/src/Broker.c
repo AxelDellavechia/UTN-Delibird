@@ -30,12 +30,11 @@ void dummyDump(){
 
 
 		el_ejemplo2->colaAsignada = NEW_POKEMON ;
-		el_ejemplo2->idColaAsignada = 1 ;
 		el_ejemplo2->libre =false ;
-		el_ejemplo2->punteroInicial = ptInicial ;
-		el_ejemplo2->punteroFinal = ptFinal ;
+		el_ejemplo2->punteroInicial = 0 ;
+		el_ejemplo2->punteroFinal = 35 ;
 		el_ejemplo2->tamano =456 ;
-		el_ejemplo2->tiempoLRU = config_File->FRECUENCIA_COMPACTACION ;
+		el_ejemplo2->tiempoLRU = obtener_timestamp() ;
 
 	 	lista_particiones = list_create() ;
 
@@ -67,56 +66,105 @@ int main(){//int argc, char **argv) {
 
 	//return EXIT_SUCCESS;
 }
+/*
+void guardar_msj(int head, void * msj){
+	int tamanio = calcularTamanioMensaje(head, msj);
 
-void reservar_particion(int tamano, Mensaje msj){
-	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION){
-		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-			reservar_particion_dinamica(tamano, msj);
+
+
+
+}
+*/
+void guardar_msj(int head, int tamano, void * msj){
+	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION)
+	{
+		//Particion * particion_select;
+		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0)
+		{
+			if(config_File->ALGORITMO_PARTICION_LIBRE == "FF")
+			{
+				buscar_victima(head, tamano, First_Fit, msj);
+			}
+			else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF")
+			{
+				buscar_victima(head, tamano, Best_Fit, msj);
+
+			}
 		}
-		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-			reservar_particion_bs(tamano, msj);
+		else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0)
+		{
+			reservar_particion_bs(head, tamano, msj);
+			//if(particion_select->tamano > tamano){/*LA PARTICION ES MAS GRANDE QUE LA NECESARIO SE PARTICIONA EN 2 (AGREGAR A LA LISTA DE PARTICIONES)*/}
+			//if else(particion_select->tamano == tamano){/*SOLO SE MODIFICA LA PARTICION AL SER DEL MISMO TAMANIO*/}
+			//else{/*ERROR, NO PUEDE SER EL TAMANIO MAYOR AL TAMANIO DE LA PARTICION*/}
 		}
 		else{/*ERROR CONFIG*/}
 	}
-	else{}
+	else{log_info(logger,"No se puede guardar el mensaje con el tamanio %d", tamano);}
 
 }
-
+/*
 void reservar_particion_dinamica(int tamano, Mensaje mensaje){
-	Particion* particion_libre;
-	int contador_busquedas_fallidas;
-	if(config_File->ALGORITMO_PARTICION_LIBRE == "FF"){
-		while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL){
-		particion_libre = algoritmo_primer_ajuste(tamano);
-		if(particion_libre == NULL){contador_busquedas_fallidas++;}
-		}
-		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-			compactacion();
-			cantidad_fallidas = 0;
-			while(cantidad_fallidas <= contador_busquedas_fallidas || particion_libre != NULL){
-				particion_libre = algoritmo_primer_ajuste(tamano);
-				if(particion_libre == NULL){contador_busquedas_fallidas++;}
-			}
-			if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-				eliminar_particion();
-			}
-		}
+	if(config_File->ALGORITMO_PARTICION_LIBRE == "FF")
+	{
+		buscar_victima(tamano, First_Fit);
 	}
-	else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF"){
-		while(cantidad_fallidas <= contador_busquedas_fallidas){
-		particion_libre = algoritmo_mejor_ajuste(tamano);
-		if(particion_libre == NULL && cantidad_fallidas ){contador_busquedas_fallidas++;}
-		}
-		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas){
-			compactacion();
-		}
+	else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF")
+	{
+		buscar_victima(tamano, Best_Fit);
 
 	}
-	free(particion_libre);
+}
+*/
+void reservar_particion_bs(int head, int tamano, void * mensaje){
+
 }
 
-void reservar_particion_bs(int tamano, Mensaje mensaje){
+void buscar_victima(int head, int tamano, Algoritmos Algoritmo){
+	Particion* particion_libre;
+	//PRIMERA VUELTA
+	int contador_busquedas_fallidas = 0;
+	_Bool encontro_particion;
+	while(cantidad_fallidas <= contador_busquedas_fallidas && !encontro_particion)
+	{
+		switch (Algoritmo){
+			case First_Fit: {
+				encontro_particion = algoritmo_primer_ajuste(tamano);
+				break;
+			}
+			case Best_Fit: {
+				encontro_particion = algoritmo_mejor_ajuste(tamano);
+				break;
+			}
+		}
 
+		if(!encontro_particion){contador_busquedas_fallidas++;}
+	}
+	if(cantidad_fallidas == contador_busquedas_fallidas && !encontro_particion)
+	{
+		compactacion();
+		//SEGUNDA VUELTA
+		contador_busquedas_fallidas = 0;
+		while(cantidad_fallidas <= contador_busquedas_fallidas && !encontro_particion)
+		{
+			switch (Algoritmo){
+				case First_Fit: {
+					algoritmo_primer_ajuste(tamano);
+					break;
+				}
+				case Best_Fit: {
+					algoritmo_mejor_ajuste(tamano);
+					break;
+				}
+			}
+
+			if(particion_libre == NULL){contador_busquedas_fallidas++;}
+		}
+		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas)
+		{
+			eliminar_particion();
+		}
+	}
 }
 
 /*
@@ -128,11 +176,47 @@ Particion* algoritmo_primer_ajuste(int tamano){
 	}
 	return NULL;
 }
-*/
 
 Particion* algoritmo_primer_ajuste(int tamano){
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
 	return list_find(lista_particiones, (void*)particion_libre);
+}
+*/
+_Bool algoritmo_primer_ajuste(int tamano){
+	Particion * aux_particion;
+	int index = 0;
+	_Bool encontro_particion = false;
+	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
+	//pthread_rwlock_rdlock(mutex_lista_particiones);
+	_Bool hay_particion_libre = list_any_satisfy(lista_particiones, (void*)particion_libre);
+	int cantidad_particiones = list_size(lista_particiones);
+	while(hay_particion_libre && !encontro_particion && cantidad_particiones > index)
+	{
+		aux_particion = list_get(lista_particiones, index);
+		if(aux_particion->libre && aux_particion->tamano >= tamano){encontro_particion = true;}
+		else{index++;}
+	}
+
+	//pthread_rwlock_unlock(mutex_lista_particiones);
+	if(encontro_particion)
+	{
+		if(aux_particion->tamano > tamano)
+		{
+			//pthread_rwlock_wrlock(mutex_lista_particiones);
+
+			//pthread_rwlock_unlock(mutex_lista_particiones);
+			/*SI LA PARTICION ES MAS GRANDE QUE LA NECESARIO SE PARTICIONA EN 2 (AGREGAR A LA LISTA DE PARTICIONES)*/
+		}
+		else if(aux_particion->tamano == tamano)
+		{
+			//pthread_rwlock_wrlock(mutex_lista_particiones);
+			//REEMPLAZO LA PARTCION LIBRE UBICADA EN INDEX CON LA NUEVA
+			//pthread_rwlock_unlock(mutex_lista_particiones);
+		}
+		else{/*ERROR, NO PUEDE SER EL TAMANIO MAYOR AL TAMANIO DE LA PARTICION*/}
+	}
+	else{return false;}
+
 }
 
 /*
@@ -143,22 +227,37 @@ void algoritmo_mejor_ajuste(int tamano){
 }
 */
 
-Particion* algoritmo_mejor_ajuste(int tamano){
+_Bool algoritmo_mejor_ajuste(int tamano){
 	_Bool ordenar(Particion* particion1, Particion* particion2){return particion1->tamano < particion2->tamano;}
+	//pthread_rwlock_rdlock(mutex_lista_particiones);
 	t_list* lista_ordenada = lista_particiones;
+	//pthread_rwlock_unlock(mutex_lista_particiones);
 	list_sort(lista_ordenada, (void*)ordenar);
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
 	return list_find(lista_ordenada, (void*)particion_libre);
 	free(lista_ordenada);
 }
 
-void algoritmo_fifo(int tamano){}
-
-void algoritmo_lru(int tamano){}
-
 void compactacion(){}
 
-void eliminar_particion(){}
+void eliminar_particion(){
+	if(strcmp(config_File->ALGORITMO_REEMPLAZO, "FIFO") == 0)
+	{
+		algoritmo_fifo();
+	}
+	else if(strcmp(config_File->ALGORITMO_REEMPLAZO, "LRU") == 0)
+	{
+		algoritmo_lru();
+	}
+	else{log_info(logger,"El algoritmo de reemplazo %d, no es valido",config_File->FRECUENCIA_COMPACTACION);}
+}
+
+void algoritmo_fifo()
+{
+
+}
+
+void algoritmo_lru(){}
 
 int dumpMemoria (int senial) {
 
@@ -190,27 +289,8 @@ int dumpMemoria (int senial) {
 				fprintf(dump,"Partición %d: %p - %p		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
 			} else {
 				char * colaNombre ;
-				switch (actual->colaAsignada) {
-					case NEW_POKEMON :
-						colaNombre = strdup("NEW_POKEMON");
-					break;
-					case APPEARED_POKEMON :
-						colaNombre = strdup("APPEARED_POKEMON");
-					break;
-					case CATCH_POKEMON :
-						colaNombre = strdup("CATCH_POKEMON");
-					break;
-					case CAUGHT_POKEMON :
-						colaNombre = strdup("CAUGHT_POKEMON");
-					break;
-					case GET_POKEMON :
-						colaNombre = strdup("GET_POKEMON");
-					break;
-					case LOCALIZED_POKEMON :
-						colaNombre = strdup("LOCALIZED_POKEMON");
-					break;
-				}
-				fprintf(dump,"Partición %d: %p - %p		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->idColaAsignada);
+				colaNombre = strdup( tipoMsjIntoToChar(actual->colaAsignada) ) ;
+				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
 				free(colaNombre);
 			}
 
