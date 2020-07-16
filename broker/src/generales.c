@@ -12,9 +12,11 @@ void iniciar_estructuras(){
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
 	//Creo la particion inicial que contenga toda la memoria
-	Particion * particion_memoria;
+	Particion * particion_memoria = reservarMemoria(sizeof(Particion));
 	particion_memoria->punteroInicial = 0;
 	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA;
+	particion_memoria->tamano = config_File->TAMANO_MEMORIA;
+	particion_memoria->libre = true;
 	//Setea cantidad fallidas
 	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
@@ -25,6 +27,7 @@ void iniciar_estructuras(){
 	lista_msjs = list_create();
 	lista_particiones = list_create();
 	list_add(lista_particiones, particion_memoria);
+	free(particion_memoria);
 
 
 	suscriptores_new_pokemon = list_create();

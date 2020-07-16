@@ -58,7 +58,7 @@ int main(){//int argc, char **argv) {
 	iniciar_estructuras();
 
 	//Capturar señal SIGUSR1 para el Dump de Memoria
-	dummyDump();
+	//dummyDump();
 	signal(SIGUSR1,dumpMemoria);
 
 	//Multi-Hilos por conexion
@@ -67,16 +67,16 @@ int main(){//int argc, char **argv) {
 	//return EXIT_SUCCESS;
 }
 void guardar_msj(int head, int tamano, void * msj){
-	if(tamano > config_File->TAMANO_MEMORIA && tamano < config_File->TAMANO_MINIMO_PARTICION)
+	if(tamano < config_File->TAMANO_MEMORIA && tamano > config_File->TAMANO_MINIMO_PARTICION)
 	{
 		//Particion * particion_select;
 		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0)
 		{
-			if(config_File->ALGORITMO_PARTICION_LIBRE == "FF")
+			if(strcmp(config_File->ALGORITMO_PARTICION_LIBRE, "FF") == 0)
 			{
 				buscar_victima(head, tamano, First_Fit, msj);
 			}
-			else if(config_File->ALGORITMO_PARTICION_LIBRE == "BF")
+			else if(strcmp(config_File->ALGORITMO_PARTICION_LIBRE, "BF") == 0)
 			{
 				buscar_victima(head, tamano, Best_Fit, msj);
 
@@ -103,8 +103,8 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 	Particion* particion_libre;
 	//PRIMERA VUELTA
 	int contador_busquedas_fallidas = 0;
-	_Bool encontro_particion;
-	while(cantidad_fallidas <= contador_busquedas_fallidas && !encontro_particion)
+	_Bool encontro_particion = false;
+	while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
 	{
 		switch (Algoritmo){
 			case First_Fit: {
@@ -115,6 +115,9 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 				encontro_particion = algoritmo_mejor_ajuste(head, tamano, msj);
 				break;
 			}
+			default:
+				log_info(logger, "Algoritmo de Seleccion no reconocido");
+				break;
 		}
 
 		if(!encontro_particion){contador_busquedas_fallidas++;}
@@ -124,7 +127,7 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 		compactacion();
 		//SEGUNDA VUELTA
 		contador_busquedas_fallidas = 0;
-		while(cantidad_fallidas <= contador_busquedas_fallidas && !encontro_particion)
+		while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
 		{
 			switch (Algoritmo){
 				case First_Fit: {
@@ -135,11 +138,14 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 					encontro_particion = algoritmo_mejor_ajuste(head, tamano, msj);
 					break;
 				}
+				default:
+				log_info(logger, "Algoritmo de Seleccion no reconocido");
+				break;
 			}
 
-			if(particion_libre == NULL){contador_busquedas_fallidas++;}
+			if(!encontro_particion){contador_busquedas_fallidas++;}
 		}
-		if(particion_libre == NULL && cantidad_fallidas == contador_busquedas_fallidas)
+		if(cantidad_fallidas == contador_busquedas_fallidas && !encontro_particion)
 		{
 			eliminar_particion();
 		}
@@ -162,7 +168,7 @@ Particion* algoritmo_primer_ajuste(int tamano){
 }
 */
 _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
-	Particion * aux_particion;
+	Particion * aux_particion = reservarMemoria(sizeof(Particion));
 	int index = 0;
 	_Bool encontro_particion = false;
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
@@ -180,9 +186,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 		if(desperdicio > 0)
 		{
 			//SE AGREGA UNA NUEVA PARTICION CON EL TAMANIO RESTANTE DE LA PARTICION ORIGINAL
-			Particion * nueva_particion;
+			Particion * nueva_particion = reservarMemoria(sizeof(Particion));
 			nueva_particion->punteroInicial = aux_particion->punteroFinal + 1;
-			nueva_particion->punteroFinal = nueva_particion->punteroFinal + tamano;
+			nueva_particion->punteroFinal = nueva_particion->punteroFinal + tamano +1;
 			nueva_particion->tamano = desperdicio;
 			nueva_particion->libre = TRUE;
 
@@ -198,9 +204,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			void * buffer = serealizar(head, msj, tamano);
 			pthread_mutex_lock(&mutex_memoria_cache);
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-			memset(memoria_cache+nueva_particion->punteroInicial, '\0', memoria_cache+nueva_particion->punteroFinal);
+			memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->punteroFinal - nueva_particion->punteroFinal + 1);
 			pthread_mutex_unlock(&mutex_memoria_cache);
-			return true;
+			free(nueva_particion);
 		}
 		else
 		{
@@ -217,10 +223,15 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			pthread_mutex_lock(&mutex_memoria_cache);
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
 			pthread_mutex_unlock(&mutex_memoria_cache);
-			return true;
 		}
+		free(aux_particion);
+		return true;
 	}
-	else{return false;}
+	else
+	{
+		free(aux_particion);
+		return false;
+	}
 
 }
 _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
@@ -241,51 +252,57 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		else{index++;}
 	}
 	if(encontro_particion)
+	{
+		int desperdicio = aux_particion->tamano - tamano;
+		if(desperdicio > 0)
 		{
-			int desperdicio = aux_particion->tamano - tamano;
-			if(desperdicio > 0)
-			{
-				//SE AGREGA UNA NUEVA PARTICION CON EL TAMANIO RESTANTE DE LA PARTICION ORIGINAL
-				Particion * nueva_particion;
-				nueva_particion->punteroInicial = aux_particion->punteroFinal + 1;
-				nueva_particion->punteroFinal = nueva_particion->punteroFinal + tamano;
-				nueva_particion->tamano = desperdicio;
-				nueva_particion->libre = TRUE;
+			//SE AGREGA UNA NUEVA PARTICION CON EL TAMANIO RESTANTE DE LA PARTICION ORIGINAL
+			Particion * nueva_particion= reservarMemoria(sizeof(Particion));
+			nueva_particion->punteroInicial = aux_particion->punteroFinal + 1;
+			nueva_particion->punteroFinal = nueva_particion->punteroFinal + tamano;
+			nueva_particion->tamano = desperdicio;
+			nueva_particion->libre = TRUE;
 
-				aux_particion->tamano = tamano;
-				aux_particion->libre = false;
-				aux_particion->colaAsignada = head;
-				aux_particion->tiempoLRU = 0;
+			aux_particion->tamano = tamano;
+			aux_particion->libre = false;
+			aux_particion->colaAsignada = head;
+			aux_particion->tiempoLRU = 0;
 
-				pthread_mutex_lock(&mutex_lista_particiones);
-				list_remove(lista_particiones, index);
-				list_add_in_index(lista_particiones, index+1, nueva_particion);
-				pthread_mutex_unlock(&mutex_lista_particiones);
-				void * buffer = serealizar(head, msj, tamano);
-				pthread_mutex_lock(&mutex_memoria_cache);
-				memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-				memset(memoria_cache+nueva_particion->punteroInicial, '\0', memoria_cache+nueva_particion->punteroFinal);
-				pthread_mutex_unlock(&mutex_memoria_cache);
-				return true;
-			}
-			else
-			{
-				//REEMPLAZO LA PARTCION LIBRE UBICADA EN INDEX CON LA NUEVA
-				aux_particion->tamano = tamano;
-				aux_particion->libre = false;
-				aux_particion->colaAsignada = head;
-				aux_particion->tiempoLRU = 0; //obtener Timestamp
-				pthread_mutex_lock(&mutex_lista_particiones);
-				list_remove(lista_particiones, index);
-				list_add_in_index(lista_particiones, index, aux_particion);
-				pthread_mutex_unlock(&mutex_lista_particiones);
-				void * buffer = serealizar(head, msj, tamano);
-				pthread_mutex_lock(&mutex_memoria_cache);
-				memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-				pthread_mutex_unlock(&mutex_memoria_cache);
-			}
+			pthread_mutex_lock(&mutex_lista_particiones);
+			list_remove(lista_particiones, index);
+			list_add_in_index(lista_particiones, index+1, nueva_particion);
+			pthread_mutex_unlock(&mutex_lista_particiones);
+			void * buffer = serealizar(head, msj, tamano);
+			pthread_mutex_lock(&mutex_memoria_cache);
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
+			memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->punteroFinal - nueva_particion->punteroInicial + 1);
+			pthread_mutex_unlock(&mutex_memoria_cache);
+			free(nueva_particion);
 		}
-		else{return false;}
+		else
+		{
+			//REEMPLAZO LA PARTCION LIBRE UBICADA EN INDEX CON LA NUEVA
+			aux_particion->tamano = tamano;
+			aux_particion->libre = false;
+			aux_particion->colaAsignada = head;
+			aux_particion->tiempoLRU = 0; //obtener Timestamp
+			pthread_mutex_lock(&mutex_lista_particiones);
+			list_remove(lista_particiones, index);
+			list_add_in_index(lista_particiones, index, aux_particion);
+			pthread_mutex_unlock(&mutex_lista_particiones);
+			void * buffer = serealizar(head, msj, tamano);
+			pthread_mutex_lock(&mutex_memoria_cache);
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
+			pthread_mutex_unlock(&mutex_memoria_cache);
+		}
+		free(aux_particion);
+		return true;
+	}
+	else
+	{
+		free(aux_particion);
+		return false;
+	}
 }
 
 void compactacion(){
