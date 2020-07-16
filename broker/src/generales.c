@@ -5,6 +5,7 @@
  *      Author: utnso
  */
 #include "generales.h"
+#include "Broker.h"
 
 void iniciar_estructuras(){
 	//Se reserva la Memoria total del Broker
@@ -14,6 +15,8 @@ void iniciar_estructuras(){
 	Particion * particion_memoria = malloc(sizeof(Particion));
 	particion_memoria->punteroInicial = 0;
 	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA;
+	particion_memoria->tamano = config_File->TAMANO_MEMORIA;
+	particion_memoria->libre = true;
 	//Setea cantidad fallidas
 	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
@@ -24,6 +27,8 @@ void iniciar_estructuras(){
 	lista_msjs = list_create();
 	lista_particiones = list_create();
 	list_add(lista_particiones, particion_memoria);
+	//free(particion_memoria);
+
 	lista_ack = list_create();
 
 	suscriptores_new_pokemon = list_create();
@@ -45,7 +50,7 @@ void iniciar_estructuras(){
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
 	pthread_mutex_init(&mutex_puntero_reemplazo, NULL);
 	//SE DEFINE MUTEX PARA LA LISTA DE PARTICIONES
-	pthread_rwlock_init(&mutex_lista_particiones, NULL);
+	pthread_mutex_init(&mutex_lista_particiones, NULL);
 	//SE DEFINE MUTEX PARA VARIABLE DEL TIPO PRODUCTOR-CONSUMIDOR
 	pthread_mutex_init(&mutex_id_msj, NULL);
 	//SE DEFINE MUTEX PARA LA LISTA DE SUSCRIPTORES
@@ -79,11 +84,11 @@ void crearHilosBroker() {
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-	pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
+	//pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
-	pthread_join(hilo_Publisher, NULL);
+	//pthread_join(hilo_Publisher, NULL);
 
 }
 
@@ -106,13 +111,20 @@ void consola() {
 
 	log_destroy(logger);
 	log_destroy(loggerCatedra);
+
+	free(config_File->ALGORITMO_MEMORIA);
+	free(config_File->ALGORITMO_PARTICION_LIBRE);
+	free(config_File->ALGORITMO_REEMPLAZO);
+	free(config_File->IP_BROKER);
+	free(config_File);
 	free(comando);
 
-	pthread_detach(hilo_servidor);
 	pthread_cancel(hilo_servidor);
+	pthread_detach(hilo_servidor);
 
-	pthread_detach(hilo_Publisher);
 	pthread_cancel(hilo_Publisher);
+	pthread_detach(hilo_Publisher);
+
 
 	pthread_detach( pthread_self() );
 }
@@ -288,6 +300,7 @@ int thread_Broker(int fdCliente) {
 											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
 											ack->ack = TRUE;
 											ack->id_msj = obtener_idMsj();
+											ack->token = 0 ;
 
 											/*struct sockaddr_in peer;
 											int peer_len = sizeof(peer);
@@ -304,11 +317,12 @@ int thread_Broker(int fdCliente) {
 											log_info(logger, "Instrucción no reconocida");
 											break;
 									}
+							free(mensaje);
 					}
 
 	}
 }
-
+/*
 void* reservarMemoria(int size) {
 		void *puntero = malloc(size);
 		if(puntero == NULL) {
@@ -317,11 +331,10 @@ void* reservarMemoria(int size) {
 		}
 		return puntero;
 }
-
+*/
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 
 	t_config *config;
-	config = reservarMemoria (sizeof(t_config));
 	config = config_create(ruta);
 
 	if (config != NULL) {
@@ -611,6 +624,11 @@ void suscribirse(losSuscriptores * suscp){
 				list_add(suscriptores_new_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
 				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(NEW_POKEMON,cola_new_pokemon,suscriptores_new_pokemon);
+				break;
 			}
 		}
 		case APPEARED_POKEMON :{
@@ -619,6 +637,11 @@ void suscribirse(losSuscriptores * suscp){
 				pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
 				list_add(suscriptores_appeared_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
+				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(APPEARED_POKEMON,cola_appeared_pokemon,suscriptores_appeared_pokemon);
 				break;
 			}
 		}
@@ -629,6 +652,11 @@ void suscribirse(losSuscriptores * suscp){
 				list_add(suscriptores_catch_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(CATCH_POKEMON,cola_catch_pokemon,suscriptores_catch_pokemon);
+				break;
 			}
 		}
 		case GET_POKEMON :{
@@ -637,6 +665,11 @@ void suscribirse(losSuscriptores * suscp){
 				pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
 				list_add(suscriptores_get_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
+				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(GET_POKEMON,cola_get_pokemon,suscriptores_get_pokemon);
 				break;
 			}
 		}
@@ -647,6 +680,11 @@ void suscribirse(losSuscriptores * suscp){
 				list_add(suscriptores_localized_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(LOCALIZED_POKEMON,cola_localized_pokemon,suscriptores_localized_pokemon);
+				break;
 			}
 		}
 		case CAUGHT_POKEMON :{
@@ -655,6 +693,11 @@ void suscribirse(losSuscriptores * suscp){
 				pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
 				list_add(suscriptores_caught_pokemon, suscp);
 				pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
+				break;
+			}else{
+				//VERIFICAR SI SE DESCONECTO
+					//SI SE DESCONECTO EDITAR SOCKET CON EL NUEVO PERTENECIENTE
+				reenviarMsjs_Cola(CAUGHT_POKEMON,cola_caught_pokemon,suscriptores_caught_pokemon);
 				break;
 			}
 		}
@@ -673,6 +716,7 @@ void obtener_msj(int id_msj , Mensaje * msj)
 	msj = list_find(lista_msjs, (void*)particion_libre);
 }
 */
+
 int32_t obtener_idMsj(){
 	int32_t id_msj_aux;
 	pthread_mutex_lock(&mutex_id_msj);
