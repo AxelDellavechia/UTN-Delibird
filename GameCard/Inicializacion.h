@@ -25,8 +25,9 @@
 
 #define SUSCRIBIR 2
 #define RECIBIR 3
-#define INIT 5
 #define ESCUCHANDO 4
+#define INIT 5
+#define ESPERA_ACK 6
 //codigos de error
 
 #define KEY_HANDSHAKE "GameCard"
@@ -93,6 +94,8 @@ pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
 pthread_mutex_t *mxPokemones;
 pthread_mutex_t mxPokeList;
+pthread_mutex_t mxLog;
+
 pthread_rwlock_t mxBitmap;
 pthread_rwlock_t mxNewPokemonsList;
 

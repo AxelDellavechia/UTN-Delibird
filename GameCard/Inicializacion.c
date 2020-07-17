@@ -23,9 +23,13 @@ void leer_configFile(char* ruta) {
 	t_config *config;
 	//config = malloc (1+sizeof(t_config));
 	config = config_create(ruta);
+	pthread_mutex_lock(&mxLog);
 	log_info(logger, "Por setear los valores del archivo de configuracion");
+	pthread_mutex_unlock(&mxLog);
 	if (config != NULL) {
+		pthread_mutex_lock(&mxLog);
 		log_info(logger, "FS: Leyendo Archivo de Configuracion..");
+		pthread_mutex_unlock(&mxLog);
 
 		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
 		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
@@ -58,7 +62,9 @@ void grabarToken(unsigned int token)
 		t_config *config;
 		config = reservarMemoria (sizeof(t_config));
 		config = config_create(CONFIG_PATH);
+		pthread_mutex_lock(&mxLog);
 		log_info(logger, "Guardar Token");
+		pthread_mutex_unlock(&mxLog);
 		if (config != NULL) {
 			config_set_value(config, "TOKEN", string_itoa(token));
 			config_save(config);
@@ -109,8 +115,9 @@ int leer_metaData_principal(){
 	t_config *archivo_MetaData;
 
 	//archivo_MetaData = malloc (sizeof(t_config));
-
+	pthread_mutex_lock(&mxLog);
 	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
+	pthread_mutex_unlock(&mxLog);
 
 	archivo_MetaData=config_create(PuntoMontaje->METADATA_FILE);
 
@@ -131,13 +138,12 @@ void crearHilos() {
 	hilo_suscribir= 0;
 	hilo_consola= 0;
 
-
+	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
 
-	pthread_join(hilo_servidor, NULL);
-	pthread_join(hilo_suscribir, NULL);
+	//pthread_join(hilo_suscribir, NULL);
+	//pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
 
 }
@@ -145,7 +151,9 @@ void crearHilos() {
 
 void iniciar_log(){
 	char *archivoLog = string_duplicate("GameCard.log");
+	pthread_mutex_lock(&mxLog);
 	logger = log_create(LOG_PATH, archivoLog, false, LOG_LEVEL_INFO);
+	pthread_mutex_unlock(&mxLog);
 	free(archivoLog);
 	archivoLog = NULL;
 }
@@ -159,6 +167,8 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&mxPokeList,NULL);
 	pthread_rwlock_init(&mxBitmap, NULL);
 	pthread_rwlock_init(&mxNewPokemonsList, NULL);
+	pthread_mutex_init(&mxBuffer,NULL);
+	pthread_mutex_init(&mxLog,NULL);
 
 }
 
@@ -175,7 +185,10 @@ void consola() {
 		printf(">");
 		int bytes_read = getline(&comando, &buffer_size, stdin);
 		if (bytes_read == -1) {
+			pthread_mutex_lock(&mxLog);
 			log_error(logger,"Error en getline");
+			pthread_mutex_unlock(&mxLog);
+
 		}
 		if (bytes_read == 1) {
 			continue;
@@ -213,13 +226,15 @@ void consola() {
 	pthread_rwlock_unlock(&mxBitmap);
 	pthread_rwlock_destroy(&mxBitmap);
 
+
  	log_destroy(logger);
-	pthread_cancel(hilo_servidor);
- 	pthread_detach(hilo_servidor);
 	pthread_cancel(hilo_suscribir);
  	pthread_detach(hilo_suscribir);
+	pthread_cancel(hilo_servidor);
+ 	pthread_detach(hilo_servidor);
 
- 	//pthread_cancel( hilo_consola );
+
+ 	pthread_cancel( hilo_consola );
 	//pthread_detach( hilo_consola );
 
 }
@@ -253,6 +268,9 @@ void suscribir() {
 					step = SUSCRIBIR;
 				}else{
 					step = FALSE;
+					pthread_mutex_lock(&mxLog);
+					log_info(logger,"No se puede realizar la suscripción al Broker.");
+					pthread_mutex_unlock(&mxLog);
 				}
 				break;
 			}
@@ -268,8 +286,13 @@ void suscribir() {
 				aplicar_protocolo_enviar(fdBroker, SUSCRIPCION, &laSuscripcion);
 
 				list_destroy(laSuscripcion.cola_a_suscribir);
+				step = ESPERA_ACK;
+				break;
+			}
+	case ESPERA_ACK:{
 				step = ESCUCHANDO;
 				break;
+
 			}
 	case ESCUCHANDO:{
 			int head , bufferTam  ;
@@ -286,51 +309,54 @@ void suscribir() {
 			}else{
 			recibirMensaje(fdBroker , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
 
-			log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
-
-			log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
-
-
 			switch( head ){
 
 						case NEW_POKEMON :{
-							cola_NEW_POKEMON new_poke;
-							deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
-							log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-							sendACK(fdBroker, new_poke.id_mensaje);
+							cola_NEW_POKEMON* new_poke = malloc (sizeof(cola_NEW_POKEMON));
+							deserealizar_NEW_POKEMON ( head, mensaje, bufferTam,  new_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke->nombre_pokemon,new_poke->cantidad,new_poke->posicion_x,new_poke->posicion_y);
+							pthread_mutex_unlock(&mxLog);
+							sendACK(fdBroker, new_poke->id_mensaje);
 							pthread_t hilo;
-							pthread_create(&hilo, NULL, (void*) thread_NewPokemon, &new_poke);
+							pthread_create(&hilo, NULL, (void*) thread_NewPokemon, new_poke);
 							break;
 						}
 						case CATCH_POKEMON :{
-							cola_CATCH_POKEMON cath_poke;
-							deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-							log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
-							sendACK(fdBroker, cath_poke.id_mensaje);
+							cola_CATCH_POKEMON* cath_poke = malloc(sizeof(cola_CATCH_POKEMON));
+							deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon, cath_poke->posicion_x,cath_poke->posicion_y);
+							pthread_mutex_unlock(&mxLog);
+							sendACK(fdBroker, cath_poke->id_mensaje);
 							pthread_t hilo;
-							pthread_create(&hilo, NULL, (void*) thread_CatchPokemon, &cath_poke);
+							pthread_create(&hilo, NULL, (void*) thread_CatchPokemon, cath_poke);
 							break;
 						}
 						case GET_POKEMON :{
-							cola_GET_POKEMON get_poke ;
-							deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
-							log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-							sendACK(fdBroker, get_poke.id_mensaje);
+							cola_GET_POKEMON* get_poke = malloc(sizeof(cola_GET_POKEMON)) ;
+							deserealizar_GET_POKEMON ( head, mensaje, bufferTam,  get_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
+							pthread_mutex_unlock(&mxLog);
+							sendACK(fdBroker, get_poke->id_mensaje);
 							pthread_t hilo;
-							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, &get_poke);
+							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, get_poke);
 							break;
 						}
 						case ACK :{
 							respuesta_ACK ack;
 							deserealizar_ACK( head, mensaje, bufferTam, & ack);
+							pthread_mutex_lock(&mxLog);
 							log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+							pthread_mutex_unlock(&mxLog);
 							Mensaje msj ;
 							//obtener_msj(ack.id_msj , &msj);
 							break;
 						}
 
 						default:
-							log_info(logger, "Instrucción no reconocida");
+
 							enviarPorSocket(fdBroker, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
 							break;
 					}
@@ -352,7 +378,7 @@ void sendACK(int fdSocket, int idMsj){
 	respuesta_ACK ack;
 	ack.ack = OK;
 	ack.id_msj=idMsj;
-
+	ack.token = config_File->TOKEN;
 	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
 
 }
@@ -367,7 +393,12 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	locPokemon->id_mensaje = get_poke->id_mensaje;
 	locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
 
-	aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
+	int envio = aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
+	if(envio == ERROR){
+			pthread_mutex_lock(&mxLog);
+			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",locPokemon->id_mensaje);
+			pthread_mutex_unlock(&mxLog);
+	}
 
 	for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
 		t_positions* pos;// = malloc (sizeof(t_positions));
@@ -381,6 +412,7 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	free(get_poke->nombre_pokemon);
 	free(locPokemon->nombre_pokemon);
 	free(locPokemon);
+	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
 
@@ -389,16 +421,21 @@ void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
 	cola_CAUGHT_POKEMON caught_pokemon;
 	caught_pokemon.id_mensaje = catch_poke->id_mensaje;
 	caught_pokemon.atrapo_pokemon = result;
-	aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
+	int envio = aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
+	if(envio == ERROR){
+		pthread_mutex_lock(&mxLog);
+		log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",caught_pokemon.id_mensaje);
+		pthread_mutex_unlock(&mxLog);
+	}
 	free(catch_poke->nombre_pokemon);
-
+	free(catch_poke);
+	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
 
 void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 	int result = NewPokemon(new_poke);
 	if(result==OK){
-		printf("enviar la respuesta APPEARED");
 		cola_APPEARED_POKEMON appeared_pokemon;
 		appeared_pokemon.id_mensaje = new_poke->id_mensaje;
 		appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke->nombre_pokemon));
@@ -407,11 +444,17 @@ void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 		appeared_pokemon.posicion_y = new_poke->posicion_y;
 		appeared_pokemon.tamanio_nombre = string_length(new_poke->nombre_pokemon);
 
-		aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
+		int envio = aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
+		if(envio == ERROR){
+			pthread_mutex_lock(&mxLog);
+			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",appeared_pokemon.id_mensaje);
+			pthread_mutex_unlock(&mxLog);
+		}
 		free(appeared_pokemon.nombre_pokemon);
 	}
 	free(new_poke->nombre_pokemon);
-
+	free(new_poke);
+	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
 
@@ -422,8 +465,6 @@ void servidor() {
 	comandoIn = nuevoSocket();
 	asociarSocket(comandoIn, config_File->PUERTO_GAMECARD);
 	escucharSocket(comandoIn, CONEXIONES_PERMITIDAS);
-
-	log_info(logger," Escuchando conexiones");
 
 	while(TRUE) {
 
@@ -463,21 +504,17 @@ void thread_GameBoy(int fdSocket) {
 
 	recibirMensaje(fdSocket , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
 
-	log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
-
-	log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
-
-	log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
 
 							switch( head ){
 
 										case NEW_POKEMON :{
 											cola_NEW_POKEMON  new_poke;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+											pthread_mutex_lock(&mxLog);
 											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+											pthread_mutex_unlock(&mxLog);
 											int result = NewPokemon(&new_poke);
 											if(result==OK){
-												printf("enviar la respuesta APPEARED");
 												cola_APPEARED_POKEMON appeared_pokemon;
 												appeared_pokemon.id_mensaje = new_poke.id_mensaje;
 												appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke.nombre_pokemon));
@@ -485,8 +522,13 @@ void thread_GameBoy(int fdSocket) {
 												appeared_pokemon.posicion_x = new_poke.posicion_x;
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
 												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
-												aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
+												int envio = aplicar_protocolo_enviar(fdSocket, APPEARED_POKEMON, &appeared_pokemon);
 												//free(new_poke.nombre_pokemon);
+												if(envio == ERROR){
+													pthread_mutex_lock(&mxLog);
+													log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",appeared_pokemon.id_mensaje);
+													pthread_mutex_unlock(&mxLog);
+												}
 												free(appeared_pokemon.nombre_pokemon);
 											}
 											free(new_poke.nombre_pokemon);
@@ -495,19 +537,28 @@ void thread_GameBoy(int fdSocket) {
 										case CATCH_POKEMON :{
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+											pthread_mutex_lock(&mxLog);
 											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
+											pthread_mutex_unlock(&mxLog);
 											int result = CatchPokemon(&cath_poke);
 											cola_CAUGHT_POKEMON caught_pokemon;
 											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
 											caught_pokemon.atrapo_pokemon = result;
-											aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
+											int envio = aplicar_protocolo_enviar(fdSocket, CAUGHT_POKEMON, &caught_pokemon);
+											if(envio == ERROR){
+												pthread_mutex_lock(&mxLog);
+												log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",caught_pokemon.id_mensaje);
+												pthread_mutex_unlock(&mxLog);
+											}
 											free(cath_poke.nombre_pokemon);
 											break;
 										}
 										case GET_POKEMON :{
 											cola_GET_POKEMON get_poke ;
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+											pthread_mutex_lock(&mxLog);
 											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
+											pthread_mutex_unlock(&mxLog);
 											cola_LOCALIZED_POKEMON locPokemon;
 											//locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
 											GetPokemon(&get_poke, &locPokemon);
@@ -517,7 +568,12 @@ void thread_GameBoy(int fdSocket) {
 											locPokemon.id_mensaje = get_poke.id_mensaje;
 
 											locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
-											aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
+											int envio = aplicar_protocolo_enviar(fdSocket, LOCALIZED_POKEMON, &locPokemon);
+											if(envio == ERROR){
+												pthread_mutex_lock(&mxLog);
+												log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",locPokemon.id_mensaje);
+												pthread_mutex_unlock(&mxLog);
+											}
 											for(int i = 0;i<list_size(locPokemon.lista_posiciones);i++){
 												posicion* pos;// = malloc (sizeof(t_positions));
 												pos = list_get(locPokemon.lista_posiciones,i);
@@ -533,13 +589,15 @@ void thread_GameBoy(int fdSocket) {
 										}
 
 										default:
-											log_info(logger, "Instrucción no reconocida");
 											enviarPorSocket(fdSocket, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
 											break;
 									}
 			free(mensaje);
 			//pthread_mutex_lock(&mxHilos);
-			pthread_cancel( pthread_self() );
+			pthread_mutex_lock(&mxLog);
+			log_info(logger, "Fin de hilo GameBoy");
+			pthread_mutex_unlock(&mxLog);
+			//pthread_cancel( pthread_self() );
 			pthread_detach( pthread_self() );
 		//	pthread_mutex_unlock(&mxHilos);
 }
@@ -559,7 +617,9 @@ void crearBloques(void)
 
 		  /* Miramos que no haya error */
 	if (dir == NULL){
+		pthread_mutex_lock(&mxLog);
 	   log_info(logger,"No se puden cargar los bloques. Revisar que el directorio BLOCKS exista.");
+	   pthread_mutex_unlock(&mxLog);
 	}else{
 		  /* Leyendo uno a uno todos los archivos que hay */
 		while ((ent = readdir (dir)) != NULL)
@@ -587,8 +647,10 @@ void crearBloques(void)
 				free(bloque);
 		}
 	}else if(countBlocks > config_MetaData->cantidad_bloques){
+		pthread_mutex_lock(&mxLog);
 		log_info(logger,"No se pude reducir la cantidad de bloques ya que se podría perder información. El número de bloques permitido es %i bloques", countBlocks);
-		}
+		pthread_mutex_unlock(&mxLog);
+	}
 
 
 }
@@ -630,14 +692,15 @@ void crearBitmap(){
 
 
 	close(bitmap);
-
-	printf("cantidadDebits: %i\n",cantidadDebits);
-	int i;
+	pthread_mutex_lock(&mxLog);
+	log_info("Se carga bitmap con %i bloques.",cantidadDebits);
+	pthread_mutex_unlock(&mxLog);
+	/*int i;
 	for (i=0;i<cantidadDebits;i++){
 
 		bitarray_clean_bit(bitarray,i);
 
-	}
+	}*/
 
 }
 
@@ -732,7 +795,9 @@ void loadPokemons()
 		  /* Miramos que no haya error */
 		  if (dir == NULL){
 			  pthread_mutex_unlock (&mxPokeList);
+			  pthread_mutex_lock(&mxLog);
 		    log_info(logger,"No se pudo cargar la estructura de Directorios");
+		    pthread_mutex_unlock(&mxLog);
 		  }else{
 
 		  /* Leyendo uno a uno todos los archivos que hay */

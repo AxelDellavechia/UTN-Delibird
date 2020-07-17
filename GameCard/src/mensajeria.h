@@ -10,6 +10,10 @@
 #include <commons/collections/list.h>
 #include <stdint.h>
 
+
+
+
+
 typedef struct{
 	uint32_t fdSocket;
 	uint32_t head;
@@ -83,7 +87,6 @@ typedef struct{
 	uint32_t id_mensaje;
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
-
 
 
 #endif /* SRC_MENSAJERIA_H_ */

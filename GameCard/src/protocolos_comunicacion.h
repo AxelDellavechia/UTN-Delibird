@@ -37,15 +37,16 @@ typedef struct{
 	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
 } suscriptor;
 
-
 typedef struct{
 	uint32_t ack;
 	uint32_t id_msj;
+	int token;
 }respuesta_ACK;
 
 
 
 void * buffer ;
+pthread_mutex_t mxBuffer;
 
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);

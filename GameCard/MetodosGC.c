@@ -30,8 +30,11 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
-
-				log_info(logger,"El Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				free(idPokemon.pokemon);
+				idPokemon.pokemon = NULL;
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d, El Pokemon %s está abierto, no se puede utilizar porque está siendo utilizado por otro hilo.",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
@@ -63,7 +66,9 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
-				log_info(logger,"El Pokemon no existe, se debe crear");
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Pokemon no existe, se debe crear",Pokemon->id_mensaje);
+				pthread_mutex_unlock(&mxLog);
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
 					t_positions* pos;// = malloc (sizeof(t_positions));
 					pos = list_get(dataPokemon.positions,i);
@@ -82,7 +87,9 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 				}
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
-				log_info(logger,"El Proceso New Pokemon de %s finalizó correctamente.",Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Proceso New Pokemon de %s finalizó correctamente.",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				step = ERROR;
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
 					t_positions* pos;// = malloc (sizeof(t_positions));
@@ -128,7 +135,9 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				}
 
 	case NOT_EXIST_POSITION:{ //el Pokemon no existe, se debe informar el error
-				log_info(logger,"La posición solicitada de %s no existe", Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,La posición solicitada de %s no existe", Pokemon->id_mensaje,Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -150,7 +159,9 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
-				log_info(logger,"El Pokemon %s no existe",Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Pokemon %s no existe",Pokemon->id_mensaje,Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				pthread_mutex_unlock(&mxPokeList);
 				step = ERROR;
 
@@ -158,14 +169,19 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
-
-				log_info(logger,"El Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				free(idPokemon.pokemon);
+				idPokemon.pokemon = NULL;
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Pokemon %s está abierto, no se puede utilizar no se puede utilizar porque está siendo utilizado por otro hilo.",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
 			}
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
-				log_info(logger,"El Pokemon %s está listo para utilizarse",Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Pokemon %s está listo para utilizarse",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				leerBloques(Pokemon, &dataPokemon, CATCH_POKEMON);
 				step = NW_UPDATE_POS;
 				break;
@@ -196,13 +212,15 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				break;
 			}
 	case ERROR:{ //el Pokemon no existe
-				log_info(logger,"El Pokemon %s no existe, se debe crear", Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,El Pokemon %s no existe, se debe crear",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				return ERROR;
 				break;
 				}
 
 	case RESPONDER:{ //el Proceso se hizo OK. Se debe responder al usuario con APPEARED_POKEMON
-				printf("\n El Proceso finalizó correctamente.");
+				//printf("\nId Mensaje: %d, El Proceso finalizó correctamente.",Pokemon->id_mensaje);
 			//	pthread_detach( pthread_self() );
 			//	step= ERROR; //le pongo ERROR para que salga del switch nada mas.
 				for(int i = 0;i<list_size(dataPokemon.positions);i++){
@@ -248,7 +266,9 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				}
 
 	case NOT_EXIST_POSITION:{ //el Pokemon no existe, se debe informar el error
-				log_info(logger,"La posición no existe");
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d,La posición no existe",Pokemon->id_mensaje);
+				pthread_mutex_unlock(&mxLog);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -260,15 +280,20 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				break;
 			}
 	case NOT_EXIST:{ //el Pokemon no existe, se debe informar el error
-				log_info(logger,"\n el Pokemon %s no existe",Pokemon->nombre_pokemon);
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d, el Pokemon %s no existe",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				pthread_mutex_unlock (&mxPokeList);
 				step = ERROR;
 				return ERROR;
 				break;
 			}
 	case OPEN:{ //el Pokemon existe pero está abierto el archivo. Cada X tiempo debe reintentar
-
-				log_info(logger,"\n el Pokemon %s está abierto, no se puede utilizar",Pokemon->nombre_pokemon);
+				free(idPokemon.pokemon);
+				idPokemon.pokemon = NULL;
+				pthread_mutex_lock(&mxLog);
+				log_info(logger,"Id Mensaje: %d, el Pokemon %s está abierto, no se puede utilizar no se puede utilizar porque está siendo utilizado por otro hilo.",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+				pthread_mutex_unlock(&mxLog);
 				usleep(config_File->TIEMPO_DE_REINTENTO_OPERACION *1000000);
 				step = 0;
 				break;
@@ -326,7 +351,9 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		strcat(dirMetadata,"/Metadata.bin");
 		FILE *fMetadata = fopen (dirMetadata, "wb");
 		if(fMetadata == NULL){
-		log_info(logger,"No se puede crear el Metadata del Pokemon %s\n", Pokemon->nombre_pokemon);
+		pthread_mutex_lock(&mxLog);
+		log_info(logger,"Id Mensaje: %d, No se puede crear el Metadata del Pokemon %s\n",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+		pthread_mutex_unlock(&mxLog);
 		return ERROR;
 		}else{
 		fprintf(fMetadata,"DIRECTORY=N\nOPEN=N\nSIZE=0\nBLOCKS=[]\n");
@@ -341,6 +368,9 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		newPokemon->idPokemon = list_size(pokeList);
 		list_add(pokeList, newPokemon);
 		addMxPokemon(newPokemon);
+		pthread_mutex_lock(&mxLog);
+		log_info(logger,"Id Mensaje: %d, Se crear el Pokemon %s\n", Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+		pthread_mutex_unlock(&mxLog);
 
 
 	}else
@@ -496,6 +526,9 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 		/*	char* tempSize = malloc(1+string_length(string_itoa(dataPokemon->size)));
 			strcpy(tempSize,string_itoa(dataPokemon->size));*/
 			config_set_value(MetadataFiles,"SIZE", tempSize);
+			pthread_mutex_lock(&mxLog);
+			log_info(logger,"Se utilizaron %s bytes para el Pokemon %s\n", tempSize,idPokemon->pokemon);
+			pthread_mutex_unlock(&mxLog);
 			free(tempSize);
 			tempSize=NULL;
 	}
@@ -514,6 +547,9 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 		tempBlocks= realloc(tempBlocks, 1 + strlen(tempBlocks) + strlen("]"));
 		strcat(tempBlocks,"]");
 		config_set_value(MetadataFiles,"BLOCKS", tempBlocks);
+		pthread_mutex_lock(&mxLog);
+		log_info(logger,"Se asignaron los bloques %s para el Pokemon %s\n", tempBlocks,idPokemon->pokemon);
+		pthread_mutex_unlock(&mxLog);
 		free(tempBlocks);
 	}
 
@@ -540,9 +576,6 @@ int findPokemon(char* Pokemon,t_Pokemones *idPokemon){
 					idPokemon->pokemon = malloc(1 + string_length(tempPokemon->pokemon));
 					strcpy(idPokemon->pokemon , tempPokemon->pokemon);
 					idPokemon->idPokemon = tempPokemon->idPokemon;
-				/*	free(tempPokemon->pokemon);
-					tempPokemon->pokemon = NULL;
-					free(tempPokemon);*/
 					return EXIST;
 			}
 		}
@@ -562,6 +595,9 @@ int updateStatusFile(t_Pokemones* tempPokemon, char* estado){
 	config_destroy(archivo_MetaData);
 	free(dirMetadata);
 	dirMetadata=NULL;
+	pthread_mutex_lock(&mxLog);
+	log_info(logger,"Se modifica el estado del archivo de %s a %s.",tempPokemon->pokemon, estado);
+	pthread_mutex_unlock(&mxLog);
 	return OK;
 }
 
@@ -776,7 +812,9 @@ if (bloquesNecesarios <= bloquesUsados + cantidadDeBloquesLibres()){
 }
 
 else{
+	pthread_mutex_lock(&mxLog);
 	log_info(logger,"No hay bloques suficientes para grabar lo solicitado. Se descarta solicitud.");
+	pthread_mutex_unlock(&mxLog);
 	return ERROR;
 }
 
@@ -846,7 +884,9 @@ int grabarBloque(char* data, int bloque)
 		fclose (block);
 	}else
 	{
-		printf ("\nNo se pudo grabar el bloque %i", bloque);
+		pthread_mutex_lock(&mxLog);
+		log_info(logger,"\nNo se pudo grabar el bloque %i", bloque);
+		pthread_mutex_unlock(&mxLog);
 	}
 
 
