@@ -329,19 +329,19 @@ void compactacion(){
 	int desplazamiento = 0;
 	int tamOcupado = 0;
 	for(int i = 0; i<list_size(lista_particiones);i++){
-		Particion* p = list_get(lista_particiones,i);
-		if(p->libre == TRUE)
+		Particion* particion_aux = list_get(lista_particiones,i);
+		if(particion_aux->libre == TRUE)
 		{
 			//Si este bloque está libre, quiere decir que la partición que sigue
 			//la puedo desplazar el tamaño de esta partición reservada.
-			desplazamiento = desplazamiento + p->punteroFinal - p->punteroInicial +1;
+			desplazamiento = desplazamiento + particion_aux->punteroFinal - particion_aux->punteroInicial +1;
 		}else
 		{
 			if(desplazamiento > 0){
 				//Voy copiando la memoria y desplazandola a su nueva ubicación
-				memcpy(memoria_cache+(p->punteroInicial - desplazamiento),memoria_cache+p->punteroInicial,p->punteroFinal - p->punteroInicial+1);
-				p->punteroInicial= p->punteroInicial - desplazamiento;
-				p->punteroFinal= p->punteroFinal - desplazamiento;
+				memcpy(memoria_cache+(particion_aux->punteroInicial - desplazamiento),memoria_cache+particion_aux->punteroInicial,particion_aux->punteroFinal - particion_aux->punteroInicial+1);
+				particion_aux->punteroInicial= particion_aux->punteroInicial - desplazamiento;
+				particion_aux->punteroFinal= particion_aux->punteroFinal - desplazamiento;
 
 				}
 			}
@@ -421,6 +421,7 @@ void algoritmo_lru()
 	particion_victima->colaAsignada = 0;
 	particion_victima->tiempoLRU = 0;
 	memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->punteroFinal);
+	consolidar();
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	pthread_mutex_unlock(&mutex_lista_particiones);
 }

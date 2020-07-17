@@ -14,6 +14,7 @@
 #include <signal.h>
 #include <pthread.h>
 #include <limits.h>
+#include <semaphore.h>
 
 #include <commons/log.h>
 #include <commons/config.h>
@@ -82,6 +83,10 @@ int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
 void* memoria_cache;
 
+//SEMAFOROS CONTADOR
+sem_t sem_contador_msjs_cola;
+
+//SEMAFOROS MUTEX
 pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;
 pthread_mutex_t mutex_contador_msjs_cola;
@@ -93,8 +98,6 @@ pthread_mutex_t mutex_suscriptores_appeared_pokemon;
 pthread_mutex_t mutex_suscriptores_catch_pokemon;
 pthread_mutex_t mutex_suscriptores_caught_pokemon;
 pthread_mutex_t mutex_puntero_reemplazo;
-
-pthread_mutex_t mutex_contador_msjs_en_cola;
 
 pthread_mutex_t mutex_cola_new_pokemon;
 pthread_mutex_t mutex_cola_localized_pokemon;
