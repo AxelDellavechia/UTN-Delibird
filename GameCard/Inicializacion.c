@@ -55,20 +55,22 @@ void leer_configFile(char* ruta) {
 	leer_metaData_principal();
 
 }
-
 void grabarToken(unsigned int token)
 {
 
 		t_config *config;
-		config = reservarMemoria (sizeof(t_config));
+	//	config = malloc (sizeof(t_config));
 		config = config_create(CONFIG_PATH);
 		pthread_mutex_lock(&mxLog);
 		log_info(logger, "Guardar Token");
 		pthread_mutex_unlock(&mxLog);
 		if (config != NULL) {
-			config_set_value(config, "TOKEN", string_itoa(token));
+			char* ctoken = string_itoa(token);
+			config_set_value(config, "TOKEN", ctoken);
 			config_save(config);
+			free(ctoken);
 		}
+		config_destroy(config);
 
 }
 
