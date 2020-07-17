@@ -82,6 +82,9 @@ void crearEstructuras() {
 	entrenadoresEnDeadlock = list_create();
 	idMensajeEsperado = 0;
 	crearLista = 1;
+	ciclosEnCPU = 0;
+	cantCambiosContexto = 0;
+	cantDeadlocks = 0;
 }
 
 void obtenerEntrenadores() {
@@ -121,6 +124,7 @@ void obtenerEntrenadores() {
 		log_info(loggerCatedra, "Entrenador %i movido a cola de Ready", listaEntrenadores);
 		list_remove(colaNew, 0);
 	}
+	cantEntrenadores = list_size(colaReady);
 }
 
 /*void verificarPokemonesNecesarios(char* especiePokemon) {
@@ -237,6 +241,7 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 	entrenador->ciclosEnCPU = ciclosEnCPUEntrenador;
 	entrenador->posicion_x = posicionXEntrenador;
 	entrenador->posicion_y = posicionYEntrenador;
+	ciclosEnCPU = ciclosEnCPU + ciclosEnCPUEntrenador;
 	//printf("Entrenador %i se movió a la posición %i %i estando %i ciclos en la CPU\n", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y, entrenador->ciclosEnCPU);
 	log_info(loggerCatedra, "Entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, entrenador->posicion_y);
 	if ((posicionXEntrenador == posicionXDestino) && (posicionYEntrenador == posicionYDestino)){
@@ -251,7 +256,8 @@ void realizarIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entr
 	quitarPokemonDeAtrapados(entrenador2, pokemonEntrenador2);
 	list_add(entrenador1->pokemonesAtrapados, pokemonEntrenador2);
 	list_add(entrenador2->pokemonesAtrapados, pokemonEntrenador1);
-	log_info(loggerCatedra, "Se realizó el intercambio del pokemon %s del entrenador %i por el pokemon %s del entrenador %i\n", pokemonEntrenador1, entrenador1->idEntrenador, pokemonEntrenador2, entrenador2->idEntrenador);
+	log_info(loggerCatedra, "Se realizó el intercambio del pokemon %s del entrenador %i por el pokemon %s del entrenador %i", pokemonEntrenador1, entrenador1->idEntrenador, pokemonEntrenador2, entrenador2->idEntrenador);
+	ciclosEnCPU = ciclosEnCPU + 5;
 	//printf("Se realizó el intercambio del pokemon %s del entrenador %i por el pokemon %s del entrenador %i\n", pokemonEntrenador1, entrenador1->idEntrenador, pokemonEntrenador2, entrenador2->idEntrenador);
 }
 
@@ -283,7 +289,6 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 	}*/
 	int cantidadObjetivosAuxiliar = cantidadPokemonesObjetivo;
 	if (cantidadPokemonesAtrapados == cantidadPokemonesObjetivo) {
-		log_info(loggerCatedra, "Inicia algoritmo de detección de deadlock");
 		for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
 			pokemonEncontrado = FALSE;
 			char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
@@ -307,7 +312,6 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 				}
 				if (entrenadorEnDeadlock == FALSE) {
 					list_add(entrenadoresEnDeadlock, entrenador);
-					log_info(loggerCatedra, "Entrenador %i en deadlock", entrenador->idEntrenador);
 					//printf("Entrenador %i en deadlock\n", entrenador->idEntrenador);
 				}
 				verificarIntercambios();
@@ -318,18 +322,26 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 				entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
 				if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
 					list_remove(entrenadoresEnDeadlock, posicionEnListaDeadlock);
-					for (int i=0; i < list_size(entrenadoresEnDeadlock);i++) {
+					/*for (int i=0; i < list_size(entrenadoresEnDeadlock);i++) {
 						entrenadorPokemon* entrenador = list_get(entrenadoresEnDeadlock, i);
-						log_info(loggerCatedra, "Entrenador %i en deadlock", entrenador->idEntrenador);
 						//printf("Entrenador en deadlock %i\n", entrenador->idEntrenador);
-					}
+					}*/
 					break;
 				}
 			}
 			//quitarDeColaBlocked(entrenador);
 			list_add(colaExit, entrenador);
-			log_info(loggerCatedra, "Entrenador %i no está en deadlock", entrenador->idEntrenador);
 			log_info(loggerCatedra, "Se movió al entrenador de id %i a Exit ya que atrapó a todos los Pokemon que tenía como objetivo", entrenador->idEntrenador);
+			if (cantEntrenadores == list_size(colaExit)) {
+				log_info(loggerCatedra, "Cantidad de ciclos de CPU totales: %i", ciclosEnCPU);
+				log_info(loggerCatedra, "Cantidad de cambios de contexto realizados: %i", cantCambiosContexto);
+				log_info(loggerCatedra, "Cantidad de ciclos de CPU realizados por entrenador:");
+				for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaExit); posicionEntrenador++) {
+					entrenadorPokemon* entenador = list_get(colaExit, posicionEntrenador);
+					log_info(loggerCatedra, "Entrenador %i - Ciclos de CPU: %i", entrenador->idEntrenador, entrenador->ciclosEnCPU);
+				}
+				log_info(loggerCatedra, "Deadlocks producidos y resueltos: %i", cantDeadlocks);
+			}
 			//printf("Se movio al entrenador de id %i a Exit\n", entrenador->idEntrenador);
 		}
 	} else {
@@ -358,6 +370,7 @@ void quitarDeColaBlocked(entrenadorPokemon* entrenador) {
 void verificarIntercambios() {
 	char* proximaAccionEntrenador = string_new();
 	if (list_size(entrenadoresEnDeadlock) > 1) {
+		log_info(loggerCatedra, "Inicia algoritmo de detección de deadlock");
 		for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
 			entrenadorPokemon* entrenador1 = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
 			char* objetivoFaltanteEntrenador1 = obtenerPokemonObjetivoFaltante(entrenador1);
@@ -371,7 +384,9 @@ void verificarIntercambios() {
 					int posicionXEntrenador2 = entrenador2->posicion_x;
 					int posicionYEntrenador2 = entrenador2->posicion_y;
 					entrenador1->proximaAccion = "";
-					log_info(loggerCatedra, "Se realizará un intercambio entre los entrenadores %i y %i", idEntrenador2, entrenador1->idEntrenador);
+					log_info(loggerCatedra, "Se detectó deadlock entre los entrenadores %i y %i", entrenador1->idEntrenador, idEntrenador2);
+					cantDeadlocks++;
+					//log_info(loggerCatedra, "Se realizará un intercambio entre los entrenadores %i y %i", idEntrenador2, entrenador1->idEntrenador);
 					string_append_with_format(&proximaAccionEntrenador, "HacerIntercambio %i %i %i %s %s", idEntrenador2, posicionXEntrenador2, posicionYEntrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
 					entrenador1->proximaAccion = proximaAccionEntrenador;
 					quitarDeColaBlocked(entrenador1);
@@ -487,13 +502,14 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 	pokemon->id_mensaje = idMensajeEsperado;
 	//printf("Se agrega el pokemon %s a la lista de Catch Pokemon\n", pokemon->nombre_pokemon);
 	list_add(listaCatchPokemon, pokemon);
+	ciclosEnCPU++;
 }
 
 void ejecutar() {
 	char* algoritmo = configFile->algoritmoPlanificacion;
 	char* accion;
 	int quantum;
-	int posicionProximoAEjecutar;
+	int posicionProximoAEjecutar = 0;
 	double rafagaCPUAccion;
 	entrenadorPokemon* entrenador;
 	while(true) {
@@ -509,6 +525,7 @@ void ejecutar() {
 			//printf("Entrenador en ready numero %i\n", entrenador->idEntrenador);
 			if (string_equals_ignore_case("FIFO", algoritmo)) {
 				exec = entrenador;
+				cantCambiosContexto++;
 				pthread_mutex_unlock(&exec->semaforMutex);
 				list_remove(colaReady, 0);
 					/*for (int i=0; i < list_size(colaReady);i++) {
@@ -519,21 +536,25 @@ void ejecutar() {
 			} else if (string_equals_ignore_case("RR", algoritmo)) {
 				quantum = configFile->quantum;
 				exec = entrenador;
+				cantCambiosContexto++;
 				pthread_mutex_unlock(&exec->semaforMutex);
 				list_remove(colaReady, 0);
 				realizarAccion(entrenador, quantum);
-			}else if (string_equals_ignore_case("SJF sin desalojo", algoritmo)) {
+			} else if (string_equals_ignore_case("SJF sin desalojo", algoritmo)) {
 				rafagaCPUAccion = calcularRafagaCPU(entrenador);
 				for (int posicionEntrenador = 1; posicionEntrenador < list_size(colaReady); posicionEntrenador++) {
 					entrenadorPokemon* entrenador = list_get(colaReady, posicionEntrenador);
-					double rafagaCPUComparacion = calcularRafagaCPU(entrenador);
-					if(rafagaCPUComparacion > rafagaCPUAccion) {
-						rafagaCPUAccion = rafagaCPUComparacion;
-						accion = entrenador->proximaAccion;
-						posicionProximoAEjecutar = posicionEntrenador;
+					if (string_equals_ignore_case(entrenador->proximaAccion, "")) {
+						double rafagaCPUComparacion = calcularRafagaCPU(entrenador);
+						if(rafagaCPUComparacion > rafagaCPUAccion) {
+							rafagaCPUAccion = rafagaCPUComparacion;
+							accion = entrenador->proximaAccion;
+							posicionProximoAEjecutar = posicionEntrenador;
+						}
 					}
 				}
 				exec = entrenador;
+				cantCambiosContexto++;
 				entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
 				pthread_mutex_unlock(&exec->semaforMutex);
 				list_remove(colaReady, posicionProximoAEjecutar);
@@ -553,12 +574,11 @@ void ejecutar() {
 						list_add(colaReady, exec);
 					}
 					exec = entrenador;
+					cantCambiosContexto++;
 					entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
 					pthread_mutex_unlock(&exec->semaforMutex);
 					list_remove(colaReady, posicionProximoAEjecutar);
 					realizarAccion(entrenador, 0);
-				} else {
-					printf("Algoritmo incorrecto/n");
 				}
 		} else {
 			break;

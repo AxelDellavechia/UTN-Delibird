@@ -1,0 +1,64 @@
+[INFO] 19:57:34:163 Team.log/(9906:9907): Obteniendo los Entrenadores
+[INFO] 19:57:34:195 Team.log/(9906:9907): Escuchando conexiones
+[INFO] 19:58:00:294 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:58:00:295 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 19:58:00:295 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:18:372 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:58:18:372 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 19:58:18:372 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:21:830 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:58:21:830 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 19:58:21:830 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:29:133 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:58:29:133 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 19:58:29:138 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:30:977 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:58:30:977 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 19:58:30:977 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:32:813 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:58:32:814 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 19:58:32:814 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:43:538 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:58:43:538 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 19:58:43:538 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:50:86 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:58:50:86 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 19:58:50:86 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:54:23 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:58:54:23 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 19:58:54:23 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:58:55:988 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:58:55:988 Team.log/(9906:9907): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 19:58:55:988 Team.log/(9906:9907): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:10:50:282 Team.log/(10960:10961): Obteniendo los Entrenadores
+[INFO] 21:10:50:328 Team.log/(10960:10961): Escuchando conexiones
+[INFO] 21:11:06:233 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 21:11:06:235 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 21:11:06:235 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:21:879 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 21:11:21:880 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 21:11:21:880 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:25:574 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 21:11:25:575 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 21:11:25:575 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:32:999 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 21:11:32:999 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 21:11:32:999 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:34:918 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 21:11:34:918 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 21:11:34:918 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:37:46 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 21:11:37:46 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 21:11:37:46 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:11:59:586 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 21:11:59:586 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 21:11:59:586 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:12:07:481 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 21:12:07:481 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 21:12:07:482 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:12:10:785 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 21:12:10:785 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 21:12:10:785 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 21:12:12:799 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 21:12:12:799 Team.log/(10960:10961): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
+[INFO] 21:12:12:799 Team.log/(10960:10961): aplicar_protocolo_recibir -> comienza a deserealizar
