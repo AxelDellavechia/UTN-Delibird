@@ -11,21 +11,25 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <pthread.h>
-#include "../digiCommons/src/protocolos_comunicacion.h"
+#include "src/protocolos_comunicacion.h"
+#include "src/mensajeria.h"
 
 
 
 
-#define CONFIG_PATH "../config.txt"
-#define LOG_PATH "../GAMECARD.log"
+#define CONFIG_PATH "./config.txt"
+#define LOG_PATH "./GAMECARD.log"
 #define CONFIG_PATH_METADATA "../configGBM.txt"
 #define CONEXIONES_PERMITIDAS 100
 
-#define FALSE 0
-#define TRUE 1
+
+#define SUSCRIBIR 2
+#define RECIBIR 3
+#define ESCUCHANDO 4
+#define INIT 5
+#define ESPERA_ACK 6
 //codigos de error
-#define OK 1
-#define ERROR -1
+
 #define KEY_HANDSHAKE "GameCard"
 
 typedef struct{
@@ -35,6 +39,7 @@ typedef struct{
 	char* IP_BROKER;
 	int PUERTO_BROKER;
 	int PUERTO_GAMECARD;
+	unsigned int TOKEN;
 } ConfigFile;
 
 typedef struct{
@@ -42,6 +47,7 @@ typedef struct{
 	 	char* magic_number;
 	 	int cantidad_bloques;
 }t_config_MetaData;
+
 
 
 typedef struct{
@@ -54,29 +60,50 @@ typedef struct{
 
 }t_config_PuntosMontaje;
 
+typedef struct{
+	char* pokemon;
+	int idPokemon;
+}t_Pokemones;
+
+
 void leer_configFile(char* ruta);
 void crearPuntoMontaje();
 void consola();
+void suscribir();
 void servidor();
 void cargarArbolDirectorios(char* Directorio);
-void thread_cliente(int fdSocket);
+void thread_GameBoy(int fdSocket);
+void thread_GetPokemon(cola_GET_POKEMON* get_poke);
+void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke);
+void thread_NewPokemon(cola_NEW_POKEMON* new_poke);
 
 ConfigFile* config_File;
 t_config_MetaData* config_MetaData;
 t_config_PuntosMontaje* PuntoMontaje;
 
+t_list* pokeList;
 t_list* dirList;
 t_log* logger;
 t_bitarray *bitarray;
 pthread_t hilo_servidor;
+pthread_t hilo_suscribir;
 pthread_t hilo_consola;
 
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
+pthread_mutex_t *mxPokemones;
+pthread_mutex_t mxPokeList;
+pthread_mutex_t mxLog;
 
+pthread_rwlock_t mxBitmap;
+pthread_mutex_t mxNewPokemonsList;
+
+
+int fdBroker;
 int cantFiles;
 int comandoIn;
+int comandoBroker;
 int HANDSHAKE_SIZE;
 fd_set setMaestro;
 

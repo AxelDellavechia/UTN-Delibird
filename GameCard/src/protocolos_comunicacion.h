@@ -1,4 +1,3 @@
-/*
 #ifndef SRC_PROTOCOLOS_COMUNICACION_H_
 #define SRC_PROTOCOLOS_COMUNICACION_H_
 
@@ -8,6 +7,11 @@
 #include <commons/string.h>
 #include <locale.h>
 
+#define FALSE 0
+#define TRUE 1
+#define OK 1
+#define ERROR -1
+
 typedef enum {
 	NEW_POKEMON = 1,
 	APPEARED_POKEMON,
@@ -15,16 +19,34 @@ typedef enum {
 	CAUGHT_POKEMON,
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
+	ACK,
+	SUSCRIPCION,
 	FIN_DEL_PROTOCOLO
 } protocolo;
 
 typedef enum {
 	GAMECARD = 1,
 	BROKER,
-	TEAM
+	TEAM,
+	GAMEBOY
 } modulos;
 
+typedef struct{
+	int token;
+	t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
+} suscriptor;
+
+typedef struct{
+	uint32_t ack;
+	uint32_t id_msj;
+	int token;
+}respuesta_ACK;
+
+
+
 void * buffer ;
+pthread_mutex_t mxBuffer;
 
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);
@@ -33,6 +55,8 @@ int validar_conexion(int ret, int modo,t_log* logger);
 int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger);
 int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) ;
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
+
+void * recibirACK(int fdEmisor );
 
 void * serealizar(int head, void * mensaje ,  int tamanio);
 
@@ -53,4 +77,3 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
 int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) ;
 
 #endif /* SRC_PROTOCOLOS_COMUNICACION_H_ */
-*/
