@@ -723,6 +723,8 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 
 	tamanioMensaje = calcularTamanioMensaje(head, mensaje);
 
+	pthread_mutex_lock(&mxBuffer);
+
 	// Serealizo el mensaje según el protocolo (me devuelve el mensaje empaquetado):
 	void * mensajeSerealizado = serealizar(head, mensaje  , tamanioMensaje );
 
@@ -743,6 +745,8 @@ int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 	free(buffer);
 
 	free(mensajeSerealizado);
+
+	pthread_mutex_unlock(&mxBuffer);
 
 	return enviados;
 }
