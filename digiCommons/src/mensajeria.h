@@ -49,7 +49,7 @@ typedef struct{
 typedef struct{
 	uint32_t id_mensaje;
 	char* nombre_pokemon;
-	uint32_t tamanio_nombre;
+	uint32_t  tamanio_nombre;
 	uint32_t posicion_x;
 	uint32_t posicion_y;
 }cola_CATCH_POKEMON;
@@ -59,5 +59,17 @@ typedef struct{
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
+typedef struct{
+	int token;
+	t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
+} suscriptor;
+
+
+typedef struct{
+	uint32_t ack;
+	uint32_t id_msj;
+	int token;
+}respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

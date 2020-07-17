@@ -1,99 +1,53 @@
-[INFO] 19:57:34:186 log_team1.txt/(9906:9907): Entrenador 0 creado y en cola de New
-[INFO] 19:57:34:187 log_team1.txt/(9906:9907): Entrenador 0 movido a cola de Ready
-[INFO] 19:57:34:189 log_team1.txt/(9906:9907): Entrenador 1 creado y en cola de New
-[INFO] 19:57:34:189 log_team1.txt/(9906:9907): Entrenador 1 movido a cola de Ready
-[INFO] 19:57:34:190 log_team1.txt/(9906:9907): Entrenador 2 creado y en cola de New
-[INFO] 19:57:34:190 log_team1.txt/(9906:9907): Entrenador 2 movido a cola de Ready
-[INFO] 19:58:00:308 log_team1.txt/(9906:9907): Entrenador 0 a cola de Ready por ser el más cercano
-[INFO] 19:58:00:314 log_team1.txt/(9906:9907): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 1 , CORDENADA Y: 1 
-[INFO] 19:58:00:324 log_team1.txt/(9906:9907): Entrenador 0 se movió a la posición 1 1
-[INFO] 19:58:00:329 log_team1.txt/(9906:9907): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
-[INFO] 19:58:18:373 log_team1.txt/(9906:9907): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 19:58:18:373 log_team1.txt/(9906:9907): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 9 , CORDENADA Y: 7 
-[INFO] 19:58:18:373 log_team1.txt/(9906:9907): Entrenador 2 se movió a la posición 9 7
-[INFO] 19:58:18:374 log_team1.txt/(9906:9907): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 19:58:21:830 log_team1.txt/(9906:9907): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 19:58:21:831 log_team1.txt/(9906:9907): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 2 
-[INFO] 19:58:21:831 log_team1.txt/(9906:9907): Entrenador 1 se movió a la posición 2 2
-[INFO] 19:58:21:831 log_team1.txt/(9906:9907): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 19:58:29:143 log_team1.txt/(9906:9907): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 1  , ATRAPO: 0
-[INFO] 19:58:30:979 log_team1.txt/(9906:9907): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 2  , ATRAPO: 0
-[INFO] 19:58:32:814 log_team1.txt/(9906:9907): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 3  , ATRAPO: 0
-[INFO] 19:58:43:539 log_team1.txt/(9906:9907): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 19:58:43:539 log_team1.txt/(9906:9907): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 3 , CORDENADA Y: 5 
-[INFO] 19:58:43:540 log_team1.txt/(9906:9907): Entrenador 1 se movió a la posición 3 5
-[INFO] 19:58:43:540 log_team1.txt/(9906:9907): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 19:58:50:86 log_team1.txt/(9906:9907): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 19:58:50:86 log_team1.txt/(9906:9907): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 7 , CORDENADA Y: 5 
-[INFO] 19:58:50:87 log_team1.txt/(9906:9907): Entrenador 2 se movió a la posición 7 5
-[INFO] 19:58:50:87 log_team1.txt/(9906:9907): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 19:58:54:24 log_team1.txt/(9906:9907): Inicia algoritmo de detección de deadlock
-[INFO] 19:58:54:36 log_team1.txt/(9906:9907): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 19:58:54:41 log_team1.txt/(9906:9907): Entrenador 0 se movió a la posición 3 5
-[INFO] 19:58:54:42 log_team1.txt/(9906:9907): Se realizó el intercambio del pokemon Pikachu del entrenador 0 por el pokemon Onix del entrenador 1
-[INFO] 19:58:54:43 log_team1.txt/(9906:9907): Inicia algoritmo de detección de deadlock
-[INFO] 19:58:54:44 log_team1.txt/(9906:9907): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 19:58:54:45 log_team1.txt/(9906:9907): Entrenador 0 se movió a la posición 3 5
-[INFO] 19:58:54:45 log_team1.txt/(9906:9907): Se realizó el intercambio del pokemon Onix del entrenador 0 por el pokemon Squirtle del entrenador 1
-[INFO] 19:58:54:46 log_team1.txt/(9906:9907): Se movió al entrenador de id 0 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 19:58:54:47 log_team1.txt/(9906:9907): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 4  , ATRAPO: 0
-[INFO] 19:58:55:989 log_team1.txt/(9906:9907): Inicia algoritmo de detección de deadlock
-[INFO] 19:58:55:990 log_team1.txt/(9906:9907): Se detectó deadlock entre los entrenadores 1 y 2
-[INFO] 19:58:55:990 log_team1.txt/(9906:9907): Entrenador 1 se movió a la posición 7 5
-[INFO] 19:58:55:990 log_team1.txt/(9906:9907): Se realizó el intercambio del pokemon Onix del entrenador 1 por el pokemon Gengar del entrenador 2
-[INFO] 19:58:55:991 log_team1.txt/(9906:9907): Se movió al entrenador de id 1 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 19:58:55:991 log_team1.txt/(9906:9907): Se movió al entrenador de id 2 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 19:58:55:991 log_team1.txt/(9906:9907): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 5  , ATRAPO: 0
-[INFO] 21:10:50:311 log_team1.txt/(10960:10961): Entrenador 0 creado y en cola de New
-[INFO] 21:10:50:320 log_team1.txt/(10960:10961): Entrenador 0 movido a cola de Ready
-[INFO] 21:10:50:323 log_team1.txt/(10960:10961): Entrenador 1 creado y en cola de New
-[INFO] 21:10:50:324 log_team1.txt/(10960:10961): Entrenador 1 movido a cola de Ready
-[INFO] 21:10:50:324 log_team1.txt/(10960:10961): Entrenador 2 creado y en cola de New
-[INFO] 21:10:50:324 log_team1.txt/(10960:10961): Entrenador 2 movido a cola de Ready
-[INFO] 21:11:06:248 log_team1.txt/(10960:10961): Entrenador 0 a cola de Ready por ser el más cercano
-[INFO] 21:11:06:253 log_team1.txt/(10960:10961): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 1 , CORDENADA Y: 1 
-[INFO] 21:11:06:262 log_team1.txt/(10960:10961): Entrenador 0 se movió a la posición 1 1
-[INFO] 21:11:06:267 log_team1.txt/(10960:10961): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
-[INFO] 21:11:21:881 log_team1.txt/(10960:10961): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 21:11:21:881 log_team1.txt/(10960:10961): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 9 , CORDENADA Y: 7 
-[INFO] 21:11:21:882 log_team1.txt/(10960:10961): Entrenador 2 se movió a la posición 9 7
-[INFO] 21:11:21:882 log_team1.txt/(10960:10961): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 21:11:25:575 log_team1.txt/(10960:10961): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 21:11:25:575 log_team1.txt/(10960:10961): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 2 
-[INFO] 21:11:25:576 log_team1.txt/(10960:10961): Entrenador 1 se movió a la posición 2 2
-[INFO] 21:11:25:576 log_team1.txt/(10960:10961): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 21:11:33:13 log_team1.txt/(10960:10961): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 1  , ATRAPO: 0
-[INFO] 21:11:34:919 log_team1.txt/(10960:10961): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 2  , ATRAPO: 0
-[INFO] 21:11:37:47 log_team1.txt/(10960:10961): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 3  , ATRAPO: 0
-[INFO] 21:11:59:587 log_team1.txt/(10960:10961): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 21:11:59:587 log_team1.txt/(10960:10961): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 3 , CORDENADA Y: 5 
-[INFO] 21:11:59:587 log_team1.txt/(10960:10961): Entrenador 1 se movió a la posición 3 5
-[INFO] 21:11:59:587 log_team1.txt/(10960:10961): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 21:12:07:482 log_team1.txt/(10960:10961): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 21:12:07:482 log_team1.txt/(10960:10961): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 7 , CORDENADA Y: 5 
-[INFO] 21:12:07:482 log_team1.txt/(10960:10961): Entrenador 2 se movió a la posición 7 5
-[INFO] 21:12:07:483 log_team1.txt/(10960:10961): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 21:12:10:786 log_team1.txt/(10960:10961): Inicia algoritmo de detección de deadlock
-[INFO] 21:12:10:805 log_team1.txt/(10960:10961): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 21:12:10:809 log_team1.txt/(10960:10961): Entrenador 0 se movió a la posición 3 5
-[INFO] 21:12:10:810 log_team1.txt/(10960:10961): Se realizó el intercambio del pokemon Pikachu del entrenador 0 por el pokemon Onix del entrenador 1
-[INFO] 21:12:10:811 log_team1.txt/(10960:10961): Inicia algoritmo de detección de deadlock
-[INFO] 21:12:10:811 log_team1.txt/(10960:10961): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 21:12:10:821 log_team1.txt/(10960:10961): Entrenador 0 se movió a la posición 3 5
-[INFO] 21:12:10:821 log_team1.txt/(10960:10961): Se realizó el intercambio del pokemon Onix del entrenador 0 por el pokemon Squirtle del entrenador 1
-[INFO] 21:12:10:823 log_team1.txt/(10960:10961): Se movió al entrenador de id 0 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 21:12:10:824 log_team1.txt/(10960:10961): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 4  , ATRAPO: 0
-[INFO] 21:12:12:799 log_team1.txt/(10960:10961): Inicia algoritmo de detección de deadlock
-[INFO] 21:12:12:806 log_team1.txt/(10960:10961): Se detectó deadlock entre los entrenadores 1 y 2
-[INFO] 21:12:12:807 log_team1.txt/(10960:10961): Entrenador 1 se movió a la posición 7 5
-[INFO] 21:12:12:807 log_team1.txt/(10960:10961): Se realizó el intercambio del pokemon Onix del entrenador 1 por el pokemon Gengar del entrenador 2
-[INFO] 21:12:12:807 log_team1.txt/(10960:10961): Se movió al entrenador de id 1 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 21:12:12:807 log_team1.txt/(10960:10961): Se movió al entrenador de id 2 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 21:12:12:808 log_team1.txt/(10960:10961): Cantidad de ciclos de CPU totales: 82
-[INFO] 21:12:12:808 log_team1.txt/(10960:10961): Cantidad de cambios de contexto realizados: 8
-[INFO] 21:12:12:811 log_team1.txt/(10960:10961): Cantidad de ciclos de CPU realizados por entrenador:
-[INFO] 21:12:12:811 log_team1.txt/(10960:10961): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 21:12:12:811 log_team1.txt/(10960:10961): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 21:12:12:812 log_team1.txt/(10960:10961): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 21:12:12:812 log_team1.txt/(10960:10961): Deadlocks producidos y resueltos: 3
-[INFO] 21:12:12:812 log_team1.txt/(10960:10961): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 5  , ATRAPO: 0
+[INFO] 01:08:57:968 log_team1.txt/(7303:7304): Entrenador 0 creado y en cola de New
+[INFO] 01:08:57:970 log_team1.txt/(7303:7304): Entrenador 0 movido a cola de Ready
+[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 1 creado y en cola de New
+[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 1 movido a cola de Ready
+[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 2 creado y en cola de New
+[INFO] 01:08:57:973 log_team1.txt/(7303:7304): Entrenador 2 movido a cola de Ready
+[INFO] 01:09:02:376 log_team1.txt/(7303:7304): Entrenador 0 a cola de Ready por ser el más cercano
+[INFO] 01:09:02:377 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 1 , CORDENADA Y: 1 
+[INFO] 01:09:02:392 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 1 1
+[INFO] 01:09:02:393 log_team1.txt/(7303:7304): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
+[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 9 , CORDENADA Y: 7 
+[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Entrenador 2 se movió a la posición 9 7
+[INFO] 01:09:21:796 log_team1.txt/(7303:7304): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 01:09:39:777 log_team1.txt/(7303:7304): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 01:09:39:777 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 01:09:39:778 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 2 2
+[INFO] 01:09:39:778 log_team1.txt/(7303:7304): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 01:09:58:656 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 1  , ATRAPO: 0
+[INFO] 01:10:06:509 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 2  , ATRAPO: 0
+[INFO] 01:10:13:164 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 3  , ATRAPO: 0
+[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 3 , CORDENADA Y: 5 
+[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 3 5
+[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 01:10:58:374 log_team1.txt/(7303:7304): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 01:10:58:374 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 7 , CORDENADA Y: 5 
+[INFO] 01:10:58:375 log_team1.txt/(7303:7304): Entrenador 2 se movió a la posición 7 5
+[INFO] 01:10:58:375 log_team1.txt/(7303:7304): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 01:11:05:626 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
+[INFO] 01:11:05:630 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 0 y 1
+[INFO] 01:11:05:641 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 3 5
+[INFO] 01:11:05:643 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Pikachu del entrenador 0 por el pokemon Onix del entrenador 1
+[INFO] 01:11:05:643 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
+[INFO] 01:11:05:644 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 0 y 1
+[INFO] 01:11:05:646 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 3 5
+[INFO] 01:11:05:646 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Onix del entrenador 0 por el pokemon Squirtle del entrenador 1
+[INFO] 01:11:05:647 log_team1.txt/(7303:7304): Se movió al entrenador de id 0 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 01:11:05:648 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 4  , ATRAPO: 0
+[INFO] 01:11:07:544 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
+[INFO] 01:11:07:545 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 1 y 2
+[INFO] 01:11:07:545 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 7 5
+[INFO] 01:11:07:546 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Onix del entrenador 1 por el pokemon Gengar del entrenador 2
+[INFO] 01:11:07:546 log_team1.txt/(7303:7304): Se movió al entrenador de id 1 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Se movió al entrenador de id 2 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de ciclos de CPU totales: 82
+[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de cambios de contexto realizados: 8
+[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de ciclos de CPU realizados por entrenador:
+[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
+[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
+[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
+[INFO] 01:11:07:550 log_team1.txt/(7303:7304): Deadlocks producidos y resueltos: 3
+[INFO] 01:11:07:550 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 5  , ATRAPO: 0

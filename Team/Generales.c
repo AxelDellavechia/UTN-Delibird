@@ -103,6 +103,7 @@ void obtenerEntrenadores() {
 		entrenador->idEntrenador = listaEntrenadores;
 		entrenador->posicion_x = posicionX;
 		entrenador->posicion_y = posicionY;
+		pthread_mutex_init(&entrenador->semaforMutex, NULL);
 		entrenador->ciclosEnCPU = 0;
 		entrenador->proximaAccion = "";
 		entrenador->estimacionUltimaRafaga = 0;
@@ -487,21 +488,22 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 		crearLista = FALSE;
 	}
 	//pokemon* pokemonEnLista;
-	pokemon* pokemon = reservarMemoria(sizeof(pokemon));
-	pokemon->id_mensaje = 0;
-	pokemon->nombre_pokemon = string_duplicate(nombrePokemon);
-	pokemon->tamanio_nombre = string_length(nombrePokemon);
-	pokemon->posicion_x = posicionX;
-	pokemon->posicion_y = posicionY;
+	pokemon* pokemonEnCatch = reservarMemoria(sizeof(pokemon));
+	pokemonEnCatch->id_mensaje = 0;
+	pokemonEnCatch->nombre_pokemon = reservarMemoria(string_length(nombrePokemon));
+	pokemonEnCatch->nombre_pokemon = string_duplicate(nombrePokemon);
+	pokemonEnCatch->tamanio_nombre = string_length(nombrePokemon);
+	pokemonEnCatch->posicion_x = posicionX;
+	pokemonEnCatch->posicion_y = posicionY;
 	//int enviado = conectar_y_enviar("BROKER", configFile->ipBroker, configFile->puertoBroker, "TEAM", "BROKER", CATCH_POKEMON, pokemon, logger, loggerCatedra);
 	//if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 
 	//Aca deberia recibir el id del mensaje del broker y ponerselo al entrenador en edMsjEsperado y al pokemon en id_mensaje
 	idMensajeEsperado++;
 	entrenador->idMsjEsperado = idMensajeEsperado;
-	pokemon->id_mensaje = idMensajeEsperado;
+	pokemonEnCatch->id_mensaje = idMensajeEsperado;
 	//printf("Se agrega el pokemon %s a la lista de Catch Pokemon\n", pokemon->nombre_pokemon);
-	list_add(listaCatchPokemon, pokemon);
+	list_add(listaCatchPokemon, pokemonEnCatch);
 	ciclosEnCPU++;
 }
 

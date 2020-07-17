@@ -6,6 +6,7 @@
 #include "mensajeria.h"
 #include <commons/string.h>
 #include <locale.h>
+#include <pthread.h>
 
 typedef enum {
 	NEW_POKEMON = 1,
@@ -15,16 +16,24 @@ typedef enum {
 	GET_POKEMON,
 	LOCALIZED_POKEMON,
 	ACK,
-	FIN_DEL_PROTOCOLO
+	SUSCRIPCION,
+	FIN_DEL_PROTOCOLO,
+	CACHE
 } protocolo;
 
 typedef enum {
 	GAMECARD = 1,
 	BROKER,
-	TEAM
+	TEAM,
+	GAMEBOY,
+	GBSUSCRIPTOR
 } modulos;
 
 void * buffer ;
+
+pthread_mutex_t mxBuffer;
+
+int desplazamientoCache ;
 
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);
@@ -34,21 +43,23 @@ int handshake_servidor (int sockClienteDe, char *mensajeEnviado , char *mensajeE
 int handshake_cliente (int sockClienteDe, char *mensajeEnviado , char *mensajeEsperado,t_log* logger) ;
 int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
 
-void * recibirACK(int fdEmisor );
-
 void * serealizar(int head, void * mensaje ,  int tamanio);
 
-void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke);
-void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) ;
-void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio , cola_CATCH_POKEMON* cat_poke);
-void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
-void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
-void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
+void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke);
+void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) ;
+void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio , cola_CATCH_POKEMON* cat_poke);
+void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
+void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
+void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
+void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor);
 
 int calcularTamanioMensaje(int head, void* mensaje);
 
-void* recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
-void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
+void recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+
+void * recibirProtocoloSinEspera(int * head , int * bufferTam ,int fdEmisor );
+void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje );
 
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
 
