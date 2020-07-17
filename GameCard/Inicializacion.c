@@ -166,7 +166,7 @@ void inicializar_semaforos(){
 
 	pthread_mutex_init(&mxPokeList,NULL);
 	pthread_rwlock_init(&mxBitmap, NULL);
-	pthread_rwlock_init(&mxNewPokemonsList, NULL);
+	pthread_mutex_init(&mxNewPokemonsList, NULL);
 	pthread_mutex_init(&mxBuffer,NULL);
 	pthread_mutex_init(&mxLog,NULL);
 
@@ -838,9 +838,9 @@ void loadPokemons()
 }
 
 void addMxPokemon(t_Pokemones* Pokemon){
-	pthread_rwlock_wrlock(&mxNewPokemonsList);
+	pthread_mutex_lock(&mxNewPokemonsList);
 	mxPokemones = realloc(mxPokemones,sizeof(pthread_mutex_t)*(list_size(pokeList)));
 	pthread_mutex_init(mxPokemones + Pokemon->idPokemon, NULL);
-	pthread_rwlock_unlock(&mxNewPokemonsList);
+	pthread_mutex_unlock(&mxNewPokemonsList);
 
 }

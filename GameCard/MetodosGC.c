@@ -56,12 +56,12 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case NW_SAVE:{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
-				pthread_rwlock_rdlock(&mxNewPokemonsList);
+				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
-				pthread_rwlock_unlock(&mxNewPokemonsList);
+				pthread_mutex_unlock(&mxNewPokemonsList);
 				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
@@ -202,12 +202,12 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case NW_SAVE: case NW_SAVE_DEL_POSITION :{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
-				pthread_rwlock_rdlock(&mxNewPokemonsList);
+				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
-				pthread_rwlock_unlock(&mxNewPokemonsList);
+				pthread_mutex_unlock(&mxNewPokemonsList);
 				step= RESPONDER; //cambiar esto, se debe seguir con enviar la respuesta a quien pidió la instrucción
 				break;
 			}
@@ -313,11 +313,11 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 
 
 				list_add_all(locPokemon->lista_posiciones, dataPokemon.positions);
-				pthread_rwlock_rdlock(&mxNewPokemonsList);
+				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
-				pthread_rwlock_unlock(&mxNewPokemonsList);
+				pthread_mutex_unlock(&mxNewPokemonsList);
 				list_destroy(dataPokemon.positions);
 				for(int i = 0;i<list_size(dataPokemon.blocks);i++){
 					char* block = list_get(dataPokemon.blocks,i);
@@ -606,13 +606,14 @@ int loadMetadataFile(t_Pokemones* tempPokemon, t_files *dataPokemon){
 	t_config *archivo_MetaData;
 	char* dirMetadata = string_new();
 	int res = getMetadataDir(&dirMetadata, tempPokemon);
+	pthread_mutex_lock(&mxNewPokemonsList);
 	pthread_mutex_lock(mxPokemones + tempPokemon->idPokemon);
 	archivo_MetaData=config_create(dirMetadata);
 	if (config_has_property(archivo_MetaData, "OPEN")){
    	  if( string_equals_ignore_case(config_get_string_value(archivo_MetaData,"OPEN"),"N")){
    		  updateStatusFile(tempPokemon,"Y");
    		  pthread_mutex_unlock(mxPokemones + tempPokemon->idPokemon);
-
+   		pthread_mutex_unlock(&mxNewPokemonsList);
    		 if (config_has_property(archivo_MetaData, "SIZE")){
    			    dataPokemon->size = config_get_int_value(archivo_MetaData,"SIZE");
    		 	 }
@@ -638,6 +639,7 @@ int loadMetadataFile(t_Pokemones* tempPokemon, t_files *dataPokemon){
 		 }
    	  else{
    		  pthread_mutex_unlock(mxPokemones + tempPokemon->idPokemon);
+   		pthread_mutex_unlock(&mxNewPokemonsList);
    		config_destroy(archivo_MetaData);
    		free(dirMetadata);
    		dirMetadata=NULL;
@@ -645,6 +647,7 @@ int loadMetadataFile(t_Pokemones* tempPokemon, t_files *dataPokemon){
    	  }
 	}
 	pthread_mutex_unlock(mxPokemones + tempPokemon->idPokemon);
+	pthread_mutex_unlock(&mxNewPokemonsList);
 	config_destroy(archivo_MetaData);
 	free(dirMetadata);
 	dirMetadata=NULL;

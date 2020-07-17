@@ -97,7 +97,7 @@ pthread_mutex_t mxPokeList;
 pthread_mutex_t mxLog;
 
 pthread_rwlock_t mxBitmap;
-pthread_rwlock_t mxNewPokemonsList;
+pthread_mutex_t mxNewPokemonsList;
 
 
 int fdBroker;
