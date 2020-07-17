@@ -211,10 +211,10 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_add(lista_particiones, aux_particion);
 			pthread_mutex_unlock(&mutex_lista_particiones);
 			void * buffer = serealizar(head, msj, tamano);
-			memcpy(aux_particion->id_msj, buffer+0, sizeof(uint32_t));
 			pthread_mutex_lock(&mutex_memoria_cache);
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-			memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->punteroFinal - nueva_particion->punteroFinal + 1);
+			memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
+		    //memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->tamano);
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			//free(nueva_particion);
 		}

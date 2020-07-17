@@ -573,63 +573,65 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 void reenviarMsjCache(losSuscriptores * laSus) {
 
+	int desplazamiento ;
 	for ( int i = 0 ; i < list_size(lista_particiones) ; i++ ) {
 	 Particion * laParti = list_get(lista_particiones,i);
-	 if ( !laParti->libre) {
-		_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == laParti->id_msj;}
-		_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
+		 if ( !laParti->libre) {
+			_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == laParti->id_msj;}
+			_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
+				for ( int j = 0 ; j < list_size(laSus->laSus->cola_a_suscribir) ;j++){
+					if(!fueRespondido && laParti->colaAsignada == list_get(laSus->laSus->cola_a_suscribir,j)) {
 
-		if(!fueRespondido) {
-
-			 //desplazamientoCache =  ;
-			// if (desplazamientoCache !=0) desplazamientoCache = laParti->punteroInicial -1 ;
-
-						switch( laParti->colaAsignada ){
-							case NEW_POKEMON :{
-								cola_NEW_POKEMON  * new_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
-								deserealizar_mem_NEW_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,new_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , new_poke);
-								free(new_poke);
-								break;
+											switch( laParti->colaAsignada ){
+												case NEW_POKEMON :{
+													cola_NEW_POKEMON  * new_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
+													//if ( laParti->punteroInicial != 0 ) desplazamiento = laParti->punteroInicial - 1 ;
+													desplazamiento = laParti->punteroInicial ;
+													deserealizar_mem_NEW_POKEMON(desplazamiento,new_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , new_poke);
+													//desplazamiento = calcularTamanioMensaje(NEW_POKEMON,new_poke);
+													free(new_poke);
+													break;
+												}
+												case APPEARED_POKEMON :{
+													cola_APPEARED_POKEMON  * app_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
+													deserealizar_mem_APPEARED_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,app_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , app_poke);
+													free(app_poke);
+													break;
+												}
+												case CATCH_POKEMON :{
+													cola_CATCH_POKEMON  * cath_poke = malloc(sizeof(cola_CATCH_POKEMON)) ;
+													deserealizar_mem_CATCH_POKEMON (laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,cath_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , cath_poke);
+													free(cath_poke);
+													break;
+												}
+												case CAUGHT_POKEMON :{
+													cola_CAUGHT_POKEMON  * cau_poke  = malloc(sizeof(cola_CAUGHT_POKEMON)) ;
+													deserealizar_mem_CAUGHT_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,cau_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , cau_poke);
+													free(cau_poke);
+													break;
+												}
+												case GET_POKEMON :{
+													cola_GET_POKEMON * get_poke  = malloc(sizeof(cola_GET_POKEMON)) ;
+													deserealizar_mem_GET_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,get_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , get_poke);
+													free(get_poke);
+													break;
+												}
+												case LOCALIZED_POKEMON :{
+													cola_LOCALIZED_POKEMON  * loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON)) ;
+													deserealizar_mem_LOCALIZED_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,loc_poke);
+													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , loc_poke);
+													free(loc_poke);
+													break;
+												}
+											}
 							}
-							case APPEARED_POKEMON :{
-								cola_APPEARED_POKEMON  * app_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
-								deserealizar_mem_APPEARED_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,app_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , app_poke);
-								free(app_poke);
-								break;
-							}
-							case CATCH_POKEMON :{
-								cola_CATCH_POKEMON  * cath_poke = malloc(sizeof(cola_CATCH_POKEMON)) ;
-								deserealizar_mem_CATCH_POKEMON (laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,cath_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , cath_poke);
-								free(cath_poke);
-								break;
-							}
-							case CAUGHT_POKEMON :{
-								cola_CAUGHT_POKEMON  * cau_poke  = malloc(sizeof(cola_CAUGHT_POKEMON)) ;
-								deserealizar_mem_CAUGHT_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,cau_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , cau_poke);
-								free(cau_poke);
-								break;
-							}
-							case GET_POKEMON :{
-								cola_GET_POKEMON * get_poke  = malloc(sizeof(cola_GET_POKEMON)) ;
-								deserealizar_mem_GET_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,get_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , get_poke);
-								free(get_poke);
-								break;
-							}
-							case LOCALIZED_POKEMON :{
-								cola_LOCALIZED_POKEMON  * loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON)) ;
-								deserealizar_mem_LOCALIZED_POKEMON(laParti->colaAsignada,laParti->punteroInicial,memoria_cache,laParti->tamano,loc_poke);
-								aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , loc_poke);
-								free(loc_poke);
-								break;
-							}
-						}
-		}
-	 }
+				}
+		 }
 	}
 }
 

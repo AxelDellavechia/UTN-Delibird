@@ -81,7 +81,7 @@ int cantidad_liberaciones;
 int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
 
-void* memoria_cache;
+void * memoria_cache;
 
 //SEMAFOROS CONTADOR
 sem_t sem_contador_msjs_cola;
