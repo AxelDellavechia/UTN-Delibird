@@ -6,6 +6,7 @@
 #include "mensajeria.h"
 #include <commons/string.h>
 #include <locale.h>
+#include <pthread.h>
 
 typedef enum {
 	NEW_POKEMON = 1,
@@ -29,6 +30,8 @@ typedef enum {
 } modulos;
 
 void * buffer ;
+
+pthread_mutex_t mxBuffer;
 
 int desplazamientoCache ;
 

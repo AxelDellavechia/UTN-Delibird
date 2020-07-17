@@ -22,7 +22,7 @@ int main (int argc, char *argv[]) {
 
 		configGB = reservarMemoria(sizeof(archivoConfigGB));
 
-	if (argc < 2 || argc > 7 ){
+	if (argc < 2 || argc > 8 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			log_info(logger,"No se ingreso la cantidad de parametros necesarios");
 			return EXIT_FAILURE ;
@@ -96,7 +96,7 @@ log_info(logger,"Trabajando con el GAMECARD");
 
 				switch (modulo) {
 
-					//./gameboy GAMECARD GET_POKEMON [POKEMON]
+					//./gameboy GAMECARD GET_POKEMON [POKEMON] ID_MSJ
 					case GET_POKEMON:
 						prc_get_pokemon( comando , argc, argv  ,
 						"GAMECARD" , configGB->ipGameCard , configGB->puertoGameCard ,
@@ -238,7 +238,7 @@ log_info(logger,"Trabajando con el BROKER");
 						"Team" , "BROKER" );
 						break;
 
-					//./gameboy BROKER APPEARED_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE]
+					//./gameboy BROKER APPEARED_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE_CORRELATIVO]
 
 					case APPEARED_POKEMON:
 						prc_appeared_pokemon( comando , argc, argv  ,
@@ -366,7 +366,9 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 
 	cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
 
-	cat_poke->id_mensaje = atoi(argv[6]) ;
+	if(strcasecmp(comando,"BROKER") == 0 ) cat_poke->id_mensaje = 0 ;
+	else cat_poke->id_mensaje = atoi(argv[6]) ;
+
 	cat_poke->nombre_pokemon = strdup(argv[3]);
 	cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
 	cat_poke->posicion_x = atoi(argv[4]) ;
@@ -387,7 +389,7 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 
 int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
 
- 	if ( argc < 5 || argc > 7){
+ 	if ( argc < 6 || argc > 8){
 		printf("No se ingreso la cantidad de parametros necesarios\n");
 		free(comando);
 		liberarRecursosComunes();
@@ -396,7 +398,7 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 
 	cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
 
-	app_poke->id_mensaje = 0 ;
+	app_poke->id_mensaje = atoi(argv[6]) ;
 
 	app_poke->nombre_pokemon = strdup(argv[3]);
 	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
@@ -427,7 +429,7 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
 
 
-	if ( argc < 7 ){
+	if ( argc < 8 ){
 		printf("No se ingreso la cantidad de parametros necesarios\n");
 		free(comando);
 		liberarRecursosComunes();
@@ -436,7 +438,7 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
 
-	new_poke->id_mensaje = 0 ;
+	new_poke->id_mensaje = atoi(argv[7]) ;
 	new_poke->nombre_pokemon = strdup(argv[3]);
 	new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
 	new_poke->posicion_x = atoi(argv[4]) ;
@@ -563,7 +565,7 @@ void liberarRecursosComunes(){
 
 int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
 
-	if ( argc < 4 ){
+	if ( argc < 5 ){
 		printf("No se ingreso la cantidad de parametros necesarios\n");
 		free(comando);
 		return EXIT_FAILURE;
@@ -571,7 +573,8 @@ int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
 
-	get_poke->id_mensaje = 0 ;
+	if(strcasecmp(comando,"GAMECARD") == 0 ) get_poke->id_mensaje = atoi(argv[4]) ;
+	else get_poke->id_mensaje = 0 ;
 
 	get_poke->nombre_pokemon = strdup(argv[3]);
 

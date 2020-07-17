@@ -6,6 +6,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&semaforo, NULL);
 	pthread_mutex_init(&semaforo2, NULL);
 	pthread_mutex_init(&mxHilos, NULL);
+	pthread_mutex_init(&mxBuffer, NULL);
 
 }
 

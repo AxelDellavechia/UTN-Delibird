@@ -1,5 +1,9 @@
 # tp-2020-1c-Digimon
 
+#Valgrind Leaks
+
+--leak-check=full --show-leak-kinds=all
+
 ## Utilización Commons
 
 1) Se debe agregar la variable de la biblioteca nuestra con el comando -> export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/workspace/digiCommons/Debug
