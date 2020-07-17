@@ -17,7 +17,7 @@ void dummyDump(){
 
 		Particion * el_ejemplo;
 
-		el_ejemplo = reservarMemoria(sizeof(Particion));
+		el_ejemplo = malloc(sizeof(Particion));
 
 		el_ejemplo->libre = true ;
 		el_ejemplo->tamano = 345 ;
@@ -26,7 +26,7 @@ void dummyDump(){
 
 		Particion * el_ejemplo2;
 
-		el_ejemplo2 = reservarMemoria(sizeof(Particion));
+		el_ejemplo2 = malloc(sizeof(Particion));
 
 
 		el_ejemplo2->colaAsignada = NEW_POKEMON ;
@@ -49,12 +49,13 @@ int main(){//int argc, char **argv) {
 
 	//Leo el Archivo de Configuracion
 
-	config_File = reservarMemoria(sizeof(ConfigFile));
+	config_File = malloc(sizeof(ConfigFile));
 
 	leerArchivoDeConfiguracion(CONFIG_BROKER,logger);
 
 	//Iniciar Estructuras
 	iniciar_estructuras();
+	iniciar_semaforos();
 
 	//Capturar señal SIGUSR1 para el Dump de Memoria
 	//dummyDump();
@@ -93,18 +94,17 @@ void guardar_msj(int head, int tamano, void * msj){
 
 }
 
-void reservar_particion_bs(int head, int tamano, void * mensaje){
+void reservar_particion_bs(int head, int tamano, void * mensaje)
+{
 
 }
 
 
 void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
-	Particion* particion_libre;
 	//PRIMERA VUELTA
 	int contador_busquedas_fallidas = 0;
 	_Bool encontro_particion = false;
 	while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
-
 	{
 		switch (Algoritmo){
 			case First_Fit: {
@@ -170,6 +170,7 @@ Particion* algoritmo_primer_ajuste(int tamano){
 */
 
 _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
+
 	Particion * aux_particion = reservarMemoria(sizeof(Particion));
 
 	int index = 0;
@@ -189,6 +190,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 		if(desperdicio > 0)
 		{
 			//SE AGREGA UNA NUEVA PARTICION CON EL TAMANIO RESTANTE DE LA PARTICION ORIGINAL
+
 			Particion * nueva_particion = reservarMemoria(sizeof(Particion));
 			nueva_particion->punteroInicial = tamano + 1;
 			nueva_particion->punteroFinal = aux_particion->punteroFinal;
@@ -198,6 +200,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 			aux_particion->tamano = tamano;
 			aux_particion->libre = false;
+			aux_particion->punteroFinal = aux_particion->punteroInicial + tamano;
 			aux_particion->colaAsignada = head;
 			aux_particion->punteroFinal = aux_particion->punteroInicial + tamano;
 			aux_particion->tiempoLRU = (int)obtener_timestamp();
@@ -208,12 +211,12 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_add(lista_particiones, aux_particion);
 			pthread_mutex_unlock(&mutex_lista_particiones);
 			void * buffer = serealizar(head, msj, tamano);
-			memcpy(aux_particion->id_msj, buffer, sizeof(uint32_t));
+			memcpy(aux_particion->id_msj, buffer+0, sizeof(uint32_t));
 			pthread_mutex_lock(&mutex_memoria_cache);
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
 			memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->punteroFinal - nueva_particion->punteroFinal + 1);
 			pthread_mutex_unlock(&mutex_memoria_cache);
-			free(nueva_particion);
+			//free(nueva_particion);
 		}
 		else
 		{
@@ -231,12 +234,12 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
 			pthread_mutex_unlock(&mutex_memoria_cache);
 		}
-		free(aux_particion);
+		//free(aux_particion);
 		return true;
 	}
 	else
 	{
-		free(aux_particion);
+		//free(aux_particion);
 		return false;
 	}
 
@@ -314,6 +317,8 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 }
 
 void compactacion(){
+	pthread_mutex_lock(&mutex_lista_particiones);
+	pthread_mutex_lock(&mutex_memoria_cache);
 	//1- Ordeno la lista de particiones según ubicación en la memoria caché
 	t_list * lista_ordenada = list_duplicate(lista_particiones);
 	_Bool ordenar(Particion* a, Particion* b){return a->punteroInicial < b->punteroInicial;}
@@ -365,11 +370,10 @@ void compactacion(){
 		pFinalLibre.punteroInicial = tamOcupado;
 		pFinalLibre.punteroFinal = config_File->TAMANO_MEMORIA - 1;
 		list_add(lista_particiones, &pFinalLibre);
-		pthread_mutex_lock(&mutex_memoria_cache);
 		memset(memoria_cache + pFinalLibre.punteroInicial , '\0', pFinalLibre.punteroFinal - pFinalLibre.punteroInicial + 1);
-		pthread_mutex_unlock(&mutex_memoria_cache);
 	}
-
+	pthread_mutex_unlock(&mutex_memoria_cache);
+	pthread_mutex_unlock(&mutex_lista_particiones);
 
 }
 
@@ -387,29 +391,83 @@ void eliminar_particion(){
 
 void algoritmo_fifo()
 {
-	pthread_mutex_lock(&mutex_puntero_reemplazo);
-	Particion * particion_victima;
-	particion_victima = list_get(lista_particiones, puntero_reemplazo);
-	particion_victima->libre = TRUE;
-	particion_victima->id_msj = 0;
+	pthread_mutex_lock(&mutex_lista_particiones);
 	pthread_mutex_lock(&mutex_memoria_cache);
+	pthread_mutex_lock(&mutex_puntero_reemplazo);
+	Particion * particion_victima = reservarMemoria(sizeof(Particion));
+	particion_victima = list_get(lista_particiones, puntero_reemplazo);
+	particion_victima->id_msj = 0;
+	particion_victima->libre = TRUE;
+	particion_victima->colaAsignada = 0;
+	particion_victima->tiempoLRU = 0;
 	memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->punteroFinal);
-	pthread_mutex_unlock(&mutex_memoria_cache);
-	puntero_reemplazo += particion_victima->punteroFinal;
+	consolidar();//particion_victima);
+	puntero_reemplazo++;
 	pthread_mutex_unlock(&mutex_puntero_reemplazo);
+	pthread_mutex_unlock(&mutex_memoria_cache);
+	pthread_mutex_unlock(&mutex_lista_particiones);
 }
 
 void algoritmo_lru()
 {
+	pthread_mutex_lock(&mutex_lista_particiones);
+	pthread_mutex_lock(&mutex_memoria_cache);
 	t_list * lista_ordenada = list_duplicate(lista_particiones);
 	_Bool ordenarLRU(Particion* a, Particion* b){return a->tiempoLRU < b->tiempoLRU;}
 	list_sort(lista_ordenada, (void*)ordenarLRU);
 	Particion * particion_victima = list_get(lista_ordenada, 1);
-	particion_victima->libre = TRUE;
 	particion_victima->id_msj = 0;
-	pthread_mutex_lock(&mutex_memoria_cache);
+	particion_victima->libre = TRUE;
+	particion_victima->colaAsignada = 0;
+	particion_victima->tiempoLRU = 0;
 	memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->punteroFinal);
 	pthread_mutex_unlock(&mutex_memoria_cache);
+	pthread_mutex_unlock(&mutex_lista_particiones);
+}
+
+void consolidar()//Particion * particion_victima)
+{
+	Particion * particion_victima = reservarMemoria(sizeof(Particion));
+	particion_victima = list_get(lista_particiones, puntero_reemplazo);
+	Particion * particion_anterior = reservarMemoria(sizeof(Particion));
+	Particion * particion_siguiente = reservarMemoria(sizeof(Particion));
+	particion_anterior = list_get(lista_particiones, puntero_reemplazo-1);
+	particion_siguiente = list_get(lista_particiones, puntero_reemplazo+1);
+	if(particion_siguiente->libre || particion_anterior->libre)
+	{
+		Particion * particion_consolidada = reservarMemoria(sizeof(Particion));
+		particion_consolidada->colaAsignada = 0;
+		particion_consolidada->id_msj = 0;
+		particion_consolidada->libre = true;
+		particion_consolidada->tiempoLRU = 0;
+		if(particion_anterior->libre && particion_siguiente->libre)
+		{
+			particion_consolidada->punteroInicial = particion_anterior->punteroInicial;
+			particion_consolidada->punteroFinal = particion_siguiente->punteroFinal;
+			particion_consolidada->tamano = particion_siguiente->punteroFinal - particion_anterior->punteroInicial;
+			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo+1, particion_siguiente);
+			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo-1, particion_anterior);
+			list_add_in_index(lista_particiones, puntero_reemplazo-1, particion_consolidada);
+		}
+		else if(particion_anterior->libre && !particion_siguiente->libre)
+		{
+			particion_consolidada->punteroInicial = particion_anterior->punteroInicial;
+			particion_consolidada->punteroFinal = particion_victima->punteroFinal;
+			particion_consolidada->tamano = particion_victima->punteroFinal - particion_anterior->punteroInicial;
+			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo-1, particion_anterior);
+			list_add_in_index(lista_particiones, puntero_reemplazo-1, particion_consolidada);
+		}
+		else if(!particion_anterior->libre && particion_siguiente->libre)
+		{
+			particion_consolidada->punteroInicial = particion_victima->punteroInicial;
+			particion_consolidada->punteroFinal = particion_siguiente->punteroFinal;
+			particion_consolidada->tamano = particion_siguiente->punteroFinal - particion_victima->punteroInicial;
+			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo+1, particion_anterior);
+			list_add_in_index(lista_particiones, puntero_reemplazo, particion_consolidada);
+		}
+		memset(memoria_cache+particion_consolidada->punteroInicial, '\0', particion_siguiente->punteroFinal);
+	}
+	free(particion_victima);
 }
 
 int dumpMemoria (int senial) {

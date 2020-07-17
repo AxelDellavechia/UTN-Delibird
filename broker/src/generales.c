@@ -8,10 +8,10 @@
 #include "Broker.h"
 
 void iniciar_estructuras(){
-	//Se reserva la Memoria total del Broker
+	//SE RESERVA LA MEMORIA TOTAL DEL BROKER
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
-	//Creo la particion inicial que contenga toda la memoria
+	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
 	Particion * particion_memoria = reservarMemoria(sizeof(Particion));
 	particion_memoria->punteroInicial = 0;
 	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA;
@@ -23,21 +23,20 @@ void iniciar_estructuras(){
 	contador_msjs_en_cola = 0;
 	puntero_reemplazo = memoria_cache;
 
-	//SE CREAN TODAS LAS LISTAS
+	//SE CREAN LAS LISTAS PARA LA ADMINISTRACION DE MEMORIA Y MSJS
 	lista_msjs = list_create();
 	lista_particiones = list_create();
 	list_add(lista_particiones, particion_memoria);
-	free(particion_memoria);
 
 	lista_ack = list_create();
-
+	//SE CREA LAS LISTAS DE LOS SUSCRIPTORES POR COLA
 	suscriptores_new_pokemon = list_create();
 	suscriptores_localized_pokemon = list_create();
 	suscriptores_get_pokemon = list_create();
 	suscriptores_appeared_pokemon = list_create();
 	suscriptores_catch_pokemon = list_create();
 	suscriptores_caught_pokemon = list_create();
-
+	//SE CREAN LAS LISTAS PARA LAS COLAS DE MSJS
 	cola_new_pokemon = list_create();
 	cola_localized_pokemon = list_create();
 	cola_get_pokemon = list_create();
@@ -45,7 +44,11 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
+	desplazamientoCache = 0 ;
+}
 
+void iniciar_semaforos()
+{
 	//SE DEFINE MUTEX PARA DUMP DE MEMORIA CACHE
 	pthread_mutex_init(&mutex_memoria_cache, NULL);
 	pthread_mutex_init(&mutex_puntero_reemplazo, NULL);
@@ -71,8 +74,6 @@ void iniciar_estructuras(){
 	//SE DEFINE MUTEX PARA LOS HILOS
 	pthread_mutex_init(&mxHilos, NULL);
 	pthread_mutex_init(&mxSocketsFD, NULL);
-
-	desplazamientoCache = 0 ;
 }
 
 void crearHilosBroker() {
@@ -90,6 +91,16 @@ void crearHilosBroker() {
 	pthread_join(hilo_consola, NULL);
 	//pthread_join(hilo_Publisher, NULL);
 
+}
+
+void* reservarMemoria(int size) {
+
+		void *puntero = malloc(size);
+		if(puntero == NULL) {
+			fprintf(stderr, "Error al reservar %d bytes de memoria", size);
+			exit(ERROR);
+		}
+		return puntero;
 }
 
 void consola() {
@@ -111,13 +122,20 @@ void consola() {
 
 	log_destroy(logger);
 	log_destroy(loggerCatedra);
+
+	free(config_File->ALGORITMO_MEMORIA);
+	free(config_File->ALGORITMO_PARTICION_LIBRE);
+	free(config_File->ALGORITMO_REEMPLAZO);
+	free(config_File->IP_BROKER);
+	free(config_File);
 	free(comando);
 
-	pthread_detach(hilo_servidor);
 	pthread_cancel(hilo_servidor);
+	pthread_detach(hilo_servidor);
 
-	pthread_detach(hilo_Publisher);
 	pthread_cancel(hilo_Publisher);
+	pthread_detach(hilo_Publisher);
+
 
 	pthread_detach( pthread_self() );
 }
@@ -293,6 +311,7 @@ int thread_Broker(int fdCliente) {
 											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
 											ack->ack = TRUE;
 											ack->id_msj = obtener_idMsj();
+											ack->token = 0 ;
 
 											/*struct sockaddr_in peer;
 											int peer_len = sizeof(peer);
@@ -309,11 +328,12 @@ int thread_Broker(int fdCliente) {
 											log_info(logger, "Instrucción no reconocida");
 											break;
 									}
+							free(mensaje);
 					}
 
 	}
 }
-
+/*
 void* reservarMemoria(int size) {
 		void *puntero = malloc(size);
 		if(puntero == NULL) {
@@ -322,11 +342,10 @@ void* reservarMemoria(int size) {
 		}
 		return puntero;
 }
-
+*/
 void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 
 	t_config *config;
-	config = reservarMemoria (sizeof(t_config));
 	config = config_create(ruta);
 
 	if (config != NULL) {
