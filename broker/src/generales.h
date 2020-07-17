@@ -143,6 +143,6 @@ void agregar_contador_msj();
 void reenviarMsjCache(losSuscriptores * laSus);
 //void obtener_msj(int id_msj , Mensaje * msj);
 int32_t obtener_idMsj();
-int buscarEnLista( t_list * lista , suscriptor * buscado ) ;
+_Bool buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 
 #endif /* SRC_GENERALES_H_ */
