@@ -79,7 +79,7 @@ int puntero_reemplazo;
 int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
 
-void* memoria_cache;
+void * memoria_cache;
 
 pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;

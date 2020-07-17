@@ -11,7 +11,7 @@
 #include "generales.h"
 
 typedef struct {
-	int id_msj;
+	uint32_t id_msj;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
