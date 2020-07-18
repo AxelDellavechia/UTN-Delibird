@@ -44,6 +44,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj);
 _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj);
 void algoritmo_fifo();
 void algoritmo_lru();
+void consolidar();//Particion *particion_victima);
 
 int dumpMemoria(int senial);
 
