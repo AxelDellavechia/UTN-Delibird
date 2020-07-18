@@ -1,114 +1,61 @@
-[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
-[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 0 creado y en cola de New
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 0 movido a cola de Ready
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 1 creado y en cola de New
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 1 movido a cola de Ready
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 2 creado y en cola de New
-[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 2 movido a cola de Ready
-[INFO] 01:44:22:215 logCatedra.log/(9981:9982): Entrenador 0 creado y en cola de New
-[INFO] 01:44:22:226 logCatedra.log/(9981:9982): Entrenador 0 movido a cola de Ready
-[INFO] 01:44:22:228 logCatedra.log/(9981:9982): Entrenador 1 creado y en cola de New
-[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 1 movido a cola de Ready
-[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 2 creado y en cola de New
-[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 2 movido a cola de Ready
-[INFO] 01:57:00:161 logCatedra.log/(10243:10244): Entrenador 0 creado y en cola de New
-[INFO] 01:57:00:164 logCatedra.log/(10243:10244): Entrenador 0 movido a cola de Ready
-[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 1 creado y en cola de New
-[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 1 movido a cola de Ready
-[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 2 creado y en cola de New
-[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 2 movido a cola de Ready
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 0 creado y en cola de New
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 0 movido a cola de Ready
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 1 creado y en cola de New
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 1 movido a cola de Ready
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 2 creado y en cola de New
-[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 2 movido a cola de Ready
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 0 creado y en cola de New
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 0 movido a cola de Ready
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 1 creado y en cola de New
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 1 movido a cola de Ready
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 2 creado y en cola de New
-[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 2 movido a cola de Ready
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 0 creado y en cola de New
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 0 movido a cola de Ready
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 1 creado y en cola de New
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 1 movido a cola de Ready
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 2 creado y en cola de New
-[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 2 movido a cola de Ready
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 0 creado y en cola de New
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 0 movido a cola de Ready
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 1 creado y en cola de New
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 1 movido a cola de Ready
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 2 creado y en cola de New
-[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 2 movido a cola de Ready
-[INFO] 02:21:56:834 logCatedra.log/(11102:11103): Entrenador 0 creado y en cola de New
-[INFO] 02:21:56:838 logCatedra.log/(11102:11103): Entrenador 0 movido a cola de Ready
-[INFO] 02:21:56:845 logCatedra.log/(11102:11103): Entrenador 1 creado y en cola de New
-[INFO] 02:21:56:847 logCatedra.log/(11102:11103): Entrenador 1 movido a cola de Ready
-[INFO] 02:21:56:847 logCatedra.log/(11102:11103): Entrenador 2 creado y en cola de New
-[INFO] 02:21:56:848 logCatedra.log/(11102:11103): Entrenador 2 movido a cola de Ready
-[INFO] 02:22:05:119 logCatedra.log/(11112:11113): Entrenador 0 creado y en cola de New
-[INFO] 02:22:05:129 logCatedra.log/(11112:11113): Entrenador 0 movido a cola de Ready
-[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 1 creado y en cola de New
-[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 1 movido a cola de Ready
-[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 2 creado y en cola de New
-[INFO] 02:22:05:133 logCatedra.log/(11112:11113): Entrenador 2 movido a cola de Ready
-[INFO] 02:22:35:29 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:22:35:41 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:23:05:42 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:23:05:43 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:23:35:44 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:23:35:45 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:24:05:45 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:24:05:46 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:24:35:47 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:24:35:48 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:25:05:49 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:25:05:50 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:25:35:50 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:25:35:51 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:26:05:51 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:26:05:53 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:26:35:53 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:26:35:54 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:27:05:54 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:27:05:55 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:27:35:55 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:27:35:57 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:28:05:58 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:28:05:58 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:28:35:59 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:28:35:60 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:29:05:60 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:29:05:61 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:29:35:62 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:29:35:62 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:30:05:63 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:30:05:63 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:30:35:65 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:30:35:66 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:31:05:67 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:31:05:67 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:31:35:68 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:31:35:69 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:32:05:70 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:32:05:71 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:32:35:73 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:32:35:73 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:33:05:74 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:33:05:75 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:33:35:76 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:33:35:77 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:34:05:78 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:34:05:78 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:34:35:79 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:34:35:80 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 02:35:05:80 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
-[INFO] 02:35:05:81 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 0 creado y en cola de New
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 0 movido a cola de Ready
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 1 creado y en cola de New
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 1 movido a cola de Ready
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 2 creado y en cola de New
+[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 2 movido a cola de Ready
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 0 creado y en cola de New
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 0 movido a cola de Ready
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 1 creado y en cola de New
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 1 movido a cola de Ready
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 2 creado y en cola de New
+[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 2 movido a cola de Ready
+[INFO] 16:48:24:65 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:48:54:69 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
+[INFO] 16:48:54:69 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:49:32:694 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
+[INFO] 16:49:32:695 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:50:02:695 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
+[INFO] 16:50:24:438 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 0 creado y en cola de New
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 0 movido a cola de Ready
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 1 creado y en cola de New
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 1 movido a cola de Ready
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 2 creado y en cola de New
+[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 2 movido a cola de Ready
+[INFO] 16:56:17:655 logCatedra.log/(7038:7061): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 0 creado y en cola de New
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 0 movido a cola de Ready
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 1 creado y en cola de New
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 1 movido a cola de Ready
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 2 creado y en cola de New
+[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 2 movido a cola de Ready
+[INFO] 16:57:39:633 logCatedra.log/(7155:7173): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:59:08:88 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
+[INFO] 16:59:11:542 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 16:59:41:542 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
+[INFO] 16:59:52:449 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:00:22:449 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
+[INFO] 17:00:25:809 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:01:29:938 logCatedra.log/(7369:7369): Entrenador 0 creado y en cola de New
+[INFO] 17:01:29:938 logCatedra.log/(7369:7369): Entrenador 0 movido a cola de Ready
+[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 1 creado y en cola de New
+[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 1 movido a cola de Ready
+[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 2 creado y en cola de New
+[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 2 movido a cola de Ready
+[INFO] 17:01:35:245 logCatedra.log/(7369:7388): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:02:17:376 logCatedra.log/(7369:7388): Reinicio de proceso de reconexión con broker
+[INFO] 17:02:20:696 logCatedra.log/(7369:7388): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:02:56:770 logCatedra.log/(7369:7388): Reinicio de proceso de reconexión con broker
+[INFO] 17:02:59:796 logCatedra.log/(7369:7388): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 0 creado y en cola de New
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 0 movido a cola de Ready
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 1 creado y en cola de New
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 1 movido a cola de Ready
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 2 creado y en cola de New
+[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 2 movido a cola de Ready
+[INFO] 17:05:46:833 logCatedra.log/(7618:7638): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:06:56:674 logCatedra.log/(7618:7638): Reinicio de proceso de reconexión con broker
+[INFO] 17:07:01:336 logCatedra.log/(7618:7638): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:07:31:336 logCatedra.log/(7618:7638): Reinicio de proceso de reconexión con broker
+[INFO] 17:07:41:757 logCatedra.log/(7618:7638): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 

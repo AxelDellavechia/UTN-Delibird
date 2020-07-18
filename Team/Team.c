@@ -12,6 +12,19 @@ int main(void) {
 	leerArchivoDeConfiguracion(RUTA_CONFIG_TEAM);
 	iniciar_log();
 	iniciar_logCatedra();
+
+	obtenerEntrenadores();
+	getPokemon();
+
+	for (int i = 0; i < list_size(configFile->posicionEntrenadores); i++){
+			entrenadorPokemon * entrenador = list_get(colaNew,i) ;
+			//sem_wait(&entrenador->semafoContador);
+			pthread_create(&hilo, NULL, (void*) thread_Entrenador,entrenador);
+			//list_add(misHilos,process_get_thread_id());
+			//log_info(logger,"Cree un hilo para el entrenador %d y tiene ID %d",i,hilo=pthread_self());
+		}
+
+
 	crearHilos();
 	//obtenerEntrenadores(logger);
 	//localizarPokemones();
