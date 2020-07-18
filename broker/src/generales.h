@@ -104,6 +104,7 @@ pthread_mutex_t mutex_suscriptores_catch_pokemon;
 pthread_mutex_t mutex_suscriptores_caught_pokemon;
 pthread_mutex_t mutex_lista_suscritores;
 
+
 pthread_mutex_t mutex_puntero_reemplazo;
 
 pthread_mutex_t mutex_cola_new_pokemon;
