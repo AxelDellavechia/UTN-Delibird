@@ -176,7 +176,11 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 	int index = 0;
 	_Bool encontro_particion = false;
 	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
+
+	pthread_mutex_lock(&mutex_lista_particiones);
 	_Bool hay_particion_libre = list_any_satisfy(lista_particiones, (void*)particion_libre);
+	pthread_mutex_unlock(&mutex_lista_particiones);
+
 	int cantidad_particiones = list_size(lista_particiones);
 	while(hay_particion_libre && !encontro_particion && cantidad_particiones > index)
 	{
@@ -190,6 +194,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 		if(desperdicio > 0)
 		{
 			//SE AGREGA UNA NUEVA PARTICION CON EL TAMANIO RESTANTE DE LA PARTICION ORIGINAL
+
 
 			Particion * nueva_particion = malloc(sizeof(Particion));
 
@@ -208,23 +213,34 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			nueva_particion->tamano = desperdicio;
 			nueva_particion->libre = TRUE;
 
+
 			pthread_mutex_lock(&mutex_lista_particiones);
 			list_remove(lista_particiones, index);
 			list_add(lista_particiones, nueva_particion);
 			list_add(lista_particiones, aux_particion);
 			pthread_mutex_unlock(&mutex_lista_particiones);
-			void * buffer = serealizar(head, msj, tamano);
+
 			pthread_mutex_lock(&mutex_memoria_cache);
+
+			void * buffer = serealizar(head, msj, tamano);
+
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
+
 			free(buffer);
+
 			memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
+
 		    //memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->tamano);
 			pthread_mutex_unlock(&mutex_memoria_cache);
+
 			//free(nueva_particion);
 		}
 		else
 		{
 			//REEMPLAZO LA PARTCION LIBRE UBICADA EN INDEX CON LA NUEVA
+
+			//pthread_mutex_lock(&mutex_lista_particiones);
+
 			aux_particion->tamano = tamano;
 			aux_particion->libre = false;
 			aux_particion->colaAsignada = head;
@@ -239,12 +255,14 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
 
 			free(buffer);
+
 			pthread_mutex_lock(&mutex_lista_particiones);
 			list_remove(lista_particiones, index);
 			list_add_in_index(lista_particiones, index, aux_particion);
 			pthread_mutex_unlock(&mutex_lista_particiones);
+			//pthread_mutex_unlock(&mutex_lista_particiones);
 		}
-		//free(aux_particion);
+
 		return true;
 	}
 	else
@@ -497,7 +515,7 @@ int dumpMemoria (int senial) {
 
 	char filename[PATH_MAX];
 
-	strftime(filename,PATH_MAX,"dump_%d%m%Y_%X.txt",tiempoActual);
+	strftime(filename,PATH_MAX,"../dump_%d%m%Y_%X.txt",tiempoActual);
 
 	dump = fopen(filename,"a");
 
@@ -508,11 +526,11 @@ int dumpMemoria (int senial) {
 		for ( i = 0 ; i < list_size(lista_particiones) ; i++) {
 			Particion * actual = list_get(lista_particiones,i) ;
 			if ( actual->libre ) {
-				fprintf(dump,"Partición %d: %p - %p		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
+				fprintf(dump,"Partición %d: %d - %d		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
 			} else {
 				char * colaNombre ;
 				colaNombre = strdup( tipoMsjIntoToChar(actual->colaAsignada) ) ;
-				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s		ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
+				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s	ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
 				free(colaNombre);
 			}
 

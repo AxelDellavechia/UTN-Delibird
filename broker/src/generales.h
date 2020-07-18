@@ -92,6 +92,10 @@ pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;
 pthread_mutex_t mutex_contador_msjs_cola;
 
+pthread_mutex_t mutex_socket;
+
+pthread_mutex_t mutex_suscripcion;
+
 pthread_mutex_t mutex_suscriptores_new_pokemon;
 pthread_mutex_t mutex_suscriptores_localized_pokemon;
 pthread_mutex_t mutex_suscriptores_get_pokemon;

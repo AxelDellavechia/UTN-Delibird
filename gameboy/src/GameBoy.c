@@ -161,6 +161,7 @@ log_info(logger,"Trabajando con el TEAM");
 
 								ack->ack = atoi(argv[3]);
 								ack->id_msj = atoi(argv[4]);
+								ack->token = configGB->token;
 
 								conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" ,
 								"TEAM" ,ACK, ack , logger , loggerCatedra);
@@ -306,6 +307,7 @@ int prc_suscriptor( char * comando,int argc, char *argv[]) {
 				laSuscripcion->modulo = GAMEBOY ;
 				if(configGB->token == 0) laSuscripcion->token = token();
 				else laSuscripcion->token = configGB->token;
+				log_info("Genere el token nro: %d",configGB->token);
 				laSuscripcion->cola_a_suscribir = list_create();
 				list_add(laSuscripcion->cola_a_suscribir, enumComando);
 

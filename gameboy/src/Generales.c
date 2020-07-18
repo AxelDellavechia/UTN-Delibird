@@ -216,11 +216,13 @@ void servidor() {
 
 void sendACK(int fdSocket, int idMsj){
 
-	respuesta_ACK ack;
-	ack.ack = TRUE;
-	ack.id_msj=idMsj;
-	ack.token = configGB->token;
-	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
+	respuesta_ACK * ack = malloc(sizeof(respuesta_ACK));
+	ack->ack = TRUE;
+	ack->id_msj=idMsj;
+	ack->token = configGB->token;
+	aplicar_protocolo_enviar(fdSocket, ACK, ack);
+	log_info(logger,"Le envio un ACK -> TOKEN: %d  , ID_MSJ: %d , ESTADO Y: %d ",ack->token,ack->id_msj,ack->ack);
+	free(ack);
 
 }
 
@@ -285,7 +287,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 				deserealizar_ACK(head,mensaje,bufferTam,&elACK);
 				//log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 				pthread_mutex_lock(&semaforo2);
-				if (elACK.ack == TRUE && configGB->token != 0 )	grabarToken(laSuscripcion->token) ;
+				if (elACK.ack == TRUE && laSuscripcion->token != 0 )	grabarToken(laSuscripcion->token) ;
 				pthread_mutex_unlock(&semaforo2);
 
 				free(laSuscripcion);
