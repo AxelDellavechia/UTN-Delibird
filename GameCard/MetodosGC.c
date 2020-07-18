@@ -56,6 +56,7 @@ int NewPokemon(cola_NEW_POKEMON* Pokemon){
 			}
 	case NW_SAVE:{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				usleep(config_File->TIEMPO_RETARDO_OPERACION *1000000);
 				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
@@ -138,6 +139,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 				pthread_mutex_lock(&mxLog);
 				log_info(logger,"Id Mensaje: %d,La posición solicitada de %s no existe", Pokemon->id_mensaje,Pokemon->nombre_pokemon);
 				pthread_mutex_unlock(&mxLog);
+				usleep(config_File->TIEMPO_RETARDO_OPERACION *1000000);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -202,6 +204,7 @@ int CatchPokemon(cola_CATCH_POKEMON* Pokemon){
 			}
 	case NW_SAVE: case NW_SAVE_DEL_POSITION :{
 				dataPokemon.size = SavePositionInBlocks(&dataPokemon);
+				usleep(config_File->TIEMPO_RETARDO_OPERACION *1000000);
 				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				update_metaData_files(&dataPokemon,&idPokemon);
@@ -269,6 +272,7 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 				pthread_mutex_lock(&mxLog);
 				log_info(logger,"Id Mensaje: %d,La posición no existe",Pokemon->id_mensaje);
 				pthread_mutex_unlock(&mxLog);
+				usleep(config_File->TIEMPO_RETARDO_OPERACION *1000000);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
 				pthread_mutex_unlock(mxPokemones + idPokemon.idPokemon);
@@ -301,18 +305,9 @@ int GetPokemon(cola_GET_POKEMON* Pokemon, cola_LOCALIZED_POKEMON *locPokemon){
 	case OK:{ //el Pokemon existe y se puede utilizar, entonces busco las posiciones que tiene.
 
 				leerBloques(Pokemon, &dataPokemon,GET_POKEMON);
-				/*locPokemon->lista_posiciones = list_create();
-				for(int i = 0;i<list_size(dataPokemon.positions);i++){
-					t_positions* tempPos = list_get(dataPokemon.positions,i);
-					posicion auxLocPos;
-					auxLocPos.posicion_x = tempPos->Pos_x;
-					auxLocPos.posicion_y = tempPos->Pos_y;
-					list_add(locPokemon->lista_posiciones,&auxLocPos);
-
-				}*/
-
 
 				list_add_all(locPokemon->lista_posiciones, dataPokemon.positions);
+				usleep(config_File->TIEMPO_RETARDO_OPERACION *1000000);
 				pthread_mutex_lock(&mxNewPokemonsList);
 				pthread_mutex_lock(mxPokemones + idPokemon.idPokemon);
 				updateStatusFile(&idPokemon,"N");
