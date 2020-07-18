@@ -96,39 +96,39 @@ void guardar_msj(int head, int tamano, void * msj){
 
 void reservar_particion_bs(int head, int tamano, void * mensaje)
 {
+	Particion * aux_particion = malloc(sizeof(Particion));
+	int index = 0;
+	_Bool encontro_particion = false;
+	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
+	_Bool hay_particion_libre = list_any_satisfy(lista_particiones, (void*)particion_libre);
+	int cantidad_particiones = list_size(lista_particiones);
+	while(hay_particion_libre && !encontro_particion && cantidad_particiones > index)
+	{
+		aux_particion = list_get(lista_particiones, index);
+		if(aux_particion->libre && aux_particion->tamano >= tamano){encontro_particion = true;}
+		else{index++;}
+	}
+	if(aux_particion->tamano < tamano)
+	{
+		if((aux_particion->tamano / 2) < tamano)
+		{
 
+		}
+	}
+	else if(aux_particion->tamano == tamano)
+	{
+
+	}
 }
 
 
 void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 	//PRIMERA VUELTA
-	int contador_busquedas_fallidas = 0;
+	int cont_particiones_eliminadas = 0;
 	_Bool encontro_particion = false;
-	while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
+	while(!encontro_particion)
 	{
-		switch (Algoritmo){
-			case First_Fit: {
-				encontro_particion = algoritmo_primer_ajuste(head, tamano, msj);
-				break;
-			}
-			case Best_Fit: {
-				encontro_particion = algoritmo_mejor_ajuste(head, tamano, msj);
-				break;
-			}
-			default:
-				log_info(logger, "Algoritmo de Seleccion no reconocido");
-				break;
-		}
-
-		if(!encontro_particion){contador_busquedas_fallidas++;}
-	}
-	if(cantidad_fallidas == contador_busquedas_fallidas && !encontro_particion)
-	{
-		compactacion();
-		//SEGUNDA VUELTA
-		contador_busquedas_fallidas = 0;
-		while(contador_busquedas_fallidas <= cantidad_fallidas && !encontro_particion)
-
+		while(cont_particiones_eliminadas <= cantidad_fallidas && !encontro_particion)
 		{
 			switch (Algoritmo){
 				case First_Fit: {
@@ -140,16 +140,16 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 					break;
 				}
 				default:
-				log_info(logger, "Algoritmo de Seleccion no reconocido");
-				break;
+					log_info(logger, "Algoritmo de Seleccion no reconocido");
+					break;
 			}
-
-			if(!encontro_particion){contador_busquedas_fallidas++;}
+			if(!encontro_particion)
+			{
+				eliminar_particion();
+				cont_particiones_eliminadas++;
+			}
 		}
-		if(cantidad_fallidas == contador_busquedas_fallidas && !encontro_particion)
-		{
-			eliminar_particion();
-		}
+		compactacion();
 	}
 }
 
@@ -235,6 +235,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			pthread_mutex_unlock(&mutex_memoria_cache);
 		}
 		//free(aux_particion);
+		log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d",aux_particion->id_msj, aux_particion->punteroInicial, aux_particion->punteroFinal);
 		return true;
 	}
 	else
@@ -306,12 +307,13 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
 			pthread_mutex_unlock(&mutex_memoria_cache);
 		}
-		free(aux_particion);
+		//free(aux_particion);
+		log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d",aux_particion->id_msj, aux_particion->punteroInicial, aux_particion->punteroFinal);
 		return true;
 	}
 	else
 	{
-		free(aux_particion);
+		//free(aux_particion);
 		return false;
 	}
 }
@@ -372,6 +374,7 @@ void compactacion(){
 		list_add(lista_particiones, &pFinalLibre);
 		memset(memoria_cache + pFinalLibre.punteroInicial , '\0', pFinalLibre.punteroFinal - pFinalLibre.punteroInicial + 1);
 	}
+	log_info(loggerCatedra,"Se realizo una Compactacion");
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	pthread_mutex_unlock(&mutex_lista_particiones);
 
@@ -401,7 +404,8 @@ void algoritmo_fifo()
 	particion_victima->colaAsignada = 0;
 	particion_victima->tiempoLRU = 0;
 	memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->punteroFinal);
-	consolidar();//particion_victima);
+	consolidar(particion_victima);
+	log_info(loggerCatedra,"Se elimino la particion asociada a Puntero Inicial:%d  Puntero Final:%d",particion_victima->punteroInicial, particion_victima->punteroFinal);
 	puntero_reemplazo++;
 	pthread_mutex_unlock(&mutex_puntero_reemplazo);
 	pthread_mutex_unlock(&mutex_memoria_cache);
@@ -421,15 +425,18 @@ void algoritmo_lru()
 	particion_victima->colaAsignada = 0;
 	particion_victima->tiempoLRU = 0;
 	memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->punteroFinal);
-	consolidar();
+	consolidar(particion_victima);
+	log_info(loggerCatedra,"Se elimino la particion asociada a Puntero Inicial:%d  Puntero Final:%d",particion_victima->punteroInicial, particion_victima->punteroFinal);
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	pthread_mutex_unlock(&mutex_lista_particiones);
 }
 
-void consolidar()//Particion * particion_victima)
+void consolidar(Particion * particion_liberada)
 {
-	Particion * particion_victima = reservarMemoria(sizeof(Particion));
-	particion_victima = list_get(lista_particiones, puntero_reemplazo);
+	if(strcmp(config_File->ALGORITMO_REEMPLAZO, "FIFO") == 0)
+	{
+		particion_liberada = list_get(lista_particiones, puntero_reemplazo);
+	}
 	Particion * particion_anterior = reservarMemoria(sizeof(Particion));
 	Particion * particion_siguiente = reservarMemoria(sizeof(Particion));
 	particion_anterior = list_get(lista_particiones, puntero_reemplazo-1);
@@ -453,22 +460,22 @@ void consolidar()//Particion * particion_victima)
 		else if(particion_anterior->libre && !particion_siguiente->libre)
 		{
 			particion_consolidada->punteroInicial = particion_anterior->punteroInicial;
-			particion_consolidada->punteroFinal = particion_victima->punteroFinal;
-			particion_consolidada->tamano = particion_victima->punteroFinal - particion_anterior->punteroInicial;
+			particion_consolidada->punteroFinal = particion_liberada->punteroFinal;
+			particion_consolidada->tamano = particion_liberada->punteroFinal - particion_anterior->punteroInicial;
 			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo-1, particion_anterior);
 			list_add_in_index(lista_particiones, puntero_reemplazo-1, particion_consolidada);
 		}
 		else if(!particion_anterior->libre && particion_siguiente->libre)
 		{
-			particion_consolidada->punteroInicial = particion_victima->punteroInicial;
+			particion_consolidada->punteroInicial = particion_liberada->punteroInicial;
 			particion_consolidada->punteroFinal = particion_siguiente->punteroFinal;
-			particion_consolidada->tamano = particion_siguiente->punteroFinal - particion_victima->punteroInicial;
+			particion_consolidada->tamano = particion_siguiente->punteroFinal - particion_liberada->punteroInicial;
 			list_remove_and_destroy_element(lista_particiones, puntero_reemplazo+1, particion_anterior);
 			list_add_in_index(lista_particiones, puntero_reemplazo, particion_consolidada);
 		}
 		memset(memoria_cache+particion_consolidada->punteroInicial, '\0', particion_siguiente->punteroFinal);
 	}
-	free(particion_victima);
+	free(particion_liberada);
 }
 
 int dumpMemoria (int senial) {
@@ -514,5 +521,6 @@ int dumpMemoria (int senial) {
 		return -1 ;
 	}
 	fclose(dump);
+	log_info(loggerCatedra,"Se realizo un Dump");
 	return 0 ;
 }
