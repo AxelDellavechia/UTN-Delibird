@@ -31,6 +31,7 @@ void leer_configFile(char* ruta) {
 		log_info(logger, "FS: Leyendo Archivo de Configuracion..");
 		pthread_mutex_unlock(&mxLog);
 
+		config_File->TIEMPO_RETARDO_OPERACION = config_get_int_value(config, "TIEMPO_RETARDO_OPERACION");
 		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
 		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
 		config_File->PUNTO_MONTAJE_TALLGRASS = malloc( 1 + string_length(config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS")));
