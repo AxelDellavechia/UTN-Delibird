@@ -304,7 +304,8 @@ int prc_suscriptor( char * comando,int argc, char *argv[]) {
 				laSuscripcion = (suscriptor * ) malloc(sizeof(suscriptor));
 
 				laSuscripcion->modulo = GAMEBOY ;
-				laSuscripcion->token = token();
+				if(configGB->token == 0) laSuscripcion->token = token();
+				else laSuscripcion->token = configGB->token;
 				laSuscripcion->cola_a_suscribir = list_create();
 				list_add(laSuscripcion->cola_a_suscribir, enumComando);
 
@@ -355,24 +356,39 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 
 }
 
-int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
+void catch(cola_CATCH_POKEMON * cat_poke , int idMsj,int argc, char *argv[] ){
 
-	if ( argc < 7 ){
-		printf("No se ingreso la cantidad de parametros necesarios\n");
-		free(comando);
-		liberarRecursosComunes();
-		return EXIT_FAILURE;
-	}
-
-	cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
-
-	if(strcasecmp(comando,"BROKER") == 0 ) cat_poke->id_mensaje = 0 ;
-	else cat_poke->id_mensaje = atoi(argv[6]) ;
-
+	cat_poke->id_mensaje = idMsj ;
 	cat_poke->nombre_pokemon = strdup(argv[3]);
 	cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
 	cat_poke->posicion_x = atoi(argv[4]) ;
 	cat_poke->posicion_y = atoi(argv[5]) ;
+}
+
+int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
+
+
+
+	cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 6 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		catch( cat_poke , 0 ,argc, argv );
+	} else {
+		if ( argc < 7 ){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		liberarRecursosComunes();
+		return EXIT_FAILURE;
+		}
+		catch( cat_poke , atoi(argv[6]) ,argc, argv );
+	}
 
 	int enviado = conectar_y_enviar(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
 
@@ -426,24 +442,38 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 	return EXIT_SUCCESS;
 }
 
-int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+void new(cola_NEW_POKEMON * new_poke , int idMsj,int argc, char *argv[] ){
 
-
-	if ( argc < 8 ){
-		printf("No se ingreso la cantidad de parametros necesarios\n");
-		free(comando);
-		liberarRecursosComunes();
-		return EXIT_FAILURE;
-	}
-
-	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
-
-	new_poke->id_mensaje = atoi(argv[7]) ;
+	new_poke->id_mensaje = idMsj ;
 	new_poke->nombre_pokemon = strdup(argv[3]);
 	new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
 	new_poke->posicion_x = atoi(argv[4]) ;
 	new_poke->posicion_y = atoi(argv[5]) ;
 	new_poke->cantidad = atoi(argv[6]) ;
+}
+
+int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+
+	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 7 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		new( new_poke , 0 ,argc, argv );
+	} else {
+		if ( argc < 8 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		new( new_poke , atoi(argv[7]) ,argc, argv );
+	}
 
 	int enviado = conectar_y_enviar( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
 
@@ -563,22 +593,37 @@ void liberarRecursosComunes(){
 	log_destroy(loggerCatedra);
 }
 
-int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+void get(cola_GET_POKEMON * get_poke , int idMsj,int argc, char *argv[] ){
 
-	if ( argc < 5 ){
-		printf("No se ingreso la cantidad de parametros necesarios\n");
-		free(comando);
-		return EXIT_FAILURE;
-	}
+		get_poke->id_mensaje = idMsj ;
+
+		get_poke->nombre_pokemon = strdup(argv[3]);
+
+		get_poke->tamanio_nombre = string_length(get_poke->nombre_pokemon );
+}
+
+int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
 
 	cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
 
-	if(strcasecmp(comando,"GAMECARD") == 0 ) get_poke->id_mensaje = atoi(argv[4]) ;
-	else get_poke->id_mensaje = 0 ;
-
-	get_poke->nombre_pokemon = strdup(argv[3]);
-
-	get_poke->tamanio_nombre = string_length(get_poke->nombre_pokemon ) ;
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 4 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		get( get_poke , 0 ,argc, argv );
+	} else {
+		if ( argc < 5 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		get( get_poke , atoi(argv[4]) ,argc, argv );
+	}
 
 	int enviado = conectar_y_enviar( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
 

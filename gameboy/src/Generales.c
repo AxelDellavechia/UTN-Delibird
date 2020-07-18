@@ -7,6 +7,7 @@ void inicializar_semaforos(){
 	pthread_mutex_init(&semaforo2, NULL);
 	pthread_mutex_init(&mxHilos, NULL);
 	pthread_mutex_init(&mxBuffer, NULL);
+	pthread_mutex_init(&mxLog, NULL);
 
 }
 
@@ -76,7 +77,7 @@ void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 								log_error(logger,
 										"El archivo de configuracion no contiene el PUERTO_TEAM");
 
-		}
+				}
 
 		if (config_has_property(config, "IP_GAMECARD")) {
 			configGB->ipGameCard = strdup(
@@ -99,8 +100,19 @@ void leerArchivoDeConfiguracion(char *ruta,t_log * logger) {
 										log_error(logger,
 												"El archivo de configuracion no contiene el PUERTO_GAMECARD");
 
-		}
+						}
 
+						if (config_has_property(config, "TOKEN")) {
+							configGB->token = config_get_int_value(config,
+												"TOKEN");
+										log_info(logger,
+												"Se encontró y cargó el contido del TOKEN. Valor: %d",configGB->token);
+									} else {
+
+										log_error(logger,
+												"El archivo de configuracion no contiene el TOKEN");
+
+						}
 
 
 
@@ -202,17 +214,39 @@ void servidor() {
 	pthread_mutex_unlock(&mxHilos);
 }
 
-void responderACK(int id_msj){
-	respuesta_ACK  * ack = malloc (sizeof(respuesta_ACK)) ;
-	ack->ack = TRUE ;
-	ack->id_msj = id_msj ;
-	aplicar_protocolo_enviar(fdCliente,ACK,ack);
-	free(ack);
+void sendACK(int fdSocket, int idMsj){
+
+	respuesta_ACK ack;
+	ack.ack = TRUE;
+	ack.id_msj=idMsj;
+	ack.token = configGB->token;
+	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
+
+}
+
+void grabarToken(unsigned int token)
+{
+
+		t_config *config;
+		//config = reservarMemoria (sizeof(t_config));
+		config = config_create(RUTA_CONFIG_MEM);
+		pthread_mutex_lock(&mxLog);
+		log_info(logger, "Guardar Token");
+		pthread_mutex_unlock(&mxLog);
+		if (config != NULL) {
+			char * char_token ;
+			char_token = string_itoa(token);
+			config_set_value(config, "TOKEN", char_token );
+			config_save(config);
+			free(char_token);
+		}
+		config_destroy(config);
+
 }
 
 void consola() {
 
-fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
+int fdCliente = nuevoSocket() ; int head = 0 ; int bufferTam = 0 ;
 
 int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker, logger);
 
@@ -226,112 +260,137 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 
 		list_destroy(laSuscripcion->cola_a_suscribir);
 
-		free(laSuscripcion);
-
 		//printf("Se mostrarán en los Logs todos los msjd de la cola %s durante %d segundos\n",comando,tiempoSuscripcion);
 
 		pthread_mutex_unlock(&semaforo);
 
-		while (true) {
+		_Bool ciclo = true ;
 
-			recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+		while (ciclo) {
+
+			int recibidos = recibirProtocolo(&head,&bufferTam,fdCliente); // recibo head y tamaño de msj
+
+			if (head < 1 && recibidos <= 0 ){ // DESCONEXIÓN
+							pthread_mutex_lock(&mxHilos);
+							ciclo = false;
+							pthread_mutex_unlock(&mxHilos);
+			}
 
 			mensaje = malloc(bufferTam);
 
-			recibirMensaje(fdCliente , bufferTam , mensaje );
+			recibidos = recibirMensaje(fdCliente , bufferTam , mensaje );
 
-			if (head < 1 ){ // DESCONEXIÓN
-				pthread_mutex_lock(&mxHilos);
-				pthread_detach( pthread_self() );
-				pthread_mutex_unlock(&mxHilos);
-			}else{
+			if ( head == ACK) {
+				respuesta_ACK elACK;
+				deserealizar_ACK(head,mensaje,bufferTam,&elACK);
+				//log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+				pthread_mutex_lock(&semaforo2);
+				if (elACK.ack == TRUE && configGB->token != 0 )	grabarToken(laSuscripcion->token) ;
+				pthread_mutex_unlock(&semaforo2);
 
-			switch( head ){
-
-					setlocale(LC_ALL,"");
-
-					case NEW_POKEMON :{
-						cola_NEW_POKEMON  new_poke ;
-						deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
-						free(mensaje);
-						log_info(loggerCatedra,"Recibí de la suscripción -> NEW_POKEMON : POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-						responderACK(new_poke.id_mensaje);
-						free(new_poke.nombre_pokemon);
-						break;
-					}
-					case CATCH_POKEMON :{
-						cola_CATCH_POKEMON cath_poke;
-						deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-						free(mensaje);
-						log_info(loggerCatedra,"Recibí de la suscripción -> CATCH_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-						responderACK(cath_poke.id_mensaje);
-						free(cath_poke.nombre_pokemon);
-						break;
-					}
-					case GET_POKEMON :{
-						cola_GET_POKEMON get_poke ;
-						deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
-						free(mensaje);
-						log_info(loggerCatedra,"Recibí de la suscripción -> GET_POKEMON :  POKEMON: %s",get_poke.nombre_pokemon);
-						responderACK(get_poke.id_mensaje);
-						free(get_poke.nombre_pokemon);
-						break;
-					}
-
-					case APPEARED_POKEMON :{
-						cola_APPEARED_POKEMON app_poke;
-						deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-						free(mensaje);
-						log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-						responderACK(app_poke.id_mensaje);
-						free(app_poke.nombre_pokemon);
-						break;
-					}
-
-					case CAUGHT_POKEMON :{
-						cola_CAUGHT_POKEMON caug_poke ;
-						deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
-						free(mensaje);
-						log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-						responderACK(caug_poke.id_mensaje);
-						break;
-					}
-
-					case LOCALIZED_POKEMON :{
-						cola_LOCALIZED_POKEMON loc_poke ;
-						deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-						free(mensaje);
-						for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-						log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-						i++;
-						}
-						responderACK(loc_poke.id_mensaje);
-						free(loc_poke.nombre_pokemon);
-						list_destroy(loc_poke.lista_posiciones);
-						break;
-					}
-					/*
-					case ACK :{
-						respuesta_ACK ack;
-						deserealizar_ACK( head, mensaje, bufferTam, & ack);
-						free(mensaje);
-						log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
-						break;
-					}
-					case SUSCRIPCION :{
-						suscriptor laSus;
-						deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
-						for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
-							log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
-						}
-						break;
-					}*/
-					default:
-						log_info(logger, "Instrucción no reconocida");
-						break;			    					    				    				    										}
-				}
+				free(laSuscripcion);
+				//free(mensaje);
 			}
-		}
+
+			if (recibidos <= 0 ){ // DESCONEXIÓN
+							pthread_mutex_lock(&mxHilos);
+							free(mensaje);
+							ciclo = false;
+							pthread_mutex_unlock(&mxHilos);
+			}
+			else {
+
+				setlocale(LC_ALL,"");
+
+				switch( head ) {
+
+						case NEW_POKEMON : {
+							cola_NEW_POKEMON  new_poke ;
+							deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
+							//free(mensaje);
+							log_info(loggerCatedra,"Recibí de la suscripción -> NEW_POKEMON : EL ID MSJ: %d  -> POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.id_mensaje,new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+							sendACK(fdCliente , new_poke.id_mensaje);
+							free(new_poke.nombre_pokemon);
+							break; }
+
+						case CATCH_POKEMON : {
+							cola_CATCH_POKEMON cath_poke;
+							deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
+							//free(mensaje);
+							log_info(loggerCatedra,"Recibí de la suscripción -> CATCH_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.id_mensaje,cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
+							sendACK(fdCliente , cath_poke.id_mensaje);
+							free(cath_poke.nombre_pokemon);
+							break; }
+
+						case GET_POKEMON : {
+							cola_GET_POKEMON get_poke ;
+							deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
+							//free(mensaje);
+							log_info(loggerCatedra,"Recibí de la suscripción -> GET_POKEMON : EL ID MSJ: %d  ->   POKEMON: %s",get_poke.id_mensaje ,get_poke.nombre_pokemon);
+							sendACK(fdCliente  , get_poke.id_mensaje);
+							free(get_poke.nombre_pokemon);
+							break; }
+
+
+						case APPEARED_POKEMON : {
+							cola_APPEARED_POKEMON app_poke;
+							deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
+							free(mensaje);
+							log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.id_mensaje ,app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+							sendACK(fdCliente , app_poke.id_mensaje);
+							free(app_poke.nombre_pokemon);
+							break; }
+
+
+						case CAUGHT_POKEMON : {
+							cola_CAUGHT_POKEMON caug_poke ;
+							deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
+							free(mensaje);
+							log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+							sendACK(fdCliente , caug_poke.id_mensaje);
+							break; }
+
+
+						case LOCALIZED_POKEMON : {
+							cola_LOCALIZED_POKEMON loc_poke ;
+							deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
+							free(mensaje);
+							for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
+							log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+							i++;
+							}
+							sendACK(fdCliente , loc_poke.id_mensaje);
+							free(loc_poke.nombre_pokemon);
+							list_destroy(loc_poke.lista_posiciones);
+							break; }
+
+						/*
+						case ACK : {
+							respuesta_ACK ack;
+							deserealizar_ACK( head, mensaje, bufferTam, & ack);
+							free(mensaje);
+							log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack.ack,ack.id_msj);
+							break; }
+
+						case SUSCRIPCION : {
+							suscriptor laSus;
+							deserealizar_suscriptor( head, mensaje, bufferTam, & laSus);
+							for ( int i = 0 ; i < list_size(laSus.cola_a_suscribir) ; i++){
+								log_info(logger,"Recibí del modulo %s una suscribición a la cola %s con el token %d", devolverModulo(laSus.modulo),tipoMsjIntoToChar(list_get(laSus.cola_a_suscribir,i)),laSus.token);
+							}
+							break; }
+
+						*/
+						default : {
+							log_info(logger, "Instrucción no reconocida");
+							break; }
+							    					    				    				    										}
+					}
+					//free(mensaje);
+				}
+
+			}
+	pthread_mutex_lock(&mxHilos);
+	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
 }
-
-

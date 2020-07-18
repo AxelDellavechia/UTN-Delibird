@@ -27,6 +27,10 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 
 void comandoNoR();
 
+void catch(cola_CATCH_POKEMON * cat_poke , int idMsj,int argc, char *argv[] ) ;
+void new(cola_NEW_POKEMON * new_poke , int idMsj,int argc, char *argv[] );
+void get(cola_GET_POKEMON * get_poke , int idMsj,int argc, char *argv[] );
+
 
 #endif /* GAMEBOY_H_ */
 

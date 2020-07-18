@@ -24,7 +24,7 @@
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
-int fdCliente ;
+
 
 t_log * logger;
 
@@ -35,6 +35,7 @@ pthread_t hilo_consola;
 pthread_t hilo_finalizar;
 
 pthread_mutex_t mxHilos;
+pthread_mutex_t mxLog;
 
 int cantidadSegundos;
 int segundosMaximos;
@@ -51,6 +52,7 @@ typedef struct config {
 	int puertoBroker;
 	int puertoTeam;
 	int puertoGameCard;
+	int token;
 	char* ipBroker;
 	char* ipTeam;
 	char* ipGameCard;
@@ -69,10 +71,11 @@ int conectaryLoguear(char * modulo , int fdServer , char * ipServer , int portSe
 void servidor();
 void crearHilos() ;
 void consola() ;
+void grabarToken(unsigned int token);
 
 void liberarRecursosComunes();
 int finalizar();
 
-void responderACK(int id_msj);
+void sendACK(int fdSocket, int idMsj);
 
 #endif
