@@ -1,53 +1,114 @@
-[INFO] 01:08:57:968 log_team1.txt/(7303:7304): Entrenador 0 creado y en cola de New
-[INFO] 01:08:57:970 log_team1.txt/(7303:7304): Entrenador 0 movido a cola de Ready
-[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 1 creado y en cola de New
-[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 1 movido a cola de Ready
-[INFO] 01:08:57:972 log_team1.txt/(7303:7304): Entrenador 2 creado y en cola de New
-[INFO] 01:08:57:973 log_team1.txt/(7303:7304): Entrenador 2 movido a cola de Ready
-[INFO] 01:09:02:376 log_team1.txt/(7303:7304): Entrenador 0 a cola de Ready por ser el más cercano
-[INFO] 01:09:02:377 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 1 , CORDENADA Y: 1 
-[INFO] 01:09:02:392 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 1 1
-[INFO] 01:09:02:393 log_team1.txt/(7303:7304): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
-[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 9 , CORDENADA Y: 7 
-[INFO] 01:09:21:795 log_team1.txt/(7303:7304): Entrenador 2 se movió a la posición 9 7
-[INFO] 01:09:21:796 log_team1.txt/(7303:7304): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 01:09:39:777 log_team1.txt/(7303:7304): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 01:09:39:777 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 2 
-[INFO] 01:09:39:778 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 2 2
-[INFO] 01:09:39:778 log_team1.txt/(7303:7304): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 01:09:58:656 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 1  , ATRAPO: 0
-[INFO] 01:10:06:509 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 2  , ATRAPO: 0
-[INFO] 01:10:13:164 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 3  , ATRAPO: 0
-[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 3 , CORDENADA Y: 5 
-[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 3 5
-[INFO] 01:10:43:323 log_team1.txt/(7303:7304): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 01:10:58:374 log_team1.txt/(7303:7304): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 01:10:58:374 log_team1.txt/(7303:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 7 , CORDENADA Y: 5 
-[INFO] 01:10:58:375 log_team1.txt/(7303:7304): Entrenador 2 se movió a la posición 7 5
-[INFO] 01:10:58:375 log_team1.txt/(7303:7304): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 01:11:05:626 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
-[INFO] 01:11:05:630 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 01:11:05:641 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 3 5
-[INFO] 01:11:05:643 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Pikachu del entrenador 0 por el pokemon Onix del entrenador 1
-[INFO] 01:11:05:643 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
-[INFO] 01:11:05:644 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 0 y 1
-[INFO] 01:11:05:646 log_team1.txt/(7303:7304): Entrenador 0 se movió a la posición 3 5
-[INFO] 01:11:05:646 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Onix del entrenador 0 por el pokemon Squirtle del entrenador 1
-[INFO] 01:11:05:647 log_team1.txt/(7303:7304): Se movió al entrenador de id 0 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 01:11:05:648 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 4  , ATRAPO: 0
-[INFO] 01:11:07:544 log_team1.txt/(7303:7304): Inicia algoritmo de detección de deadlock
-[INFO] 01:11:07:545 log_team1.txt/(7303:7304): Se detectó deadlock entre los entrenadores 1 y 2
-[INFO] 01:11:07:545 log_team1.txt/(7303:7304): Entrenador 1 se movió a la posición 7 5
-[INFO] 01:11:07:546 log_team1.txt/(7303:7304): Se realizó el intercambio del pokemon Onix del entrenador 1 por el pokemon Gengar del entrenador 2
-[INFO] 01:11:07:546 log_team1.txt/(7303:7304): Se movió al entrenador de id 1 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Se movió al entrenador de id 2 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
-[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de ciclos de CPU totales: 82
-[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de cambios de contexto realizados: 8
-[INFO] 01:11:07:548 log_team1.txt/(7303:7304): Cantidad de ciclos de CPU realizados por entrenador:
-[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 01:11:07:549 log_team1.txt/(7303:7304): Entrenador 2 - Ciclos de CPU: 6
-[INFO] 01:11:07:550 log_team1.txt/(7303:7304): Deadlocks producidos y resueltos: 3
-[INFO] 01:11:07:550 log_team1.txt/(7303:7304): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 5  , ATRAPO: 0
+[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:51 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
+[INFO] 01:28:43:52 logCatedra.log/(9278:9278): 1
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 0 creado y en cola de New
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 0 movido a cola de Ready
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 1 creado y en cola de New
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 1 movido a cola de Ready
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 2 creado y en cola de New
+[INFO] 01:43:07:981 logCatedra.log/(9782:9923): Entrenador 2 movido a cola de Ready
+[INFO] 01:44:22:215 logCatedra.log/(9981:9982): Entrenador 0 creado y en cola de New
+[INFO] 01:44:22:226 logCatedra.log/(9981:9982): Entrenador 0 movido a cola de Ready
+[INFO] 01:44:22:228 logCatedra.log/(9981:9982): Entrenador 1 creado y en cola de New
+[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 1 movido a cola de Ready
+[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 2 creado y en cola de New
+[INFO] 01:44:22:229 logCatedra.log/(9981:9982): Entrenador 2 movido a cola de Ready
+[INFO] 01:57:00:161 logCatedra.log/(10243:10244): Entrenador 0 creado y en cola de New
+[INFO] 01:57:00:164 logCatedra.log/(10243:10244): Entrenador 0 movido a cola de Ready
+[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 1 creado y en cola de New
+[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 1 movido a cola de Ready
+[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 2 creado y en cola de New
+[INFO] 01:57:00:166 logCatedra.log/(10243:10244): Entrenador 2 movido a cola de Ready
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 0 creado y en cola de New
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 0 movido a cola de Ready
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 1 creado y en cola de New
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 1 movido a cola de Ready
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 2 creado y en cola de New
+[INFO] 02:12:27:88 logCatedra.log/(10711:10738): Entrenador 2 movido a cola de Ready
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 0 creado y en cola de New
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 0 movido a cola de Ready
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 1 creado y en cola de New
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 1 movido a cola de Ready
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 2 creado y en cola de New
+[INFO] 02:13:46:40 logCatedra.log/(10823:10832): Entrenador 2 movido a cola de Ready
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 0 creado y en cola de New
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 0 movido a cola de Ready
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 1 creado y en cola de New
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 1 movido a cola de Ready
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 2 creado y en cola de New
+[INFO] 02:17:53:111 logCatedra.log/(10944:10954): Entrenador 2 movido a cola de Ready
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 0 creado y en cola de New
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 0 movido a cola de Ready
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 1 creado y en cola de New
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 1 movido a cola de Ready
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 2 creado y en cola de New
+[INFO] 02:21:30:124 logCatedra.log/(11064:11073): Entrenador 2 movido a cola de Ready
+[INFO] 02:21:56:834 logCatedra.log/(11102:11103): Entrenador 0 creado y en cola de New
+[INFO] 02:21:56:838 logCatedra.log/(11102:11103): Entrenador 0 movido a cola de Ready
+[INFO] 02:21:56:845 logCatedra.log/(11102:11103): Entrenador 1 creado y en cola de New
+[INFO] 02:21:56:847 logCatedra.log/(11102:11103): Entrenador 1 movido a cola de Ready
+[INFO] 02:21:56:847 logCatedra.log/(11102:11103): Entrenador 2 creado y en cola de New
+[INFO] 02:21:56:848 logCatedra.log/(11102:11103): Entrenador 2 movido a cola de Ready
+[INFO] 02:22:05:119 logCatedra.log/(11112:11113): Entrenador 0 creado y en cola de New
+[INFO] 02:22:05:129 logCatedra.log/(11112:11113): Entrenador 0 movido a cola de Ready
+[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 1 creado y en cola de New
+[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 1 movido a cola de Ready
+[INFO] 02:22:05:132 logCatedra.log/(11112:11113): Entrenador 2 creado y en cola de New
+[INFO] 02:22:05:133 logCatedra.log/(11112:11113): Entrenador 2 movido a cola de Ready
+[INFO] 02:22:35:29 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:22:35:41 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:23:05:42 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:23:05:43 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:23:35:44 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:23:35:45 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:24:05:45 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:24:05:46 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:24:35:47 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:24:35:48 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:25:05:49 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:25:05:50 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:25:35:50 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:25:35:51 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:26:05:51 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:26:05:53 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:26:35:53 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:26:35:54 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:27:05:54 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:27:05:55 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:27:35:55 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:27:35:57 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:28:05:58 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:28:05:58 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:28:35:59 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:28:35:60 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:29:05:60 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:29:05:61 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:29:35:62 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:29:35:62 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:30:05:63 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:30:05:63 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:30:35:65 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:30:35:66 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:31:05:67 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:31:05:67 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:31:35:68 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:31:35:69 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:32:05:70 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:32:05:71 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:32:35:73 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:32:35:73 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:33:05:74 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:33:05:75 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:33:35:76 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:33:35:77 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:34:05:78 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:34:05:78 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:34:35:79 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:34:35:80 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 02:35:05:80 logCatedra.log/(11112:11115): Inicio de proceso de reconexión con broker
+[INFO] 02:35:05:81 logCatedra.log/(11112:11115): No se pudo realizar la conexión entre el socket[0] y el servidor ip: 127.0.0.1 / puerto: 5003 

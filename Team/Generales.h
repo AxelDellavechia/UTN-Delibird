@@ -13,8 +13,8 @@
 #include "../digiCommons/src/mensajeria.h"
 
 #define LOG_PATH "../CatedraTeam.log"
-#define LOG_PATH_INTERNO "../Team.log"
-#define RUTA_CONFIG_MEM "configTeam.txt"
+#define LOG_PATH_INTERNO "./Team.log"
+#define RUTA_CONFIG_TEAM "./configTeam.txt"
 #define FALSE 0
 #define TRUE 1
 #define OK 0
@@ -48,6 +48,8 @@ pthread_t hilo_conexion;
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
+pthread_mutex_t mutexLog;
+pthread_mutex_t mutexLogCatedra;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -127,7 +129,8 @@ entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
 void ejecutar();
 int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino, int tiempo);
-
 double calcularRafagaCPU(entrenadorPokemon* entrenador);
+int pokemonNecesario(cola_APPEARED_POKEMON* pokemonAparecido);
+void getPokemon();
 
 #endif

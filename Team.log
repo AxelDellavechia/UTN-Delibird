@@ -1,62 +1,22 @@
-[INFO] 01:08:57:944 Team.log/(7303:7304): Obteniendo los Entrenadores
-[INFO] 01:08:57:977 Team.log/(7303:7304): Escuchando conexiones
-[INFO] 01:09:02:367 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:09:02:368 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:09:02:368 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:09:02:370 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 01:09:02:370 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
-[INFO] 01:09:02:370 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:09:21:793 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:09:21:793 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:09:21:794 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:09:21:794 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 01:09:21:794 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 01:09:21:794 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:09:39:776 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:09:39:776 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:09:39:776 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:09:39:777 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 01:09:39:777 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
-[INFO] 01:09:39:777 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:09:58:652 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:09:58:652 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:09:58:652 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:09:58:652 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 01:09:58:652 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
-[INFO] 01:09:58:652 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:10:06:502 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:10:06:502 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:10:06:502 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:10:06:507 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 01:10:06:508 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
-[INFO] 01:10:06:508 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:10:13:162 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:10:13:162 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:10:13:163 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:10:13:163 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 01:10:13:163 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
-[INFO] 01:10:13:164 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:10:43:321 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:10:43:322 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:10:43:322 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:10:43:322 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 01:10:43:322 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 01:10:43:322 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:10:58:373 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:10:58:373 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:10:58:373 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:10:58:373 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 01:10:58:374 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
-[INFO] 01:10:58:374 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:11:05:619 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:11:05:619 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:11:05:620 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:11:05:626 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 01:11:05:626 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
-[INFO] 01:11:05:626 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 01:11:07:543 Team.log/(7303:7304): Servidor o Cliente aceptado.
-[INFO] 01:11:07:543 Team.log/(7303:7304): Hice el handshake y me respondieron: BROKER
-[INFO] 01:11:07:543 Team.log/(7303:7304): Alguien se conectó
-[INFO] 01:11:07:543 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 01:11:07:544 Team.log/(7303:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 8
-[INFO] 01:11:07:544 Team.log/(7303:7304): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:28:42:22 Team.log/(9278:9278): 1
+[INFO] 01:28:43:46 Team.log/(9278:9278): 1
+[INFO] 01:28:43:49 Team.log/(9278:9278): 1
+[INFO] 01:28:43:49 Team.log/(9278:9278): 1
+[INFO] 01:28:43:49 Team.log/(9278:9278): 1
+[INFO] 01:28:43:49 Team.log/(9278:9278): 1
+[INFO] 01:28:43:49 Team.log/(9278:9278): 1
+[INFO] 01:28:43:50 Team.log/(9278:9278): 1
+[INFO] 01:28:43:50 Team.log/(9278:9278): 1
+[INFO] 01:28:43:50 Team.log/(9278:9278): 1
+[INFO] 01:28:43:50 Team.log/(9278:9278): 1
+[INFO] 01:28:43:51 Team.log/(9278:9278): 1
+[INFO] 01:44:22:162 Team.log/(9981:9982): Obteniendo los Entrenadores
+[TRACE] 01:57:00:127 Team.log/(10243:10244): Obteniendo los Entrenadores
+[INFO] 02:12:25:349 Team.log/(10711:10738): Obteniendo los Entrenadores
+[INFO] 02:12:38:635 Team.log/(10711:10738): Escuchando conexiones
+[INFO] 02:13:44:863 Team.log/(10823:10832): Obteniendo los Entrenadores
+[INFO] 02:13:56:55 Team.log/(10823:10832): Escuchando conexiones
+[INFO] 02:17:51:878 Team.log/(10944:10954): Obteniendo los Entrenadores
+[INFO] 02:18:12:967 Team.log/(10944:10954): Escuchando conexiones
+[INFO] 02:21:28:917 Team.log/(11064:11073): Obteniendo los Entrenadores
+[INFO] 02:21:41:733 Team.log/(11064:11073): Escuchando conexiones

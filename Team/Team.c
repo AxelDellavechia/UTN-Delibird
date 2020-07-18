@@ -9,9 +9,9 @@ int main(void) {
 	//inicializar_semaforos();
 	inicializar_semaforos();
 	crearEstructuras();
-	leerArchivoDeConfiguracion(RUTA_CONFIG_MEM);
-	//iniciar_log();
-	//iniciar_logCatedra();
+	leerArchivoDeConfiguracion(RUTA_CONFIG_TEAM);
+	iniciar_log();
+	iniciar_logCatedra();
 	crearHilos();
 	//obtenerEntrenadores(logger);
 	//localizarPokemones();
