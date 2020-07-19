@@ -94,21 +94,63 @@ void guardar_msj(int head, int tamano, void * msj){
 
 }
 
-void reservar_particion_bs(int head, int tamano, void * mensaje)
+void reservar_particion_bs(int head, int tamano, void * msj)
 {
+	pthread_mutex_lock(&mutex_lista_particiones);
+	Particion * aux_particion = malloc(sizeof(Particion));
+	int index = 0;
+	_Bool encontro_particion = false;
+	_Bool particion_libre(Particion* particion){return particion->libre && particion->tamano >= tamano;}
+	_Bool hay_particion_libre = list_any_satisfy(lista_particiones, (void*)particion_libre);
+	int cantidad_particiones = list_size(lista_particiones);
+	while(hay_particion_libre && !encontro_particion && cantidad_particiones > index)
+	{
+		aux_particion = list_get(lista_particiones, index);
+		if(aux_particion->libre && aux_particion->tamano >= tamano){encontro_particion = true;}
+		else{index++;}
+	}
 
+	if(aux_particion->tamano == tamano)
+	{
+		aux_particion->tamano = tamano;
+		aux_particion->libre = false;
+		aux_particion->colaAsignada = head;
+		aux_particion->tiempoLRU = (int)obtener_timestamp();
+		void * buffer = serealizar(head, msj, tamano);
+		pthread_mutex_lock(&mutex_memoria_cache);
+		memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
+		pthread_mutex_unlock(&mutex_memoria_cache);
+		memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
+		free(buffer);
+	}
+	else
+	{
+		int cont;
+		int tamano_buddy = aux_particion->tamano;
+		for(cont=0; (tamano_buddy/2) > tamano; cont++)
+		for(int i; i < cont; i++)
+		{
+			Particion * nueva_particion = malloc(sizeof(Particion));
+			nueva_particion->colaAsignada = 0;
+			nueva_particion->id_msj = 0;
+			nueva_particion->punteroFinal = ;
+
+
+		}
+
+	}
+	pthread_mutex_unlock(&mutex_lista_particiones);
 }
 
 
 void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 	//PRIMERA VUELTA
-	int cont_particiones_eliminadas = 0;
-
 	_Bool encontro_particion = false;
 
 	while(!encontro_particion)
 	{
-		while(cont_particiones_eliminadas <= cantidad_fallidas && !encontro_particion)
+		int cont_particiones_eliminadas = 0;
+		while(cont_particiones_eliminadas < frecuencia_compactacion && !encontro_particion)
 		{
 			switch (Algoritmo){
 				case First_Fit: {
@@ -129,7 +171,10 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 				cont_particiones_eliminadas++;
 			}
 		}
-		compactacion();
+		if(!encontro_particion)
+		{
+			compactacion();
+		}
 	}
 }
 
@@ -191,7 +236,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 
 			nueva_particion->tamano = desperdicio;
-			nueva_particion->libre = TRUE;
+			nueva_particion->libre = true;
 
 			pthread_mutex_lock(&mutex_lista_particiones);
 			list_remove(lista_particiones, index);
@@ -249,7 +294,6 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 	}
 	else
 	{
-		//free(aux_particion);
 		return false;
 	}
 

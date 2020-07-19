@@ -71,7 +71,7 @@ fd_set setMaestro;
 int fdBroker; //Socket Base
 int comandoNuevo; // Socket de Escucha
 
-int cantidad_fallidas;
+int frecuencia_compactacion;
 int32_t id_msj;
 int contador_msjs_en_cola;
 int puntero_reemplazo;

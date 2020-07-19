@@ -18,7 +18,7 @@ void iniciar_estructuras(){
 	particion_memoria->tamano = config_File->TAMANO_MEMORIA;
 	particion_memoria->libre = true;
 	//Setea cantidad fallidas
-	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
+	frecuencia_compactacion = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
 	contador_msjs_en_cola = 0;
 	puntero_reemplazo = memoria_cache;
