@@ -722,7 +722,7 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 			log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 
-			list_remove_and_destroy_element(aux_lista_de_suscriptores, 0,suscriptor);
+			list_remove(aux_lista_de_suscriptores, 0);
 		}
 		free(mensaje);
 		list_destroy(aux_lista_de_suscriptores);
