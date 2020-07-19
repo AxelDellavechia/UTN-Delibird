@@ -97,6 +97,7 @@ void guardar_msj(int head, int tamano, void * msj){
 void reservar_particion_bs(int head, int tamano, void * msj)
 {
 	pthread_mutex_lock(&mutex_lista_particiones);
+	pthread_mutex_lock(&mutex_memoria_cache);
 	Particion * aux_particion = malloc(sizeof(Particion));
 	int index = 0;
 	_Bool encontro_particion = false;
@@ -109,6 +110,8 @@ void reservar_particion_bs(int head, int tamano, void * msj)
 		if(aux_particion->libre && aux_particion->tamano >= tamano){encontro_particion = true;}
 		else{index++;}
 	}
+	int ptro_inicial_particion = aux_particion->punteroInicial;
+	int ptro_final_particion = aux_particion->punteroFinal;
 
 	if(aux_particion->tamano == tamano)
 	{
@@ -117,28 +120,44 @@ void reservar_particion_bs(int head, int tamano, void * msj)
 		aux_particion->colaAsignada = head;
 		aux_particion->tiempoLRU = (int)obtener_timestamp();
 		void * buffer = serealizar(head, msj, tamano);
-		pthread_mutex_lock(&mutex_memoria_cache);
 		memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-		pthread_mutex_unlock(&mutex_memoria_cache);
 		memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
 		free(buffer);
 	}
 	else
 	{
 		int cont;
+		int tamano_particion = aux_particion->tamano;
 		int tamano_buddy = aux_particion->tamano;
+		int aux_ptro_inicial, aux_ptro_final;
 		for(cont=0; (tamano_buddy/2) > tamano; cont++)
+		aux_particion->tamano = tamano_buddy;
+		aux_particion->libre = false;
+		aux_particion->colaAsignada = head;
+		aux_particion->punteroFinal = aux_particion->punteroInicial + tamano_buddy;
+		aux_particion->tiempoLRU = (int)obtener_timestamp();
+		void * buffer = serealizar(head, msj, tamano);
+		memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano_buddy);
+		memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
+		aux_ptro_inicial = aux_particion->punteroFinal+1;
+
 		for(int i; i < cont; i++)
 		{
 			Particion * nueva_particion = malloc(sizeof(Particion));
-			nueva_particion->colaAsignada = 0;
 			nueva_particion->id_msj = 0;
-			nueva_particion->punteroFinal = ;
-
-
+			nueva_particion->colaAsignada = 0;
+			nueva_particion->libre = true;
+			nueva_particion->tamano = tamano_buddy;
+			nueva_particion->punteroFinal = aux_ptro_inicial + tamano_buddy;
+			nueva_particion->punteroInicial = aux_ptro_inicial;
+			nueva_particion->tiempoLRU = 0;
+			aux_ptro_inicial = nueva_particion->punteroFinal +1;
+			tamano_buddy = tamano_buddy * 2;
+			list_add_in_index(lista_particiones, index+1, nueva_particion);
 		}
-
 	}
+	//memset(ptro_inicial_particion, '\0', ptro_final_particion - ptro_inicial_particion);
+	pthread_mutex_unlock(&mutex_memoria_cache);
 	pthread_mutex_unlock(&mutex_lista_particiones);
 }
 
