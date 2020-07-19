@@ -12,19 +12,22 @@ void iniciar_estructuras(){
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
 	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
-	Particion * particion_memoria = reservarMemoria(sizeof(Particion));
+	Particion * particion_memoria = malloc(sizeof(Particion));
 	particion_memoria->punteroInicial = 0;
 	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA - 1;
 	particion_memoria->tamano = config_File->TAMANO_MEMORIA;
 	particion_memoria->libre = true;
+	particion_memoria->tiempoLRU = 0;
 	//Setea cantidad fallidas
 	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
 	contador_msjs_en_cola = 0;
-	puntero_reemplazo = memoria_cache;
+	puntero_reemplazo = 0;
+	compacte=false;
+	cantidad_particiones_liberadas=0;
 
 	//SE CREAN LAS LISTAS PARA LA ADMINISTRACION DE MEMORIA Y MSJS
-	lista_msjs = list_create();
+	//lista_msjs = list_create();
 	lista_particiones = list_create();
 	list_add(lista_particiones, particion_memoria);
 
@@ -87,14 +90,14 @@ void crearHilosBroker() {
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-	pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
+	//pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
 	pthread_join(hilo_Publisher, NULL);
 
 }
-
+/*
 void* reservarMemoria(int size) {
 
 		void *puntero = malloc(size);
@@ -103,6 +106,91 @@ void* reservarMemoria(int size) {
 			exit(ERROR);
 		}
 		return puntero;
+}
+*/
+
+void liberarRecursos(){
+
+	log_destroy(logger);
+	log_destroy(loggerCatedra);
+
+	free(config_File->ALGORITMO_MEMORIA);
+	free(config_File->ALGORITMO_PARTICION_LIBRE);
+	free(config_File->ALGORITMO_REEMPLAZO);
+	free(config_File->IP_BROKER);
+	free(config_File);
+
+
+	pthread_mutex_lock(&mutex_suscripcion);
+	//list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	free(suscripcionC);
+	pthread_mutex_unlock(&mutex_suscripcion);
+
+	for(int i=0 ; i < list_size(lista_ack) ; i++){
+	  respuesta_ACK * elack = list_get(lista_ack,i);
+	  free(elack);
+	}
+
+
+	list_destroy(lista_ack);
+
+	for(int i=0 ; i < list_size(lista_particiones) ; i++){
+	  Particion * laParti = list_get(lista_particiones,i);
+	  free(laParti);
+	}
+
+	list_destroy(lista_particiones);
+
+	list_destroy(cola_appeared_pokemon);
+	list_destroy(cola_catch_pokemon);
+	list_destroy(cola_caught_pokemon);
+	list_destroy(cola_get_pokemon);
+	list_destroy(cola_localized_pokemon);
+	list_destroy(cola_new_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_appeared_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_appeared_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_appeared_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_catch_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_catch_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_catch_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_caught_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_caught_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_caught_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_get_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_get_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_get_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_localized_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_localized_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_localized_pokemon);
+
+	for(int i=0 ; i < list_size(suscriptores_new_pokemon) ; i++){
+	  losSuscriptores * elSus = list_get(suscriptores_new_pokemon,i);
+	  free(elSus);
+	}
+
+	list_destroy(suscriptores_new_pokemon);
+
+	free(memoria_cache);
 }
 
 void consola() {
@@ -122,42 +210,19 @@ void consola() {
 		}
 	}
 
-	log_destroy(logger);
-	log_destroy(loggerCatedra);
+	liberarRecursos();
 
-	free(config_File->ALGORITMO_MEMORIA);
-	free(config_File->ALGORITMO_PARTICION_LIBRE);
-	free(config_File->ALGORITMO_REEMPLAZO);
-	free(config_File->IP_BROKER);
-	free(config_File);
 	free(comando);
 
-	pthread_mutex_lock(&mutex_suscripcion);
-	list_destroy(suscripcionC->laSus->cola_a_suscribir);
-	free(suscripcionC);
-	pthread_mutex_unlock(&mutex_suscripcion);
-
-	for(int i=0 ; i < lista_ack ; i++){
-	  respuesta_ACK * elack = list_get(lista_ack,i);
-	  free(elack);
-	}
-
-
-	list_destroy(lista_ack);
-
-	for(int i=0 ; i < lista_particiones ; i++){
-	  Particion * laParti = list_get(lista_particiones,i);
-	  free(laParti);
-	}
-
-	list_destroy(lista_particiones);
+	pthread_mutex_lock(&mxHilos);
 
 	pthread_cancel(hilo_servidor);
-	pthread_detach(hilo_servidor);
-
 	pthread_cancel(hilo_Publisher);
+
+	pthread_detach(hilo_servidor);
 	pthread_detach(hilo_Publisher);
 
+	pthread_mutex_unlock(&mxHilos);
 
 	pthread_detach( pthread_self() );
 }
@@ -188,7 +253,7 @@ void servidor() {
 					cerrarSocket(fdBroker);
 					pthread_mutex_unlock(&mxSocketsFD);
 			}
-			log_info("Se conecto un Proceso al Broker", loggerCatedra);
+			log_info(loggerCatedra,"Se conecto un Proceso al Broker");
 		}
 		pthread_t hilo;
 		pthread_mutex_lock(&mxHilos);
@@ -384,6 +449,7 @@ int thread_Broker(int fdCliente) {
 
 	}
 }
+
 /*
 void* reservarMemoria(int size) {
 		void *puntero = malloc(size);
@@ -517,6 +583,7 @@ void iniciar_log(){
 void publisher(){
 
 	while(TRUE){
+
 		sem_wait(&sem_contador_msjs_cola);
 
 		pthread_mutex_lock(&mutex_cola_new_pokemon);
@@ -655,8 +722,9 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 			log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 
-			list_remove(aux_lista_de_suscriptores, 0);
+			list_remove_and_destroy_element(aux_lista_de_suscriptores, 0,suscriptor);
 		}
+		free(mensaje);
 		list_destroy(aux_lista_de_suscriptores);
 		list_remove(lista_Msjs_Cola, 0);
 	}

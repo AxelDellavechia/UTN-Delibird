@@ -56,10 +56,10 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 int calcularTamanioMensaje(int head, void* mensaje);
 
 void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
-void recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
 
-void * recibirProtocoloSinEspera(int * head , int * bufferTam ,int fdEmisor );
-void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje );
+//void * recibirProtocoloSinEspera(int * head , int * bufferTam ,int fdEmisor );
+//void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje );
 
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje);
 

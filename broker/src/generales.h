@@ -77,6 +77,9 @@ int contador_msjs_en_cola;
 int puntero_reemplazo;
 int cantidad_liberaciones;
 
+_Bool compacte;
+int cantidad_particiones_liberadas;
+
 losSuscriptores * suscripcionC ;
 
 int  msj_a_enviar(int suSocket , int head , void * mensaje);
@@ -117,7 +120,7 @@ pthread_mutex_t mutex_cola_caught_pokemon;
 pthread_mutex_t mutex_lista_particiones;
 pthread_mutex_t mutex_posicion_puntero_fifo;
 
-t_list* lista_msjs;
+//t_list* lista_msjs;
 t_list* lista_particiones;
 t_list* lista_ack;
 
@@ -157,6 +160,8 @@ void reenviarMsjCache(losSuscriptores * laSus);
 //void obtener_msj(int id_msj , Mensaje * msj);
 int32_t obtener_idMsj();
 _Bool buscarEnLista( t_list * lista , suscriptor * buscado ) ;
+
+void liberarRecursos();
 
 #endif /* SRC_GENERALES_H_ */
 
