@@ -68,10 +68,33 @@ void leerArchivoDeConfiguracion(char *ruta) {
 		list_add(configFile->objetivosEntrenadores, string_duplicate(objetivosEntrenadoresAux[posicionLista]));
 		posicionLista++;
 	}
+	if (config_get_int_value(config,"TOKEN") != 0 ){
+		configFile->token = config_get_int_value(config,"TOKEN");
+	}else
+	{
+		configFile->token = token();
+		grabarToken(configFile->token);
+	}
 	//config_destroy(config); // Libero la estructura archivoConfig
 	/*free(posicionEntrenadoresAux);
 	free(pokemonEntrenadoresAux);
 	free(objetivosEntrenadoresAux);*/
+}
+
+void grabarToken(unsigned int token) {
+	t_config *config;
+	//	config = malloc (sizeof(t_config));
+	config = config_create(RUTA_CONFIG_TEAM);
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger, "Guardar Token");
+	pthread_mutex_unlock(&mutexLog);
+	if (config != NULL) {
+		char* ctoken = string_itoa(token);
+		config_set_value(config, "TOKEN", ctoken);
+		config_save(config);
+		free(ctoken);
+	}
+	config_destroy(config);
 }
 
 void* reservarMemoria(int size) {
@@ -91,11 +114,13 @@ void crearEstructuras() {
 	colaBlocked = list_create();
 	colaExit = list_create();
 	entrenadoresEnDeadlock = list_create();
-	idMensajeEsperado = 0;
+	idMensaje = 0;
 	crearLista = 1;
 	ciclosEnCPU = 0;
 	cantCambiosContexto = 0;
 	cantDeadlocks = 0;
+	getEnviado = FALSE;
+	exec = NULL;
 }
 
 void obtenerEntrenadores() {
@@ -349,8 +374,8 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 				log_info(loggerCatedra, "Cantidad de cambios de contexto realizados: %i", cantCambiosContexto);
 				log_info(loggerCatedra, "Cantidad de ciclos de CPU realizados por entrenador:");
 				for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaExit); posicionEntrenador++) {
-					entrenadorPokemon* entenador = list_get(colaExit, posicionEntrenador);
-					log_info(loggerCatedra, "Entrenador %i - Ciclos de CPU: %i", entrenador->idEntrenador, entrenador->ciclosEnCPU);
+					entrenadorPokemon* entrenadorEnExit = list_get(colaExit, posicionEntrenador);
+					log_info(loggerCatedra, "Entrenador %i - Ciclos de CPU: %i", entrenadorEnExit->idEntrenador, entrenadorEnExit->ciclosEnCPU);
 				}
 				log_info(loggerCatedra, "Deadlocks producidos y resueltos: %i", cantDeadlocks);
 			}
@@ -359,7 +384,7 @@ void verificarDeadlock(entrenadorPokemon* entrenador) {
 	} else {
 		list_add(colaReady, entrenador);
 		//printf("Se movio al entrenador de id %i a la cola de Ready\n", entrenador->idEntrenador);
-		log_info("Se movió al entrenador de id %i de la cola de Blocked a la cola de Ready ya que no completó sus objetivos", entrenador->idEntrenador);
+		log_info(loggerCatedra, "Se movió al entrenador de id %i de la cola de Blocked a la cola de Ready ya que no completó sus objetivos", entrenador->idEntrenador);
 		/*for (int i=0; i < list_size(colaReady);i++) {
 			entrenadorPokemon* entrenador = list_get(colaReady, i);
 			printf("Entrenador posicion %i es %i\n", i, entrenador->idEntrenador);
@@ -490,6 +515,7 @@ void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon
 				char* pokemonObjetivo = list_get(objetivoTeam, posicionObjetivo);
 				if (string_equals_ignore_case(pokemonObjetivo, pokemon->nombre_pokemon)){
 					list_remove(objetivoTeam, posicionObjetivo);
+					break;
 				}
 			}
 			list_remove(listaCatchPokemon, posicionPokemon);
@@ -514,28 +540,63 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 		listaCatchPokemon = list_create();
 		crearLista = FALSE;
 	}
+	int head , bufferTam;
 	//pokemon* pokemonEnLista;
+	pthread_mutex_lock(&mutex_idMensaje);
+	idMensaje++;
+	pthread_mutex_unlock(&mutex_idMensaje);
 	pokemon* pokemonEnCatch = reservarMemoria(sizeof(pokemon));
-	pokemonEnCatch->id_mensaje = 0;
+	pokemonEnCatch->id_mensaje = idMensaje;
 	pokemonEnCatch->nombre_pokemon = reservarMemoria(string_length(nombrePokemon));
 	pokemonEnCatch->nombre_pokemon = string_duplicate(nombrePokemon);
 	pokemonEnCatch->tamanio_nombre = string_length(nombrePokemon);
 	pokemonEnCatch->posicion_x = posicionX;
 	pokemonEnCatch->posicion_y = posicionY;
+	pthread_mutex_lock(&entrenador->semaforMutex);
+	exec = NULL;
+	list_add(colaBlocked, entrenador);
+	log_info(loggerCatedra, "Se movió al entrenador id %i a la cola de Blocked a la espera del resultado del catch", entrenador->idEntrenador);
+	if (conBroker == TRUE) {
+		aplicar_protocolo_enviar(fdBroker, CATCH_POKEMON, pokemonEnCatch);
+		int recibido = recibirProtocolo(&head,&bufferTam,fdBroker);
+		void * mensaje = malloc(bufferTam);
+		recibirMensaje(fdBroker, bufferTam, mensaje);
+		//pokemonEnCatch->id_mensaje = idRecibido;
+		//entrenador->idMsjEsperado = idRecibido;
+		list_add(listaCatchPokemon, pokemonEnCatch);
+	} else {
+		list_add(listaCatchPokemon, pokemonEnCatch);
+		cola_CAUGHT_POKEMON* pokemonCaught = reservarMemoria(sizeof(cola_CAUGHT_POKEMON));
+		pokemonCaught->atrapo_pokemon = OK;
+		pokemonCaught->id_mensaje = idMensaje;
+		entrenador->idMsjEsperado = idMensaje;
+		pokemonAtrapado(entrenador, pokemonCaught);
+	}
 	//int enviado = conectar_y_enviar("BROKER", configFile->ipBroker, configFile->puertoBroker, "TEAM", "BROKER", CATCH_POKEMON, pokemon, logger, loggerCatedra);
 	//if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
-
 	//Aca deberia recibir el id del mensaje del broker y ponerselo al entrenador en edMsjEsperado y al pokemon en id_mensaje
-	idMensajeEsperado++;
-	entrenador->idMsjEsperado = idMensajeEsperado;
-	pokemonEnCatch->id_mensaje = idMensajeEsperado;
 	//printf("Se agrega el pokemon %s a la lista de Catch Pokemon\n", pokemon->nombre_pokemon);
-	list_add(listaCatchPokemon, pokemonEnCatch);
 	ciclosEnCPU++;
 }
 
 void getPokemon() {
-
+	int getYaRealizado;
+	char* primerObjetivo = list_get(objetivoTeam, 0);
+	aplicar_protocolo_enviar(fdBroker, GET_POKEMON, primerObjetivo);
+	for (int posicionObjetivo1 = 1; posicionObjetivo1 < list_size(objetivoTeam); posicionObjetivo1++) {
+		getYaRealizado = FALSE;
+		char* pokemonObjetivo1 = list_get(objetivoTeam, posicionObjetivo1);
+		for (int posicionObjetivo2 = 0; posicionObjetivo2 < posicionObjetivo1; posicionObjetivo2) {
+			char* pokemonObjetivo2 = list_get(objetivoTeam, posicionObjetivo2);
+			if (string_equals_ignore_case(pokemonObjetivo1, pokemonObjetivo2)) {
+				getYaRealizado = TRUE;
+				break;
+			}
+		}
+		if (getYaRealizado == FALSE) {
+			aplicar_protocolo_enviar(fdBroker, GET_POKEMON, pokemonObjetivo1);
+		}
+	}
 }
 
 void ejecutar() {
@@ -545,16 +606,16 @@ void ejecutar() {
 	int posicionProximoAEjecutar = 0;
 	double rafagaCPUAccion;
 	entrenadorPokemon* entrenador;
-	while(true) {
+	//while(true) {
 		if (list_size(colaReady) > 0) {
 			entrenador = list_get(colaReady, 0);
 			accion = entrenador->proximaAccion;
 			_Bool entrenadorSinAccion(entrenadorPokemon* entrenador) {
 				return string_equals_ignore_case(entrenador->proximaAccion,"");
 			}
-			if (list_all_satisfy(colaReady, (void *) entrenadorSinAccion)) {
+			/*if (list_all_satisfy(colaReady, (void *) entrenadorSinAccion)) {
 				break;
-			}
+			}*/
 			//printf("Entrenador en ready numero %i\n", entrenador->idEntrenador);
 			if (string_equals_ignore_case("FIFO", algoritmo)) {
 				exec = entrenador;
@@ -606,17 +667,19 @@ void ejecutar() {
 					if (exec != NULL) {
 						list_add(colaReady, exec);
 					}
-					exec = entrenador;
-					cantCambiosContexto++;
-					entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
+					if ((exec == NULL) || (exec->idEntrenador != entrenador->idEntrenador)) {
+						exec = entrenador;
+						cantCambiosContexto++;
+						entrenador->estimacionUltimaRafaga = rafagaCPUAccion;
+					}
 					pthread_mutex_unlock(&exec->semaforMutex);
 					list_remove(colaReady, posicionProximoAEjecutar);
 					realizarAccion(entrenador, 0);
 				}
-		} else {
+		} /*else {
 			break;
 		}
-	}
+	}*/
 }
 
 double calcularRafagaCPU(entrenadorPokemon* entrenador) {
@@ -643,10 +706,6 @@ void realizarAccion(entrenadorPokemon* entrenador, int tiempo) {
 			llegoADestino = moverEntrenador(entrenador, posicionXInt, posicionYInt, tiempo);
 			if (llegoADestino == 1) {
 				catchPokemon(entrenador, pokemonAAtrapar, posicionXInt, posicionYInt);
-				pthread_mutex_lock(&entrenador->semaforMutex);
-				exec = NULL;
-				list_add(colaBlocked, entrenador);
-				log_info(loggerCatedra, "Se movió al entrenador id %i a la cola de Blocked a la espera del resultado del catch", entrenador->idEntrenador);
 				/*for (int i=0; i < list_size(colaBlocked);i++) {
 					entrenadorPokemon* entrenador = list_get(colaBlocked, i);
 					printf("Entrenador %i en lista blocked\n", entrenador->idEntrenador);
@@ -685,6 +744,7 @@ void inicializar_semaforos(){
 	//inicializo semaforos de nodos
 	pthread_mutex_init(&mxSocketsFD, NULL);
 	pthread_mutex_init(&mxHilos, NULL);
+	pthread_mutex_init(&mutex_idMensaje, NULL);
 }
 
 void crearHilos() {
@@ -704,8 +764,6 @@ void crearHilos() {
 
 	//tener un thread para manejar la reconexión cada x segundos , es un connect por cada msj
 }
-
-
 
 void consola() {
 	printf("Hola! Ingresá \"salir\" para finalizar módulo\n");
@@ -736,7 +794,7 @@ void servidor() {
 	fdTeam = nuevoSocket();
 	asociarSocket(fdTeam, configFile->puertoTeam);
 	escucharSocket(fdTeam, CONEXIONES_PERMITIDAS);
-	log_info(logger," Escuchando conexiones");
+	log_info(logger,"Escuchando conexiones");
 	while(TRUE) {
 		int conexionNueva = 0;
 		int comandoNuevo;//= reservarMemoria(INT);
@@ -781,18 +839,14 @@ void desBloquearSemaforoEnt( t_list * lista , int indice ) {
 }
 
 void sendACK(int fdSocket, int idMsj){
-
 	respuesta_ACK ack;
 	ack.ack = OK;
 	ack.id_msj=idMsj;
 	ack.token = 0;//config_File->TOKEN;
 	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
-
 }
 
-
 void planificador_Broker() {
-
 	pthread_mutex_lock(&mutexLog);
 	log_info(logger,"Obteniendo los Entrenadores");
 	pthread_mutex_unlock(&mutexLog);
@@ -800,23 +854,25 @@ void planificador_Broker() {
 	fdBroker = nuevoSocket();
 	//asociarSocket(fdBroker, configFile->puertoBroker);
 	//escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
-
 	pthread_mutex_lock(&mutexLog);
 	log_info(logger,"Escuchando conexiones");
 	pthread_mutex_unlock(&mutexLog);
 	//printf("Escuchando conexiones\n");
 	int head , bufferTam;
-
 	while(TRUE) {
 		conBroker = conectarCon(fdBroker,configFile->ipBroker,configFile->puertoBroker,loggerCatedra);
 
 		if(conBroker == TRUE){
 			conBroker = handshake_cliente(fdBroker, "Team" , "Broker", logger);
+			if (getEnviado == FALSE) {
+				getPokemon();
+				getEnviado = TRUE;
+			}
 		}
 		if(conBroker == TRUE){
 			suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
 			laSuscripcion.modulo = TEAM; // @suppress("Symbol is not resolved")
-			laSuscripcion.token = 0;//config_File->TOKEN;
+			laSuscripcion.token = configFile->token;//config_File->TOKEN;
 			laSuscripcion.cola_a_suscribir = list_create();
 			list_add(laSuscripcion.cola_a_suscribir, APPEARED_POKEMON); // @suppress("Symbol is not resolved")
 			list_add(laSuscripcion.cola_a_suscribir, CAUGHT_POKEMON);
@@ -841,6 +897,7 @@ void planificador_Broker() {
 					case APPEARED_POKEMON :{
 						cola_APPEARED_POKEMON app_poke;
 						deserealizar_APPEARED_POKEMON(head, mensaje, bufferTam, & app_poke);
+						sendACK(fdBroker, app_poke.id_mensaje);
 						if (pokemonNecesario(&app_poke) == TRUE) {
 							entrenadorPokemon* proximoEntrenadorEnEjecutar = seleccionarEntrenadorMasCercano(&app_poke);
 							char* proximaAccionEntrenador = string_new();
@@ -911,7 +968,6 @@ void planificador_GameBoy() {
 	//printf("Escuchando conexiones\n");
 	int head , bufferTam;
 
-
 	//Esta parte la saco porque los hilos se crean desdel el que mantiene conexión con el Broker
 
 	/*for (int i = 0; i < list_size(configFile->posicionEntrenadores); i++){
@@ -931,7 +987,6 @@ void planificador_GameBoy() {
 				cerrarSocket(fdTeam);
 			}
 		}
-
 		int recibido = recibirProtocolo(&head,&bufferTam,comandoNuevo); // recibo head y tamaño de msj
 		void * mensaje = malloc(bufferTam);
 		if (head < 1 || recibido <= 0){ // DESCONEXIÓN
@@ -957,7 +1012,6 @@ void planificador_GameBoy() {
 				//responder por localized_pokemon
 				log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 				//printf("Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d \n",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-				ejecutar();
 				//free(app_poke.nombre_pokemon);
 			}
 		break;
@@ -980,10 +1034,10 @@ void planificador_GameBoy() {
 			cola_LOCALIZED_POKEMON loc_poke ;
 			deserealizar_LOCALIZED_POKEMON(head, mensaje, bufferTam, & loc_poke);
 			for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-			log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-			//printf("Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d\n",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-			i++;
-		}
+				log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+				//printf("Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d\n",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
+				i++;
+			}
 			desBloquearSemaforoEnt(colaNew,1);
 			//free(loc_poke.nombre_pokemon);
 			list_destroy(loc_poke.lista_posiciones);
@@ -994,6 +1048,7 @@ void planificador_GameBoy() {
 			printf("Instrucción no reconocida");
 		break;
 		}
+		ejecutar();
 	}
 	}
 }
@@ -1106,14 +1161,14 @@ void planificador_GameBoy() {
 
 
 void thread_Entrenador(entrenadorPokemon * elEntrenador) {
-	/*pthread_mutex_lock( (pthread_t) & elEntrenador->semaforMutex);
+	//pthread_mutex_lock( (pthread_t) & elEntrenador->semaforMutex);
 	//log_info(logger,"Trabajando con el Entrenador Nro %d",elEntrenador->idEntrenador);
 	//realizarAccion(elEntrenador);
 	//EN EL CATCH -> APLICAR_PROTOCOLO_ENVIAR -> CATCH
 	// RECIBIR EL ID DE MSJ Y GUARDARLO EN UNA VARIABLE
 	//CUANDO RECIBO EL CAUGHT VALIDO MIS ENTRENADORES Y DESPIERTO AL QUE ESPERA EL MSJ
 	// VER SITUACIÓN DE EJECUTACIÓN.
-	pthread_mutex_unlock(&elEntrenador->semaforMutex);*/
+	//pthread_mutex_unlock(&elEntrenador->semaforMutex);
 }
 
 /*void reconectar(){

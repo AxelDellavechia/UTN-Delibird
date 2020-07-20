@@ -12,7 +12,7 @@
 #include <math.h>
 #include "../digiCommons/src/mensajeria.h"
 
-#define LOG_PATH "../CatedraTeam.log"
+#define LOG_PATH "./CatedraTeam.log"
 #define LOG_PATH_INTERNO "./Team.log"
 #define RUTA_CONFIG_TEAM "./configTeam.txt"
 #define FALSE 0
@@ -36,11 +36,13 @@ int ciclosEnCPU;
 int fdTeam;
 int fdBroker;
 int conBroker;
-int idMensajeEsperado;
+int idMensaje;
 int crearLista;
 int cantEntrenadores;
 int cantCambiosContexto;
 int cantDeadlocks;
+int getEnviado;
+
 pthread_t hilo_servidor;
 pthread_t hilo_gameboy;
 pthread_t hilo_consola;
@@ -52,6 +54,7 @@ pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
 pthread_mutex_t mutexLog;
 pthread_mutex_t mutexLogCatedra;
+pthread_mutex_t mutex_idMensaje;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -67,6 +70,7 @@ typedef struct archivoConfigFile {
 	int puertoTeam;
 	char* logFile;
 	double alpha;
+	unsigned int token;
 } archivoConfigFile;
 
 archivoConfigFile *configFile;

@@ -1,61 +1,183 @@
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 0 creado y en cola de New
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 0 movido a cola de Ready
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 1 creado y en cola de New
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 1 movido a cola de Ready
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 2 creado y en cola de New
-[INFO] 16:46:02:361 logCatedra.log/(6622:6652): Entrenador 2 movido a cola de Ready
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 0 creado y en cola de New
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 0 movido a cola de Ready
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 1 creado y en cola de New
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 1 movido a cola de Ready
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 2 creado y en cola de New
-[INFO] 16:48:16:649 logCatedra.log/(6771:6771): Entrenador 2 movido a cola de Ready
-[INFO] 16:48:24:65 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:48:54:69 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
-[INFO] 16:48:54:69 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:49:32:694 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
-[INFO] 16:49:32:695 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:50:02:695 logCatedra.log/(6771:6800): Reinicio de proceso de reconexión con broker
-[INFO] 16:50:24:438 logCatedra.log/(6771:6800): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 0 creado y en cola de New
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 0 movido a cola de Ready
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 1 creado y en cola de New
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 1 movido a cola de Ready
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 2 creado y en cola de New
-[INFO] 16:56:01:906 logCatedra.log/(7038:7038): Entrenador 2 movido a cola de Ready
-[INFO] 16:56:17:655 logCatedra.log/(7038:7061): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 0 creado y en cola de New
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 0 movido a cola de Ready
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 1 creado y en cola de New
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 1 movido a cola de Ready
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 2 creado y en cola de New
-[INFO] 16:57:35:992 logCatedra.log/(7155:7155): Entrenador 2 movido a cola de Ready
-[INFO] 16:57:39:633 logCatedra.log/(7155:7173): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:59:08:88 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
-[INFO] 16:59:11:542 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:59:41:542 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
-[INFO] 16:59:52:449 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:00:22:449 logCatedra.log/(7155:7173): Reinicio de proceso de reconexión con broker
-[INFO] 17:00:25:809 logCatedra.log/(7155:7173): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:01:29:938 logCatedra.log/(7369:7369): Entrenador 0 creado y en cola de New
-[INFO] 17:01:29:938 logCatedra.log/(7369:7369): Entrenador 0 movido a cola de Ready
-[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 1 creado y en cola de New
-[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 1 movido a cola de Ready
-[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 2 creado y en cola de New
-[INFO] 17:01:29:939 logCatedra.log/(7369:7369): Entrenador 2 movido a cola de Ready
-[INFO] 17:01:35:245 logCatedra.log/(7369:7388): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:02:17:376 logCatedra.log/(7369:7388): Reinicio de proceso de reconexión con broker
-[INFO] 17:02:20:696 logCatedra.log/(7369:7388): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:02:56:770 logCatedra.log/(7369:7388): Reinicio de proceso de reconexión con broker
-[INFO] 17:02:59:796 logCatedra.log/(7369:7388): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 0 creado y en cola de New
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 0 movido a cola de Ready
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 1 creado y en cola de New
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 1 movido a cola de Ready
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 2 creado y en cola de New
-[INFO] 17:05:36:718 logCatedra.log/(7618:7618): Entrenador 2 movido a cola de Ready
-[INFO] 17:05:46:833 logCatedra.log/(7618:7638): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:06:56:674 logCatedra.log/(7618:7638): Reinicio de proceso de reconexión con broker
-[INFO] 17:07:01:336 logCatedra.log/(7618:7638): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 17:07:31:336 logCatedra.log/(7618:7638): Reinicio de proceso de reconexión con broker
-[INFO] 17:07:41:757 logCatedra.log/(7618:7638): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:26:42:228 logCatedra.log/(24195:24195): Entrenador 0 creado y en cola de New
+[INFO] 19:26:42:244 logCatedra.log/(24195:24195): Entrenador 0 movido a cola de Ready
+[INFO] 19:26:42:245 logCatedra.log/(24195:24195): Entrenador 1 creado y en cola de New
+[INFO] 19:26:42:246 logCatedra.log/(24195:24195): Entrenador 1 movido a cola de Ready
+[INFO] 19:26:42:246 logCatedra.log/(24195:24195): Entrenador 2 creado y en cola de New
+[INFO] 19:26:42:246 logCatedra.log/(24195:24195): Entrenador 2 movido a cola de Ready
+[INFO] 19:26:42:282 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:26:46:229 logCatedra.log/(24195:24201): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 19:26:46:230 logCatedra.log/(24195:24201): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 19:26:46:244 logCatedra.log/(24195:24201): Entrenador 1 se movió a la posición 4 3
+[INFO] 19:26:46:245 logCatedra.log/(24195:24201): Se movió al entrenador id 1 a la cola de Ready para continuar su ejecución proximamente
+[INFO] 19:26:46:249 logCatedra.log/(24195:24201): Entrenador 0 a cola de Ready por ser el más cercano
+[INFO] 19:26:46:251 logCatedra.log/(24195:24201): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 6 , CORDENADA Y: 7 
+[INFO] 19:26:46:251 logCatedra.log/(24195:24201): Entrenador 0 se movió a la posición 3 3
+[INFO] 19:26:46:252 logCatedra.log/(24195:24201): Se movió al entrenador id 0 a la cola de Ready para continuar su ejecución proximamente
+[INFO] 19:26:46:255 logCatedra.log/(24195:24201): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 19:26:46:256 logCatedra.log/(24195:24201): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 19:26:46:256 logCatedra.log/(24195:24201): Entrenador 2 se movió a la posición 2 4
+[INFO] 19:26:46:257 logCatedra.log/(24195:24201): Se movió al entrenador id 2 a la cola de Ready para continuar su ejecución proximamente
+[INFO] 19:26:46:261 logCatedra.log/(24195:24201): Entrenador 1 se movió a la posición 6 3
+[INFO] 19:26:46:262 logCatedra.log/(24195:24201): Se movió al entrenador id 1 a la cola de Ready para continuar su ejecución proximamente
+[INFO] 19:26:46:265 logCatedra.log/(24195:24201): Entrenador 0 se movió a la posición 5 3
+[INFO] 19:26:46:265 logCatedra.log/(24195:24201): Se movió al entrenador id 0 a la cola de Ready para continuar su ejecución proximamente
+[INFO] 19:27:12:284 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:27:12:285 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:27:42:286 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:27:42:287 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:28:12:288 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:28:12:290 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:28:42:291 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:28:42:292 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:29:12:293 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:29:12:294 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:29:42:295 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:29:42:295 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:30:12:296 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:30:12:297 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:30:42:298 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:30:42:299 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:31:12:300 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:31:12:301 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:31:42:302 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:31:42:304 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:32:12:305 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:32:12:306 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[24] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:32:41:371 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:32:41:373 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:33:11:373 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:33:11:375 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:33:41:376 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:33:41:377 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:34:11:377 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:34:11:378 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[28] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:34:41:378 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:34:41:379 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[29] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:35:11:380 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:35:11:380 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[30] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:35:41:381 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:35:41:381 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[31] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:36:11:382 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:36:11:383 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[32] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:36:41:384 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:36:41:385 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[33] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:37:11:386 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:37:11:387 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[34] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:37:41:388 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:37:41:389 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[35] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:38:11:389 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:38:11:390 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[36] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:38:41:392 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:38:41:393 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[37] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:39:11:393 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:39:11:394 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[38] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:39:41:396 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:39:41:397 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[39] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:40:11:397 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:40:11:398 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[40] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:40:41:399 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:40:41:400 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[41] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:41:11:401 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:41:11:402 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[42] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:41:41:403 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:41:41:404 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[43] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:42:11:405 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:42:11:406 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[44] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:42:41:406 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:42:41:407 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[45] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:43:11:408 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:43:11:409 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[46] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:43:41:410 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:43:41:411 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[47] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:44:11:412 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:44:11:413 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[48] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:44:41:414 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:44:41:414 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[49] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:45:11:415 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:45:11:416 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[50] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:45:41:417 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:45:41:418 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[51] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:46:11:419 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:46:11:420 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[52] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:46:41:421 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:46:41:422 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[53] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:47:11:423 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:47:11:424 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[54] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:47:41:425 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:47:41:426 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[55] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:48:11:427 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:48:11:428 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[56] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:48:41:429 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:48:41:430 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[57] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:49:11:430 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:49:11:431 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[58] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:49:41:431 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:49:41:432 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[59] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:50:11:433 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:50:11:434 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[60] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:50:41:435 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:50:41:436 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[61] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:51:11:438 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:51:11:439 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[62] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:51:41:440 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:51:41:441 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[63] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:52:11:442 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:52:11:444 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[64] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:52:41:445 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:52:41:446 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[65] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:53:11:446 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:53:11:447 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[66] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:53:41:448 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:53:41:450 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[67] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:54:11:450 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:54:11:451 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[68] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:54:41:452 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:54:41:453 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[69] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:55:11:454 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:55:11:455 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[70] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:55:41:456 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:55:41:458 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[71] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:56:11:458 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:56:11:459 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[72] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:56:41:460 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:56:41:461 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[73] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:57:11:462 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:57:11:463 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[74] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:57:41:463 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:57:41:464 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[75] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:58:11:464 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:58:11:465 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[76] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:58:41:466 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:58:41:467 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[77] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:59:11:468 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:59:11:469 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[78] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:59:41:471 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 19:59:41:472 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[79] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:00:11:473 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:00:11:475 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[80] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:00:41:477 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:00:41:478 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[81] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:01:11:480 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:01:11:481 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[82] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:01:41:483 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:01:41:484 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[83] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:02:11:484 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:02:11:485 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[84] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:02:41:485 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:02:41:486 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[85] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:03:11:486 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:03:11:487 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[86] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:03:41:488 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:03:41:489 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[87] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:04:11:490 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:04:11:491 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[88] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:04:41:493 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:04:41:494 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[89] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:05:11:494 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:05:11:495 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[90] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:05:41:496 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:05:41:497 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[91] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:06:11:499 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:06:11:499 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[92] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:06:41:501 logCatedra.log/(24195:24200): Reinicio de proceso de reconexión con broker
+[INFO] 20:06:41:502 logCatedra.log/(24195:24200): No se pudo realizar la conexión entre el socket[93] y el servidor ip: 127.0.0.1 / puerto: 5003 
