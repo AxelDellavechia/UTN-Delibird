@@ -8,6 +8,7 @@
 #include <signal.h>
 #include <pthread.h>
 #include <limits.h>
+#include <semaphore.h>
 #include "../digiCommons/src/protocolos_comunicacion.h"
 #include <math.h>
 #include "../digiCommons/src/mensajeria.h"
@@ -55,6 +56,8 @@ pthread_mutex_t h_reconectar;
 pthread_mutex_t mutexLog;
 pthread_mutex_t mutexLogCatedra;
 pthread_mutex_t mutex_idMensaje;
+
+sem_t* semEntrenadores;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -140,5 +143,6 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 double calcularRafagaCPU(entrenadorPokemon* entrenador);
 int pokemonNecesario(cola_APPEARED_POKEMON* pokemonAparecido);
 void getPokemon();
+void threadAppeared(cola_APPEARED_POKEMON* app_poke);
 
 #endif
