@@ -68,6 +68,7 @@ void iniciar_semaforos()
 	pthread_mutex_init(&mutex_suscriptores_catch_pokemon, NULL);
 	pthread_mutex_init(&mutex_suscriptores_caught_pokemon, NULL);
 	pthread_mutex_init(&mutex_lista_suscritores, NULL);
+	pthread_mutex_init(&mutex_lista_ack, NULL);
 	//SE DEFINE MUTEX PARA LAS COLAS DE MSJS
 	pthread_mutex_init(&mutex_contador_msjs_cola, NULL);
 	pthread_mutex_init(&mutex_cola_new_pokemon, NULL);
@@ -126,6 +127,8 @@ void liberarRecursos(){
 	free(suscripcionC);
 	pthread_mutex_unlock(&mutex_suscripcion);
 
+
+	pthread_mutex_lock(&mutex_lista_ack);
 	for(int i=0 ; i < list_size(lista_ack) ; i++){
 	  respuesta_ACK * elack = list_get(lista_ack,i);
 	  free(elack);
@@ -133,6 +136,10 @@ void liberarRecursos(){
 
 
 	list_destroy(lista_ack);
+	pthread_mutex_unlock(&mutex_lista_ack);
+
+
+	pthread_mutex_lock(&mutex_lista_suscritores);
 
 	for(int i=0 ; i < list_size(lista_particiones) ; i++){
 	  Particion * laParti = list_get(lista_particiones,i);
@@ -141,56 +148,89 @@ void liberarRecursos(){
 
 	list_destroy(lista_particiones);
 
-	list_destroy(cola_appeared_pokemon);
-	list_destroy(cola_catch_pokemon);
-	list_destroy(cola_caught_pokemon);
-	list_destroy(cola_get_pokemon);
-	list_destroy(cola_localized_pokemon);
-	list_destroy(cola_new_pokemon);
+	pthread_mutex_unlock(&mutex_lista_suscritores);
 
+	pthread_mutex_lock(&mutex_cola_appeared_pokemon);
+	list_destroy(cola_appeared_pokemon);
+	pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+
+	pthread_mutex_lock(&mutex_cola_catch_pokemon);
+	list_destroy(cola_catch_pokemon);
+	pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+
+	pthread_mutex_lock(&mutex_cola_caught_pokemon);
+	list_destroy(cola_caught_pokemon);
+	pthread_mutex_unlock(&mutex_cola_caught_pokemon);
+
+	pthread_mutex_lock(&mutex_cola_get_pokemon);
+	list_destroy(cola_get_pokemon);
+	pthread_mutex_unlock(&mutex_cola_get_pokemon);
+
+	pthread_mutex_lock(&mutex_cola_localized_pokemon);
+	list_destroy(cola_localized_pokemon);
+	pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+
+	pthread_mutex_lock(&mutex_cola_new_pokemon);
+	list_destroy(cola_new_pokemon);
+	pthread_mutex_unlock(&mutex_cola_new_pokemon);
+
+	pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_appeared_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_appeared_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_appeared_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 
+	pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_catch_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_catch_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_catch_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 
+	pthread_mutex_lock(&mutex_suscriptores_caught_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_caught_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_caught_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_caught_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_caught_pokemon);
 
+	pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_get_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_get_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_get_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 
+	pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_localized_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_localized_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_localized_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 
+	pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
 	for(int i=0 ; i < list_size(suscriptores_new_pokemon) ; i++){
 	  losSuscriptores * elSus = list_get(suscriptores_new_pokemon,i);
 	  free(elSus);
 	}
 
 	list_destroy(suscriptores_new_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
 
+	pthread_mutex_lock(&mutex_memoria_cache);
 	free(memoria_cache);
+	pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
 void consola() {
@@ -394,7 +434,10 @@ int thread_Broker(int fdCliente) {
 											deserealizar_ACK( head, mensaje, bufferTam, ack);
 											log_info(logger,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
 											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
+											pthread_mutex_lock(&mutex_lista_ack);
 											list_add(lista_ack,ack);
+											pthread_mutex_unlock(&mutex_lista_ack);
+
 											break;
 										}
 

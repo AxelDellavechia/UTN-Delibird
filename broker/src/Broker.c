@@ -572,7 +572,7 @@ int dumpMemoria (int senial) {
 			} else {
 				char * colaNombre ;
 				colaNombre = strdup( tipoMsjIntoToChar(actual->colaAsignada) ) ;
-				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s	ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
+				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s	ID_MSJ: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->id_msj);
 				free(colaNombre);
 			}
 
