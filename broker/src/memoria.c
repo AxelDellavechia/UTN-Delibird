@@ -9,6 +9,8 @@
 
 void deserealizar_mem_NEW_POKEMON (int desplazamiento , cola_NEW_POKEMON * new_poke ) {
 
+	pthread_mutex_lock(&mutex_memoria_cache);
+
 							memcpy(&new_poke->id_mensaje,memoria_cache+desplazamiento,sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
@@ -31,9 +33,12 @@ void deserealizar_mem_NEW_POKEMON (int desplazamiento , cola_NEW_POKEMON * new_p
 
 							new_poke->nombre_pokemon[new_poke->tamanio_nombre] = '\0';
 
+	pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
 void deserealizar_mem_APPEARED_POKEMON (int desplazamiento, cola_APPEARED_POKEMON * app_poke) {
+
+	pthread_mutex_lock(&mutex_memoria_cache);
 
 			app_poke->nombre_pokemon = malloc(1);
 
@@ -54,12 +59,16 @@ void deserealizar_mem_APPEARED_POKEMON (int desplazamiento, cola_APPEARED_POKEMO
 
 			app_poke->nombre_pokemon[app_poke->tamanio_nombre] = '\0';
 
+			pthread_mutex_unlock(&mutex_memoria_cache);
+
 			//log_info(logger,"deserealizar CASE APPEARED_POKEMON -> ID:%d , POKEMON:%s , POSICIÓN X:%d , POSICIÓN Y: %d",app_poke->id_mensaje,app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 
 			//return app_poke;
 }
 
 void deserealizar_mem_CATCH_POKEMON (int desplazamiento, cola_CATCH_POKEMON * cat_poke) {
+
+	pthread_mutex_lock(&mutex_memoria_cache);
 
 	cat_poke->nombre_pokemon = malloc(1);
 
@@ -80,19 +89,24 @@ void deserealizar_mem_CATCH_POKEMON (int desplazamiento, cola_CATCH_POKEMON * ca
 
 			cat_poke->nombre_pokemon[cat_poke->tamanio_nombre] = '\0';
 
-			//return cat_poke;
-}
+			pthread_mutex_unlock(&mutex_memoria_cache);}
 
 void deserealizar_mem_CAUGHT_POKEMON (int desplazamiento, cola_CAUGHT_POKEMON * cau_poke) {
+
+	pthread_mutex_lock(&mutex_memoria_cache);
 
 							memcpy(&cau_poke->id_mensaje,(memoria_cache+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
 							memcpy(&cau_poke->atrapo_pokemon,(memoria_cache+desplazamiento),sizeof(uint32_t));
 
+							pthread_mutex_unlock(&mutex_memoria_cache);
+
 }
 
 void deserealizar_mem_GET_POKEMON ( int desplazamiento,  cola_GET_POKEMON * get_poke) {
+
+	pthread_mutex_lock(&mutex_memoria_cache);
 
 				get_poke->nombre_pokemon = malloc(1);
 
@@ -107,27 +121,11 @@ void deserealizar_mem_GET_POKEMON ( int desplazamiento,  cola_GET_POKEMON * get_
 
 							get_poke->nombre_pokemon[get_poke->tamanio_nombre] = '\0';
 
-							//return get_poke;
-}
+							pthread_mutex_unlock(&mutex_memoria_cache);}
 
 void deserealizar_mem_LOCALIZED_POKEMON (int desplazamiento,  cola_LOCALIZED_POKEMON * loc_poke_des) {
 
-	/*
-		int desplazamiento = 0;
-		memcpy(buffer+desplazamiento,&localized_pokemon->id_mensaje,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,&localized_pokemon->tamanio_nombre,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		memcpy(buffer+desplazamiento,localized_pokemon->nombre_pokemon,string_length(localized_pokemon->nombre_pokemon));
-		desplazamiento += localized_pokemon->tamanio_nombre;
-		memcpy(buffer+desplazamiento,&localized_pokemon->cantidad,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-		int tamLista = list_size(localized_pokemon->lista_posiciones);
-		for (int i = 0 ; i < tamLista ; i++){
-		int elemento = list_get(localized_pokemon->lista_posiciones,i) ;
-		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
-		desplazamiento += sizeof(uint32_t);
-	*/
+	pthread_mutex_lock(&mutex_memoria_cache);
 
 							memcpy(&loc_poke_des->id_mensaje,(memoria_cache+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
@@ -157,5 +155,4 @@ void deserealizar_mem_LOCALIZED_POKEMON (int desplazamiento,  cola_LOCALIZED_POK
 
 							loc_poke_des->nombre_pokemon[loc_poke_des->tamanio_nombre] = '\0';
 
-							//return loc_poke;
-}
+							pthread_mutex_unlock(&mutex_memoria_cache);}
