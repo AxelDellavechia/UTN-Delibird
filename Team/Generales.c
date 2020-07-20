@@ -953,9 +953,9 @@ void planificador_Broker() {
 
 
 void planificador_GameBoy() {
-	pthread_mutex_lock(&mutexLog);
+/*	pthread_mutex_lock(&mutexLog);
 	log_info(logger,"Obteniendo los Entrenadores");
-	pthread_mutex_unlock(&mutexLog);
+	pthread_mutex_unlock(&mutexLog);*/
 	//printf("Obteniendo los entrenadores\n");
 
 	fdTeam = nuevoSocket();
@@ -966,17 +966,9 @@ void planificador_GameBoy() {
 	log_info(logger,"Escuchando conexiones");
 	pthread_mutex_unlock(&mutexLog);
 	//printf("Escuchando conexiones\n");
-	int head , bufferTam;
 
-	//Esta parte la saco porque los hilos se crean desdel el que mantiene conexión con el Broker
 
-	/*for (int i = 0; i < list_size(configFile->posicionEntrenadores); i++){
-		entrenadorPokemon * entrenador = list_get(colaNew,i) ;
-		//sem_wait(&entrenador->semafoContador);
-		pthread_create(&hilo, NULL, (void*) thread_Entrenador,entrenador);
-		//list_add(misHilos,process_get_thread_id());
-		//log_info(logger,"Cree un hilo para el entrenador %d y tiene ID %d",i,hilo=pthread_self());
-	}*/
+
 	while(TRUE) {
 		int conexionNueva = 0;
 		int comandoNuevo;//= reservarMemoria(INT);
@@ -986,8 +978,18 @@ void planificador_GameBoy() {
 			if(!validar_conexion(conexionNueva, 0,logger) ) {
 				cerrarSocket(fdTeam);
 			}
+
+			pthread_t hilo_GB;
+			pthread_create(&hilo_GB, NULL, (void*)  thread_NewGameboy, comandoNuevo);
 		}
-		int recibido = recibirProtocolo(&head,&bufferTam,comandoNuevo); // recibo head y tamaño de msj
+
+}
+}
+
+void thread_NewGameboy(int comandoNuevo){
+
+	int head , bufferTam;
+	int recibido = recibirProtocolo(&head,&bufferTam,comandoNuevo); // recibo head y tamaño de msj
 		void * mensaje = malloc(bufferTam);
 		if (head < 1 || recibido <= 0){ // DESCONEXIÓN
 			printf("Error al recibir mensaje.\n");
@@ -1050,8 +1052,16 @@ void planificador_GameBoy() {
 		}
 		ejecutar();
 	}
-	}
+	free(mensaje);
+
+//pthread_mutex_lock(&mxHilos);
+pthread_mutex_lock(&mutexLog);
+log_info(logger, "Fin de hilo GameBoy");
+pthread_mutex_unlock(&mutexLog);
+//pthread_cancel( pthread_self() );
+pthread_detach( pthread_self() );
 }
+
 
 
 /*void planificador_BACKUP() {

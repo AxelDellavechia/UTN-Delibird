@@ -122,6 +122,7 @@ int thread_Team(int fdCliente);
 void crearHilos();
 void planificador_Broker();
 void planificador_GameBoy();
+void thread_NewGameboy(int comandoNuevo);
 void reconectar();
 void thread_Entrenador(entrenadorPokemon * elEntrenador);
 void iniciar_log();
