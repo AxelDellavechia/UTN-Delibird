@@ -91,7 +91,7 @@ void crearHilosBroker() {
 
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-	//pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
+	pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
 
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_consola, NULL);
@@ -282,16 +282,16 @@ void servidor() {
 
 		while(conexionNueva == 0) {
 
-			pthread_mutex_lock(&mutex_socket);
+			//pthread_mutex_lock(&mutex_socket);
 			comandoNuevo = aceptarConexionSocket(fdBroker);
-			pthread_mutex_unlock(&mutex_socket);
+		//	pthread_mutex_unlock(&mutex_socket);
 
 			conexionNueva = handshake_servidor ( comandoNuevo,"Broker" , "Team",logger);
 
 			if( ! validar_conexion(conexionNueva, 0,logger) ) {
-					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
+				//	pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
 					cerrarSocket(fdBroker);
-					pthread_mutex_unlock(&mxSocketsFD);
+				//	pthread_mutex_unlock(&mxSocketsFD);
 			}
 			log_info(loggerCatedra,"Se conecto un Proceso al Broker");
 		}
@@ -444,9 +444,9 @@ int thread_Broker(int fdCliente) {
 											suscripcionC = malloc(sizeof(losSuscriptores));
 											suscripcionC->laSus = malloc(sizeof(suscriptor));
 
-											pthread_mutex_lock(&mutex_socket);
-											suscripcionC->suSocket = comandoNuevo;
-											pthread_mutex_unlock(&mutex_socket);
+											//pthread_mutex_lock(&mutex_socket);
+											suscripcionC->suSocket = fdCliente;
+										//	pthread_mutex_unlock(&mutex_socket);
 
 											deserealizar_suscriptor( head, mensaje, bufferTam, suscripcionC->laSus);
 
