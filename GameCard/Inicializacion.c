@@ -387,34 +387,34 @@ void sendACK(int fdSocket, int idMsj){
 }
 
 void thread_GetPokemon(cola_GET_POKEMON* get_poke){
-	cola_LOCALIZED_POKEMON* locPokemon;
-	locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
-	GetPokemon(get_poke, locPokemon);
-	locPokemon->nombre_pokemon = malloc (1 + get_poke->nombre_pokemon);
-	strcpy(locPokemon->nombre_pokemon,get_poke->nombre_pokemon);
-	locPokemon->tamanio_nombre = string_length(locPokemon->nombre_pokemon);
-	locPokemon->id_mensaje = get_poke->id_mensaje;
-	locPokemon->cantidad = list_size(locPokemon->lista_posiciones);
+	cola_LOCALIZED_POKEMON locPokemon;// = malloc(sizeof(cola_LOCALIZED_POKEMON));
+	//locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
+	GetPokemon(get_poke, &locPokemon);
+	locPokemon.nombre_pokemon = malloc (1 + string_length(get_poke->nombre_pokemon));
+	strcpy(locPokemon.nombre_pokemon,get_poke->nombre_pokemon);
+	locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
+	locPokemon.id_mensaje = get_poke->id_mensaje;
+	locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
 
 	int envio = aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
 	if(envio == ERROR){
 			pthread_mutex_lock(&mxLog);
-			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",locPokemon->id_mensaje);
+			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",locPokemon.id_mensaje);
 			pthread_mutex_unlock(&mxLog);
 	}
 
-	for(int i = 0;i<list_size(locPokemon->lista_posiciones);i++){
-		t_positions* pos;// = malloc (sizeof(t_positions));
-		pos = list_get(locPokemon->lista_posiciones,i);
+	for(int i = 0;i<list_size(locPokemon.lista_posiciones);i++){
+		posicion* pos;// = malloc (sizeof(t_positions));
+		pos = list_get(locPokemon.lista_posiciones,i);
 		//printf("x: %i  y:%i  cant:%i\n",pos->Pos_x, pos->Pos_y, pos->Cantidad);
 		free(pos);
 	}
 
-	list_destroy(locPokemon->lista_posiciones);
+	list_destroy(locPokemon.lista_posiciones);
 	//free(locPokemon->lista_posiciones);
 	free(get_poke->nombre_pokemon);
-	free(locPokemon->nombre_pokemon);
-	free(locPokemon);
+	free(locPokemon.nombre_pokemon);
+	//free(locPokemon);
 	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
