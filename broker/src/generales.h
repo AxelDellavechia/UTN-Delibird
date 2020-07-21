@@ -122,6 +122,7 @@ pthread_mutex_t mutex_posicion_puntero_fifo;
 
 //t_list* lista_msjs;
 t_list* lista_particiones;
+t_list* lista_nodos_particiones;
 t_list* lista_ack;
 
 t_list* suscriptores_new_pokemon;

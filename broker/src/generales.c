@@ -11,13 +11,7 @@ void iniciar_estructuras(){
 	//SE RESERVA LA MEMORIA TOTAL DEL BROKER
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
-	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
-	Particion * particion_memoria = malloc(sizeof(Particion));
-	particion_memoria->punteroInicial = 0;
-	particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA - 1;
-	particion_memoria->tamano = config_File->TAMANO_MEMORIA;
-	particion_memoria->libre = true;
-	particion_memoria->tiempoLRU = 0;
+
 	//Setea cantidad fallidas
 	frecuencia_compactacion = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
@@ -29,7 +23,6 @@ void iniciar_estructuras(){
 	//SE CREAN LAS LISTAS PARA LA ADMINISTRACION DE MEMORIA Y MSJS
 	//lista_msjs = list_create();
 	lista_particiones = list_create();
-	list_add(lista_particiones, particion_memoria);
 
 	lista_ack = list_create();
 	//SE CREA LAS LISTAS DE LOS SUSCRIPTORES POR COLA
@@ -48,6 +41,29 @@ void iniciar_estructuras(){
 	cola_caught_pokemon = list_create();
 
 	desplazamientoCache = 0 ;
+
+	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
+	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
+		Particion * particion_memoria = malloc(sizeof(Particion));
+		particion_memoria->id_msj= 0;
+		particion_memoria->punteroInicial = 0;
+		particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA - 1;
+		particion_memoria->tamano = config_File->TAMANO_MEMORIA;
+		particion_memoria->libre = true;
+		particion_memoria->tiempoLRU = 0;
+		list_add(lista_particiones, particion_memoria);
+	}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
+		Particion_bs * particion_memoria = malloc(sizeof(Particion));
+		particion_memoria->esPadre = false;
+		particion_memoria->nodo_padre = NULL;
+		particion_memoria->id_msj= 0;
+		particion_memoria->punteroInicial = 0;
+		particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA - 1;
+		particion_memoria->tamano = config_File->TAMANO_MEMORIA;
+		particion_memoria->libre = true;
+		particion_memoria->tiempoLRU = 0;
+		list_add(lista_particiones, particion_memoria);
+	}
 }
 
 void iniciar_semaforos()
@@ -780,7 +796,6 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 
 													aplicar_protocolo_enviar(laSus->suSocket, laParti->colaAsignada , app_poke);
 
-
 													free(app_poke->nombre_pokemon);
 
 													log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola APPEARED_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
@@ -860,6 +875,8 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 													break;
 												}
 											}
+											//SE ACTUALIZA EL LRU DE LA PARTICION
+											actualizarLRU(laParti);
 							}
 				}
 		 }
@@ -969,6 +986,12 @@ void agregar_contador_msj(){
 	pthread_mutex_lock(&mutex_contador_msjs_cola);
 	contador_msjs_en_cola++;
 	pthread_mutex_unlock(&mutex_contador_msjs_cola);
+}
+
+void actualizarLRU(Particion * particion){
+	if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
+		particion->tiempoLRU = (int) obtener_timestamp();
+	}
 }
 
 

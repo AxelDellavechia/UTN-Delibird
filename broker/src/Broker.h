@@ -20,6 +20,18 @@ typedef struct {
 	int tiempoLRU;
 }Particion;
 
+typedef struct {
+	_Bool esPadre;
+	Particion * nodo_padre;
+	uint32_t id_msj;
+	int tamano;
+	_Bool libre;
+	int colaAsignada;
+	int punteroInicial;
+	int punteroFinal;
+	int tiempoLRU;
+}Particion_bs;
+
 typedef enum {
 	First_Fit,
 	Best_Fit,
@@ -32,9 +44,8 @@ void esperar_conexion(int servidor);
 void atender(int socket);
 
 void guardar_msj(int head, int tamano, void * msj);
-void buscar_victima(int head,int tamano, Algoritmos First_Fit, void * msj);
-//Particion * reservar_particion_dinamica(int tamano, Mensaje msj);
-void reservar_particion_bs(int head, int tamano, void * msj);
+void buscar_victima(int head,int tamano, Algoritmos Algoritmo, void * msj);
+void buscar_victima_bs(int head, int tamano, Algoritmos Algoritmo, void * msj);
 
 void compactacion();
 void eliminar_particion();
