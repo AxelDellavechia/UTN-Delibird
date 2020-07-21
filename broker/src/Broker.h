@@ -8,6 +8,8 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
+#define LRU_MAX 4294967295
+
 #include "generales.h"
 
 typedef struct {
@@ -17,7 +19,7 @@ typedef struct {
 	int colaAsignada;
 	int punteroInicial;
 	int punteroFinal;
-	int tiempoLRU;
+	unsigned long long tiempoLRU;
 }Particion;
 
 typedef enum {

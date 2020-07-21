@@ -19,7 +19,7 @@ void iniciar_estructuras(){
 	particion_memoria->libre = true;
 	particion_memoria->tiempoLRU = 0;
 	//Setea cantidad fallidas
-	cantidad_fallidas = config_File->FRECUENCIA_COMPACTACION;
+	frecuencia_compactacion = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
 	contador_msjs_en_cola = 0;
 	puntero_reemplazo = 0;
@@ -434,10 +434,7 @@ int thread_Broker(int fdCliente) {
 											deserealizar_ACK( head, mensaje, bufferTam, ack);
 											log_info(logger,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
 											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
-											pthread_mutex_lock(&mutex_lista_ack);
 											list_add(lista_ack,ack);
-											pthread_mutex_unlock(&mutex_lista_ack);
-
 											break;
 										}
 
