@@ -140,8 +140,14 @@ void crearHilos() {
 	hilo_servidor= 0;
 	hilo_suscribir= 0;
 	hilo_consola= 0;
+	hilo_New=0;
+	hilo_Catch=0;
+	hilo_Get=0;
 
-	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
+	pthread_create(&hilo_New, NULL, (void*) suscribir_COLA_NEW, NULL);
+	pthread_create(&hilo_Catch, NULL, (void*) suscribir_COLA_CATCH, NULL);
+	pthread_create(&hilo_Get, NULL, (void*) suscribir_COLA_GET, NULL);
+//	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 
@@ -231,16 +237,321 @@ void consola() {
 
 
  	log_destroy(logger);
-	pthread_cancel(hilo_suscribir);
- 	pthread_detach(hilo_suscribir);
+	//pthread_cancel(hilo_suscribir);
+ //	pthread_detach(hilo_suscribir);
 	pthread_cancel(hilo_servidor);
  	pthread_detach(hilo_servidor);
+
+
+ 	pthread_cancel(hilo_New);
+ 	pthread_detach(hilo_New);
+ 	pthread_cancel(hilo_Catch);
+ 	pthread_detach(hilo_Catch);
+ 	pthread_cancel(hilo_Get);
+ 	pthread_detach(hilo_Get);
+
+
 
 
  	pthread_cancel( hilo_consola );
 	//pthread_detach( hilo_consola );
 
 }
+
+
+void suscribir_COLA_NEW() {
+
+
+
+	 int fdSocketNew = nuevoSocket();
+
+	int step = INIT;
+	while(TRUE) {
+	switch(step){
+	case INIT:{
+			step = conectarCon( fdSocketNew,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+					break;
+			}
+	case FALSE:{
+				usleep(config_File->TIEMPO_DE_REINTENTO_CONEXION *1000000);
+				step = INIT;
+				fdSocketNew = nuevoSocket();
+				break;
+
+			}
+	case TRUE:{
+				//int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+		int res = handshake_cliente(fdSocketNew, "Team" , "Broker", logger);
+				if (res == TRUE){
+					step = SUSCRIBIR;
+				}else{
+					step = FALSE;
+					pthread_mutex_lock(&mxLog);
+					log_info(logger,"No se puede realizar la suscripción al Broker.");
+					pthread_mutex_unlock(&mxLog);
+				}
+				break;
+			}
+	case SUSCRIBIR:{
+
+				suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+				laSuscripcion.modulo = GAMECARD; // @suppress("Symbol is not resolved")
+				laSuscripcion.token = config_File->TOKEN;
+				laSuscripcion.cola_a_suscribir = list_create();
+				list_add(laSuscripcion.cola_a_suscribir, NEW_POKEMON); // @suppress("Symbol is not resolved")
+				aplicar_protocolo_enviar(fdSocketNew, SUSCRIPCION, &laSuscripcion);
+
+				list_destroy(laSuscripcion.cola_a_suscribir);
+				step = ESPERA_ACK;
+				break;
+			}
+	case ESPERA_ACK:{
+				step = ESCUCHANDO;
+				break;
+
+			}
+	case ESCUCHANDO:{
+			int head , bufferTam  ;
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdSocketNew); // recibo head y tamaño de msj
+		//	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
+
+//			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
+			void * mensaje = malloc(bufferTam);
+
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+								//printf("Error al recibir mensaje.\n");
+			step = FALSE;
+			}else{
+			recibirMensaje(fdSocketNew , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+			switch( head ){
+
+						case NEW_POKEMON :{
+							cola_NEW_POKEMON* new_poke = malloc (sizeof(cola_NEW_POKEMON));
+							deserealizar_NEW_POKEMON ( head, mensaje, bufferTam,  new_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke->nombre_pokemon,new_poke->cantidad,new_poke->posicion_x,new_poke->posicion_y);
+							pthread_mutex_unlock(&mxLog);
+
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_NewPokemon, new_poke);
+							break;
+						}
+
+						default:
+
+							enviarPorSocket(fdSocketNew, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
+							break;
+					}
+
+
+			}
+			free(mensaje);
+	}
+
+
+
+	}
+	}
+
+}
+
+void suscribir_COLA_CATCH() {
+
+
+
+	 int fdSocketCatch = nuevoSocket();
+
+	int step = INIT;
+	while(TRUE) {
+	switch(step){
+	case INIT:{
+			step = conectarCon( fdSocketCatch,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+					break;
+			}
+	case FALSE:{
+				usleep(config_File->TIEMPO_DE_REINTENTO_CONEXION *1000000);
+				step = INIT;
+				fdSocketCatch = nuevoSocket();
+				break;
+
+			}
+	case TRUE:{
+				//int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+		int res = handshake_cliente(fdSocketCatch, "Team" , "Broker", logger);
+				if (res == TRUE){
+					step = SUSCRIBIR;
+				}else{
+					step = FALSE;
+					pthread_mutex_lock(&mxLog);
+					log_info(logger,"No se puede realizar la suscripción al Broker.");
+					pthread_mutex_unlock(&mxLog);
+				}
+				break;
+			}
+	case SUSCRIBIR:{
+
+				suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+				laSuscripcion.modulo = GAMECARD; // @suppress("Symbol is not resolved")
+				laSuscripcion.token = config_File->TOKEN;
+				laSuscripcion.cola_a_suscribir = list_create();
+				list_add(laSuscripcion.cola_a_suscribir, CATCH_POKEMON);
+				aplicar_protocolo_enviar(fdSocketCatch, SUSCRIPCION, &laSuscripcion);
+
+				list_destroy(laSuscripcion.cola_a_suscribir);
+				step = ESPERA_ACK;
+				break;
+			}
+	case ESPERA_ACK:{
+				step = ESCUCHANDO;
+				break;
+
+			}
+	case ESCUCHANDO:{
+			int head , bufferTam  ;
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdSocketCatch); // recibo head y tamaño de msj
+		//	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
+
+//			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
+			void * mensaje = malloc(bufferTam);
+
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+								//printf("Error al recibir mensaje.\n");
+			step = FALSE;
+			}else{
+			recibirMensaje(fdSocketCatch , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+			switch( head ){
+						case CATCH_POKEMON :{
+							cola_CATCH_POKEMON* cath_poke = malloc(sizeof(cola_CATCH_POKEMON));
+							deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon, cath_poke->posicion_x,cath_poke->posicion_y);
+							pthread_mutex_unlock(&mxLog);
+
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_CatchPokemon, cath_poke);
+							break;
+						}
+						default:
+
+							enviarPorSocket(fdSocketCatch, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
+							break;
+					}
+
+
+			}
+			free(mensaje);
+	}
+
+
+
+	}
+	}
+
+}
+
+
+void suscribir_COLA_GET() {
+
+
+
+	int fdSocketGet = nuevoSocket();
+
+	int step = INIT;
+	while(TRUE) {
+	switch(step){
+	case INIT:{
+			step = conectarCon( fdSocketGet,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+					break;
+			}
+	case FALSE:{
+				usleep(config_File->TIEMPO_DE_REINTENTO_CONEXION *1000000);
+				step = INIT;
+				fdSocketGet = nuevoSocket();
+				break;
+
+			}
+	case TRUE:{
+				//int res = handshake_cliente(fdBroker, KEY_HANDSHAKE , "Broker", logger);
+		int res = handshake_cliente(fdSocketGet, "Team" , "Broker", logger);
+				if (res == TRUE){
+					step = SUSCRIBIR;
+				}else{
+					step = FALSE;
+					pthread_mutex_lock(&mxLog);
+					log_info(logger,"No se puede realizar la suscripción al Broker.");
+					pthread_mutex_unlock(&mxLog);
+				}
+				break;
+			}
+	case SUSCRIBIR:{
+
+				suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+				laSuscripcion.modulo = GAMECARD; // @suppress("Symbol is not resolved")
+				laSuscripcion.token = config_File->TOKEN;
+				laSuscripcion.cola_a_suscribir = list_create();
+				list_add(laSuscripcion.cola_a_suscribir, GET_POKEMON);
+				aplicar_protocolo_enviar(fdSocketGet, SUSCRIPCION, &laSuscripcion);
+
+				list_destroy(laSuscripcion.cola_a_suscribir);
+				step = ESPERA_ACK;
+				break;
+			}
+	case ESPERA_ACK:{
+				step = ESCUCHANDO;
+				break;
+
+			}
+	case ESCUCHANDO:{
+			int head , bufferTam  ;
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdSocketGet); // recibo head y tamaño de msj
+		//	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
+
+//			int recibido = recv(fdBroker, &head, sizeof(int), MSG_WAITALL);
+			void * mensaje = malloc(bufferTam);
+
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN
+								//printf("Error al recibir mensaje.\n");
+			step = FALSE;
+			}else{
+			recibirMensaje(fdSocketGet , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+			switch( head ){
+
+						case GET_POKEMON :{
+							cola_GET_POKEMON* get_poke = malloc(sizeof(cola_GET_POKEMON)) ;
+							deserealizar_GET_POKEMON ( head, mensaje, bufferTam,  get_poke);
+							pthread_mutex_lock(&mxLog);
+							log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
+							pthread_mutex_unlock(&mxLog);
+
+							pthread_t hilo;
+							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, get_poke);
+							break;
+						}
+						default:
+
+							enviarPorSocket(fdSocketGet, "Instrucción no reconocida", string_length("Instrucción no reconocida"));
+							break;
+					}
+
+
+			}
+			free(mensaje);
+	}
+
+
+
+	}
+	}
+
+}
+
+
 
 
 
