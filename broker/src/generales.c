@@ -53,7 +53,7 @@ void iniciar_estructuras(){
 		particion_memoria->tiempoLRU = 0;
 		list_add(lista_particiones, particion_memoria);
 	}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-		Particion_bs * particion_memoria = malloc(sizeof(Particion));
+		Particion_bs * particion_memoria = malloc(sizeof(Particion_bs));
 		particion_memoria->esPadre = false;
 		particion_memoria->nodo_padre = NULL;
 		particion_memoria->id_msj= 0;
