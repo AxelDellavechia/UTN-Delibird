@@ -416,6 +416,87 @@ void consolidar_bs(Particion_bs * particion_liberada){
 }
 
 _Bool  algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
+	/*
+	pthread_mutex_lock(&mutex_lista_particiones);
+	_Bool particion_libre(Particion_bs* particion){return particion->libre && particion->tamano >= tamano && !particion->esPadre;}
+	_Bool ordenar(Particion* a, Particion* b){return a->punteroInicial < b->punteroInicial;}
+	_Bool hay_particion_libre = list_any_satisfy(list_sort(lista_particiones, (void*)ordenar), (void*)particion_libre);
+	if(hay_particion_libre){
+		int bestPartIndex = 0;
+		int desperdicio = config_File->TAMANO_MEMORIA;
+		_Bool encontro_particion = false;
+
+		for(int i = 0; i < list_size(lista_particiones) && encontro_particion == false;i++)
+		{
+			Particion_bs * particion = list_get(lista_particiones,i);
+			if(particion->libre == true )
+			{
+				if(particion->tamano >= tamano)
+				{
+					if(particion->tamano == tamano)
+					{
+						desperdicio = 0;
+						bestPartIndex = i;
+						encontro_particion = true;
+					}else{
+						if((particion->tamano - tamano) < desperdicio )
+						{
+							bestPartIndex = i;
+							desperdicio = (particion->tamano - tamano);
+						}
+					}
+				}
+			}
+		}
+
+		while()
+
+		Particion* particionBestFit = list_get(lista_particiones,bestPartIndex);
+
+
+		if(desperdicio > 0){
+			Particion* nuevaPartLibre = malloc(sizeof(Particion));
+			nuevaPartLibre->libre = true;
+			nuevaPartLibre->tamano = (particionBestFit->tamano - tamano);
+			nuevaPartLibre->punteroFinal = particionBestFit->punteroFinal;
+			nuevaPartLibre->punteroInicial = particionBestFit->punteroInicial + tamano;
+			nuevaPartLibre->tiempoLRU = LRU_MAX; //VER SI ESTÁ BIEN ESTE CERO, NO LO USA EN PRIMER AJUSTE
+			list_add(lista_particiones, nuevaPartLibre);
+
+		}
+
+		particionBestFit->tamano = tamano;
+		particionBestFit->libre = false;
+		particionBestFit->punteroFinal = particionBestFit->punteroInicial + tamano - 1;
+		particionBestFit->colaAsignada = head;
+		particionBestFit->tiempoLRU = obtener_timestamp();
+
+		void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+		memcpy(&particionBestFit->id_msj,buffer, sizeof(uint32_t));
+
+
+		pthread_mutex_lock(&mutex_memoria_cache);
+
+		memcpy(memoria_cache+particionBestFit->punteroInicial, buffer + sizeof(uint32_t) , tamano);
+
+
+		pthread_mutex_unlock(&mutex_memoria_cache);
+
+		free(buffer);
+
+		pthread_mutex_unlock(&mutex_lista_particiones);
+
+		log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d",particionBestFit->id_msj, particionBestFit->punteroInicial, particionBestFit->punteroFinal);
+
+		return true;
+
+
+	}else{
+		pthread_mutex_unlock(&mutex_lista_particiones);
+		return false;
+	}
+	*/
 	return true;
 }
 
@@ -614,7 +695,7 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 	}
 
 
-	}
+}
 
 
 void compactacion(){
