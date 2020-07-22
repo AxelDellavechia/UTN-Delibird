@@ -138,16 +138,16 @@ void crearHilos() {
 
 
 	hilo_servidor= 0;
-	hilo_suscribir= 0;
+	//hilo_suscribir= 0;
 	hilo_consola= 0;
-//	hilo_New=0;
-//	hilo_Catch=0;
-//	hilo_Get=0;
+	hilo_New=0;
+	hilo_Catch=0;
+	hilo_Get=0;
 
-	//pthread_create(&hilo_New, NULL, (void*) suscribir_COLA_NEW, NULL);
-	//pthread_create(&hilo_Catch, NULL, (void*) suscribir_COLA_CATCH, NULL);
-	//pthread_create(&hilo_Get, NULL, (void*) suscribir_COLA_GET, NULL);
-	pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
+	pthread_create(&hilo_New, NULL, (void*) suscribir_COLA_NEW, NULL);
+	pthread_create(&hilo_Catch, NULL, (void*) suscribir_COLA_CATCH, NULL);
+	pthread_create(&hilo_Get, NULL, (void*) suscribir_COLA_GET, NULL);
+	//pthread_create(&hilo_suscribir, NULL, (void*) suscribir, NULL);
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 
@@ -237,18 +237,18 @@ void consola() {
 
 
  	log_destroy(logger);
-	pthread_cancel(hilo_suscribir);
- 	pthread_detach(hilo_suscribir);
+	//pthread_cancel(hilo_suscribir);
+ 	//pthread_detach(hilo_suscribir);
 	pthread_cancel(hilo_servidor);
  	pthread_detach(hilo_servidor);
 
 
- //	pthread_cancel(hilo_New);
- //	pthread_detach(hilo_New);
- //	pthread_cancel(hilo_Catch);
- //	pthread_detach(hilo_Catch);
- //	pthread_cancel(hilo_Get);
- //	pthread_detach(hilo_Get);
+ 	pthread_cancel(hilo_New);
+ 	pthread_detach(hilo_New);
+ 	pthread_cancel(hilo_Catch);
+ 	pthread_detach(hilo_Catch);
+ 	pthread_cancel(hilo_Get);
+ 	pthread_detach(hilo_Get);
 
 
 
