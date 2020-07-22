@@ -51,6 +51,10 @@ pthread_t hilo;
 pthread_t hilo_conexion;
 pthread_t hilo_ejecucion;
 
+pthread_t hilo_APPEARED;
+pthread_t hilo_LOCALIZED;
+pthread_t hilo_CAUGHT;
+
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
 pthread_mutex_t h_reconectar;
@@ -128,6 +132,11 @@ void consola();
 int thread_Team(int fdCliente);
 void crearHilos();
 void planificador_Broker();
+void suscripcion_APPEARED_POKEMON();
+void suscripcion_LOCALIZED_POKEMON();
+void suscripcion_CAUGHT_POKEMON();
+
+
 void planificador_GameBoy();
 void thread_NewGameboy(int comandoNuevo);
 void reconectar();

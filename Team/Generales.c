@@ -574,7 +574,8 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 	list_add(colaBlocked, entrenador);
 	log_info(loggerCatedra, "Se movió al entrenador id %i a la cola de Blocked a la espera del resultado del catch", entrenador->idEntrenador);
 	if (conBroker == TRUE) {
-		aplicar_protocolo_enviar(fdBroker, CATCH_POKEMON, pokemonEnCatch);
+		conectar_y_enviar("BROKER" , configFile->ipBroker,configFile->puertoBroker, "Team" , "Broker",CATCH_POKEMON, pokemonEnCatch,logger ,loggerCatedra );
+		//aplicar_protocolo_enviar(fdBroker, CATCH_POKEMON, pokemonEnCatch);
 		int recibido = recibirProtocolo(&head,&bufferTam,fdBroker);
 		void * mensaje = malloc(bufferTam);
 		recibirMensaje(fdBroker, bufferTam, mensaje);
@@ -599,7 +600,8 @@ void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posici
 void getPokemon() {
 	int getYaRealizado;
 	char* primerObjetivo = list_get(objetivoTeam, 0);
-	aplicar_protocolo_enviar(fdBroker, GET_POKEMON, primerObjetivo);
+	conectar_y_enviar("BROKER" , configFile->ipBroker,configFile->puertoBroker, "Team" , "Broker",GET_POKEMON, primerObjetivo,logger ,loggerCatedra );
+	//aplicar_protocolo_enviar(fdBroker, GET_POKEMON, primerObjetivo);
 	for (int posicionObjetivo1 = 1; posicionObjetivo1 < list_size(objetivoTeam); posicionObjetivo1++) {
 		getYaRealizado = FALSE;
 		char* pokemonObjetivo1 = list_get(objetivoTeam, posicionObjetivo1);
@@ -611,7 +613,8 @@ void getPokemon() {
 			}
 		}
 		if (getYaRealizado == FALSE) {
-			aplicar_protocolo_enviar(fdBroker, GET_POKEMON, pokemonObjetivo1);
+			conectar_y_enviar("BROKER" , configFile->ipBroker,configFile->puertoBroker, "Team" , "Broker",GET_POKEMON, pokemonObjetivo1 ,logger ,loggerCatedra );
+			//aplicar_protocolo_enviar(fdBroker, GET_POKEMON, pokemonObjetivo1);
 		}
 	}
 }
@@ -747,14 +750,23 @@ void crearHilos() {
 	hilo_consola = 0;
 	hilo_conexion = 0;
 	hilo_ejecucion = 0;
-	pthread_create(&hilo_servidor, NULL, (void*) planificador_Broker, NULL);
+
+	hilo_APPEARED = 0;
+	hilo_LOCALIZED = 0;
+	hilo_CAUGHT = 0;
+
+
+	//pthread_create(&hilo_servidor, NULL, (void*) planificador_Broker, NULL);
+	pthread_create(&hilo_APPEARED, NULL, (void*) suscripcion_APPEARED_POKEMON, NULL);
+	pthread_create(&hilo_LOCALIZED, NULL, (void*) suscripcion_LOCALIZED_POKEMON, NULL);
+	pthread_create(&hilo_CAUGHT, NULL, (void*) suscripcion_CAUGHT_POKEMON, NULL);
 	pthread_create(&hilo_gameboy, NULL, (void*) planificador_GameBoy, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 	pthread_create(&hilo_ejecucion, NULL, (void*) planificador, NULL);
 
 	/*pthread_mutex_init(&h_reconectar,NULL);
 	pthread_mutex_lock(&h_reconectar);*/
-	pthread_join(hilo_servidor, NULL);
+	//pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_gameboy, NULL);
 	pthread_join(hilo_consola, NULL);
 	pthread_join(hilo_ejecucion, NULL);
@@ -783,6 +795,15 @@ void consola() {
 		pthread_detach(hilo);
 		pthread_cancel(hilo);
 	}
+
+
+ 	pthread_cancel(hilo_APPEARED);
+ 	pthread_detach(hilo_APPEARED);
+ 	pthread_cancel(hilo_LOCALIZED);
+ 	pthread_detach(hilo_LOCALIZED);
+ 	pthread_cancel(hilo_CAUGHT);
+ 	pthread_detach(hilo_CAUGHT);
+
 	pthread_cancel(hilo_servidor);
 	pthread_detach( pthread_self() );
 }
@@ -835,13 +856,214 @@ void desBloquearSemaforoEnt( t_list * lista , int indice ) {
 	list_add_in_index(lista,indice,elEntrenador);
 }
 
-void sendACK(int fdSocket, int idMsj){
+void sendACK( int idMsj){
 	respuesta_ACK ack;
 	ack.ack = OK;
 	ack.id_msj=idMsj;
 	ack.token = 0;//config_File->TOKEN;
-	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
+	conectar_y_enviar("BROKER" , configFile->ipBroker,configFile->puertoBroker, "Team" , "Broker",ACK, &ack ,logger ,loggerCatedra );
 }
+
+void suscripcion_APPEARED_POKEMON() {
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Obteniendo los Entrenadores");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Obteniendo los entrenadores\n");
+	int fdAppeared = nuevoSocket();
+	//asociarSocket(fdBroker, configFile->puertoBroker);
+	//escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Escuchando conexiones");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Escuchando conexiones\n");
+
+	int head , bufferTam;
+	while(TRUE) {
+		conBroker = conectarCon(fdAppeared,configFile->ipBroker,configFile->puertoBroker,loggerCatedra);
+
+		if(conBroker == TRUE){
+			conBroker = handshake_cliente(fdAppeared, "Team" , "Broker", logger);
+
+		}
+		if(conBroker == TRUE){
+			suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+			laSuscripcion.modulo = TEAM; // @suppress("Symbol is not resolved")
+			laSuscripcion.token = configFile->token;//config_File->TOKEN;
+			laSuscripcion.cola_a_suscribir = list_create();
+			list_add(laSuscripcion.cola_a_suscribir, APPEARED_POKEMON); // @suppress("Symbol is not resolved")
+			aplicar_protocolo_enviar(fdAppeared, SUSCRIPCION, &laSuscripcion);
+
+			list_destroy(laSuscripcion.cola_a_suscribir);
+		}
+		while (conBroker == TRUE) {
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdAppeared); // recibo head y tamaño de msj
+			void * mensaje = malloc(bufferTam);
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN, DEBE RECONECTARSE, SALE DEL WHILE Y SE RECONECTA
+				conBroker = FALSE;
+			}else{
+				recibirMensaje(fdAppeared , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+				log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+				log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+				log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
+
+				switch( head ){
+					case APPEARED_POKEMON :{
+						sem_wait(&semEntrenadores);
+						cola_APPEARED_POKEMON* app_poke = malloc(sizeof(cola_APPEARED_POKEMON));
+						deserealizar_APPEARED_POKEMON(head, mensaje, bufferTam, app_poke);
+						pthread_t hilo_APPEARED;
+						pthread_create(&hilo_APPEARED, NULL, (void*) threadAppeared, app_poke);
+					break;
+					}
+					default:
+						//log_info(logger, "Instrucción no reconocida");
+						printf("Instrucción no reconocida");
+					break;
+				}
+			}
+		}
+	sleep(configFile->tiempoReconexion);
+	fdAppeared=nuevoSocket();
+	log_info(loggerCatedra, "Reinicio de proceso de reconexión con broker");
+	}
+}
+
+
+void suscripcion_CAUGHT_POKEMON() {
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Obteniendo los Entrenadores");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Obteniendo los entrenadores\n");
+	int fdCaught = nuevoSocket();
+	//asociarSocket(fdBroker, configFile->puertoBroker);
+	//escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Escuchando conexiones");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Escuchando conexiones\n");
+
+	int head , bufferTam;
+	while(TRUE) {
+		conBroker = conectarCon(fdCaught,configFile->ipBroker,configFile->puertoBroker,loggerCatedra);
+
+		if(conBroker == TRUE){
+			conBroker = handshake_cliente(fdCaught, "Team" , "Broker", logger);
+
+		}
+		if(conBroker == TRUE){
+			suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+			laSuscripcion.modulo = TEAM; // @suppress("Symbol is not resolved")
+			laSuscripcion.token = configFile->token;//config_File->TOKEN;
+			laSuscripcion.cola_a_suscribir = list_create();
+			list_add(laSuscripcion.cola_a_suscribir, CAUGHT_POKEMON);
+			aplicar_protocolo_enviar(fdCaught, SUSCRIPCION, &laSuscripcion);
+
+			list_destroy(laSuscripcion.cola_a_suscribir);
+		}
+		while (conBroker == TRUE) {
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdCaught); // recibo head y tamaño de msj
+			void * mensaje = malloc(bufferTam);
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN, DEBE RECONECTARSE, SALE DEL WHILE Y SE RECONECTA
+				conBroker = FALSE;
+			}else{
+				recibirMensaje(fdCaught , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+				log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+				log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+				log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
+
+				switch( head ){
+
+					case CAUGHT_POKEMON :{
+						cola_CAUGHT_POKEMON* caug_poke = malloc(sizeof(cola_CAUGHT_POKEMON));
+						//responde por caught_pokemon
+						deserealizar_CAUGHT_POKEMON(head, mensaje, bufferTam, caug_poke);
+						pthread_t hilo_CAUGHT;
+						pthread_create(&hilo_CAUGHT, NULL, (void*) threadCaught, caug_poke);
+					break;
+					}
+					default:
+						//log_info(logger, "Instrucción no reconocida");
+						printf("Instrucción no reconocida");
+					break;
+				}
+			}
+		}
+	sleep(configFile->tiempoReconexion);
+	fdCaught=nuevoSocket();
+	log_info(loggerCatedra, "Reinicio de proceso de reconexión con broker");
+	}
+}
+
+void suscripcion_LOCALIZED_POKEMON() {
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Obteniendo los Entrenadores");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Obteniendo los entrenadores\n");
+	int fdLocalized = nuevoSocket();
+	//asociarSocket(fdBroker, configFile->puertoBroker);
+	//escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
+	pthread_mutex_lock(&mutexLog);
+	log_info(logger,"Escuchando conexiones");
+	pthread_mutex_unlock(&mutexLog);
+	//printf("Escuchando conexiones\n");
+
+	int head , bufferTam;
+	while(TRUE) {
+		conBroker = conectarCon(fdLocalized,configFile->ipBroker,configFile->puertoBroker,loggerCatedra);
+
+		if(conBroker == TRUE){
+			conBroker = handshake_cliente(fdLocalized, "Team" , "Broker", logger);
+			if (getEnviado == FALSE) {
+				getPokemon();
+				getEnviado = TRUE;
+			}
+		}
+		if(conBroker == TRUE){
+			suscriptor laSuscripcion;// = malloc(sizeof(suscriptor));
+			laSuscripcion.modulo = TEAM; // @suppress("Symbol is not resolved")
+			laSuscripcion.token = configFile->token;//config_File->TOKEN;
+			laSuscripcion.cola_a_suscribir = list_create();
+			list_add(laSuscripcion.cola_a_suscribir, LOCALIZED_POKEMON);
+			aplicar_protocolo_enviar(fdLocalized, SUSCRIPCION, &laSuscripcion);
+
+			list_destroy(laSuscripcion.cola_a_suscribir);
+		}
+		while (conBroker == TRUE) {
+
+			int recibido = recibirProtocolo(&head,&bufferTam,fdLocalized); // recibo head y tamaño de msj
+			void * mensaje = malloc(bufferTam);
+			if (head < 1 || recibido <= 0){ // DESCONEXIÓN, DEBE RECONECTARSE, SALE DEL WHILE Y SE RECONECTA
+				conBroker = FALSE;
+			}else{
+				recibirMensaje(fdLocalized , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
+				log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
+				log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
+				log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
+
+				switch( head ){
+					case LOCALIZED_POKEMON :{
+						cola_LOCALIZED_POKEMON* loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON));
+						deserealizar_LOCALIZED_POKEMON(head, mensaje, bufferTam, loc_poke);
+						pthread_t hilo_LOCALIZED;
+						pthread_create(&hilo_LOCALIZED, NULL, (void*) threadLocalized, loc_poke);
+					break;
+					}
+					default:
+						//log_info(logger, "Instrucción no reconocida");
+						printf("Instrucción no reconocida");
+					break;
+				}
+			}
+		}
+	sleep(configFile->tiempoReconexion);
+	fdLocalized=nuevoSocket();
+	log_info(loggerCatedra, "Reinicio de proceso de reconexión con broker");
+	}
+}
+
+
 
 void planificador_Broker() {
 	pthread_mutex_lock(&mutexLog);
@@ -896,7 +1118,6 @@ void planificador_Broker() {
 						sem_wait(&semEntrenadores);
 						cola_APPEARED_POKEMON* app_poke = malloc(sizeof(cola_APPEARED_POKEMON));
 						deserealizar_APPEARED_POKEMON(head, mensaje, bufferTam, app_poke);
-						sendACK(fdBroker, app_poke->id_mensaje);
 						pthread_t hilo_APPEARED;
 						pthread_create(&hilo_APPEARED, NULL, (void*) threadAppeared, app_poke);
 					break;
@@ -930,6 +1151,7 @@ void planificador_Broker() {
 }
 
 void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
+	sendACK(app_poke->id_mensaje);
 	if (pokemonNecesario(app_poke) == TRUE) {
 		entrenadorPokemon* proximoEntrenadorEnEjecutar = seleccionarEntrenadorMasCercano(app_poke);
 		char* proximaAccionEntrenador = string_new();
@@ -944,6 +1166,7 @@ void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
 }
 
 void threadCaught(cola_CAUGHT_POKEMON* caug_poke) {
+	sendACK(caug_poke->id_mensaje);
 	entrenadorPokemon* entrenador = verificarMensajeRecibido(caug_poke->id_mensaje);
 	if (entrenador != NULL) {
 		if (caug_poke->atrapo_pokemon == 0) {
@@ -955,6 +1178,7 @@ void threadCaught(cola_CAUGHT_POKEMON* caug_poke) {
 }
 
 void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke) {
+	sendACK(loc_poke->id_mensaje);
 	for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++){
 		log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
 		//printf("Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d\n",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));

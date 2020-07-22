@@ -19,3 +19,63 @@
 [INFO] 01:24:16:772 logCatedra.log/(8946:8946): Entrenador 2 creado y en cola de New
 [INFO] 01:24:16:772 logCatedra.log/(8946:8946): Entrenador 2 movido a cola de Ready
 [INFO] 01:24:16:857 logCatedra.log/(8946:8952): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:07:449 logCatedra.log/(9591:9591): Entrenador 0 creado y en cola de New
+[INFO] 15:44:07:450 logCatedra.log/(9591:9591): Entrenador 0 movido a cola de Ready
+[INFO] 15:44:07:450 logCatedra.log/(9591:9591): Entrenador 1 creado y en cola de New
+[INFO] 15:44:07:450 logCatedra.log/(9591:9591): Entrenador 1 movido a cola de Ready
+[INFO] 15:44:07:450 logCatedra.log/(9591:9591): Entrenador 2 creado y en cola de New
+[INFO] 15:44:07:450 logCatedra.log/(9591:9591): Entrenador 2 movido a cola de Ready
+[INFO] 15:44:07:454 logCatedra.log/(9591:9600): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:07:457 logCatedra.log/(9591:9601): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:07:457 logCatedra.log/(9591:9599): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:07:459 logCatedra.log/(9591:9600): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:44:07:476 logCatedra.log/(9591:9601): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:44:07:476 logCatedra.log/(9591:9599): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 0 creado y en cola de New
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 0 movido a cola de Ready
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 1 creado y en cola de New
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 1 movido a cola de Ready
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 2 creado y en cola de New
+[INFO] 15:45:48:969 logCatedra.log/(9648:9648): Entrenador 2 movido a cola de Ready
+[INFO] 15:46:00:575 logCatedra.log/(9648:9683): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:46:00:576 logCatedra.log/(9648:9683): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 0 creado y en cola de New
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 0 movido a cola de Ready
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 1 creado y en cola de New
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 1 movido a cola de Ready
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 2 creado y en cola de New
+[INFO] 15:48:53:684 logCatedra.log/(9768:9768): Entrenador 2 movido a cola de Ready
+[INFO] 15:48:55:578 logCatedra.log/(9768:9790): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:00:335 logCatedra.log/(9768:9795): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:00:555 logCatedra.log/(9768:9791): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:05:623 logCatedra.log/(9768:9791): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 0 creado y en cola de New
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 0 movido a cola de Ready
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 1 creado y en cola de New
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 1 movido a cola de Ready
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 2 creado y en cola de New
+[INFO] 15:49:54:494 logCatedra.log/(9845:9845): Entrenador 2 movido a cola de Ready
+[INFO] 15:49:55:261 logCatedra.log/(9845:9862): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:58:732 logCatedra.log/(9845:9866): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:58:747 logCatedra.log/(9845:9863): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:50:14:456 logCatedra.log/(9845:9863): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 0 creado y en cola de New
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 0 movido a cola de Ready
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 1 creado y en cola de New
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 1 movido a cola de Ready
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 2 creado y en cola de New
+[INFO] 15:51:21:489 logCatedra.log/(9936:9936): Entrenador 2 movido a cola de Ready
+[INFO] 15:51:22:850 logCatedra.log/(9936:9950): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:27:462 logCatedra.log/(9936:9954): Se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:27:487 logCatedra.log/(9936:9951): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:52:05:826 logCatedra.log/(9936:9951): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 0 creado y en cola de New
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 0 movido a cola de Ready
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 1 creado y en cola de New
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 1 movido a cola de Ready
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 2 creado y en cola de New
+[INFO] 15:52:40:856 logCatedra.log/(10025:10025): Entrenador 2 movido a cola de Ready
+[INFO] 15:52:41:836 logCatedra.log/(10025:10039): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:52:45:333 logCatedra.log/(10025:10043): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:52:45:344 logCatedra.log/(10025:10040): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:52:46:750 logCatedra.log/(10025:10040): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
