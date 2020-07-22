@@ -358,56 +358,61 @@ void consolidar_bs(Particion_bs * particion_liberada){
 
 	_Bool esBorrableLiberada(Particion_bs * particion) {return !particion->esPadre  && particion->tamano == particion_liberada->tamano && particion->punteroInicial == particion_liberada->punteroInicial && particion->punteroFinal == particion_liberada->punteroFinal; }
 
-	//1° Busco la compañera a la derecha y si está libre
-	_Bool posibleBuddyDer(Particion_bs * particion) {return !particion->esPadre && particion->libre && particion->tamano == particion_liberada->tamano && particion->punteroInicial == particion_liberada->punteroFinal +1; }
-	_Bool buddyDer = list_any_satisfy(lista_particiones, (void*)posibleBuddyDer);
+	_Bool consolido = false;
 
-	if(buddyDer){
 
-		partBuddy =  list_find(lista_particiones, (void*) posibleBuddyDer);
+	do
+	{
+		//1° Busco la compañera a la derecha y si está libre
+		_Bool posibleBuddyDer(Particion_bs * particion) {return !particion->esPadre && particion->libre && particion->tamano == particion_liberada->tamano && particion->punteroInicial == particion_liberada->punteroFinal +1; }
+		_Bool buddyDer = list_any_satisfy(lista_particiones, (void*)posibleBuddyDer);
+		if(buddyDer){
 
-		_Bool espartPadreDer(Particion_bs * particion) {return particion->esPadre  && particion->tamano == (particion_liberada->tamano + partBuddy->tamano) && particion->punteroInicial == particion_liberada->punteroInicial && particion->punteroFinal == partBuddy->punteroFinal; }
-		_Bool padreEncontrado = list_any_satisfy(lista_particiones, (void*)espartPadreDer);
+			partBuddy =  list_find(lista_particiones, (void*) posibleBuddyDer);
 
-		if(padreEncontrado){
-			partPadre =  list_find(lista_particiones, (void*) espartPadreDer);
+			_Bool espartPadreDer(Particion_bs * particion) {return particion->esPadre  && particion->tamano == (particion_liberada->tamano + partBuddy->tamano) && particion->punteroInicial == particion_liberada->punteroInicial && particion->punteroFinal == partBuddy->punteroFinal; }
+			_Bool padreEncontrado = list_any_satisfy(lista_particiones, (void*)espartPadreDer);
 
-			list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
-			list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+			if(padreEncontrado){
+				partPadre =  list_find(lista_particiones, (void*) espartPadreDer);
 
-			partPadre->esPadre = false;
+				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
+				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
 
-			return;
-		}
-
-	}
-
-//Si no salió por el compañero derecho, pruebo por el izquierdo
-	_Bool posibleBuddyIzq(Particion_bs * particion) {return !particion->esPadre && particion->libre && particion->tamano == particion_liberada->tamano && particion->punteroFinal == particion_liberada->punteroInicial - 1; }
-	_Bool buddyIzq = list_any_satisfy(lista_particiones, (void*)posibleBuddyIzq);
-
-	if(buddyIzq){
-		partBuddy =  list_find(lista_particiones, (void*) posibleBuddyIzq);
-
-		_Bool espartPadreIzq(Particion_bs * particion) {return particion->esPadre  && particion->tamano == (particion_liberada->tamano + partBuddy->tamano) && particion->punteroInicial == partBuddy->punteroInicial && particion->punteroFinal == particion_liberada->punteroFinal; }
-		_Bool padreEncontrado = list_any_satisfy(lista_particiones, (void*)espartPadreIzq);
-
-		if(padreEncontrado){
-
-			partPadre =  list_find(lista_particiones, (void*) espartPadreIzq);
-
-			list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
-			list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
-
-			partPadre->esPadre = false;
-
-			return;
+				partPadre->esPadre = false;
+				particion_liberada = partPadre;
+				consolido = true;
+			}
 
 		}
 
-	}
+		//Si no salió por el compañero derecho, pruebo por el izquierdo
+		_Bool posibleBuddyIzq(Particion_bs * particion) {return !particion->esPadre && particion->libre && particion->tamano == particion_liberada->tamano && particion->punteroFinal == particion_liberada->punteroInicial - 1; }
+		_Bool buddyIzq = list_any_satisfy(lista_particiones, (void*)posibleBuddyIzq);
 
-	return;
+		if(buddyIzq){
+			partBuddy =  list_find(lista_particiones, (void*) posibleBuddyIzq);
+
+			_Bool espartPadreIzq(Particion_bs * particion) {return particion->esPadre  && particion->tamano == (particion_liberada->tamano + partBuddy->tamano) && particion->punteroInicial == partBuddy->punteroInicial && particion->punteroFinal == particion_liberada->punteroFinal; }
+			_Bool padreEncontrado = list_any_satisfy(lista_particiones, (void*)espartPadreIzq);
+
+			if(padreEncontrado){
+
+				partPadre =  list_find(lista_particiones, (void*) espartPadreIzq);
+
+				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
+				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+
+				partPadre->esPadre = false;
+				particion_liberada = partPadre;
+				consolido = true;
+			}
+
+		}
+
+		if(!buddyDer && !buddyIzq){consolido =false;}
+
+	}while(consolido);
 }
 
 _Bool  algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
