@@ -320,7 +320,7 @@ void suscribir() {
 							pthread_mutex_lock(&mxLog);
 							log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke->nombre_pokemon,new_poke->cantidad,new_poke->posicion_x,new_poke->posicion_y);
 							pthread_mutex_unlock(&mxLog);
-							sendACK(fdBroker, new_poke->id_mensaje);
+
 							pthread_t hilo;
 							pthread_create(&hilo, NULL, (void*) thread_NewPokemon, new_poke);
 							break;
@@ -331,7 +331,7 @@ void suscribir() {
 							pthread_mutex_lock(&mxLog);
 							log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon, cath_poke->posicion_x,cath_poke->posicion_y);
 							pthread_mutex_unlock(&mxLog);
-							sendACK(fdBroker, cath_poke->id_mensaje);
+
 							pthread_t hilo;
 							pthread_create(&hilo, NULL, (void*) thread_CatchPokemon, cath_poke);
 							break;
@@ -342,7 +342,7 @@ void suscribir() {
 							pthread_mutex_lock(&mxLog);
 							log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
 							pthread_mutex_unlock(&mxLog);
-							sendACK(fdBroker, get_poke->id_mensaje);
+
 							pthread_t hilo;
 							pthread_create(&hilo, NULL, (void*) thread_GetPokemon, get_poke);
 							break;
@@ -376,19 +376,24 @@ void suscribir() {
 
 }
 
-void sendACK(int fdSocket, int idMsj){
+void sendACK(int idMsj){
+	int socket = nuevoSocket();
+	int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+    handshake_cliente(socket, "Team" , "Broker", logger);
 
 	respuesta_ACK ack;
 	ack.ack = OK;
 	ack.id_msj=idMsj;
 	ack.token = config_File->TOKEN;
-	aplicar_protocolo_enviar(fdSocket, ACK, &ack);
+	aplicar_protocolo_enviar(socket, ACK, &ack);
 
 }
 
 void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	cola_LOCALIZED_POKEMON locPokemon;// = malloc(sizeof(cola_LOCALIZED_POKEMON));
 	//locPokemon = reservarMemoria(sizeof(cola_LOCALIZED_POKEMON));
+
+	sendACK( get_poke->id_mensaje);
 	GetPokemon(get_poke, &locPokemon);
 	locPokemon.nombre_pokemon = malloc (1 + string_length(get_poke->nombre_pokemon));
 	strcpy(locPokemon.nombre_pokemon,get_poke->nombre_pokemon);
@@ -396,7 +401,11 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	locPokemon.id_mensaje = get_poke->id_mensaje;
 	locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
 
-	int envio = aplicar_protocolo_enviar(fdBroker, LOCALIZED_POKEMON, &locPokemon);
+	int socket = nuevoSocket();
+	int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+    handshake_cliente(socket, "Team" , "Broker", logger);
+
+	int envio = aplicar_protocolo_enviar(socket, LOCALIZED_POKEMON, &locPokemon);
 	if(envio == ERROR){
 			pthread_mutex_lock(&mxLog);
 			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",locPokemon.id_mensaje);
@@ -420,11 +429,16 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 }
 
 void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
+	sendACK(catch_poke->id_mensaje);
 	int result = CatchPokemon(catch_poke);
 	cola_CAUGHT_POKEMON caught_pokemon;
 	caught_pokemon.id_mensaje = catch_poke->id_mensaje;
 	caught_pokemon.atrapo_pokemon = result;
-	int envio = aplicar_protocolo_enviar(fdBroker, CAUGHT_POKEMON, &caught_pokemon);
+	int socket = nuevoSocket();
+	int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+    handshake_cliente(socket, "Team" , "Broker", logger);
+
+	int envio = aplicar_protocolo_enviar(socket, CAUGHT_POKEMON, &caught_pokemon);
 	if(envio == ERROR){
 		pthread_mutex_lock(&mxLog);
 		log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",caught_pokemon.id_mensaje);
@@ -437,6 +451,7 @@ void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
 }
 
 void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
+    sendACK(new_poke->id_mensaje);
 	int result = NewPokemon(new_poke);
 	if(result==OK){
 		cola_APPEARED_POKEMON appeared_pokemon;
@@ -447,7 +462,11 @@ void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 		appeared_pokemon.posicion_y = new_poke->posicion_y;
 		appeared_pokemon.tamanio_nombre = string_length(new_poke->nombre_pokemon);
 
-		int envio = aplicar_protocolo_enviar(fdBroker, APPEARED_POKEMON, &appeared_pokemon);
+		int socket = nuevoSocket();
+		int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
+	    handshake_cliente(socket, "Team" , "Broker", logger);
+
+		int envio = aplicar_protocolo_enviar(socket, APPEARED_POKEMON, &appeared_pokemon);
 		if(envio == ERROR){
 			pthread_mutex_lock(&mxLog);
 			log_info(logger,"Id Mensaje: %d, no se pudo enviar la respuesta.",appeared_pokemon.id_mensaje);
