@@ -41,6 +41,7 @@ void reservar_particion_bs(int head, int tamano, void * msj);
 void compactacion();
 void eliminar_particion();
 void dummyDump();
+void imprimirCache(Particion * laParti);
 
 _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj);
 _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj);

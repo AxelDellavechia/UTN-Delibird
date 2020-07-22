@@ -77,6 +77,8 @@ int contador_msjs_en_cola;
 int puntero_reemplazo;
 int cantidad_liberaciones;
 
+int pid;
+
 _Bool compacte;
 int cantidad_particiones_liberadas;
 

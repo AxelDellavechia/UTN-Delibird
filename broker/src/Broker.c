@@ -7,6 +7,87 @@
 
 #include "Broker.h"
 
+void imprimirCache(Particion * laParti){
+
+	switch( laParti->colaAsignada){
+		case NEW_POKEMON :{
+
+			cola_NEW_POKEMON  * ptro_new_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
+
+			deserealizar_mem_NEW_POKEMON(laParti ,ptro_new_poke);
+
+			log_info(logger,"Saque de Cache NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
+
+			free(ptro_new_poke->nombre_pokemon);
+			free(ptro_new_poke);
+			break;
+		}
+		case APPEARED_POKEMON :{
+
+			cola_APPEARED_POKEMON  * app_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
+
+			deserealizar_mem_APPEARED_POKEMON(laParti,app_poke);
+
+			log_info(logger,"Saque de Cache APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y,app_poke);
+
+			free(app_poke->nombre_pokemon);
+			free(app_poke);
+			break;
+		}
+		case CATCH_POKEMON :{
+
+			cola_CATCH_POKEMON  * cath_poke = malloc(sizeof(cola_CATCH_POKEMON)) ;
+
+			deserealizar_mem_CATCH_POKEMON (laParti,cath_poke);
+
+			log_info(logger,"Saque de Cache CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon,cath_poke->posicion_x,cath_poke->posicion_y);
+
+			free(cath_poke->nombre_pokemon);
+			free(cath_poke);
+			break;
+		}
+		case CAUGHT_POKEMON :{
+
+			cola_CAUGHT_POKEMON  * cau_poke  = malloc(sizeof(cola_CAUGHT_POKEMON)) ;
+
+			deserealizar_mem_CAUGHT_POKEMON(laParti,cau_poke);
+
+			log_info(logger,"Saque de Cache CAUGHT_POKEMON . ID_MSJ: %d  , ATRAPO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
+
+			free(cau_poke);
+			break;
+		}
+		case GET_POKEMON :{
+
+			cola_GET_POKEMON * get_poke  = malloc(sizeof(cola_GET_POKEMON)) ;
+
+			deserealizar_mem_GET_POKEMON(laParti,get_poke);
+
+			log_info(logger,"Saque de Cache GET_POKEMON . POKEMON: %s  , ID_MSJ: %d",get_poke->nombre_pokemon,get_poke->id_mensaje);
+
+			free(get_poke->nombre_pokemon);
+			free(get_poke);
+			break;
+		}
+		case LOCALIZED_POKEMON :{
+
+			cola_LOCALIZED_POKEMON  * loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON)) ;
+
+			deserealizar_mem_LOCALIZED_POKEMON(laParti,laParti->tamano,loc_poke);
+
+			for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++) {
+				posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
+				log_info(logger,"Saque de Cache LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
+			}
+
+			list_destroy(loc_poke->lista_posiciones);
+			free(loc_poke->nombre_pokemon);
+			free(loc_poke);
+			break;
+	}
+	}
+}
+
 void dummyDump(){
 
 	int a = 1 ;
@@ -68,7 +149,8 @@ int main(){//int argc, char **argv) {
 	//return EXIT_SUCCESS;
 }
 void guardar_msj(int head, int tamano, void * msj){
-	if(tamano < config_File->TAMANO_MEMORIA && tamano > config_File->TAMANO_MINIMO_PARTICION)
+
+	if(tamano < config_File->TAMANO_MEMORIA && tamano >= config_File->TAMANO_MINIMO_PARTICION)
 	{
 		//Particion * particion_select;
 		if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0)
@@ -252,7 +334,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 			aux_particion->punteroFinal = aux_particion->punteroInicial + tamano - 1;
 			aux_particion->colaAsignada = head;
-			aux_particion->tiempoLRU = (int)obtener_timestamp();
+			aux_particion->tiempoLRU = obtener_timestamp();
 
 			nueva_particion->punteroInicial = aux_particion->punteroFinal + 1 ;
 
@@ -266,19 +348,26 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_remove(lista_particiones, index);
 			list_add(lista_particiones, nueva_particion);
 			list_add(lista_particiones, aux_particion);
+
+			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
+
 			pthread_mutex_unlock(&mutex_lista_particiones);
 
 			pthread_mutex_lock(&mutex_memoria_cache);
 
-			void * buffer = serealizar(head, msj, tamano);
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + sizeof(uint32_t) , tamano);
 
-			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
+			//imprimirCache(head , aux_particion);
 
 			free(buffer);
 
-			memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
 
 		    //memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->tamano);
+
+			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",aux_particion->id_msj, aux_particion->punteroInicial, aux_particion->punteroFinal, aux_particion->tamano);
+
 			pthread_mutex_unlock(&mutex_memoria_cache);
 
 			//free(nueva_particion);
@@ -294,12 +383,13 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			aux_particion->colaAsignada = head;
 			aux_particion->tiempoLRU = obtener_timestamp(); //obtener Timestamp
 
-			void * buffer = serealizar(head, msj, tamano);
+			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
 
 			pthread_mutex_lock(&mutex_memoria_cache);
 
-			memcpy(memoria_cache+aux_particion->punteroInicial, buffer, tamano);
-			memcpy(&aux_particion->id_msj, memoria_cache+aux_particion->punteroInicial, sizeof(uint32_t));
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + sizeof(uint32_t) , tamano);
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 
@@ -374,12 +464,15 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		particionBestFit->colaAsignada = head;
 		particionBestFit->tiempoLRU = obtener_timestamp();
 
-		void * buffer = serealizar(head, msj, tamano);
+		void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+		memcpy(&particionBestFit->id_msj,buffer, sizeof(uint32_t));
+
 
 		pthread_mutex_lock(&mutex_memoria_cache);
 
-		memcpy(memoria_cache+particionBestFit->punteroInicial, buffer, tamano);
-		memcpy(&particionBestFit->id_msj, memoria_cache+particionBestFit->punteroInicial, sizeof(uint32_t));
+		memcpy(memoria_cache+particionBestFit->punteroInicial, buffer + sizeof(uint32_t) , tamano);
+
 
 		pthread_mutex_unlock(&mutex_memoria_cache);
 
@@ -414,20 +507,30 @@ void compactacion(){
 	int tamOcupado = 0;
 	for(int i = 0; i<list_size(lista_particiones);i++){
 	Particion* p = list_get(lista_particiones,i);
-	if(p->libre == TRUE){
+	if(p->libre){
 	//Si este bloque está libre, quiere decir que la partición que sigue
 	//la puedo desplazar el tamaño de esta partición reservada.
 	desplazamiento = desplazamiento + p->punteroFinal - p->punteroInicial +1;
 	}else{
 	if(desplazamiento > 0){
 	//Voy copiando la memoria y desplazandola a su nueva ubicación
+
 	pthread_mutex_lock(&mutex_memoria_cache);
+
+	//memcpy(memoria_cache+(p->punteroInicial - desplazamiento),
+	//memoria_cache+p->punteroInicial,p->punteroFinal - p->punteroInicial+1);
+
 	void * aux = malloc(p->tamano);
+
 	memcpy(aux,memoria_cache+p->punteroInicial,p->tamano );
+
 	memcpy(memoria_cache+(p->punteroInicial - desplazamiento),aux,p->tamano);
 	free(aux);
 	p->punteroInicial= p->punteroInicial - desplazamiento;
 	p->punteroFinal= p->punteroFinal - desplazamiento;
+
+	imprimirCache(p);
+
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	}
 	}
@@ -461,9 +564,10 @@ void compactacion(){
 	pFinalLibre->colaAsignada = 0;
 	pFinalLibre->punteroInicial = tamOcupado;
 	pFinalLibre->punteroFinal = config_File->TAMANO_MEMORIA - 1;
+	pFinalLibre->tamano = pFinalLibre->punteroFinal  - 	pFinalLibre->punteroInicial  + 1;
 	list_add(lista_particiones, pFinalLibre);
 	pthread_mutex_lock(&mutex_memoria_cache);
-	memset(memoria_cache + pFinalLibre->punteroInicial , '\0', pFinalLibre->punteroFinal - pFinalLibre->punteroInicial + 1);
+	memset(memoria_cache + pFinalLibre->punteroInicial , '\0', pFinalLibre->tamano);
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	}
 
@@ -501,6 +605,8 @@ void algoritmo_fifo()
 
 	Particion * particion_victima = list_get(lista_particiones,0);
 
+	log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal);
+
 	particion_victima->id_msj = 0;
 	particion_victima->libre = true;
 	particion_victima->colaAsignada = 0;
@@ -510,7 +616,6 @@ void algoritmo_fifo()
 
 	consolidar(particion_victima);
 
-	log_info(loggerCatedra,"Se elimino la particion asociada a Puntero Inicial:%d  Puntero Final:%d",particion_victima->punteroInicial, particion_victima->punteroFinal);
 	//if(puntero_reemplazo == ( list_size(lista_particiones) - 1 )) puntero_reemplazo=0;
 	//else puntero_reemplazo++;
 	pthread_mutex_unlock(&mutex_puntero_reemplazo);
@@ -525,14 +630,19 @@ void algoritmo_lru()
 	t_list * lista_ordenada = list_duplicate(lista_particiones);
 	_Bool ordenarLRU(Particion* a, Particion* b){return a->tiempoLRU < b->tiempoLRU;}
 	list_sort(lista_ordenada, (void*)ordenarLRU);
-	Particion * particion_victima = list_get(lista_ordenada, 1);
+	Particion * particion_victima = list_get(lista_ordenada, 0);
+
+	log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal);
+
 	particion_victima->id_msj = 0;
-	particion_victima->libre = TRUE;
+	particion_victima->libre = true;
 	particion_victima->colaAsignada = 0;
-	particion_victima->tiempoLRU = 0;
+	particion_victima->tiempoLRU = LRU_MAX;
+
 	//memset(memoria_cache+particion_victima->punteroInicial, '\0', particion_victima->tamano);
+
 	consolidar(particion_victima);
-	log_info(loggerCatedra,"Se elimino la particion asociada a Puntero Inicial:%d  Puntero Final:%d",particion_victima->punteroInicial, particion_victima->punteroFinal);
+
 	pthread_mutex_unlock(&mutex_memoria_cache);
 	pthread_mutex_unlock(&mutex_lista_particiones);
 }
@@ -690,19 +800,25 @@ int dumpMemoria (int senial) {
 		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 		fprintf(dump,"Dump: %s \n",ctime(&raw));
 		int i ;
+
+		pthread_mutex_lock(&mutex_lista_particiones);
+		pthread_mutex_lock(&mutex_memoria_cache);
+
 		for ( i = 0 ; i < list_size(lista_particiones) ; i++) {
 			Particion * actual = list_get(lista_particiones,i) ;
 			if ( actual->libre ) {
-				fprintf(dump,"Partición %d: %d - %d		[L]		Size: %db  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
+				fprintf(dump,"Partición %d: %d - %d		[L]		Size: %d bytes  \n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano);
 			} else {
-				char * colaNombre ;
-				colaNombre = strdup( tipoMsjIntoToChar(actual->colaAsignada) ) ;
-				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %db		LRU: %d		Cola: %s	ID: %d\n",i,actual->punteroInicial,actual->punteroFinal,actual->tamano,actual->tiempoLRU,colaNombre,actual->colaAsignada);
-				free(colaNombre);
+				fprintf(dump,"Partición %d: %d - %d		[X]		Size: %d bytes		LRU: %llu		Cola: %s	ID_MSJ: %d\n",
+				i,actual->punteroInicial, actual->punteroFinal,
+				actual->tamano,actual->tiempoLRU,tipoMsjIntoToChar(actual->colaAsignada),actual->id_msj);
 			}
-
-			free(actual);
+			//free(actual);
 		}
+
+		pthread_mutex_unlock(&mutex_memoria_cache);
+		pthread_mutex_unlock(&mutex_lista_particiones);
+
 		fprintf(dump,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	} else {
 		printf("No se puede abrir el archivo\n");
