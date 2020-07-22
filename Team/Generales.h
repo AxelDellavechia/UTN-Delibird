@@ -47,8 +47,9 @@ int getEnviado;
 pthread_t hilo_servidor;
 pthread_t hilo_gameboy;
 pthread_t hilo_consola;
-pthread_t * hilo;
+pthread_t hilo;
 pthread_t hilo_conexion;
+pthread_t hilo_ejecucion;
 
 pthread_mutex_t mxHilos;
 pthread_mutex_t mxSocketsFD;
@@ -56,8 +57,11 @@ pthread_mutex_t h_reconectar;
 pthread_mutex_t mutexLog;
 pthread_mutex_t mutexLogCatedra;
 pthread_mutex_t mutex_idMensaje;
+pthread_mutex_t mutex_ejecutar;
+pthread_mutex_t entrenadores;
+pthread_mutex_t mutexColaReady;
 
-sem_t* semEntrenadores;
+sem_t semEntrenadores;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -138,11 +142,13 @@ entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemo
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
-void ejecutar();
+void planificador();
 int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino, int tiempo);
 double calcularRafagaCPU(entrenadorPokemon* entrenador);
 int pokemonNecesario(cola_APPEARED_POKEMON* pokemonAparecido);
 void getPokemon();
 void threadAppeared(cola_APPEARED_POKEMON* app_poke);
+void threadCaught(cola_CAUGHT_POKEMON* caug_poke);
+void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke);
 
 #endif

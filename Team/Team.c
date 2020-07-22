@@ -14,7 +14,9 @@ int main(void) {
 	iniciar_logCatedra();
 	obtenerEntrenadores();
 	for (int i = 0; i < list_size(configFile->posicionEntrenadores); i++){
-		entrenadorPokemon * entrenador = list_get(colaNew,i);
+		pthread_mutex_lock(&mutexColaReady);
+		entrenadorPokemon * entrenador = list_get(colaReady,i);
+		pthread_mutex_unlock(&mutexColaReady);
 		//sem_wait(&entrenador->semafoContador);
 		pthread_create(&hilo, NULL, (void*) thread_Entrenador,entrenador);
 		//list_add(misHilos,process_get_thread_id());

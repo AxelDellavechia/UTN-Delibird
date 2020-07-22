@@ -1,65 +1,21 @@
-[INFO] 18:33:51:180 logCatedra.log/(4772:4772): Entrenador 0 creado y en cola de New
-[INFO] 18:33:51:199 logCatedra.log/(4772:4772): Entrenador 0 movido a cola de Ready
-[INFO] 18:33:51:201 logCatedra.log/(4772:4772): Entrenador 1 creado y en cola de New
-[INFO] 18:33:51:202 logCatedra.log/(4772:4772): Entrenador 1 movido a cola de Ready
-[INFO] 18:33:51:202 logCatedra.log/(4772:4772): Entrenador 2 creado y en cola de New
-[INFO] 18:33:51:202 logCatedra.log/(4772:4772): Entrenador 2 movido a cola de Ready
-[INFO] 18:33:51:240 logCatedra.log/(4772:4777): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 18:33:54:617 logCatedra.log/(4772:4785): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 18:33:54:618 logCatedra.log/(4772:4786): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 18:33:54:624 logCatedra.log/(4772:4786): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
-[INFO] 18:33:54:620 logCatedra.log/(4772:4783): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 18:33:54:624 logCatedra.log/(4772:4783): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
-[INFO] 18:33:54:627 logCatedra.log/(4772:4783): Entrenador 1 se movió a la posición 4 3
-[INFO] 18:33:54:628 logCatedra.log/(4772:4783): Se movió al entrenador id 1 a la cola de Ready para continuar su ejecución proximamente
-[INFO] 18:33:54:631 logCatedra.log/(4772:4785): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 6 , CORDENADA Y: 7 
-[INFO] 18:33:54:635 logCatedra.log/(4772:4789): Entrenador 5942021 a cola de Ready por ser el más cercano
-[INFO] 19:34:42:482 logCatedra.log/(5929:5929): Entrenador 0 creado y en cola de New
-[INFO] 19:34:42:503 logCatedra.log/(5929:5929): Entrenador 0 movido a cola de Ready
-[INFO] 19:34:42:510 logCatedra.log/(5929:5929): Entrenador 1 creado y en cola de New
-[INFO] 19:34:42:511 logCatedra.log/(5929:5929): Entrenador 1 movido a cola de Ready
-[INFO] 19:34:42:511 logCatedra.log/(5929:5929): Entrenador 2 creado y en cola de New
-[INFO] 19:34:42:512 logCatedra.log/(5929:5929): Entrenador 2 movido a cola de Ready
-[INFO] 19:34:42:552 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:34:58:197 logCatedra.log/(5929:5947): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 19:34:58:201 logCatedra.log/(5929:5945): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 19:34:58:217 logCatedra.log/(5929:5945): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
-[INFO] 19:34:58:246 logCatedra.log/(5929:5945): Entrenador 1 se movió a la posición 4 3
-[INFO] 19:34:58:247 logCatedra.log/(5929:5953): Entrenador 0 a cola de Ready por ser el más cercano
-[INFO] 19:34:58:265 logCatedra.log/(5929:5953): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
-[INFO] 19:34:58:266 logCatedra.log/(5929:5953): Entrenador 0 se movió a la posición 3 3
-[INFO] 19:34:58:266 logCatedra.log/(5929:5953): Se movió al entrenador id 0 a la cola de Ready para continuar su ejecución proximamente
-[INFO] 19:34:58:261 logCatedra.log/(5929:5947): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 6 , CORDENADA Y: 7 
-[INFO] 19:34:58:273 logCatedra.log/(5929:5945): Se movió al entrenador id 1 a la cola de Ready para continuar su ejecución proximamente
-[INFO] 19:35:12:554 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:35:12:561 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:35:42:562 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:35:42:562 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:36:12:564 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:36:12:565 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:36:42:565 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:36:42:566 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:37:12:567 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:37:12:568 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:37:42:569 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:37:42:570 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:38:12:570 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:38:12:571 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:38:42:572 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:38:42:573 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:39:12:573 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:39:12:574 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:39:42:575 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:39:42:575 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:40:12:576 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:40:12:577 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[24] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:40:42:578 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:40:42:579 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:41:12:581 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:41:12:581 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:41:42:582 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:41:42:584 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:42:12:584 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:42:12:585 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[28] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:42:42:587 logCatedra.log/(5929:5935): Reinicio de proceso de reconexión con broker
-[INFO] 19:42:42:587 logCatedra.log/(5929:5935): No se pudo realizar la conexión entre el socket[29] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:08:26:668 logCatedra.log/(8699:8699): Entrenador 0 creado y en cola de New
+[INFO] 01:08:26:685 logCatedra.log/(8699:8699): Entrenador 0 movido a cola de Ready
+[INFO] 01:08:26:687 logCatedra.log/(8699:8699): Entrenador 1 creado y en cola de New
+[INFO] 01:08:26:687 logCatedra.log/(8699:8699): Entrenador 1 movido a cola de Ready
+[INFO] 01:08:26:687 logCatedra.log/(8699:8699): Entrenador 2 creado y en cola de New
+[INFO] 01:08:26:687 logCatedra.log/(8699:8699): Entrenador 2 movido a cola de Ready
+[INFO] 01:08:26:746 logCatedra.log/(8699:8706): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:17:07:392 logCatedra.log/(8853:8853): Entrenador 0 creado y en cola de New
+[INFO] 01:17:07:409 logCatedra.log/(8853:8853): Entrenador 0 movido a cola de Ready
+[INFO] 01:17:07:415 logCatedra.log/(8853:8853): Entrenador 1 creado y en cola de New
+[INFO] 01:17:07:416 logCatedra.log/(8853:8853): Entrenador 1 movido a cola de Ready
+[INFO] 01:17:07:416 logCatedra.log/(8853:8853): Entrenador 2 creado y en cola de New
+[INFO] 01:17:07:416 logCatedra.log/(8853:8853): Entrenador 2 movido a cola de Ready
+[INFO] 01:17:07:457 logCatedra.log/(8853:8859): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:24:16:753 logCatedra.log/(8946:8946): Entrenador 0 creado y en cola de New
+[INFO] 01:24:16:764 logCatedra.log/(8946:8946): Entrenador 0 movido a cola de Ready
+[INFO] 01:24:16:770 logCatedra.log/(8946:8946): Entrenador 1 creado y en cola de New
+[INFO] 01:24:16:771 logCatedra.log/(8946:8946): Entrenador 1 movido a cola de Ready
+[INFO] 01:24:16:772 logCatedra.log/(8946:8946): Entrenador 2 creado y en cola de New
+[INFO] 01:24:16:772 logCatedra.log/(8946:8946): Entrenador 2 movido a cola de Ready
+[INFO] 01:24:16:857 logCatedra.log/(8946:8952): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
