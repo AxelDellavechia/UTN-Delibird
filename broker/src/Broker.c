@@ -716,13 +716,6 @@ void algoritmo_fifo()
 	pthread_mutex_lock(&mutex_lista_particiones);
 	pthread_mutex_lock(&mutex_memoria_cache);
 	pthread_mutex_lock(&mutex_puntero_reemplazo);
-/*
-	if(compacte) {
-		puntero_reemplazo -= cantidad_particiones_liberadas;
-		cantidad_particiones_liberadas = 0 ;
-	}
-
-*/
 
 	if( strcasecmp(config_File->ALGORITMO_MEMORIA,"PARTCIONES")==0 ){
 
@@ -788,10 +781,13 @@ void algoritmo_lru()
 
 	} else {
 
-		t_list * lista_ordenada = list_duplicate(lista_particiones);
 		_Bool ordenarLRU(Particion_bs* a, Particion_bs* b){return a->tiempoLRU < b->tiempoLRU;}
-		list_sort(lista_ordenada, (void*)ordenarLRU);
-		Particion_bs * particion_victima = list_get(lista_ordenada, 0);
+
+		list_sort(lista_particiones, (void*)ordenarLRU);
+
+		_Bool noEsPadre( Particion_bs * laParti){return !laParti->esPadre;}
+
+		Particion_bs * particion_victima = list_get(list_filter(lista_particiones,(void *)noEsPadre),0);
 
 		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal);
 
