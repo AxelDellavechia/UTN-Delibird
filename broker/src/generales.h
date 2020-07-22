@@ -77,6 +77,8 @@ int contador_msjs_en_cola;
 int puntero_reemplazo;
 int cantidad_liberaciones;
 
+int pid;
+
 _Bool compacte;
 int cantidad_particiones_liberadas;
 
@@ -106,7 +108,7 @@ pthread_mutex_t mutex_suscriptores_appeared_pokemon;
 pthread_mutex_t mutex_suscriptores_catch_pokemon;
 pthread_mutex_t mutex_suscriptores_caught_pokemon;
 pthread_mutex_t mutex_lista_suscritores;
-
+pthread_mutex_t mutex_lista_ack;
 
 pthread_mutex_t mutex_puntero_reemplazo;
 
