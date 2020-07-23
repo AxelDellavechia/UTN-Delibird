@@ -32,6 +32,7 @@ t_list* colaExit;
 t_list* entrenadoresEnDeadlock;
 t_list* listaCatchPokemon;
 t_list* pokemonesBuscados;
+t_list* pokemonesEjecutando;
 
 int fdBroker;
 int ciclosEnCPU;
@@ -65,7 +66,13 @@ pthread_mutex_t mutex_idMensaje;
 pthread_mutex_t mutex_ejecutar;
 pthread_mutex_t entrenadores;
 pthread_mutex_t mutexColaReady;
+pthread_mutex_t mutexColaBlocked;
 pthread_mutex_t mutexBuscados;
+pthread_mutex_t mxListaEjecutando;
+pthread_mutex_t mxListaCatch;
+pthread_mutex_t mutexBuscados;
+pthread_mutex_t mxEjecutando;
+pthread_mutex_t mxPokeEjecutando;
 
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
@@ -91,8 +98,8 @@ archivoConfigFile *configFile;
 
 typedef struct posicionPokemon {
 	char* tipoPokemon;
-	int posicion_x;
-	int posicion_y;
+	t_list* posiciones;
+
 } posicionPokemon;
 
 typedef struct pokemon {
@@ -150,14 +157,14 @@ void iniciar_logCatedra();
 void obtenerEntrenadores();
 void planificador();
 void crearEstructuras();
-void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido, entrenadorPokemon* proximoEntrenadorEnEjecutar);
+void seleccionarEntrenadorMasCercano(posicionPokemon *pokemonAparecido, posicion* pos, entrenadorPokemon* proximoEntrenadorEnEjecutar);
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
 void planificador();
-int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino, int tiempo);
+int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino);
 double calcularRafagaCPU(entrenadorPokemon* entrenador);
-int pokemonNecesario(cola_APPEARED_POKEMON* pokemonAparecido);
+int pokemonNecesario(char* pokemonAparecido);
 void getPokemon();
 void threadAppeared(cola_APPEARED_POKEMON* app_poke);
 void threadCaught(cola_CAUGHT_POKEMON* caug_poke);
