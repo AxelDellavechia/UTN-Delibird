@@ -80,6 +80,7 @@ int cantidad_liberaciones;
 int pid;
 
 _Bool compacte;
+_Bool reenvieMsj;
 int cantidad_particiones_liberadas;
 
 losSuscriptores * suscripcionC ;
@@ -121,6 +122,9 @@ pthread_mutex_t mutex_cola_caught_pokemon;
 
 pthread_mutex_t mutex_lista_particiones;
 pthread_mutex_t mutex_posicion_puntero_fifo;
+
+pthread_mutex_t mutex_logs;
+
 
 //t_list* lista_msjs;
 t_list* lista_particiones;
@@ -165,6 +169,9 @@ int32_t obtener_idMsj();
 _Bool buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 
 void liberarRecursos();
+
+void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscriptores *laSus);
+
 
 #endif /* SRC_GENERALES_H_ */
 

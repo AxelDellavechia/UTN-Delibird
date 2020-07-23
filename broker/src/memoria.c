@@ -7,13 +7,21 @@
 
 #include "memoria.h"
 
-void deserealizar_mem_NEW_POKEMON (Particion * laParti , cola_NEW_POKEMON * new_poke ) {
+void deserealizar_mem_NEW_POKEMON ( void * laParti , cola_NEW_POKEMON * new_poke ) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
+	int desplazamiento ;
 
-							new_poke->id_mensaje = laParti->id_msj ;
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+				new_poke->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+				new_poke->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	}
 
 							memcpy(&new_poke->tamanio_nombre,memoria_cache+desplazamiento,sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
@@ -37,15 +45,23 @@ void deserealizar_mem_NEW_POKEMON (Particion * laParti , cola_NEW_POKEMON * new_
 	//pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
-void deserealizar_mem_APPEARED_POKEMON (Particion * laParti , cola_APPEARED_POKEMON * app_poke) {
+void deserealizar_mem_APPEARED_POKEMON ( void * laParti , cola_APPEARED_POKEMON * app_poke) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
+	int desplazamiento ;
+
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+				app_poke->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+				app_poke->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	}
 
 			app_poke->nombre_pokemon = malloc(1);
-
-			app_poke->id_mensaje = laParti->id_msj ;
 
 			memcpy(&app_poke->tamanio_nombre,(memoria_cache+desplazamiento),sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
@@ -68,15 +84,23 @@ void deserealizar_mem_APPEARED_POKEMON (Particion * laParti , cola_APPEARED_POKE
 			//return app_poke;
 }
 
-void deserealizar_mem_CATCH_POKEMON (Particion * laParti , cola_CATCH_POKEMON * cat_poke) {
+void deserealizar_mem_CATCH_POKEMON ( void * laParti , cola_CATCH_POKEMON * cat_poke) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
-
 	cat_poke->nombre_pokemon = malloc(1);
 
-	cat_poke->id_mensaje = laParti->id_msj ;
+	int desplazamiento ;
+
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+				cat_poke->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+				cat_poke->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	}
 
 			memcpy(&cat_poke->tamanio_nombre,(memoria_cache+desplazamiento),sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
@@ -95,13 +119,21 @@ void deserealizar_mem_CATCH_POKEMON (Particion * laParti , cola_CATCH_POKEMON * 
 			//pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
-void deserealizar_mem_CAUGHT_POKEMON (Particion * laParti , cola_CAUGHT_POKEMON * cau_poke) {
+void deserealizar_mem_CAUGHT_POKEMON ( void * laParti , cola_CAUGHT_POKEMON * cau_poke) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
+	int desplazamiento ;
 
-	cau_poke->id_mensaje = laParti->id_msj ;
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+				cau_poke->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+				cau_poke->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	};
 
 							memcpy(&cau_poke->atrapo_pokemon,(memoria_cache+desplazamiento),sizeof(uint32_t));
 
@@ -109,15 +141,22 @@ void deserealizar_mem_CAUGHT_POKEMON (Particion * laParti , cola_CAUGHT_POKEMON 
 
 }
 
-void deserealizar_mem_GET_POKEMON (Particion * laParti , cola_GET_POKEMON * get_poke) {
+void deserealizar_mem_GET_POKEMON ( void * laParti , cola_GET_POKEMON * get_poke) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
+	int desplazamiento ;
 
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+				get_poke->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+				get_poke->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	}
 				get_poke->nombre_pokemon = malloc(1);
-
-				get_poke->id_mensaje = laParti->id_msj ;
 
 							memcpy(&get_poke->tamanio_nombre,(memoria_cache+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
@@ -130,13 +169,22 @@ void deserealizar_mem_GET_POKEMON (Particion * laParti , cola_GET_POKEMON * get_
 							//pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
-void deserealizar_mem_LOCALIZED_POKEMON (Particion * laParti ,  cola_LOCALIZED_POKEMON * loc_poke_des) {
+void deserealizar_mem_LOCALIZED_POKEMON ( void * laParti ,  cola_LOCALIZED_POKEMON * loc_poke_des) {
 
 	//pthread_mutex_lock(&mutex_memoria_cache);
 
-	int desplazamiento = laParti->punteroInicial ;
+	int desplazamiento;
 
-	loc_poke_des->id_mensaje = laParti->id_msj ;
+	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
+		Particion_bs * laPartiBS = laParti ;
+		loc_poke_des->id_mensaje = laPartiBS->id_msj ;
+		desplazamiento =laPartiBS->punteroInicial ;
+	} else{
+		Particion  * laPartiComun = laParti ;
+		loc_poke_des->id_mensaje = laPartiComun->id_msj ;
+		desplazamiento =laPartiComun->punteroInicial ;
+	}
+
 
 							memcpy(&loc_poke_des->tamanio_nombre,(memoria_cache+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
