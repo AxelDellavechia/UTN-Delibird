@@ -31,6 +31,7 @@ t_list* colaBlocked;
 t_list* colaExit;
 t_list* entrenadoresEnDeadlock;
 t_list* listaCatchPokemon;
+t_list* pokemonesBuscados;
 
 int fdBroker;
 int ciclosEnCPU;
@@ -64,8 +65,10 @@ pthread_mutex_t mutex_idMensaje;
 pthread_mutex_t mutex_ejecutar;
 pthread_mutex_t entrenadores;
 pthread_mutex_t mutexColaReady;
+pthread_mutex_t mutexBuscados;
 
 sem_t semEntrenadores;
+sem_t semPokemonesBuscados;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -147,7 +150,7 @@ void iniciar_logCatedra();
 void obtenerEntrenadores();
 void planificador();
 void crearEstructuras();
-entrenadorPokemon* seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido);
+void seleccionarEntrenadorMasCercano(cola_APPEARED_POKEMON *pokemonAparecido, entrenadorPokemon* proximoEntrenadorEnEjecutar);
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
 entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
@@ -159,5 +162,7 @@ void getPokemon();
 void threadAppeared(cola_APPEARED_POKEMON* app_poke);
 void threadCaught(cola_CAUGHT_POKEMON* caug_poke);
 void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke);
+int mensajeNoRecibido(cola_LOCALIZED_POKEMON* pokemonLocalizado);
+void grabarToken(unsigned int token);
 
 #endif

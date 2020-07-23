@@ -10,9 +10,9 @@ int main(void) {
 	crearEstructuras();
 	iniciar_log();
 	leerArchivoDeConfiguracion(RUTA_CONFIG_TEAM);
-	inicializar_semaforos();
 	iniciar_logCatedra();
 	obtenerEntrenadores();
+	inicializar_semaforos();
 	for (int i = 0; i < list_size(configFile->posicionEntrenadores); i++){
 		pthread_mutex_lock(&mutexColaReady);
 		entrenadorPokemon * entrenador = list_get(colaReady,i);
