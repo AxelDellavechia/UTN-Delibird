@@ -31,7 +31,6 @@ typedef enum {
 
 typedef struct {
 	_Bool esPadre;
-	//Particion * nodo_padre;
 	uint32_t id_msj;
 	int tamano;
 	_Bool libre;
