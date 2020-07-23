@@ -10,6 +10,11 @@
 
 #include "GameBoy.h"
 
+void comandoNoR(){
+	fprintf(stderr,"Modulo no reconocido\n");
+	free(comando);
+	liberarRecursosComunes();
+}
 
 int main (int argc, char *argv[]) {
 
@@ -17,11 +22,11 @@ int main (int argc, char *argv[]) {
 
 		configGB = reservarMemoria(sizeof(archivoConfigGB));
 
-		if (argc < 2 || argc > 7 ){
+	if (argc < 2 || argc > 8 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			log_info(logger,"No se ingreso la cantidad de parametros necesarios");
 			return EXIT_FAILURE ;
-		}
+	}
 
 		inicializar_semaforos();
 
@@ -29,9 +34,9 @@ int main (int argc, char *argv[]) {
 
 		leerArchivoDeConfiguracion(RUTA_CONFIG_MEM,logger);
 
-		char * comando = strdup( argv[1] ) ;
+		comando = strdup( argv[1] ) ;
 
-		//char * comando = strdup( "MEME" ) ;
+		//char * comando = strdup( "SUSCRIPTOR" ) ;
 
 		/*
 			Logs obligatorios
@@ -42,23 +47,36 @@ int main (int argc, char *argv[]) {
 			Envío de un mensaje a un suscriptor específico.
 		 */
 
-		if (strcasecmp("BROKER",comando) == 0 ) flujoBroker(  comando, argc , argv) ;
+		log_info(logger, "Verificando los comandos ingresados");
 
-		else if (strcasecmp("GAMECARD",comando) == 0 ) flujoGameCard(  comando, argc , argv) ;
+		int modulo = devolverEnumModulo(comando);
 
-		else if (strcasecmp("TEAM",comando) == 0 ) flujoTeam(  comando, argc , argv) ;
-
-		else if (strcasecmp("SUSCRIPTOR",comando ) == 0 ) flujoSuscriptor( comando, argc , argv) ;
-
-		else {
-				printf("Modulo no reconocido\n");
-				free(comando);
+		switch (modulo) {
+			case BROKER : {
+				broker(  comando, argc , argv) ;
+				break;
+			}
+			case TEAM : {
+				team(  comando, argc , argv) ;;
+				break;
+			}
+			case GAMECARD : {
+				gameCard(  comando, argc , argv) ;
+				break;
+			}
+			case GBSUSCRIPTOR : {
+				prc_suscriptor( comando, argc , argv) ;
+				break;
+			}
+			default : {
+				comandoNoR();
 				return EXIT_FAILURE;
+			}
 		}
 
 }
 
-int flujoGameCard( char * comando,int argc, char *argv[]) {
+int gameCard( char * comando,int argc, char *argv[]) {
 
 log_info(logger,"Trabajando con el GAMECARD");
 
@@ -74,410 +92,740 @@ log_info(logger,"Trabajando con el GAMECARD");
 
 				comando = strdup(argv[2]);
 
-				if ( argc < 3 ){
-					printf("No se ingreso la cantidad de parametros necesarios\n");
-					free(comando);
-					return EXIT_FAILURE;
-				}
-				//./gameboy GAMECARD GET_POKEMON [POKEMON]
+				int modulo = devolverTipoMsj(comando) ;
 
-				if (strcasecmp("GET_POKEMON",comando) == 0 ) {
+				switch (modulo) {
 
-
-
-					cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
-
-					get_poke->id_mensaje = 0 ;
-
-					get_poke->nombre_pokemon = strdup(argv[3]);
-
-					get_poke->tamanio_nombre = string_length(get_poke->nombre_pokemon ) ;
-
-					int enviado = conectar_y_enviar("GAMECARD", configGB->ipGameCard , configGB->puertoGameCard,"Broker" , "GAMECARD" ,GET_POKEMON, get_poke , logger , loggerCatedra);
-
-					if (enviado != -1) log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
-
-					free(comando);
-					free(get_poke);
-					return EXIT_SUCCESS;
-				}
-
-				//./gameboy GAMECARD CATCH_POKEMON [POKEMON] [POSX] [POSY] ID_MSJ
-
-				if (strcasecmp("CATCH_POKEMON",comando) == 0 ) {
-
-					if ( argc < 6 ){
-						printf("No se ingreso la cantidad de parametros necesarios\n");
-						free(comando);
+					//./gameboy GAMECARD GET_POKEMON [POKEMON] ID_MSJ
+					case GET_POKEMON:
+						prc_get_pokemon( comando , argc, argv  ,
+						"GAMECARD" , configGB->ipGameCard , configGB->puertoGameCard ,
+						"Broker" , "GAMECARD" );
+						break;
+					//./gameboy GAMECARD CATCH_POKEMON [POKEMON] [POSX] [POSY] ID_MSJ
+					case CATCH_POKEMON:
+						prc_catch_pokemon( comando , argc, argv  ,
+						"GAMECARD" , configGB->ipGameCard , configGB->puertoGameCard ,
+						"Broker" , "GAMECARD" );
+						break;
+					//./gameboy GAMECARD NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD] ID_MSJ
+					case NEW_POKEMON:
+						prc_new_pokemon( comando , argc, argv  ,
+						"GAMECARD" , configGB->ipGameCard , configGB->puertoGameCard ,
+						"Broker" , "GAMECARD" );
+					break;
+					default: {
+						comandoNoR();
 						return EXIT_FAILURE;
+						break;
 					}
 
-					cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
-
-					cat_poke->id_mensaje = atoi(argv[6]) ;
-					cat_poke->nombre_pokemon = strdup(argv[3]);
-					cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
-					cat_poke->posicion_x = atoi(argv[4]) ;
-					cat_poke->posicion_y = atoi(argv[5]) ;
-
-					int enviado = conectar_y_enviar("GAMECARD", configGB->ipGameCard , configGB->puertoGameCard,"Broker" , "GAMECARD" ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
-
-					if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
-
-					free(comando);
-					free(cat_poke);
-					return EXIT_SUCCESS;
-				}
-
-				//./gameboy GAMECARD NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD] ID_MSJ
-
-				if (strcasecmp("NEW_POKEMON",comando) == 0 ) {
-
-					if ( argc < 7 ){
-						printf("No se ingreso la cantidad de parametros necesarios\n");
-						free(comando);
-						return EXIT_FAILURE;
-					}
-
-					cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
-
-					new_poke->id_mensaje = 0 ;
-					new_poke->nombre_pokemon = strdup(argv[3]);
-					new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
-					new_poke->posicion_x = atoi(argv[4]) ;
-					new_poke->posicion_y = atoi(argv[5]) ;
-					new_poke->cantidad = atoi(argv[6]) ;
-
-					int enviado = conectar_y_enviar("GAMECARD", configGB->ipGameCard , configGB->puertoGameCard,"Broker" , "GameCard" ,NEW_POKEMON, new_poke , logger , loggerCatedra);
-
-					if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
-
-					free(comando);
-					free(new_poke);
-					return EXIT_SUCCESS;
-				}
-
-				else {
-					printf("Comando no reconocido\n");
-					free(comando);
-					return EXIT_FAILURE;
 				}
 			}
+			return EXIT_FAILURE;
+
 }
 
-int flujoTeam( char * comando,int argc, char *argv[]) {
+int team( char * comando,int argc, char *argv[]) {
 
-			log_info(logger,"Trabajando con el TEAM");
-
-			free(comando);
-
-			//./gameboy TEAM APPEARED_POKEMON [POKEMON] [POSX] [POSY]
-
-			comando = strdup(argv[2]);
-
-			//comando = strdup("APPEARED_POKEMON");
-
-			if (strcasecmp("APPEARED_POKEMON",comando) == 0 ) {
-
-				 	if ( argc < 5 || argc >6){
-						printf("No se ingreso la cantidad de parametros necesarios\n");
-						free(comando);
-						return EXIT_FAILURE;
-					}
-
-				cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
-
-				app_poke->id_mensaje = 0 ;
-
-				app_poke->nombre_pokemon = strdup(argv[3]);
-				app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
-				app_poke->posicion_x = atoi(argv[4]) ;
-				app_poke->posicion_y = atoi(argv[5]) ;
-
-				/*
-				app_poke->nombre_pokemon = strdup("pikachu");
-				app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
-				app_poke->posicion_x = 2 ;
-				app_poke->posicion_y = 10 ;
-				*/
-
-
-				int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
-
-				if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
-
-				free(comando);
-				free(app_poke->nombre_pokemon);
-				free(app_poke);
-				return EXIT_SUCCESS;
-			}
-
-			//./gameboy TEAM CAUGHT_POKEMON [ID_MENSAJE] [OK/FAIL]
-
-			else if (strcasecmp("CAUGHT_POKEMON",comando) == 0 ) {
-
-				if ( argc < 4 ){
-					printf("No se ingreso la cantidad de parametros necesarios\n");
-					free(comando);
-					return EXIT_FAILURE;
-				}
-
-				cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
-
-				cau_poke->id_mensaje = atoi(argv[3]);
-				cau_poke->atrapo_pokemon = atoi(argv[4]) ;
-
-				int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
-
-				if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
-
-				free(comando);
-
-				return EXIT_SUCCESS;
-			}
-			//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
-
-			else if (strcasecmp("LOCALIZED_POKEMON",comando) == 0 ) {
-
-
-				cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
-
-						loc_poke->lista_posiciones = list_create(); // 16
-
-						loc_poke->id_mensaje = atoi(argv[6])  ; //4
-						loc_poke->cantidad = atoi(argv[4]) ; // 4
-						loc_poke->nombre_pokemon = strdup(argv[3]);; //  "raichu" 6
-						loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
-
-						char ** listapokemon = string_split(argv[5],",");
-
-						int posicion = 0 ;
-						while (listapokemon[posicion] != NULL){
-							if ( string_starts_with(listapokemon[posicion],"[")) listapokemon[posicion] = string_substring_from(listapokemon[posicion],1);
-							if ( string_ends_with(listapokemon[posicion],"]")) {
-								listapokemon[posicion]= string_reverse(listapokemon[posicion]);
-								listapokemon[posicion] = string_substring_from(listapokemon[posicion],1);
-								listapokemon[posicion]= string_reverse(listapokemon[posicion]);
-							}
-							list_add(loc_poke->lista_posiciones,atoi(listapokemon[posicion]));
-							posicion++;
-
-						}
-
-						log_info(logger,"estoy enviando un LOCALIZED_POKEMON con tamaño %d",calcularTamanioMensaje(LOCALIZED_POKEMON,loc_poke));
-
-						int enviado = conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" , "TEAM" ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
-
-						if (enviado != ERROR ) {
-							for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
-							log_info(loggerCatedra,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
-							i++;
-							}
-						}
-			}
-			else {
-				printf("Comando no reconocido\n");
-				free(comando);
-				return EXIT_FAILURE;
-			}
-}
-
-int flujoBroker( char * comando,int argc, char *argv[]){
-
-log_info(logger,"Trabajando con el BROKER");
+log_info(logger,"Trabajando con el TEAM");
 
 			if ( argc < 3 ){
 				printf("No se ingreso la cantidad de parametros necesarios\n");
 				free(comando);
+				liberarRecursosComunes();
 				return EXIT_FAILURE;
 			}
+
 			else {
+
 				free(comando);
 
-			comando = strdup(argv[2]);
+				comando = strdup(argv[2]);
 
-						if ( argc < 4 ){
-							printf("No se ingreso la cantidad de parametros necesarios\n");
-							free(comando);
-							return EXIT_FAILURE;
-						}
+				int modulo = devolverTipoMsj(comando) ;
 
+					switch (modulo) {
 
-						//./gameboy BROKER GET_POKEMON [POKEMON]
+						//./gameboy TEAM APPEARED_POKEMON [POKEMON] [POSX] [POSY]
+							case APPEARED_POKEMON:
+								prc_appeared_pokemon( comando , argc, argv  ,
+								"TEAM" , configGB->ipTeam , configGB->puertoTeam ,
+								"BROKER" , "TEAM" );
+								break;
 
-						if (strcasecmp("GET_POKEMON",comando) == 0 ) {
+							//./gameboy TEAM ACK ESTADO ID_MSJ
+							case ACK:{
 
-							cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
+								respuesta_ACK * ack =  malloc( sizeof(respuesta_ACK) );
 
-							get_poke->id_mensaje = 0 ;
+								ack->ack = atoi(argv[3]);
+								ack->id_msj = atoi(argv[4]);
+								ack->token = configGB->token;
 
-							get_poke->nombre_pokemon = strdup(argv[3]);
+								conectar_y_enviar("TEAM", configGB->ipTeam , configGB->puertoTeam,"BROKER" ,
+								"TEAM" ,ACK, ack , logger , loggerCatedra);
 
-							get_poke->tamanio_nombre = string_length(get_poke->nombre_pokemon ) ;
-
-							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,GET_POKEMON, get_poke , logger , loggerCatedra);
-
-							if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
-
-							free(comando);
-
-							free(get_poke);
-
-							return EXIT_SUCCESS;
-						}
-
-						//./gameboy BROKER CAUGHT_POKEMON [ID_MENSAJE] [OK/FAIL]
-
-						if (strcasecmp("CAUGHT_POKEMON",comando) == 0 ) {
-
-							if ( argc < 5 ){
-								printf("No se ingreso la cantidad de parametros necesarios\n");
+								free(ack);
 								free(comando);
+								liberarRecursosComunes();
+								return EXIT_SUCCESS;
+								break;
+							}
+							//./gameboy TEAM CAUGHT_POKEMON [ID_MENSAJE] [OK/FAIL]
+							case CAUGHT_POKEMON:
+								prc_caught_pokemon( comando , argc, argv  ,
+								"TEAM" , configGB->ipTeam , configGB->puertoTeam ,
+								"BROKER" , "TEAM" );
+								break;
+
+							//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
+
+							//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 "1,2,3,4,5,6" 45
+
+							case LOCALIZED_POKEMON:
+								prc_localized_pokemon( comando , argc, argv  ,
+								"TEAM" , configGB->ipTeam , configGB->puertoTeam ,
+								"BROKER" , "TEAM" );
+							break;
+							default: {
+								comandoNoR();
 								return EXIT_FAILURE;
+								break;
 							}
-
-							cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
-
-							cau_poke->id_mensaje = atoi(argv[3]);
-
-							if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = 0 ;
-							else cau_poke->atrapo_pokemon = 1 ;
-
-
-							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
-
-							if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
-
-							free(comando);
-							return EXIT_SUCCESS;
-						}
-
-						//./gameboy BROKER CATCH_POKEMON [POKEMON] [POSX] [POSY]
-
-						if (strcasecmp("CATCH_POKEMON",comando) == 0 ) {
-
-							if ( argc < 6 ){
-								printf("3 No se ingreso la cantidad de parametros necesarios\n");
-								free(comando);
-								return EXIT_FAILURE;
-							}
-
-							cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
-
-							cat_poke->id_mensaje = 0 ;
-							cat_poke->nombre_pokemon = strdup(argv[3]);
-							cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
-							cat_poke->posicion_x = atoi(argv[4]) ;
-							cat_poke->posicion_y = atoi(argv[5]) ;
-
-							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
-
-							if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
-
-							free(comando);
-							free(cat_poke);
-							return EXIT_SUCCESS;
-						}
-
-						//./gameboy BROKER APPEARED_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE]
-
-						if (strcasecmp("APPEARED_POKEMON",comando) == 0 ) {
-
-							if ( argc < 7 ){
-									printf("No se ingreso la cantidad de parametros necesarios\n");
-									free(comando);
-									return EXIT_FAILURE;
-							}
-
-							cola_APPEARED_POKEMON * app_poke = (cola_APPEARED_POKEMON * ) malloc(sizeof(cola_APPEARED_POKEMON));
-
-							app_poke->id_mensaje = atoi(argv[6]) ;
-							app_poke->nombre_pokemon = strdup(argv[3]);
-							app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon ) ;
-							app_poke->posicion_x = atoi(argv[4]) ;
-							app_poke->posicion_y = atoi(argv[5]) ;
-
-							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
-
-							if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
-
-							free(comando);
-							free(app_poke);
-							return EXIT_SUCCESS;
-						}
-
-						//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [CANTIDAD]
-
-						if (strcasecmp("NEW_POKEMON",comando) == 0 ) {
-
-							if ( argc < 7 ){
-									printf("No se ingreso la cantidad de parametros necesarios\n");
-									free(comando);
-									return EXIT_FAILURE;
-							}
-
-							cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
-
-							new_poke->id_mensaje = 0 ;
-							new_poke->nombre_pokemon = strdup(argv[3]);
-							new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
-							new_poke->posicion_x = atoi(argv[4]) ;
-							new_poke->posicion_y = atoi(argv[5]) ;
-							new_poke->cantidad = atoi(argv[6]) ;
-
-							int enviado = conectar_y_enviar("BROKER", configGB->ipBroker , configGB->puertoBroker,"Team" , "Broker" ,NEW_POKEMON, new_poke , logger , loggerCatedra);
-
-							if (enviado != ERROR) log_info(loggerCatedra,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
-
-							free(comando);
-							free(new_poke);
-							return EXIT_SUCCESS;
-						}
-						else {
-							printf("Comando no reconocido\n");
-							free(comando);
-							return EXIT_FAILURE;
-						}
-
+					}
 			}
+			return EXIT_FAILURE;
+
 }
 
-int flujoSuscriptor( char * comando,int argc, char *argv[]) {
+int broker( char * comando,int argc, char *argv[]){
+
+log_info(logger,"Trabajando con el BROKER");
+
+	if ( argc < 3 ){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		return EXIT_FAILURE;
+	}
+
+	else {
+
+		free(comando);
+
+		comando = strdup(argv[2]);
+
+		int modulo = devolverTipoMsj(comando) ;
+
+			switch (modulo) {
+
+					//./gameboy BROKER GET_POKEMON [POKEMON]
+					case GET_POKEMON:
+						prc_get_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+						break;
+					//./gameboy BROKER CAUGHT_POKEMON [ID_MENSAJE] [OK/FAIL]
+					case CAUGHT_POKEMON:{
+						prc_caught_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+						break;
+					}
+					//./gameboy BROKER CATCH_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE]
+					case CATCH_POKEMON:
+						prc_catch_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+						break;
+
+					//./gameboy BROKER APPEARED_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE_CORRELATIVO]
+
+					case APPEARED_POKEMON:
+						prc_appeared_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+						break;
+					//./gameboy BROKER NEW_POKEMON [POKEMON] [POSX] [POSY] [ID_MENSAJE]
+
+					case NEW_POKEMON:
+						prc_new_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+					break;
+					//./gameboy TEAM LOCALIZED_POKEMON POKEMON CANTIDAD POSICIONES [ID_MENSAJE]
+
+					//./gameboy TEAM LOCALIZED_POKEMON Pikachu 3 "1,2,3,4,5,6" 45
+
+					case LOCALIZED_POKEMON:
+						prc_localized_pokemon( comando , argc, argv  ,
+						"BROKER" , configGB->ipBroker , configGB->puertoBroker ,
+						"Team" , "BROKER" );
+					break;
+					default: {
+						comandoNoR();
+						return EXIT_FAILURE;
+						break;
+					}
+			}
+	}
+	return EXIT_FAILURE;
+
+}
+
+int prc_suscriptor( char * comando,int argc, char *argv[]) {
 
 	//./gameboy SUSCRIPTOR [COLA_DE_MENSAJES] [TIEMPO]
 
 	log_info(logger,"Trabajando con el SUSCRIPTOR");
 
-
-
 		if ( argc < 4){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
 			free(comando);
+			liberarRecursosComunes();
 			return EXIT_FAILURE;
 		} else {
+
 				free(comando);
+
 				comando = strdup(argv[2]);
-				int tiempoSuscripcion = atoi(argv[3]);
 
-				int fdGB = nuevoSocket();
+				int enumComando = devolverTipoMsj(comando) ;
 
-				int enviado = conectaryLoguear("BROKER" ,fdGB,configGB->ipBroker,configGB->puertoBroker,logger, loggerCatedra);
+				//comando = strdup("NEW_POKEMON");
 
-				if (enviado == 0) { return -1 ;}
+				//tiempoSuscripcion = 240 ;
 
-				handshake_cliente(fdGB, "Team" , "Broker", logger);
+				tiempoSuscripcion = atoi(argv[3]);
 
-				//aplicar_protocolo_enviar
-
-				log_info(loggerCatedra,"Me estoy suscribiendo a la cola -> %s durante %d segundos ",comando,tiempoSuscripcion);
-
-				log_info(logger,"Aqui loguearia los mensajes de los x segundos");
-
-				//aplicar_protocolo_recibir(fdBroker)
+				log_info(logger,"Ingresaron el comando -> %s durante %d segundos ",comando,tiempoSuscripcion);
 
 				free(comando);
+
+				laSuscripcion = (suscriptor * ) malloc(sizeof(suscriptor));
+
+				laSuscripcion->modulo = GAMEBOY ;
+				if(configGB->token == 0) laSuscripcion->token = token();
+				else laSuscripcion->token = configGB->token;
+				log_info("Genere el token nro: %d",configGB->token);
+				laSuscripcion->cola_a_suscribir = list_create();
+				list_add(laSuscripcion->cola_a_suscribir, enumComando);
+
+				crearHilos();
+				/*
+				for ( int i = 0 ; i < list_size(laSuscripcion->cola_a_suscribir); i ++){
+					int * laPosicion ;
+					laPosicion = list_get(laSuscripcion->cola_a_suscribir,i);
+					free(laPosicion);
+				}
+				*/
+
+				liberarRecursosComunes();
+
 				return EXIT_SUCCESS;
 		}
 }
 
 
+int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+
+	if ( argc < 4 ){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		liberarRecursosComunes();
+		return EXIT_FAILURE;
+	}
+
+	cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
+
+	cau_poke->id_mensaje = atoi(argv[3]);
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = TRUE ;
+	else cau_poke->atrapo_pokemon = ERROR ;
+
+	if (strcasecmp(modulo,"BROKER")){
+
+		enviado = conectar_enviar_recibir(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+		enviado = conectar_y_enviar(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
+	}
+
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	free(comando);
+
+	free(cau_poke);
+
+	cerrarSocket(mySocket);
+
+	liberarRecursosComunes();
+
+	return EXIT_SUCCESS;
+
+}
+
+void catch(cola_CATCH_POKEMON * cat_poke , int idMsj,int argc, char *argv[] ){
+
+	cat_poke->id_mensaje = idMsj ;
+	cat_poke->nombre_pokemon = strdup(argv[3]);
+	cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
+	cat_poke->posicion_x = atoi(argv[4]) ;
+	cat_poke->posicion_y = atoi(argv[5]) ;
+}
+
+int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
+
+
+
+	cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 6 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		catch( cat_poke , 0 ,argc, argv );
+
+		enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+		if ( argc < 7 ){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		liberarRecursosComunes();
+		return EXIT_FAILURE;
+		}
+		catch( cat_poke , atoi(argv[6]) ,argc, argv );
+
+		enviado = conectar_y_enviar(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
+	}
+
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	free(comando);
+	free(cat_poke->nombre_pokemon);
+	free(cat_poke);
+
+	cerrarSocket(mySocket);
+
+	liberarRecursosComunes();
+
+	return EXIT_SUCCESS;
+}
+
+int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+
+ 	if ( argc < 6 || argc > 8){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		liberarRecursosComunes();
+		return EXIT_FAILURE;
+	}
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
+
+	app_poke->id_mensaje = atoi(argv[6]) ;
+
+	app_poke->nombre_pokemon = strdup(argv[3]);
+	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
+	app_poke->posicion_x = atoi(argv[4]) ;
+	app_poke->posicion_y = atoi(argv[5]) ;
+
+	/*
+	app_poke->nombre_pokemon = strdup("pikachu");
+	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
+	app_poke->posicion_x = 2 ;
+	app_poke->posicion_y = 10 ;
+	*/
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+
+		enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+
+		enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
+	}
+
+
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	cerrarSocket(mySocket);
+
+	free(comando);
+	free(app_poke->nombre_pokemon);
+	free(app_poke);
+
+	liberarRecursosComunes();
+
+	return EXIT_SUCCESS;
+}
+
+void new(cola_NEW_POKEMON * new_poke , int idMsj,int argc, char *argv[] ){
+
+	new_poke->id_mensaje = idMsj ;
+	new_poke->nombre_pokemon = strdup(argv[3]);
+	new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
+	new_poke->posicion_x = atoi(argv[4]) ;
+	new_poke->posicion_y = atoi(argv[5]) ;
+	new_poke->cantidad = atoi(argv[6]) ;
+}
+
+int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+
+	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 7 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		new( new_poke , 0 ,argc, argv );
+
+		enviado = conectar_enviar_recibir( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+		if ( argc < 8 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		new( new_poke , atoi(argv[7]) ,argc, argv );
+
+		enviado = conectar_y_enviar( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
+
+	}
+
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	free(comando);
+	free(new_poke->nombre_pokemon);
+	free(new_poke);
+
+	cerrarSocket(mySocket);
+
+	liberarRecursosComunes();
+
+	return EXIT_SUCCESS;
+}
+
+int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
+
+
+	if ( argc < 7 ){
+		printf("No se ingreso la cantidad de parametros necesarios\n");
+		free(comando);
+		liberarRecursosComunes();
+		return EXIT_FAILURE;
+	}
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
+
+
+			loc_poke->lista_posiciones = list_create(); // 16
+
+			loc_poke->id_mensaje = atoi(argv[6])  ; //4
+			loc_poke->cantidad = atoi(argv[4]) ; // 4
+			loc_poke->nombre_pokemon = strdup(argv[3]);//  "raichu" 6
+
+			char * posiciones = strdup(argv[5]);
+
+			char ** listapokemon = string_split(posiciones,",");
+
+			//char ** listapokemon = string_split("1,2,3,4",",");
+
+			/*
+			loc_poke->id_mensaje = 22  ; //4
+			loc_poke->cantidad = 2 ; // 4
+			loc_poke->nombre_pokemon = strdup("Pikachu");; //  "raichu" 6
+			*/
+			loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
+			/*
+			posicion * laPosicion1 = malloc(sizeof(posicion));
+			posicion * laPosicion2 = malloc(sizeof(posicion));
+
+			laPosicion1->posicion_x = 1 ;
+			laPosicion1->posicion_y = 2 ;
+			laPosicion2->posicion_x = 3 ;
+			laPosicion2->posicion_y = 4 ;
+
+			list_add(loc_poke->lista_posiciones,laPosicion1);
+			list_add(loc_poke->lista_posiciones,laPosicion2);
+			*/
+
+			int unaposicion = 0 ;
+			while (listapokemon[unaposicion] != NULL){
+				posicion * laPosicion = malloc( sizeof(posicion));
+				laPosicion->posicion_x = atoi(listapokemon[unaposicion]);
+				unaposicion++;
+				laPosicion->posicion_y = atoi(listapokemon[unaposicion]);
+				list_add(loc_poke->lista_posiciones,laPosicion);
+				unaposicion++;
+			}
+
+
+			if(strcasecmp(modulo,"BROKER") == 0 ) {
+
+				enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
+
+				larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+				if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+					cerrarSocket(mySocket);
+					//return EXIT_SUCCESS;
+				}else{
+						mensaje = malloc(tamanioMensaje);
+
+						larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+						if ( head == ACK) {
+							deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+							free(mensaje);
+						}
+
+				}
+			} else {
+
+				enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
+
+			}
+			if (enviado != ERROR ) {
+				for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
+				log_info(logger,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
+				i++;
+				}
+			}
+
+			if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+
+			unaposicion = 0 ;
+
+			while (listapokemon[unaposicion] != NULL){
+				posicion * laPosicion ;
+				laPosicion = listapokemon[unaposicion];
+				free(laPosicion);
+				unaposicion++;
+			}
+			free(posiciones);
+			free(listapokemon);
+			free(comando);
+			free(loc_poke->nombre_pokemon);
+
+			for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
+				posicion * laPosicion ;
+				laPosicion = list_get(loc_poke->lista_posiciones,i);
+				free(laPosicion);
+			}
+
+			list_destroy(loc_poke->lista_posiciones);
+
+			free(loc_poke);
+
+			cerrarSocket(mySocket);
+
+			liberarRecursosComunes();
+
+			return EXIT_SUCCESS;
+
+}
+
+void liberarRecursosComunes(){
+
+	free(configGB->ipBroker);
+	free(configGB->ipGameCard);
+	free(configGB->ipTeam);
+	free(configGB);
+	log_destroy(logger);
+	log_destroy(loggerCatedra);
+}
+
+void get(cola_GET_POKEMON * get_poke , int idMsj,int argc, char *argv[] ){
+
+		get_poke->id_mensaje = idMsj ;
+
+		get_poke->nombre_pokemon = strdup(argv[3]);
+
+		get_poke->tamanio_nombre = string_length(get_poke->nombre_pokemon );
+}
+
+int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
+
+	cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
+		//log_info(logger,"BROKER -> catch_pokemon");
+		if ( argc < 4 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		get( get_poke , 0 ,argc, argv );
+
+
+		enviado = conectar_enviar_recibir( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+		if ( argc < 5 ){
+			printf("No se ingreso la cantidad de parametros necesarios\n");
+			free(comando);
+			liberarRecursosComunes();
+			return EXIT_FAILURE;
+		}
+		get( get_poke , atoi(argv[4]) ,argc, argv );
+		enviado = conectar_y_enviar( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
+	}
+
+
+
+	if (enviado != ERROR) log_info(logger,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	free(comando);
+
+	free(get_poke->nombre_pokemon);
+
+	free(get_poke);
+
+	cerrarSocket(mySocket);
+
+	liberarRecursosComunes();
+
+	return EXIT_SUCCESS;
+
+
+}
