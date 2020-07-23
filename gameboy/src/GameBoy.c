@@ -349,7 +349,7 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 	if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = TRUE ;
 	else cau_poke->atrapo_pokemon = ERROR ;
 
-	if (strcasecmp(modulo,"BROKER")){
+	if (strcasecmp(modulo,"BROKER")==0){
 
 		enviado = conectar_enviar_recibir(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
 
@@ -613,15 +613,64 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 	return EXIT_SUCCESS;
 }
 
-int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
+void localized(cola_LOCALIZED_POKEMON * loc_poke , int idMsj,int argc, char *argv[] ){
 
+	loc_poke->lista_posiciones = list_create(); // 16
 
-	if ( argc < 7 ){
-		printf("No se ingreso la cantidad de parametros necesarios\n");
-		free(comando);
-		liberarRecursosComunes();
-		return EXIT_FAILURE;
+	loc_poke->id_mensaje = idMsj  ; //4
+	loc_poke->cantidad = atoi(argv[4]) ; // 4
+	loc_poke->nombre_pokemon = strdup(argv[3]);//  "raichu" 6
+
+	char * posiciones = strdup(argv[5]);
+
+	char ** listapokemon = string_split(posiciones,",");
+
+	//char ** listapokemon = string_split("1,2,3,4",",");
+
+	/*
+	loc_poke->id_mensaje = 22  ; //4
+	loc_poke->cantidad = 2 ; // 4
+	loc_poke->nombre_pokemon = strdup("Pikachu");; //  "raichu" 6
+	*/
+	loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
+	/*
+	posicion * laPosicion1 = malloc(sizeof(posicion));
+	posicion * laPosicion2 = malloc(sizeof(posicion));
+
+	laPosicion1->posicion_x = 1 ;
+	laPosicion1->posicion_y = 2 ;
+	laPosicion2->posicion_x = 3 ;
+	laPosicion2->posicion_y = 4 ;
+
+	list_add(loc_poke->lista_posiciones,laPosicion1);
+	list_add(loc_poke->lista_posiciones,laPosicion2);
+	*/
+
+	int unaposicion = 0 ;
+	while (listapokemon[unaposicion] != NULL){
+		posicion * laPosicion = malloc( sizeof(posicion));
+		laPosicion->posicion_x = atoi(listapokemon[unaposicion]);
+		unaposicion++;
+		laPosicion->posicion_y = atoi(listapokemon[unaposicion]);
+		list_add(loc_poke->lista_posiciones,laPosicion);
+		unaposicion++;
 	}
+
+	unaposicion = 0 ;
+
+	while (listapokemon[unaposicion] != NULL){
+		posicion * laPosicion ;
+		laPosicion = listapokemon[unaposicion];
+		free(laPosicion);
+		unaposicion++;
+	}
+	free(posiciones);
+	free(listapokemon);
+}
+
+
+
+int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ){
 
 	int enviado;
 	int head ; int tamanioMensaje;
@@ -631,50 +680,16 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 
 	cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
 
-
-			loc_poke->lista_posiciones = list_create(); // 16
-
-			loc_poke->id_mensaje = atoi(argv[6])  ; //4
-			loc_poke->cantidad = atoi(argv[4]) ; // 4
-			loc_poke->nombre_pokemon = strdup(argv[3]);//  "raichu" 6
-
-			char * posiciones = strdup(argv[5]);
-
-			char ** listapokemon = string_split(posiciones,",");
-
-			//char ** listapokemon = string_split("1,2,3,4",",");
-
-			/*
-			loc_poke->id_mensaje = 22  ; //4
-			loc_poke->cantidad = 2 ; // 4
-			loc_poke->nombre_pokemon = strdup("Pikachu");; //  "raichu" 6
-			*/
-			loc_poke->tamanio_nombre = string_length(loc_poke->nombre_pokemon); // 4
-			/*
-			posicion * laPosicion1 = malloc(sizeof(posicion));
-			posicion * laPosicion2 = malloc(sizeof(posicion));
-
-			laPosicion1->posicion_x = 1 ;
-			laPosicion1->posicion_y = 2 ;
-			laPosicion2->posicion_x = 3 ;
-			laPosicion2->posicion_y = 4 ;
-
-			list_add(loc_poke->lista_posiciones,laPosicion1);
-			list_add(loc_poke->lista_posiciones,laPosicion2);
-			*/
-
-			int unaposicion = 0 ;
-			while (listapokemon[unaposicion] != NULL){
-				posicion * laPosicion = malloc( sizeof(posicion));
-				laPosicion->posicion_x = atoi(listapokemon[unaposicion]);
-				unaposicion++;
-				laPosicion->posicion_y = atoi(listapokemon[unaposicion]);
-				list_add(loc_poke->lista_posiciones,laPosicion);
-				unaposicion++;
-			}
-
-
 			if(strcasecmp(modulo,"BROKER") == 0 ) {
+
+				if ( argc < 6 ){
+					printf("No se ingreso la cantidad de parametros necesarios\n");
+					free(comando);
+					liberarRecursosComunes();
+					return EXIT_FAILURE;
+				}
+
+				localized( loc_poke , 0 ,argc, argv );
 
 				enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
 
@@ -696,29 +711,29 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 				}
 			} else {
 
+				if ( argc < 7 ){
+					printf("No se ingreso la cantidad de parametros necesarios\n");
+					free(comando);
+					liberarRecursosComunes();
+					return EXIT_FAILURE;
+				}
+
+				localized( loc_poke , atoi(argv[6]) ,argc, argv );
+
 				enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
 
 			}
 			if (enviado != ERROR ) {
 				for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
-				log_info(logger,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
-				i++;
+				posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
+				log_info(logger,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
 				}
 			}
 
 			if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 
 
-			unaposicion = 0 ;
 
-			while (listapokemon[unaposicion] != NULL){
-				posicion * laPosicion ;
-				laPosicion = listapokemon[unaposicion];
-				free(laPosicion);
-				unaposicion++;
-			}
-			free(posiciones);
-			free(listapokemon);
 			free(comando);
 			free(loc_poke->nombre_pokemon);
 

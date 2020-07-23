@@ -46,6 +46,7 @@ void iniciar_estructuras(){
 		Particion * particion_memoria = malloc(sizeof(Particion));
 		particion_memoria->id_msj= 0;
 		particion_memoria->punteroInicial = 0;
+		particion_memoria->colaAsignada = 0;
 		particion_memoria->punteroFinal = config_File->TAMANO_MEMORIA - 1;
 		particion_memoria->tamano = config_File->TAMANO_MEMORIA;
 		particion_memoria->libre = true;
@@ -823,31 +824,26 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 					case NEW_POKEMON :{
 						cola_NEW_POKEMON  * new_poke = mensaje ;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, new_poke);
-						log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", suscriptor->laSus->modulo, suscriptor->laSus->token);
 						break;
 					}
 					case APPEARED_POKEMON :{
 						cola_APPEARED_POKEMON  * app_poke = mensaje ;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, app_poke);
-						log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola APPEARED_POKEMON y token: %d", suscriptor->laSus->modulo, suscriptor->laSus->token);
 						break;
 					}
 					case CATCH_POKEMON :{
 						cola_CATCH_POKEMON  * cath_poke = mensaje ;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, cath_poke);
-						log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola CATCH_POKEMON y token: %d", suscriptor->laSus->modulo, suscriptor->laSus->token);
 						break;
 					}
 					case CAUGHT_POKEMON :{
 						cola_CAUGHT_POKEMON  * cau_poke = mensaje ;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, cau_poke);
-						log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola CAUGHT_POKEMON y token: %d", suscriptor->laSus->modulo, suscriptor->laSus->token);
 						break;
 					}
 					case GET_POKEMON :{
 						cola_GET_POKEMON * get_poke = mensaje ;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, get_poke);
-						log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola GET_POKEMON y token: %d", suscriptor->laSus->modulo, suscriptor->laSus->token);
 						break;
 					}
 					case LOCALIZED_POKEMON :{
@@ -857,10 +853,12 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 					}
 				}
 
-			if (enviados == ERROR ) log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
-
-			log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
-
+			if (enviados == ERROR ) {
+				log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
+			} else {
+				log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(suscriptor->laSus->modulo), tipoMsjIntoToChar(head),suscriptor->laSus->token);
+				log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
+			}
 			list_remove(aux_lista_de_suscriptores, 0);
 		}
 		free(mensaje);
@@ -871,6 +869,8 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscriptores *laSus) {
 
+	int recibidos;
+
 	_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == id_msj; }
 	_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
 		for ( int j = 0 ; j < list_size(laSus->laSus->cola_a_suscribir) ;j++){
@@ -879,21 +879,15 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 									switch( colaAsignada ) {
 										case NEW_POKEMON :{
 											cola_NEW_POKEMON  * new_poke = malloc(sizeof(cola_NEW_POKEMON)) ;
-											//if ( laParti->punteroInicial != 0 ) desplazamiento = laParti->punteroInicial - 1 ;
+
 											pthread_mutex_lock(&mutex_memoria_cache);
 
 											deserealizar_mem_NEW_POKEMON(laParti ,new_poke);
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , new_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , new_poke);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
-
-											//desplazamiento = calcularTamanioMensaje(NEW_POKEMON,new_poke);
 											free(new_poke->nombre_pokemon);
 											free(new_poke);
 											break;
@@ -907,14 +901,10 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , app_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , app_poke);
 
 											free(app_poke->nombre_pokemon);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
 											free(app_poke);
 											break;
 										}
@@ -927,14 +917,10 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , cath_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , cath_poke);
 
 											free(cath_poke->nombre_pokemon);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
 											free(cath_poke);
 											break;
 										}
@@ -948,12 +934,8 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , cau_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , cau_poke);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
 											free(cau_poke);
 											break;
 										}
@@ -966,14 +948,10 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , get_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , get_poke);
 
 											free(get_poke->nombre_pokemon);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
 											free(get_poke);
 											break;
 										}
@@ -986,17 +964,21 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
-											int recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , loc_poke);
+											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , loc_poke);
 
 											free(loc_poke->nombre_pokemon);
 
-											if(recibidos > 0) {
-												reenvieMsj = true;
-												log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor %d (modulo) de la cola NEW_POKEMON y token: %d", laSus->laSus->modulo, laSus->laSus->token);
-											}
 											free(loc_poke);
 											break;
 										}
+									}
+
+									if (recibidos == ERROR ) {
+										log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
+									} else {
+										reenvieMsj = true;
+										log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(laSus->laSus->modulo), tipoMsjIntoToChar(colaAsignada),laSus->laSus->token);
+										log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 									}
 					}
 		}
@@ -1011,7 +993,6 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 	pthread_mutex_unlock(&mutex_lista_particiones);
 
 	for ( int i = 0 ; i < tamanioLista ; i++ ) {
-
 		if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 			pthread_mutex_lock(&mutex_lista_particiones);
 			Particion_bs * laParti = list_get(lista_particiones,i);
