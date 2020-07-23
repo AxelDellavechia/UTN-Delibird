@@ -655,6 +655,53 @@ void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
 
 }
 
+int conectar_enviar_recibir(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) {
+
+	int fdServer = nuevoSocket();
+	mySocket = fdServer;
+
+	if ( conectarCon( fdServer ,ipServer,puertoServer,logger) )	{
+
+		log_info(loggerCatedra,"Me conecte correctamente con el %s IP: %s y Puerto: %d",modulo,ipServer,puertoServer);
+
+		handshake_cliente(fdServer,handShake,handShakeEsperado,logger);
+
+		int desplazamiento = 0, tamanioMensaje, tamanioTotalAEnviar;
+
+		if (head < 1 || head > FIN_DEL_PROTOCOLO) printf("Error al enviar mensaje.\n");
+		// Calculo el tamaño del mensaje:
+
+		tamanioMensaje = calcularTamanioMensaje(head, mensaje);
+
+		// Serealizo el mensaje según el protocolo (me devuelve el mensaje empaquetado):
+		void * mensajeSerealizado = serealizar(head, mensaje  , tamanioMensaje );
+
+		// Lo que se envía es: head + tamaño del msj + el msj serializado:
+		tamanioTotalAEnviar = sizeof(int) + sizeof(int) + tamanioMensaje;
+
+		// Meto en el buffer las tres cosas:
+		void *buffer = malloc(tamanioTotalAEnviar);
+		memcpy(buffer + desplazamiento, &head, sizeof(int));
+			desplazamiento += sizeof(int);
+		memcpy(buffer + desplazamiento, &tamanioMensaje, sizeof(int));
+			desplazamiento += sizeof(int);
+		memcpy(buffer + desplazamiento, mensajeSerealizado, tamanioMensaje);
+
+		// Envío la totalidad del paquete (lo contenido en el buffer):
+		int enviados = enviarPorSocket(fdServer, buffer, tamanioTotalAEnviar);
+
+		free(buffer);
+
+		free(mensajeSerealizado);
+
+		return enviados;
+
+	}else{
+	log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",modulo,ipServer,puertoServer);
+	return ERROR;
+	}
+}
+
 int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra ) {
 
 	int fdServer = nuevoSocket();

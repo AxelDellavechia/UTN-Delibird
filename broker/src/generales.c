@@ -39,7 +39,7 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
-	desplazamientoCache = 0 ;
+	//desplazamientoCache = 0 ;
 
 	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
@@ -372,8 +372,15 @@ int thread_Broker(int fdCliente) {
 											guardar_msj(NEW_POKEMON, bufferTam - sizeof(uint32_t), ptro_new_poke);
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											list_add(cola_new_pokemon, ptro_new_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola NEW_POKEMON");
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = ptro_new_poke->id_mensaje;
+											ack->token = 0 ;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
+											free(ack);
+
 											sem_post(&sem_contador_msjs_cola);
 											//agregar_contador_msj();
 											break;
@@ -388,9 +395,16 @@ int thread_Broker(int fdCliente) {
 											cath_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(CATCH_POKEMON, bufferTam - sizeof(uint32_t), cath_poke);
 											pthread_mutex_lock(&mutex_cola_catch_pokemon);
-											list_add(cola_catch_pokemon, cath_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola CATCH_POKEMON");
+											list_add(cola_catch_pokemon, cath_poke);;
 											pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = cath_poke->id_mensaje;
+											ack->token = 0 ;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
+											free(ack);
+
 											sem_post(&sem_contador_msjs_cola);
 											//agregar_contador_msj();
 											break;
@@ -398,15 +412,25 @@ int thread_Broker(int fdCliente) {
 										case GET_POKEMON :{
 											cola_GET_POKEMON * get_poke = malloc (sizeof(cola_GET_POKEMON));
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, get_poke);
+
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
 											pthread_mutex_unlock(&mutex_logs);
+
 											get_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(GET_POKEMON, bufferTam - sizeof(uint32_t), get_poke);
+
 											pthread_mutex_lock(&mutex_cola_get_pokemon);
 											list_add(cola_get_pokemon, get_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola GET_POKEMON");
 											pthread_mutex_unlock(&mutex_cola_get_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = get_poke->id_mensaje;
+											ack->token = 0 ;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
+											free(ack);
+
 											sem_post(&sem_contador_msjs_cola);
 											//agregar_contador_msj();
 											break;
@@ -415,15 +439,25 @@ int thread_Broker(int fdCliente) {
 										case APPEARED_POKEMON :{
 											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
+
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 											pthread_mutex_unlock(&mutex_logs);
+
 											app_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(APPEARED_POKEMON, bufferTam - sizeof(uint32_t), app_poke);
+
 											pthread_mutex_lock(&mutex_cola_appeared_pokemon);
 											list_add(cola_appeared_pokemon, app_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola APPEARED_POKEMON");
 											pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+																						ack->ack = TRUE;
+																						ack->id_msj = app_poke->id_mensaje;
+																						ack->token = 0 ;
+																						aplicar_protocolo_enviar(fdCliente,ACK,ack);
+																						free(ack);
+
 											agregar_contador_msj();
 											sem_post(&sem_contador_msjs_cola);
 											break;
@@ -435,10 +469,18 @@ int thread_Broker(int fdCliente) {
 											log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke->id_mensaje,caug_poke->atrapo_pokemon);
 											caug_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(CAUGHT_POKEMON, bufferTam - sizeof(uint32_t), caug_poke);
+
 											pthread_mutex_lock(&mutex_cola_caught_pokemon);
 											list_add(cola_caught_pokemon, caug_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola CAUGHT_POKEMON");
 											pthread_mutex_unlock(&mutex_cola_caught_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = caug_poke->id_mensaje;
+											ack->token = 0 ;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
+											free(ack);
+
 											sem_post(&sem_contador_msjs_cola);
 											agregar_contador_msj();
 											break;
@@ -458,8 +500,15 @@ int thread_Broker(int fdCliente) {
 											guardar_msj(LOCALIZED_POKEMON, bufferTam - sizeof(uint32_t), loc_poke);
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
 											list_add(cola_localized_pokemon, loc_poke);
-											//log_info(loggerCatedra, "Llego un Nuevo Mensaje a la cola LOCALIZED_POKEMON");
 											pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+
+											respuesta_ACK * ack = malloc (sizeof(respuesta_ACK));
+											ack->ack = TRUE;
+											ack->id_msj = loc_poke->id_mensaje;
+											ack->token = 0 ;
+											aplicar_protocolo_enviar(fdCliente,ACK,ack);
+											free(ack);
+
 											sem_post(&sem_contador_msjs_cola);
 											agregar_contador_msj();
 											//free(loc_poke->nombre_pokemon);
