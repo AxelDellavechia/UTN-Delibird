@@ -58,3 +58,10 @@
 [INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> recibió el HEAD #2
 [INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
 [INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 17:44:05:135 Team.log/(27458:27468): Obteniendo los Entrenadores
+[INFO] 17:44:05:135 Team.log/(27458:27468): Escuchando conexiones
+[INFO] 17:44:05:135 Team.log/(27458:27469): Obteniendo los Entrenadores
+[INFO] 17:44:05:135 Team.log/(27458:27469): Escuchando conexiones
+[INFO] 17:44:05:136 Team.log/(27458:27470): Escuchando conexiones
+[INFO] 17:44:05:136 Team.log/(27458:27467): Obteniendo los Entrenadores
+[INFO] 17:44:05:136 Team.log/(27458:27467): Escuchando conexiones

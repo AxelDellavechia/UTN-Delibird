@@ -118,3 +118,12 @@
 [INFO] 00:57:22:467 logCatedra.log/(11092:11098): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
 [INFO] 00:57:22:468 logCatedra.log/(11092:11100): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
 [INFO] 00:57:22:468 logCatedra.log/(11092:11099): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 0 creado y en cola de New
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 0 movido a cola de Ready
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 1 creado y en cola de New
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 1 movido a cola de Ready
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 2 creado y en cola de New
+[INFO] 17:44:05:131 logCatedra.log/(27458:27458): Entrenador 2 movido a cola de Ready
+[INFO] 17:44:05:136 logCatedra.log/(27458:27468): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:44:05:136 logCatedra.log/(27458:27469): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 17:44:05:136 logCatedra.log/(27458:27467): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
