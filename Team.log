@@ -1,67 +1,68 @@
-[INFO] 00:38:47:516 Team.log/(10510:10538): Obteniendo los Entrenadores
-[INFO] 00:38:47:522 Team.log/(10510:10538): Escuchando conexiones
-[INFO] 00:38:47:524 Team.log/(10510:10539): Obteniendo los Entrenadores
-[INFO] 00:38:47:525 Team.log/(10510:10539): Escuchando conexiones
-[INFO] 00:38:47:531 Team.log/(10510:10541): Obteniendo los Entrenadores
-[INFO] 00:38:47:531 Team.log/(10510:10541): Escuchando conexiones
-[INFO] 00:38:47:540 Team.log/(10510:10542): Escuchando conexiones
-[INFO] 00:38:55:755 Team.log/(10510:10542): Servidor o Cliente aceptado.
-[INFO] 00:38:55:755 Team.log/(10510:10542): Hice el handshake y me respondieron: BROKER
-[INFO] 00:38:55:755 Team.log/(10510:10542): Alguien se conectó
-[INFO] 00:39:04:347 Team.log/(10510:10549): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:39:04:977 Team.log/(10510:10549): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
-[INFO] 00:39:05:584 Team.log/(10510:10549): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:40:43:526 Team.log/(10510:10549): Fin de hilo GameBoy
-[INFO] 00:41:08:350 Team.log/(10510:10542): Servidor o Cliente aceptado.
-[INFO] 00:41:08:350 Team.log/(10510:10542): Hice el handshake y me respondieron: BROKER
-[INFO] 00:41:08:350 Team.log/(10510:10542): Alguien se conectó
-[INFO] 00:41:14:510 Team.log/(10510:10635): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:41:14:510 Team.log/(10510:10635): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 00:41:14:510 Team.log/(10510:10635): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:52:52:590 Team.log/(10933:10958): Obteniendo los Entrenadores
-[INFO] 00:52:52:595 Team.log/(10933:10958): Escuchando conexiones
-[INFO] 00:52:52:601 Team.log/(10933:10959): Obteniendo los Entrenadores
-[INFO] 00:52:52:601 Team.log/(10933:10959): Escuchando conexiones
-[INFO] 00:52:52:604 Team.log/(10933:10961): Obteniendo los Entrenadores
-[INFO] 00:52:52:604 Team.log/(10933:10961): Escuchando conexiones
-[INFO] 00:52:52:609 Team.log/(10933:10963): Escuchando conexiones
-[INFO] 00:53:01:47 Team.log/(10933:10963): Servidor o Cliente aceptado.
-[INFO] 00:53:01:47 Team.log/(10933:10963): Hice el handshake y me respondieron: BROKER
-[INFO] 00:53:01:47 Team.log/(10933:10963): Alguien se conectó
-[INFO] 00:53:04:848 Team.log/(10933:10968): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:53:04:848 Team.log/(10933:10968): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
-[INFO] 00:53:04:848 Team.log/(10933:10968): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:53:16:892 Team.log/(10933:10968): Fin de hilo GameBoy
-[INFO] 00:53:22:481 Team.log/(10933:10963): Servidor o Cliente aceptado.
-[INFO] 00:53:22:481 Team.log/(10933:10963): Hice el handshake y me respondieron: BROKER
-[INFO] 00:53:22:481 Team.log/(10933:10963): Alguien se conectó
-[INFO] 00:53:26:168 Team.log/(10933:10984): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:53:26:168 Team.log/(10933:10984): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 00:53:26:168 Team.log/(10933:10984): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:54:28:790 Team.log/(10933:10984): Fin de hilo GameBoy
-[INFO] 00:54:57:213 Team.log/(10933:10963): Servidor o Cliente aceptado.
-[INFO] 00:54:57:213 Team.log/(10933:10963): Hice el handshake y me respondieron: BROKER
-[INFO] 00:54:57:213 Team.log/(10933:10963): Alguien se conectó
-[INFO] 00:55:01:10 Team.log/(10933:11027): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:55:01:10 Team.log/(10933:11027): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
-[INFO] 00:55:01:10 Team.log/(10933:11027): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:55:15:643 Team.log/(10933:11027): Fin de hilo GameBoy
-[INFO] 00:55:32:398 Team.log/(10933:10963): Servidor o Cliente aceptado.
-[INFO] 00:55:32:398 Team.log/(10933:10963): Hice el handshake y me respondieron: BROKER
-[INFO] 00:55:32:398 Team.log/(10933:10963): Alguien se conectó
-[INFO] 00:55:36:373 Team.log/(10933:11048): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:55:36:373 Team.log/(10933:11048): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
-[INFO] 00:55:36:373 Team.log/(10933:11048): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 00:55:50:235 Team.log/(10933:10963): Servidor o Cliente aceptado.
-[INFO] 00:55:50:235 Team.log/(10933:10963): Hice el handshake y me respondieron: BROKER
-[INFO] 00:55:50:235 Team.log/(10933:10963): Alguien se conectó
-[INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 00:55:52:876 Team.log/(10933:11054): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 17:44:05:135 Team.log/(27458:27468): Obteniendo los Entrenadores
-[INFO] 17:44:05:135 Team.log/(27458:27468): Escuchando conexiones
-[INFO] 17:44:05:135 Team.log/(27458:27469): Obteniendo los Entrenadores
-[INFO] 17:44:05:135 Team.log/(27458:27469): Escuchando conexiones
-[INFO] 17:44:05:136 Team.log/(27458:27470): Escuchando conexiones
-[INFO] 17:44:05:136 Team.log/(27458:27467): Obteniendo los Entrenadores
-[INFO] 17:44:05:136 Team.log/(27458:27467): Escuchando conexiones
+[INFO] 00:58:40:446 Team.log/(12735:12749): Obteniendo los Entrenadores
+[INFO] 00:58:40:446 Team.log/(12735:12749): Escuchando conexiones
+[INFO] 00:58:40:450 Team.log/(12735:12752): Obteniendo los Entrenadores
+[INFO] 00:58:40:450 Team.log/(12735:12752): Escuchando conexiones
+[INFO] 00:58:40:464 Team.log/(12735:12753): Obteniendo los Entrenadores
+[INFO] 00:58:40:464 Team.log/(12735:12753): Escuchando conexiones
+[INFO] 00:58:40:466 Team.log/(12735:12754): Escuchando conexiones
+[INFO] 00:58:47:681 Team.log/(12735:12754): Servidor o Cliente aceptado.
+[INFO] 00:58:47:681 Team.log/(12735:12754): Hice el handshake y me respondieron: BROKER
+[INFO] 00:58:47:681 Team.log/(12735:12754): Alguien se conectó
+[INFO] 00:58:47:702 Team.log/(12735:12760): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 00:58:47:704 Team.log/(12735:12760): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 00:58:47:704 Team.log/(12735:12760): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 00:58:53:897 Team.log/(12735:12760): Fin de hilo GameBoy
+[INFO] 00:59:42:554 Team.log/(12735:12747): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 00:59:42:554 Team.log/(12735:12747): metodo handshake_cliente recibió: -1
+[INFO] 00:59:42:554 Team.log/(12735:12747): Servidor o Cliente rechazado.
+[INFO] 01:00:13:484 Team.log/(12735:12754): Servidor o Cliente aceptado.
+[INFO] 01:00:13:484 Team.log/(12735:12754): Hice el handshake y me respondieron: BROKER
+[INFO] 01:00:13:484 Team.log/(12735:12754): Alguien se conectó
+[INFO] 01:00:13:501 Team.log/(12735:12811): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 01:00:13:501 Team.log/(12735:12811): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 01:00:13:501 Team.log/(12735:12811): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:00:17:854 Team.log/(12735:12811): Fin de hilo GameBoy
+[INFO] 01:00:28:891 Team.log/(12735:12745): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:00:28:891 Team.log/(12735:12745): metodo handshake_cliente recibió: -1
+[INFO] 01:00:28:891 Team.log/(12735:12745): Servidor o Cliente rechazado.
+[INFO] 01:01:13:294 Team.log/(12735:12754): Servidor o Cliente aceptado.
+[INFO] 01:01:13:294 Team.log/(12735:12754): Hice el handshake y me respondieron: BROKER
+[INFO] 01:01:13:294 Team.log/(12735:12754): Alguien se conectó
+[INFO] 01:01:13:314 Team.log/(12735:12840): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 01:01:13:314 Team.log/(12735:12840): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 01:01:13:314 Team.log/(12735:12840): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:01:16:343 Team.log/(12735:12840): Fin de hilo GameBoy
+[INFO] 01:11:06:449 Team.log/(13101:13119): Obteniendo los Entrenadores
+[INFO] 01:11:06:455 Team.log/(13101:13119): Escuchando conexiones
+[INFO] 01:11:06:461 Team.log/(13101:13120): Obteniendo los Entrenadores
+[INFO] 01:11:06:461 Team.log/(13101:13120): Escuchando conexiones
+[INFO] 01:11:06:468 Team.log/(13101:13121): Obteniendo los Entrenadores
+[INFO] 01:11:06:468 Team.log/(13101:13121): Escuchando conexiones
+[INFO] 01:11:06:472 Team.log/(13101:13122): Escuchando conexiones
+[INFO] 01:11:12:920 Team.log/(13101:13122): Servidor o Cliente aceptado.
+[INFO] 01:11:12:920 Team.log/(13101:13122): Hice el handshake y me respondieron: BROKER
+[INFO] 01:11:12:920 Team.log/(13101:13122): Alguien se conectó
+[INFO] 01:11:12:924 Team.log/(13101:13128): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 01:11:12:924 Team.log/(13101:13128): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 01:11:12:924 Team.log/(13101:13128): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:11:17:387 Team.log/(13101:13128): Fin de hilo GameBoy
+[INFO] 01:11:31:652 Team.log/(13101:13116): No se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:11:31:652 Team.log/(13101:13116): metodo handshake_cliente recibió: -1
+[INFO] 01:11:31:652 Team.log/(13101:13116): Servidor o Cliente rechazado.
+[INFO] 01:11:40:264 Team.log/(13101:13122): Servidor o Cliente aceptado.
+[INFO] 01:11:40:264 Team.log/(13101:13122): Hice el handshake y me respondieron: BROKER
+[INFO] 01:11:40:264 Team.log/(13101:13122): Alguien se conectó
+[INFO] 01:11:40:305 Team.log/(13101:13153): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 01:11:40:305 Team.log/(13101:13153): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 01:11:40:305 Team.log/(13101:13153): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:11:43:684 Team.log/(13101:13153): Fin de hilo GameBoy
+[INFO] 01:12:55:209 Team.log/(13101:13114): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 01:12:55:209 Team.log/(13101:13114): metodo handshake_cliente recibió: -1
+[INFO] 01:12:55:209 Team.log/(13101:13114): Servidor o Cliente rechazado.
+[INFO] 01:13:10:499 Team.log/(13101:13122): Servidor o Cliente aceptado.
+[INFO] 01:13:10:499 Team.log/(13101:13122): Hice el handshake y me respondieron: BROKER
+[INFO] 01:13:10:499 Team.log/(13101:13122): Alguien se conectó
+[INFO] 01:13:10:507 Team.log/(13101:13191): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 01:13:10:507 Team.log/(13101:13191): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 01:13:10:507 Team.log/(13101:13191): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 01:13:13:638 Team.log/(13101:13191): Fin de hilo GameBoy

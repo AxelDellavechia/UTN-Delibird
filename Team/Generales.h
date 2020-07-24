@@ -73,6 +73,7 @@ pthread_mutex_t mxListaCatch;
 pthread_mutex_t mutexBuscados;
 pthread_mutex_t mxEjecutando;
 pthread_mutex_t mxPokeEjecutando;
+pthread_mutex_t* mxEntrenadores;
 
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
@@ -150,7 +151,7 @@ void suscripcion_CAUGHT_POKEMON();
 void planificador_GameBoy();
 void thread_NewGameboy(int comandoNuevo);
 void reconectar();
-void thread_Entrenador(entrenadorPokemon * elEntrenador);
+void thread_Entrenador(int idEntrenador);
 void iniciar_log();
 void iniciar_logCatedra();
 //void crearLogger(char * nombre , char * path);
