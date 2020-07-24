@@ -575,7 +575,7 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 		// Calculo el tamaño del mensaje:
 
 		tamanioMensaje = calcularTamanioMensaje(head, mensaje);
-
+		pthread_mutex_lock(&mxBuffer);
 		// Serealizo el mensaje según el protocolo (me devuelve el mensaje empaquetado):
 		void * mensajeSerealizado = serealizar(head, mensaje  , tamanioMensaje );
 
@@ -594,6 +594,8 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 		int enviados = enviarPorSocket(fdServer, buffer, tamanioTotalAEnviar);
 
 		free(buffer);
+		free(mensajeSerealizado);
+		pthread_mutex_unlock(&mxBuffer);
 
 		//free(mensajeSerealizado);
 
