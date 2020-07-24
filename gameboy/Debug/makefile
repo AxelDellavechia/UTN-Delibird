@@ -26,7 +26,11 @@ endif
 all: gameboy
 
 dependents:
+<<<<<<< HEAD
 	-cd /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug && $(MAKE) all
+=======
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) clean all
+>>>>>>> origin/AxelBranch
 
 # Tool invocations
 gameboy: $(OBJS) $(USER_OBJS) /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug/libdigiCommons.so

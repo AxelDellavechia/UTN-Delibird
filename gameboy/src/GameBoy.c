@@ -340,17 +340,48 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 
 	cau_poke->id_mensaje = atoi(argv[3]);
 
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
 	if ( strcasecmp(argv[4],"OK") == 0 ) cau_poke->atrapo_pokemon = TRUE ;
 	else cau_poke->atrapo_pokemon = ERROR ;
 
+	if (strcasecmp(modulo,"BROKER")){
 
-	int enviado = conectar_y_enviar(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
+		enviado = conectar_enviar_recibir(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+		enviado = conectar_y_enviar(modulo, ipServer, puertoServer, Hand , HandEsperado ,CAUGHT_POKEMON, cau_poke , logger , loggerCatedra);
+	}
 
 	if (enviado != ERROR) log_info(logger,"Le envio a la cola CAUGHT_POKEMON -> ID_MENSAJE: %d , ESTADO: %d",cau_poke->id_mensaje,cau_poke->atrapo_pokemon);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 
 	free(comando);
 
 	free(cau_poke);
+
+	cerrarSocket(mySocket);
 
 	liberarRecursosComunes();
 
@@ -373,6 +404,12 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 
 	cola_CATCH_POKEMON * cat_poke = (cola_CATCH_POKEMON * ) malloc(sizeof(cola_CATCH_POKEMON));
 
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
 	if(strcasecmp(modulo,"BROKER") == 0 ) {
 		//log_info(logger,"BROKER -> catch_pokemon");
 		if ( argc < 6 ){
@@ -382,6 +419,25 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 			return EXIT_FAILURE;
 		}
 		catch( cat_poke , 0 ,argc, argv );
+
+		enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
 	} else {
 		if ( argc < 7 ){
 		printf("No se ingreso la cantidad de parametros necesarios\n");
@@ -390,15 +446,19 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 		return EXIT_FAILURE;
 		}
 		catch( cat_poke , atoi(argv[6]) ,argc, argv );
+
+		enviado = conectar_y_enviar(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
 	}
 
-	int enviado = conectar_y_enviar(modulo, ipServer , puertoServer , Hand , HandEsperado ,CATCH_POKEMON, cat_poke , logger , loggerCatedra);
-
 	if (enviado != ERROR) log_info(logger,"Le envio a la cola CATCH_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cat_poke->nombre_pokemon,cat_poke->posicion_x,cat_poke->posicion_y);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 
 	free(comando);
 	free(cat_poke->nombre_pokemon);
 	free(cat_poke);
+
+	cerrarSocket(mySocket);
 
 	liberarRecursosComunes();
 
@@ -413,6 +473,12 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 		liberarRecursosComunes();
 		return EXIT_FAILURE;
 	}
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
 
 	cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
 
@@ -430,10 +496,37 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 	app_poke->posicion_y = 10 ;
 	*/
 
+	if(strcasecmp(modulo,"BROKER") == 0 ) {
 
-	int enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
+		enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
+	} else {
+
+		enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand , HandEsperado ,APPEARED_POKEMON, app_poke , logger , loggerCatedra);
+	}
+
 
 	if (enviado != ERROR) log_info(logger,"Le envio a la cola APPEARED_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
+	cerrarSocket(mySocket);
 
 	free(comando);
 	free(app_poke->nombre_pokemon);
@@ -458,6 +551,12 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON * ) malloc(sizeof(cola_NEW_POKEMON));
 
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
 	if(strcasecmp(modulo,"BROKER") == 0 ) {
 		//log_info(logger,"BROKER -> catch_pokemon");
 		if ( argc < 7 ){
@@ -467,6 +566,25 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 			return EXIT_FAILURE;
 		}
 		new( new_poke , 0 ,argc, argv );
+
+		enviado = conectar_enviar_recibir( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
 	} else {
 		if ( argc < 8 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
@@ -475,15 +593,20 @@ int prc_new_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 			return EXIT_FAILURE;
 		}
 		new( new_poke , atoi(argv[7]) ,argc, argv );
+
+		enviado = conectar_y_enviar( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
+
 	}
 
-	int enviado = conectar_y_enviar( modulo, ipServer, puertoServer, Hand , HandEsperado ,NEW_POKEMON, new_poke , logger , loggerCatedra);
-
 	if (enviado != ERROR) log_info(logger,"Le envio a la cola NEW_POKEMON -> POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d , CANTIDAD: %d ",new_poke->nombre_pokemon,new_poke->posicion_x,new_poke->posicion_y,new_poke->cantidad);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 
 	free(comando);
 	free(new_poke->nombre_pokemon);
 	free(new_poke);
+
+	cerrarSocket(mySocket);
 
 	liberarRecursosComunes();
 
@@ -499,6 +622,12 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 		liberarRecursosComunes();
 		return EXIT_FAILURE;
 	}
+
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
 
 	cola_LOCALIZED_POKEMON * loc_poke = malloc( sizeof(cola_LOCALIZED_POKEMON));
 
@@ -545,16 +674,40 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 			}
 
 
-			//log_info(logger,"estoy enviando un LOCALIZED_POKEMON con tamaño %d",calcularTamanioMensaje(LOCALIZED_POKEMON,loc_poke));
+			if(strcasecmp(modulo,"BROKER") == 0 ) {
 
-			int enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
+				enviado = conectar_enviar_recibir(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
 
+				larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+				if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+					cerrarSocket(mySocket);
+					//return EXIT_SUCCESS;
+				}else{
+						mensaje = malloc(tamanioMensaje);
+
+						larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+						if ( head == ACK) {
+							deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+							free(mensaje);
+						}
+
+				}
+			} else {
+
+				enviado = conectar_y_enviar(modulo, ipServer , puertoServer, Hand ,  HandEsperado ,LOCALIZED_POKEMON, loc_poke , logger , loggerCatedra);
+
+			}
 			if (enviado != ERROR ) {
 				for ( int i = 0 ; i < list_size(loc_poke->lista_posiciones); i ++){
 				log_info(logger,"Le envio a la cola LOCALIZED_POKEMON -> POKEMON: %s  , CORDENADAX: %d , CORDENADA Y: %d ",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
 				i++;
 				}
 			}
+
+			if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
+
 
 			unaposicion = 0 ;
 
@@ -578,6 +731,8 @@ int prc_localized_pokemon( char * comando,int argc, char *argv[] , char * modulo
 			list_destroy(loc_poke->lista_posiciones);
 
 			free(loc_poke);
+
+			cerrarSocket(mySocket);
 
 			liberarRecursosComunes();
 
@@ -608,6 +763,12 @@ int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 
 	cola_GET_POKEMON * get_poke = (cola_GET_POKEMON * ) malloc(sizeof(cola_GET_POKEMON));
 
+	int enviado;
+	int head ; int tamanioMensaje;
+	int larespuesta;
+	void * mensaje;
+	respuesta_ACK elACK;
+
 	if(strcasecmp(modulo,"BROKER") == 0 ) {
 		//log_info(logger,"BROKER -> catch_pokemon");
 		if ( argc < 4 ){
@@ -617,6 +778,26 @@ int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 			return EXIT_FAILURE;
 		}
 		get( get_poke , 0 ,argc, argv );
+
+
+		enviado = conectar_enviar_recibir( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
+
+		larespuesta = recibirProtocolo(&head,&tamanioMensaje,mySocket); // recibo head y tamaño de msj
+
+		if (head < 1 || larespuesta <= 0){ // DESCONEXIÓN
+			cerrarSocket(mySocket);
+			//return EXIT_SUCCESS;
+		}else{
+				mensaje = malloc(tamanioMensaje);
+
+				larespuesta = recibirMensaje(mySocket , tamanioMensaje , mensaje ); // recibo msj serializado para el tratamiento deseado
+
+				if ( head == ACK) {
+					deserealizar_ACK(head,mensaje,tamanioMensaje,&elACK);
+					free(mensaje);
+				}
+
+		}
 	} else {
 		if ( argc < 5 ){
 			printf("No se ingreso la cantidad de parametros necesarios\n");
@@ -625,17 +806,22 @@ int prc_get_pokemon( char * comando,int argc, char *argv[] , char * modulo , cha
 			return EXIT_FAILURE;
 		}
 		get( get_poke , atoi(argv[4]) ,argc, argv );
+		enviado = conectar_y_enviar( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
 	}
 
-	int enviado = conectar_y_enviar( modulo , ipServer , puertoServer , Hand , HandEsperado ,GET_POKEMON, get_poke , logger , loggerCatedra);
+
 
 	if (enviado != ERROR) log_info(logger,"Le envio a la cola GET_POKEMON -> POKEMON: %s ",get_poke->nombre_pokemon);
+
+	if (larespuesta != ERROR) log_info(logger,"Recibí un ACK con los siguientes datos ESTADO: %d ID_MSJ: %d ",elACK.ack,elACK.id_msj);
 
 	free(comando);
 
 	free(get_poke->nombre_pokemon);
 
 	free(get_poke);
+
+	cerrarSocket(mySocket);
 
 	liberarRecursosComunes();
 

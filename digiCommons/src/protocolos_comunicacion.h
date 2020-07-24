@@ -33,7 +33,7 @@ void * buffer ;
 
 pthread_mutex_t mxBuffer;
 
-int desplazamientoCache ;
+int mySocket ;
 
 int validar_recive(int status, int modo);
 int validar_servidor_o_cliente(char *id , char* mensajeEsperado,t_log* logger);
@@ -57,6 +57,8 @@ int calcularTamanioMensaje(int head, void* mensaje);
 
 void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
 void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+
+int conectar_enviar_recibir(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra );
 
 //void * recibirProtocoloSinEspera(int * head , int * bufferTam ,int fdEmisor );
 //void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje );
