@@ -377,9 +377,7 @@ void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_P
 							memcpy(&new_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							new_poke->nombre_pokemon = malloc(1);
-
-							new_poke->nombre_pokemon = realloc(new_poke->nombre_pokemon,new_poke->tamanio_nombre + 1);
+							new_poke->nombre_pokemon = malloc(new_poke->tamanio_nombre + 1);
 							memcpy(new_poke->nombre_pokemon,(buffer+desplazamiento),new_poke->tamanio_nombre);
 							desplazamiento += new_poke->tamanio_nombre;
 
@@ -625,7 +623,7 @@ void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje ) {
 
 }
 */
-void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
+int recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
 	//setlocale(LC_ALL,"");
 
@@ -649,7 +647,7 @@ void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 	// Recibo por último el mensaje serealizado:
 }
 
-void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
+int recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
 
 	return recibirPorSocket(fdEmisor, mensaje, bufferTam);
 

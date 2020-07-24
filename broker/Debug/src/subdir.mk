@@ -5,17 +5,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/Broker.c \
-../src/generales.c \
+../src/generales_broker.c \
 ../src/memoria.c 
 
 OBJS += \
 ./src/Broker.o \
-./src/generales.o \
+./src/generales_broker.o \
 ./src/memoria.o 
 
 C_DEPS += \
 ./src/Broker.d \
-./src/generales.d \
+./src/generales_broker.d \
 ./src/memoria.d 
 
 

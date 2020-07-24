@@ -52,11 +52,12 @@ void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CA
 void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
 void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
 void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor);
+void deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * ack );
 
 int calcularTamanioMensaje(int head, void* mensaje);
 
-void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
-void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
+int recibirProtocolo(int * head , int * bufferTam ,int fdEmisor );
+int recibirMensaje(int fdEmisor , int bufferTam , void * mensaje );
 
 int conectar_enviar_recibir(char * modulo , char * ipServer , int puertoServer, char *handShake , char * handShakeEsperado ,int head, void *mensaje , t_log * logger ,t_log * loggerCatedra );
 
