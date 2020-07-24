@@ -872,7 +872,9 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 	int recibidos;
 
 	_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == id_msj; }
+	pthread_mutex_lock(&mutex_lista_ack);
 	_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
+	pthread_mutex_unlock(&mutex_lista_ack);
 		for ( int j = 0 ; j < list_size(laSus->laSus->cola_a_suscribir) ;j++){
 			if(!fueRespondido && colaAsignada == list_get(laSus->laSus->cola_a_suscribir,j)) {
 
