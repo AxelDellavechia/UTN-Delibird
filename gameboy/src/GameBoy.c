@@ -36,6 +36,35 @@ int main (int argc, char *argv[]) {
 
 		comando = strdup( argv[1] ) ;
 
+		/*
+		struct hostent * dnsIP;
+
+				if ((dnsIP=gethostbyname(configGB->ipBroker))==NULL) {
+					log_info(logger, "No pude traducir el dns suministrado");
+				}
+
+				configGB->ipBroker = inet_ntoa(*((struct in_addr *)dnsIP->h_addr)) ;
+
+				log_info(logger,"Se Tradujo IP_BROKER al Valor: %s",configGB->ipBroker);
+
+
+				if ((dnsIP=gethostbyname(configGB->ipGameCard))==NULL) {
+					log_info(logger, "No pude traducir el dns suministrado");
+				}
+
+				configGB->ipGameCard = inet_ntoa(*((struct in_addr *)dnsIP->h_addr)) ;
+
+				log_info(logger,"Se Tradujo IP_GAMECARD al Valor: %s",configGB->ipGameCard);
+
+				if ((dnsIP=gethostbyname(configGB->ipBroker))==NULL) {
+					log_info(logger, "No pude traducir el dns suministrado");
+				}
+
+				configGB->ipTeam = inet_ntoa(*((struct in_addr *)dnsIP->h_addr)) ;
+
+				log_info(logger,"Se Tradujo IP_TEAM al Valor: %s",configGB->ipTeam);
+		*/
+
 		//char * comando = strdup( "SUSCRIPTOR" ) ;
 
 		/*
@@ -465,13 +494,23 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 	return EXIT_SUCCESS;
 }
 
+void appeared(cola_APPEARED_POKEMON * app_poke , int idMsj,int argc, char *argv[] ) {
+
+	app_poke->id_mensaje = idMsj ;
+	app_poke->nombre_pokemon = strdup(argv[3]);
+	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
+	app_poke->posicion_x = atoi(argv[4]) ;
+	app_poke->posicion_y = atoi(argv[5]) ;
+}
+
 int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo , char * ipServer , int puertoServer , char * Hand , char * HandEsperado ) {
 
- 	if ( argc < 6 || argc > 8){
-		printf("No se ingreso la cantidad de parametros necesarios\n");
-		free(comando);
-		liberarRecursosComunes();
-		return EXIT_FAILURE;
+	cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
+
+ 	if ( argc < 7 ){
+ 		appeared( app_poke , 0 ,argc, argv );
+	} else {
+		appeared( app_poke , atoi(argv[6]) ,argc, argv );
 	}
 
 	int enviado;
@@ -480,14 +519,6 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 	void * mensaje;
 	respuesta_ACK elACK;
 
-	cola_APPEARED_POKEMON * app_poke =  malloc( sizeof(cola_APPEARED_POKEMON) );
-
-	app_poke->id_mensaje = atoi(argv[6]) ;
-
-	app_poke->nombre_pokemon = strdup(argv[3]);
-	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
-	app_poke->posicion_x = atoi(argv[4]) ;
-	app_poke->posicion_y = atoi(argv[5]) ;
 
 	/*
 	app_poke->nombre_pokemon = strdup("pikachu");
