@@ -450,7 +450,10 @@ while(true){
 
 											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
 
+											pthread_mutex_lock(&mxHilos);
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
+											pthread_mutex_unlock(&mxHilos);
+
 
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
