@@ -35,3 +35,11 @@ Flujo en Común
 ## Problemas de RED
 
 Look into /etc/NetworkManager/NetworkManager.conf and change the line managed=false to managed=true then restart network-manager: sudo service network-manager restart
+
+## Para generar el Makefile en el Server el Project con MovaXTerms
+
+Abrimos el MovaXTerms creamos una nueva Session SSH con la IP del Server y el Specify Username como utnso -> OK.
+git clone https://...
+cd pathProject/Debug
+make clean
+make
