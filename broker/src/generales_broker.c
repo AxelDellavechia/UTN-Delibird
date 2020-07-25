@@ -253,11 +253,11 @@ void consola() {
 		if(strcasecmp(comando,"dump\n") == 0)  kill(pid,SIGUSR1);
 	}
 
-	pthread_mutex_lock(&mutex_logs);
+	//pthread_mutex_lock(&mutex_logs);
 
 	log_info(logger,"Comenzando a cerrar los hilos");
 
-	pthread_mutex_unlock(&mutex_logs);
+	//pthread_mutex_unlock(&mutex_logs);
 
 	pthread_mutex_lock(&mxHilos);
 
@@ -302,9 +302,9 @@ void servidor() {
 	asociarSocket(fdBroker, config_File->PUERTO_BROKER);
 	escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
 
-	pthread_mutex_lock(&mutex_logs);
+	//pthread_mutex_lock(&mutex_logs);
 	log_info(logger," Escuchando conexiones");
-	pthread_mutex_unlock(&mutex_logs);
+	//pthread_mutex_unlock(&mutex_logs);
 
 	while(TRUE) {
 
@@ -940,20 +940,21 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 			if (enviados == ERROR ) {
 
-				pthread_mutex_lock(&mutex_logs);
+				//pthread_mutex_lock(&mutex_logs);
 
 				log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
-				pthread_mutex_unlock(&mutex_logs);
+
+				//pthread_mutex_unlock(&mutex_logs);
 
 
 			} else {
 
-				pthread_mutex_lock(&mutex_logs);
+				//pthread_mutex_lock(&mutex_logs);
 
 				log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(suscriptor->laSus->modulo), tipoMsjIntoToChar(head),suscriptor->laSus->token);
 				log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 
-				pthread_mutex_unlock(&mutex_logs);
+				//pthread_mutex_unlock(&mutex_logs);
 
 			}
 			list_remove(aux_lista_de_suscriptores, 0);
@@ -1081,21 +1082,21 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 									if (recibidos == ERROR ) {
 
-										pthread_mutex_lock(&mutex_logs);
+										//pthread_mutex_lock(&mutex_logs);
 
 										log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
 
-										pthread_mutex_unlock(&mutex_logs);
+										//pthread_mutex_unlock(&mutex_logs);
 
 									} else {
 										reenvieMsj = true;
 
-										pthread_mutex_lock(&mutex_logs);
+										//pthread_mutex_lock(&mutex_logs);
 
 										log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(laSus->laSus->modulo), tipoMsjIntoToChar(colaAsignada),laSus->laSus->token);
 										log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 
-										pthread_mutex_unlock(&mutex_logs);
+										//pthread_mutex_unlock(&mutex_logs);
 
 									}
 					}
@@ -1116,21 +1117,21 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 			Particion_bs * laParti = list_get(lista_particiones,i);
 			 if ( !laParti->libre && !laParti->esPadre) {
 
-					pthread_mutex_lock(&mutex_logs);
+					//pthread_mutex_lock(&mutex_logs);
 
 				 log_info(logger,"La partición %d - %d tiene tiempo LRU %llu",laParti->punteroInicial,laParti->punteroFinal,laParti->tiempoLRU);
 
-					pthread_mutex_unlock(&mutex_logs);
+					//pthread_mutex_unlock(&mutex_logs);
 
 				envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
 				if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
 					laParti->tiempoLRU = obtener_timestamp() ;
 
-					pthread_mutex_lock(&mutex_logs);
+					//pthread_mutex_lock(&mutex_logs);
 
 					log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
 
-					pthread_mutex_unlock(&mutex_logs);
+					//pthread_mutex_unlock(&mutex_logs);
 
 				}
 			}
@@ -1141,21 +1142,21 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 			Particion * laParti = list_get(lista_particiones,i);
 			 if ( !laParti->libre) {
 
-					pthread_mutex_lock(&mutex_logs);
+					//pthread_mutex_lock(&mutex_logs);
 
 				 log_info(logger,"La partición %d - %d tiene tiempo LRU %llu",laParti->punteroInicial,laParti->punteroFinal,laParti->tiempoLRU);
 
-					pthread_mutex_unlock(&mutex_logs);
+					//pthread_mutex_unlock(&mutex_logs);
 
 				 envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
 					if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
 							laParti->tiempoLRU = obtener_timestamp() ;
 
-							pthread_mutex_lock(&mutex_logs);
+							//pthread_mutex_lock(&mutex_logs);
 
 							log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
 
-							pthread_mutex_unlock(&mutex_logs);
+							//pthread_mutex_unlock(&mutex_logs);
 
 						}			 }
 			reenvieMsj=false;
@@ -1240,11 +1241,11 @@ void suscribirse(losSuscriptores * suscp){
 			break;
 		}
 		default:
-			pthread_mutex_lock(&mutex_logs);
+			//pthread_mutex_lock(&mutex_logs);
 
 			log_info(logger, "Instrucción para suscribirse alguna cola no reconocida");
 
-			pthread_mutex_unlock(&mutex_logs);
+			//pthread_mutex_unlock(&mutex_logs);
 
 			break;
 		}
