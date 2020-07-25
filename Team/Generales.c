@@ -1032,7 +1032,7 @@ void consola() {
 	pthread_mutex_lock (&mutexColaExit);
 	for(int i = 0;i<list_size(colaExit);i++){
 		entrenadorPokemon* ent = list_get(colaExit,i);
-		free(ent->proximaAccion);
+
 		for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
 			char* obj = list_get(ent->pokemonesObjetivo,i);
 			free(obj);
@@ -1237,7 +1237,7 @@ void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
 					pthread_mutex_lock(&mutexColaReady);
 					list_add(colaReady, proximoEntrenadorEnEjecutar);
 
-				/*	if(string_equals_ignore_case("SJF con desalojo") || string_equals_ignore_case("SJF con desalojo")){
+					if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF con desalojo") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF sin desalojo")){
 						for(int i= 0; i<list_size(colaReady);i++){
 							entrenadorPokemon* ent = list_get(colaReady,i);
 							ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
@@ -1246,7 +1246,7 @@ void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
 						_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
 						list_sort(colaReady, (void*)ordenarSJF);
 						pthread_mutex_unlock(&mutexColaReady);
-					}*/
+					}
 
 
 					free(pos_x);
@@ -1481,7 +1481,7 @@ void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke) {
 			pthread_mutex_lock(&mutexColaReady);
 			list_add(colaReady, proximoEntrenadorEnEjecutar);
 
-			/*	if(string_equals_ignore_case("SJF con desalojo") || string_equals_ignore_case("SJF con desalojo")){
+			if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF con desalojo") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF sin desalojo")){
 					for(int i= 0; i<list_size(colaReady);i++){
 						entrenadorPokemon* ent = list_get(colaReady,i);
 						ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
@@ -1490,7 +1490,7 @@ void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke) {
 					_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
 					list_sort(colaReady, (void*)ordenarSJF);
 					pthread_mutex_unlock(&mutexColaReady);
-				}*/
+				}
 			pthread_mutex_unlock(&mutexColaReady);
 			free(pos_x);
 			free(pos_y);
@@ -1681,16 +1681,16 @@ void thread_NewGameboy(int comandoNuevo){
 				strcpy(proximoEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
 				pthread_mutex_lock(&mutexColaReady);
 				list_add(colaReady, proximoEntrenadorEnEjecutar);
-				/*if(string_equals_ignore_case("SJF sin desalojo") || string_equals_ignore_case("SJF con desalojo")){
-					for(int i= 0; i<list_size(colaReady);i++){
-						entrenadorPokemon* ent = list_get(colaReady,i);
-						ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
-					}
+					if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF con desalojo") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF sin desalojo")){
+						for(int i= 0; i<list_size(colaReady);i++){
+							entrenadorPokemon* ent = list_get(colaReady,i);
+							ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
+						}
 
-					_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
-					list_sort(colaReady, (void*)ordenarSJF);
-					pthread_mutex_unlock(&mutexColaReady);
-				}*/
+						_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
+						list_sort(colaReady, (void*)ordenarSJF);
+						pthread_mutex_unlock(&mutexColaReady);
+					}
 				pthread_mutex_unlock(&mutexColaReady);
 				free(pos_x);
 				free(pos_y);
