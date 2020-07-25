@@ -539,6 +539,8 @@ while(true){
 											pthread_mutex_lock(&mutex_suscripcion);
 											suscripcionC = malloc(sizeof(losSuscriptores));
 											suscripcionC->laSus = malloc(sizeof(suscriptor));
+											suscripcionC->laSus->cola_a_suscribir = list_create();
+
 
 											//pthread_mutex_lock(&mutex_socket);
 											suscripcionC->suSocket = fdCliente;

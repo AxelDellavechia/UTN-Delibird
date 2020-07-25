@@ -311,7 +311,7 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += sizeof(uint32_t);
 
 		for (int i = 0 ; i < list_size(sucriptor->cola_a_suscribir) ; i++){
-		int elemento = list_get(sucriptor->cola_a_suscribir,i) ;
+		int elemento = (int) list_get(sucriptor->cola_a_suscribir,i) ;
 		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		}
@@ -347,8 +347,6 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 
 							memcpy(&suscriptor->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-
-							suscriptor->cola_a_suscribir = list_create();
 
 							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) ) / sizeof(uint32_t) ;
 
