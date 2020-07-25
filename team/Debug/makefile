@@ -31,7 +31,7 @@ all: team
 team: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/workspace/digiCommons/Debug" -o "team" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "team" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
