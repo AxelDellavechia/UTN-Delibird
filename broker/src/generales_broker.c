@@ -598,10 +598,6 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 											break;
 									}
-							if(head != SUSCRIPCION){
-								return false;
-							}
-							free(mensaje);
 					}
 
 	}
