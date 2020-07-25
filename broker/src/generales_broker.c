@@ -149,9 +149,11 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_lista_ack);
-	for(int i=0 ; i < list_size(lista_ack) ; i++){
+	int tamLista = list_size(lista_ack);
+
+	for(int i=0 ; i < tamLista ; i++){
 	  respuesta_ACK * elack = list_get(lista_ack,i);
-	  list_remove(lista_ack,i);
+	  list_remove(lista_ack,0);
 	  free(elack);
 	}
 
@@ -966,6 +968,15 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 		if(head != CAUGHT_POKEMON ){
 			free(new_poke->nombre_pokemon);
+		}
+
+		if(head != LOCALIZED_POKEMON ){
+			int tamLista = list_size(loc_poke->lista_posiciones);
+			for(int i=0 ; i < tamLista ; i++){
+			  posicion * elack = list_get(loc_poke->lista_posiciones,i);
+			  list_remove(loc_poke->lista_posiciones,0);
+			  free(elack);
+			}
 		}
 
 		free(mensaje);

@@ -26,7 +26,7 @@ endif
 all: broker
 
 dependents:
-	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) clean all
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) all
 
 # Tool invocations
 broker: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
