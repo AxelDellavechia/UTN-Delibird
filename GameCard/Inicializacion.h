@@ -17,8 +17,8 @@
 
 
 
-#define CONFIG_PATH "./config.txt"
-#define LOG_PATH "./GAMECARD.log"
+#define CONFIG_PATH "../config.txt"
+#define LOG_PATH "../GAMECARD.log"
 #define CONFIG_PATH_METADATA "../configGBM.txt"
 #define CONEXIONES_PERMITIDAS 100
 

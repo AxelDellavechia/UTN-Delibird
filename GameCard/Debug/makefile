@@ -25,14 +25,11 @@ endif
 # All Target
 all: GameCard
 
-dependents:
-	-cd /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug && $(MAKE) clean all
-
 # Tool invocations
-GameCard: $(OBJS) $(USER_OBJS) /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug/libdigiCommons.so
+GameCard: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
-	gcc -L"/home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug" -o "GameCard" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "GameCard" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -42,6 +39,5 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
-/home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug/libdigiCommons.so:
 
 -include ../makefile.targets
