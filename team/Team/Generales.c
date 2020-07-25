@@ -1120,7 +1120,7 @@ void sendACK( int idMsj){
 	respuesta_ACK ack;
 	ack.ack = OK;
 	ack.id_msj=idMsj;
-	ack.token = 0;//config_File->TOKEN;
+	ack.token = configFile->token;
 	pthread_mutex_lock(&mutexLogCatedra);
 	pthread_mutex_lock(&mutexLog);
 	conectar_y_enviar("BROKER" , configFile->ipBroker,configFile->puertoBroker, "Team" , "Broker",ACK, &ack ,logger ,loggerCatedra );
