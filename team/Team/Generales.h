@@ -14,11 +14,11 @@
 #include "../digiCommons/src/mensajeria.h"
 
 #define LOG_PATH "./CatedraTeam.log"
-#define LOG_PATH_INTERNO "../Team.log"
+#define LOG_PATH_INTERNO "../team.log"
 #define RUTA_CONFIG_TEAM "../configTeam.txt"
 #define FALSE 0
 #define TRUE 1
-#define OK 0
+#define OK 1
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
