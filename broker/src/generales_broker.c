@@ -164,7 +164,6 @@ void liberarRecursos(){
 
 	//pthread_mutex_lock(&mutex_lista_particiones);
 
-	int tamLista;
 	tamLista = list_size(lista_particiones) ;
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
 		for(int i=0 ; i < tamLista ; i++){
