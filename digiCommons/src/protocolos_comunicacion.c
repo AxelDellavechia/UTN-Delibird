@@ -368,6 +368,8 @@ void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_P
 
 	int desplazamiento = 0;
 
+	new_poke->nombre_pokemon = malloc(1);
+
 
 							memcpy(&new_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
@@ -395,6 +397,7 @@ void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_
 
 	int desplazamiento = 0;
 
+	app_poke->nombre_pokemon = malloc(1);
 
 			memcpy(&app_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
@@ -421,6 +424,8 @@ void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_
 void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATCH_POKEMON* cat_poke) {
 
 	int desplazamiento = 0;
+
+	cat_poke->nombre_pokemon = malloc(1);
 
 			memcpy(&cat_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
@@ -457,6 +462,8 @@ void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_P
 
 	int desplazamiento = 0;
 
+	get_poke->nombre_pokemon = malloc(1);
+
 							memcpy(&get_poke->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
@@ -491,6 +498,9 @@ void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola
 		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 	*/
+
+	loc_poke_des->nombre_pokemon = malloc(1);
+
 
 							memcpy(&loc_poke_des->id_mensaje,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);

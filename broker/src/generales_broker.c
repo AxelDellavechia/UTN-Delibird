@@ -366,7 +366,6 @@ while(true){
 
 											cola_NEW_POKEMON  * ptro_new_poke =  malloc(sizeof(cola_NEW_POKEMON));
 
-											ptro_new_poke->nombre_pokemon = malloc(1);
 
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, ptro_new_poke);
 											//log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
@@ -393,7 +392,7 @@ while(true){
 										case CATCH_POKEMON :{
 
 											cola_CATCH_POKEMON * cath_poke = malloc (sizeof(cola_CATCH_POKEMON));
-											cath_poke->nombre_pokemon = malloc(1);
+
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
 
 											pthread_mutex_lock(&mutex_logs);
@@ -421,7 +420,6 @@ while(true){
 
 											cola_GET_POKEMON * get_poke = malloc (sizeof(cola_GET_POKEMON));
 
-											get_poke->nombre_pokemon = malloc(1);
 
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, get_poke);
 
@@ -451,8 +449,6 @@ while(true){
 										case APPEARED_POKEMON :{
 
 											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
-
-											app_poke->nombre_pokemon = malloc(1);
 
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
 
@@ -504,7 +500,6 @@ while(true){
 
 										case LOCALIZED_POKEMON :{
 											cola_LOCALIZED_POKEMON * loc_poke = malloc (sizeof(cola_LOCALIZED_POKEMON));
-											loc_poke->nombre_pokemon = malloc(1);
 											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, loc_poke);
 											for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++)
 											{
