@@ -130,6 +130,9 @@ pthread_mutex_t mutex_posicion_puntero_fifo;
 pthread_mutex_t mutex_logs;
 pthread_mutex_t desserializar;
 
+pthread_mutex_t msjPendientesCaught;
+
+
 //t_list* lista_msjs;
 t_list* lista_particiones;
 t_list* lista_nodos_particiones;
@@ -148,6 +151,11 @@ t_list* cola_get_pokemon;
 t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
 t_list* cola_caught_pokemon;
+
+t_list * caught_pokemon_pendientes;
+t_list * appreared_pokemon_pendientes;
+t_list * localized_pokemon_pendientes;
+
 
 
 //void* reservarMemoria(int size);

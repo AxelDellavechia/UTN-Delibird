@@ -41,6 +41,9 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
+	caught_pokemon_pendientes = list_create();
+
+
 	//desplazamientoCache = 0 ;
 
 	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
@@ -104,6 +107,8 @@ void iniciar_semaforos()
 	pthread_mutex_init(&mxBuffer, NULL);
 	pthread_mutex_init(&mutex_logs, NULL);
 	pthread_mutex_init(&desserializar, NULL);
+
+	pthread_mutex_init(&msjPendientesCaught, NULL);
 
 
 }
@@ -375,6 +380,7 @@ while(true){
 											//pthread_mutex_lock(&desserializar);
 
 											cola_NEW_POKEMON  * ptro_new_poke =  malloc(sizeof(cola_NEW_POKEMON));
+
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, ptro_new_poke);
 
 											//pthread_mutex_lock(&desserializar);
@@ -386,7 +392,9 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 											ptro_new_poke->id_mensaje = obtener_idMsj();
+
 											guardar_msj(NEW_POKEMON, bufferTam - sizeof(uint32_t), ptro_new_poke);
+
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											list_add(cola_new_pokemon, ptro_new_poke);
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
@@ -419,8 +427,15 @@ while(true){
 
 
 											//GUARDAR O CACHEAR MSJ
+
 											cath_poke->id_mensaje = obtener_idMsj();
+
+											//pthread_mutex_lock(&msjPendientesCaught);
+											//list_add(caught_pokemon_pendientes,cath_poke->id_mensaje);
+											//pthread_mutex_unlock(&msjPendientesCaught);
+
 											guardar_msj(CATCH_POKEMON, bufferTam - sizeof(uint32_t), cath_poke);
+
 											pthread_mutex_lock(&mutex_cola_catch_pokemon);
 											list_add(cola_catch_pokemon, cath_poke);;
 											pthread_mutex_unlock(&mutex_cola_catch_pokemon);
@@ -522,8 +537,6 @@ while(true){
 
 											pthread_mutex_unlock(&mutex_logs);
 
-
-											caug_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(CAUGHT_POKEMON, bufferTam - sizeof(uint32_t), caug_poke);
 
 											pthread_mutex_lock(&mutex_cola_caught_pokemon);
