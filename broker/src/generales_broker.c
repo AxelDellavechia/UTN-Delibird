@@ -141,7 +141,6 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
-	list_destroy(suscripcionC->laSus->cola_a_suscribir);
 	free(suscripcionC->laSus);
 	free(suscripcionC);
 	//pthread_mutex_unlock(&mutex_suscripcion);
@@ -574,6 +573,8 @@ while(true){
 
 											reenviarMsjCache(suscripcionC);
 
+											list_destroy(suscripcionC->laSus->cola_a_suscribir);
+
 											pthread_mutex_unlock(&mutex_suscripcion);
 
 											break;
@@ -584,10 +585,17 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 											break;
 									}
+							if(head != SUSCRIPCION){
+								return false;
+							}
 							free(mensaje);
 					}
 
 	}
+
+	pthread_mutex_lock(&mxHilos);
+	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
 }
 
 
