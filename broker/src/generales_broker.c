@@ -546,6 +546,9 @@ while(true){
 											//pthread_mutex_lock(&desserializar);
 
 											cola_LOCALIZED_POKEMON * loc_poke = malloc (sizeof(cola_LOCALIZED_POKEMON));
+
+											loc_poke->lista_posiciones = list_create();
+
 											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, loc_poke);
 
 											//pthread_mutex_unlock(&desserializar);
