@@ -196,3 +196,49 @@
 [INFO] 10:35:31:610 logCatedra.log/(7985:8002): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
 [INFO] 10:35:31:610 logCatedra.log/(7985:8001): Reinicio de proceso de reconexión con broker
 [INFO] 10:35:31:610 logCatedra.log/(7985:8001): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:16:907 logCatedra.log/(7056:7056): Entrenador 0 creado y en cola de New
+[INFO] 12:00:16:931 logCatedra.log/(7056:7056): Entrenador 1 creado y en cola de New
+[INFO] 12:00:16:932 logCatedra.log/(7056:7056): Entrenador 2 creado y en cola de New
+[INFO] 12:00:16:963 logCatedra.log/(7056:7056): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:00:16:966 logCatedra.log/(7056:7056): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:00:16:967 logCatedra.log/(7056:7056): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:00:16:967 logCatedra.log/(7056:7056): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:00:16:979 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:16:983 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:16:985 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:46:985 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:00:46:985 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:46:986 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:00:46:986 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:00:46:996 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:00:46:997 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:16:986 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:16:986 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:16:987 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:16:988 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:16:998 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:16:998 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:46:987 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:46:988 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:46:988 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:46:989 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:01:46:999 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:01:46:999 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:16:989 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:16:990 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[24] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:16:990 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:16:990 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:16:0 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:16:1 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:46:991 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:46:991 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:46:991 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:46:992 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[28] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:02:46:1 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:02:46:2 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[29] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:03:16:993 logCatedra.log/(7056:7062): Reinicio de proceso de reconexión con broker
+[INFO] 12:03:16:993 logCatedra.log/(7056:7062): No se pudo realizar la conexión entre el socket[30] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:03:16:994 logCatedra.log/(7056:7060): Reinicio de proceso de reconexión con broker
+[INFO] 12:03:16:994 logCatedra.log/(7056:7060): No se pudo realizar la conexión entre el socket[31] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:03:16:3 logCatedra.log/(7056:7061): Reinicio de proceso de reconexión con broker
+[INFO] 12:03:16:4 logCatedra.log/(7056:7061): No se pudo realizar la conexión entre el socket[32] y el servidor ip: 127.0.0.1 / puerto: 5003 

@@ -1681,16 +1681,16 @@ void thread_NewGameboy(int comandoNuevo){
 				strcpy(proximoEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
 				pthread_mutex_lock(&mutexColaReady);
 				list_add(colaReady, proximoEntrenadorEnEjecutar);
-				/*	if(string_equals_ignore_case("SJF con desalojo") || string_equals_ignore_case("SJF con desalojo")){
-						for(int i= 0; i<list_size(colaReady);i++){
-							entrenadorPokemon* ent = list_get(colaReady,i);
-							ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
-						}
+				/*if(string_equals_ignore_case("SJF sin desalojo") || string_equals_ignore_case("SJF con desalojo")){
+					for(int i= 0; i<list_size(colaReady);i++){
+						entrenadorPokemon* ent = list_get(colaReady,i);
+						ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
+					}
 
-						_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
-						list_sort(colaReady, (void*)ordenarSJF);
-						pthread_mutex_unlock(&mutexColaReady);
-					}*/
+					_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
+					list_sort(colaReady, (void*)ordenarSJF);
+					pthread_mutex_unlock(&mutexColaReady);
+				}*/
 				pthread_mutex_unlock(&mutexColaReady);
 				free(pos_x);
 				free(pos_y);
