@@ -1055,8 +1055,8 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 			if(fh == NULL){
 				printf("Error en el fopen\n");
 			}
-			int i;
-			for( i=0;i<cantidad;i++){
+			int i; 
+			for( i=0;i<cantidad/32;i++){
 				if (fh != NULL) {
 						fwrite (&x, sizeof (x), 1, fh);
 				}
