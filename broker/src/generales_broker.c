@@ -141,7 +141,8 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
-	//list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	free(suscripcionC->laSus);
 	free(suscripcionC);
 	//pthread_mutex_unlock(&mutex_suscripcion);
 
@@ -161,15 +162,14 @@ void liberarRecursos(){
 	//pthread_mutex_lock(&mutex_lista_particiones);
 
 	int tamLista;
+	tamLista = list_size(lista_particiones) ;
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-		tamLista = list_size(lista_particiones) ;
 		for(int i=0 ; i < tamLista ; i++){
 			  Particion * laParti = list_get(lista_particiones,i);
 			  free(laParti);
 			  list_remove(lista_particiones,0);
 			}
 		}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-			tamLista = list_size(lista_particiones) ;
 			for(int i=0 ; i < tamLista ; i++){
 			  Particion_bs * laParti = list_get(lista_particiones,i);
 			  free(laParti);
@@ -206,68 +206,26 @@ void liberarRecursos(){
 	//pthread_mutex_unlock(&mutex_cola_new_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
-	tamLista = list_size(suscriptores_appeared_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_appeared_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_appeared_pokemon,0);
-	}
-
 	list_destroy(suscriptores_appeared_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
-	tamLista = list_size(suscriptores_catch_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_catch_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_catch_pokemon,0);
-	}
-
 	list_destroy(suscriptores_catch_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_caught_pokemon);
-	tamLista = list_size(suscriptores_caught_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_caught_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_caught_pokemon,0);
-	}
-
 	list_destroy(suscriptores_caught_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_caught_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
-	tamLista = list_size(suscriptores_get_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_get_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_get_pokemon,0);
-	}
-
 	list_destroy(suscriptores_get_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
-	tamLista = list_size(suscriptores_localized_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_localized_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_localized_pokemon,0);
-	}
-
 	list_destroy(suscriptores_localized_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
-	tamLista = list_size(suscriptores_new_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_new_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_localized_pokemon,0);
-	}
-
 	list_destroy(suscriptores_new_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
 
@@ -905,12 +863,12 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 				log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 			}
 			list_remove(aux_lista_de_suscriptores, 0);
-			free(suscriptor);
+			//free(suscriptor);
 		}
 
 		free(new_poke->nombre_pokemon);
 
-		free(mensaje);
+		//free(mensaje);
 
 		list_destroy(aux_lista_de_suscriptores);
 		list_remove(lista_Msjs_Cola, 0);
