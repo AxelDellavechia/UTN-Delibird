@@ -704,7 +704,6 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 		free(mensajeSerealizado);
 
 		cerrarSocket(fdServer);
-
 		return enviados;
 
 	}else{

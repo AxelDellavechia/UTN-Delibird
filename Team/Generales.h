@@ -67,6 +67,8 @@ pthread_mutex_t mutex_ejecutar;
 pthread_mutex_t entrenadores;
 pthread_mutex_t mutexColaReady;
 pthread_mutex_t mutexColaBlocked;
+pthread_mutex_t mutexColaExit;
+pthread_mutex_t mutexColaNew;
 pthread_mutex_t mutexBuscados;
 pthread_mutex_t mxListaEjecutando;
 pthread_mutex_t mxListaCatch;
@@ -74,9 +76,13 @@ pthread_mutex_t mutexBuscados;
 pthread_mutex_t mxEjecutando;
 pthread_mutex_t mxPokeEjecutando;
 pthread_mutex_t* mxEntrenadores;
+pthread_mutex_t mutexObjetivoTeam;
+pthread_mutex_t mutexListaCatch;
 
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
+sem_t elementosEnReady;
+sem_t entrenadoresLibres;
 
 typedef struct archivoConfigFile {
 	t_list* posicionEntrenadores;
@@ -146,6 +152,7 @@ void planificador_Broker();
 void suscripcion_APPEARED_POKEMON();
 void suscripcion_LOCALIZED_POKEMON();
 void suscripcion_CAUGHT_POKEMON();
+void sendACK( int idMsj);
 
 
 void planificador_GameBoy();
@@ -160,8 +167,9 @@ void planificador();
 void crearEstructuras();
 void seleccionarEntrenadorMasCercano(posicionPokemon *pokemonAparecido, posicion* pos, entrenadorPokemon* proximoEntrenadorEnEjecutar);
 void catchPokemon(entrenadorPokemon* entrenador, char* nombrePokemon, int posicionX, int posicionY);
-entrenadorPokemon* verificarMensajeRecibido(int idMensajeRecibido);
+int verificarMensajeRecibido (int idMensajeRecibido, entrenadorPokemon* entrenador);
 void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon);
+void pokemonAtrapadoSinConexion(entrenadorPokemon* entrenador, cola_CATCH_POKEMON* pokemonRecibido);
 void planificador();
 int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int posicionYDestino);
 double calcularRafagaCPU(entrenadorPokemon* entrenador);
