@@ -969,7 +969,7 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 			free(new_poke->nombre_pokemon);
 		}
 
-		if(head != LOCALIZED_POKEMON ){
+		if(head == LOCALIZED_POKEMON ){
 			int tamLista = list_size(loc_poke->lista_posiciones);
 			for(int i=0 ; i < tamLista ; i++){
 			  posicion * elack = list_get(loc_poke->lista_posiciones,i);
