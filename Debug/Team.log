@@ -783,3 +783,208 @@
 [INFO] 13:00:32:278 Team.log/(8369:8373): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
 [INFO] 13:00:32:278 Team.log/(8369:8373): metodo handshake_cliente recibió: -1
 [INFO] 13:00:32:278 Team.log/(8369:8373): Servidor o Cliente rechazado.
+[INFO] 15:41:10:412 Team.log/(14543:14543): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:41:10:417 Team.log/(14543:14543): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:41:10:417 Team.log/(14543:14543): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:41:10:417 Team.log/(14543:14543): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:41:10:417 Team.log/(14543:14551): Escuchando conexiones
+[INFO] 15:41:10:417 Team.log/(14543:14550): Obteniendo los Entrenadores
+[INFO] 15:41:10:417 Team.log/(14543:14550): Escuchando conexiones
+[INFO] 15:41:10:417 Team.log/(14543:14549): Obteniendo los Entrenadores
+[INFO] 15:41:10:418 Team.log/(14543:14549): Escuchando conexiones
+[INFO] 15:41:10:418 Team.log/(14543:14548): Obteniendo los Entrenadores
+[INFO] 15:41:10:418 Team.log/(14543:14548): Escuchando conexiones
+[INFO] 15:42:48:198 Team.log/(14590:14590): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:42:48:199 Team.log/(14590:14590): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:42:48:199 Team.log/(14590:14590): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:42:48:199 Team.log/(14590:14590): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:42:48:199 Team.log/(14590:14597): Obteniendo los Entrenadores
+[INFO] 15:42:48:199 Team.log/(14590:14597): Escuchando conexiones
+[INFO] 15:42:48:199 Team.log/(14590:14598): Escuchando conexiones
+[INFO] 15:42:48:205 Team.log/(14590:14596): Obteniendo los Entrenadores
+[INFO] 15:42:48:205 Team.log/(14590:14596): Escuchando conexiones
+[INFO] 15:42:48:205 Team.log/(14590:14595): Obteniendo los Entrenadores
+[INFO] 15:42:48:205 Team.log/(14590:14595): Escuchando conexiones
+[INFO] 15:44:29:792 Team.log/(14628:14628): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:29:793 Team.log/(14628:14628): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:29:793 Team.log/(14628:14628): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:29:793 Team.log/(14628:14628): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:29:793 Team.log/(14628:14635): Obteniendo los Entrenadores
+[INFO] 15:44:29:793 Team.log/(14628:14635): Escuchando conexiones
+[INFO] 15:44:29:793 Team.log/(14628:14636): Escuchando conexiones
+[INFO] 15:44:29:793 Team.log/(14628:14634): Obteniendo los Entrenadores
+[INFO] 15:44:29:793 Team.log/(14628:14634): Escuchando conexiones
+[INFO] 15:44:29:797 Team.log/(14628:14633): Obteniendo los Entrenadores
+[INFO] 15:44:29:797 Team.log/(14628:14633): Escuchando conexiones
+[INFO] 15:44:36:521 Team.log/(14628:14636): Servidor o Cliente aceptado.
+[INFO] 15:44:36:521 Team.log/(14628:14636): Hice el handshake y me respondieron: BROKER
+[INFO] 15:44:36:521 Team.log/(14628:14636): Alguien se conectó
+[INFO] 15:44:36:522 Team.log/(14628:14646): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:44:36:522 Team.log/(14628:14646): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 15:44:36:522 Team.log/(14628:14646): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:44:36:522 Team.log/(14628:14646): Fin de hilo GameBoy
+[INFO] 15:44:36:523 Team.log/(14628:14636): Servidor o Cliente aceptado.
+[INFO] 15:44:36:523 Team.log/(14628:14636): Hice el handshake y me respondieron: BROKER
+[INFO] 15:44:36:523 Team.log/(14628:14636): Alguien se conectó
+[INFO] 15:44:36:523 Team.log/(14628:14648): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:44:36:524 Team.log/(14628:14648): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:44:36:524 Team.log/(14628:14648): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:44:36:524 Team.log/(14628:14648): Fin de hilo GameBoy
+[INFO] 15:44:36:525 Team.log/(14628:14636): Servidor o Cliente aceptado.
+[INFO] 15:44:36:525 Team.log/(14628:14636): Hice el handshake y me respondieron: BROKER
+[INFO] 15:44:36:525 Team.log/(14628:14636): Alguien se conectó
+[INFO] 15:44:36:525 Team.log/(14628:14650): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:44:36:525 Team.log/(14628:14650): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:44:36:525 Team.log/(14628:14650): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:44:36:525 Team.log/(14628:14650): Fin de hilo GameBoy
+[INFO] 15:44:36:526 Team.log/(14628:14636): Servidor o Cliente aceptado.
+[INFO] 15:44:36:526 Team.log/(14628:14636): Hice el handshake y me respondieron: BROKER
+[INFO] 15:44:36:526 Team.log/(14628:14636): Alguien se conectó
+[INFO] 15:44:36:526 Team.log/(14628:14652): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:44:36:526 Team.log/(14628:14652): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:44:36:526 Team.log/(14628:14652): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:44:36:527 Team.log/(14628:14636): Servidor o Cliente aceptado.
+[INFO] 15:44:36:527 Team.log/(14628:14636): Hice el handshake y me respondieron: BROKER
+[INFO] 15:44:36:527 Team.log/(14628:14636): Alguien se conectó
+[INFO] 15:44:36:528 Team.log/(14628:14654): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:44:36:528 Team.log/(14628:14654): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:44:36:528 Team.log/(14628:14654): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:44:51:527 Team.log/(14628:14630): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:44:51:527 Team.log/(14628:14630): metodo handshake_cliente recibió: -1
+[INFO] 15:44:51:527 Team.log/(14628:14630): Servidor o Cliente rechazado.
+[INFO] 15:44:51:527 Team.log/(14628:14652): Fin de hilo GameBoy
+[INFO] 15:45:02:537 Team.log/(14628:14631): No se pudo realizar la conexión entre el socket[24] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:45:02:537 Team.log/(14628:14631): metodo handshake_cliente recibió: -1
+[INFO] 15:45:02:537 Team.log/(14628:14631): Servidor o Cliente rechazado.
+[INFO] 15:45:02:537 Team.log/(14628:14654): Fin de hilo GameBoy
+[INFO] 15:45:10:542 Team.log/(14628:14629): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:45:10:543 Team.log/(14628:14629): metodo handshake_cliente recibió: -1
+[INFO] 15:45:10:543 Team.log/(14628:14629): Servidor o Cliente rechazado.
+[INFO] 15:45:18:547 Team.log/(14628:14630): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:45:18:547 Team.log/(14628:14630): metodo handshake_cliente recibió: -1
+[INFO] 15:45:18:547 Team.log/(14628:14630): Servidor o Cliente rechazado.
+[INFO] 15:45:23:550 Team.log/(14628:14631): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:45:23:551 Team.log/(14628:14631): metodo handshake_cliente recibió: -1
+[INFO] 15:45:23:551 Team.log/(14628:14631): Servidor o Cliente rechazado.
+[INFO] 15:48:29:435 Team.log/(14726:14726): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:29:436 Team.log/(14726:14726): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:29:436 Team.log/(14726:14726): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:29:436 Team.log/(14726:14726): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:29:436 Team.log/(14726:14733): Obteniendo los Entrenadores
+[INFO] 15:48:29:436 Team.log/(14726:14733): Escuchando conexiones
+[INFO] 15:48:29:436 Team.log/(14726:14734): Escuchando conexiones
+[INFO] 15:48:29:436 Team.log/(14726:14732): Obteniendo los Entrenadores
+[INFO] 15:48:29:436 Team.log/(14726:14732): Escuchando conexiones
+[INFO] 15:48:29:436 Team.log/(14726:14731): Obteniendo los Entrenadores
+[INFO] 15:48:29:436 Team.log/(14726:14731): Escuchando conexiones
+[INFO] 15:48:33:267 Team.log/(14726:14734): Servidor o Cliente aceptado.
+[INFO] 15:48:33:267 Team.log/(14726:14734): Hice el handshake y me respondieron: BROKER
+[INFO] 15:48:33:267 Team.log/(14726:14734): Alguien se conectó
+[INFO] 15:48:33:267 Team.log/(14726:14745): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:48:33:267 Team.log/(14726:14745): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 15:48:33:267 Team.log/(14726:14745): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:48:33:267 Team.log/(14726:14745): Fin de hilo GameBoy
+[INFO] 15:48:33:268 Team.log/(14726:14734): Servidor o Cliente aceptado.
+[INFO] 15:48:33:268 Team.log/(14726:14734): Hice el handshake y me respondieron: BROKER
+[INFO] 15:48:33:268 Team.log/(14726:14734): Alguien se conectó
+[INFO] 15:48:33:268 Team.log/(14726:14747): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:48:33:268 Team.log/(14726:14747): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:48:33:268 Team.log/(14726:14747): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:48:33:269 Team.log/(14726:14747): Fin de hilo GameBoy
+[INFO] 15:48:33:269 Team.log/(14726:14734): Servidor o Cliente aceptado.
+[INFO] 15:48:33:269 Team.log/(14726:14734): Hice el handshake y me respondieron: BROKER
+[INFO] 15:48:33:269 Team.log/(14726:14734): Alguien se conectó
+[INFO] 15:48:33:270 Team.log/(14726:14749): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:48:33:270 Team.log/(14726:14749): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:48:33:270 Team.log/(14726:14749): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:48:33:270 Team.log/(14726:14749): Fin de hilo GameBoy
+[INFO] 15:48:33:271 Team.log/(14726:14734): Servidor o Cliente aceptado.
+[INFO] 15:48:33:271 Team.log/(14726:14734): Hice el handshake y me respondieron: BROKER
+[INFO] 15:48:33:271 Team.log/(14726:14734): Alguien se conectó
+[INFO] 15:48:33:271 Team.log/(14726:14751): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:48:33:271 Team.log/(14726:14751): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:48:33:271 Team.log/(14726:14751): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:48:33:272 Team.log/(14726:14734): Servidor o Cliente aceptado.
+[INFO] 15:48:33:272 Team.log/(14726:14734): Hice el handshake y me respondieron: BROKER
+[INFO] 15:48:33:272 Team.log/(14726:14734): Alguien se conectó
+[INFO] 15:48:33:272 Team.log/(14726:14753): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:48:33:272 Team.log/(14726:14753): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:48:33:272 Team.log/(14726:14753): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:48:48:273 Team.log/(14726:14729): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:48:273 Team.log/(14726:14729): metodo handshake_cliente recibió: -1
+[INFO] 15:48:48:273 Team.log/(14726:14729): Servidor o Cliente rechazado.
+[INFO] 15:48:48:273 Team.log/(14726:14751): Fin de hilo GameBoy
+[INFO] 15:48:59:278 Team.log/(14726:14730): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:48:59:279 Team.log/(14726:14730): metodo handshake_cliente recibió: -1
+[INFO] 15:48:59:279 Team.log/(14726:14730): Servidor o Cliente rechazado.
+[INFO] 15:48:59:279 Team.log/(14726:14753): Fin de hilo GameBoy
+[INFO] 15:49:07:286 Team.log/(14726:14728): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:07:287 Team.log/(14726:14728): metodo handshake_cliente recibió: -1
+[INFO] 15:49:07:287 Team.log/(14726:14728): Servidor o Cliente rechazado.
+[INFO] 15:49:15:292 Team.log/(14726:14729): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:15:293 Team.log/(14726:14729): metodo handshake_cliente recibió: -1
+[INFO] 15:49:15:293 Team.log/(14726:14729): Servidor o Cliente rechazado.
+[INFO] 15:49:20:296 Team.log/(14726:14730): No se pudo realizar la conexión entre el socket[27] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:49:20:296 Team.log/(14726:14730): metodo handshake_cliente recibió: -1
+[INFO] 15:49:20:296 Team.log/(14726:14730): Servidor o Cliente rechazado.
+[INFO] 15:51:35:967 Team.log/(14820:14820): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:35:967 Team.log/(14820:14820): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:35:967 Team.log/(14820:14820): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:35:967 Team.log/(14820:14820): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:51:35:968 Team.log/(14820:14827): Obteniendo los Entrenadores
+[INFO] 15:51:35:968 Team.log/(14820:14827): Escuchando conexiones
+[INFO] 15:51:35:968 Team.log/(14820:14828): Escuchando conexiones
+[INFO] 15:51:35:968 Team.log/(14820:14826): Obteniendo los Entrenadores
+[INFO] 15:51:35:968 Team.log/(14820:14826): Escuchando conexiones
+[INFO] 15:51:35:968 Team.log/(14820:14825): Obteniendo los Entrenadores
+[INFO] 15:51:35:968 Team.log/(14820:14825): Escuchando conexiones
+[INFO] 15:51:42:840 Team.log/(14820:14828): Servidor o Cliente aceptado.
+[INFO] 15:51:42:840 Team.log/(14820:14828): Hice el handshake y me respondieron: BROKER
+[INFO] 15:51:42:840 Team.log/(14820:14828): Alguien se conectó
+[INFO] 15:51:42:841 Team.log/(14820:14836): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:51:42:841 Team.log/(14820:14836): aplicar_protocolo_recibir -> recibió un tamaño de -> 23
+[INFO] 15:51:42:841 Team.log/(14820:14836): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:51:42:841 Team.log/(14820:14836): Fin de hilo GameBoy
+[INFO] 15:51:42:842 Team.log/(14820:14828): Servidor o Cliente aceptado.
+[INFO] 15:51:42:842 Team.log/(14820:14828): Hice el handshake y me respondieron: BROKER
+[INFO] 15:51:42:842 Team.log/(14820:14828): Alguien se conectó
+[INFO] 15:51:42:842 Team.log/(14820:14838): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:51:42:842 Team.log/(14820:14838): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:51:42:842 Team.log/(14820:14838): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:51:42:842 Team.log/(14820:14838): Fin de hilo GameBoy
+[INFO] 15:51:42:843 Team.log/(14820:14828): Servidor o Cliente aceptado.
+[INFO] 15:51:42:843 Team.log/(14820:14828): Hice el handshake y me respondieron: BROKER
+[INFO] 15:51:42:843 Team.log/(14820:14828): Alguien se conectó
+[INFO] 15:51:42:844 Team.log/(14820:14840): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:51:42:844 Team.log/(14820:14840): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:51:42:844 Team.log/(14820:14840): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:51:42:844 Team.log/(14820:14840): Fin de hilo GameBoy
+[INFO] 15:51:42:844 Team.log/(14820:14828): Servidor o Cliente aceptado.
+[INFO] 15:51:42:844 Team.log/(14820:14828): Hice el handshake y me respondieron: BROKER
+[INFO] 15:51:42:844 Team.log/(14820:14828): Alguien se conectó
+[INFO] 15:51:42:845 Team.log/(14820:14842): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:51:42:845 Team.log/(14820:14842): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:51:42:845 Team.log/(14820:14842): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:51:42:846 Team.log/(14820:14828): Servidor o Cliente aceptado.
+[INFO] 15:51:42:846 Team.log/(14820:14828): Hice el handshake y me respondieron: BROKER
+[INFO] 15:51:42:846 Team.log/(14820:14828): Alguien se conectó
+[INFO] 15:51:42:847 Team.log/(14820:14844): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:51:42:847 Team.log/(14820:14844): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:51:42:847 Team.log/(14820:14844): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:54:42:857 Team.log/(14820:14822): No se pudo realizar la conexión entre el socket[38] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:54:42:857 Team.log/(14820:14822): metodo handshake_cliente recibió: -1
+[INFO] 15:54:42:857 Team.log/(14820:14822): Servidor o Cliente rechazado.
+[INFO] 15:55:22:862 Team.log/(14820:14823): No se pudo realizar la conexión entre el socket[42] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:55:22:862 Team.log/(14820:14823): metodo handshake_cliente recibió: -1
+[INFO] 15:55:22:862 Team.log/(14820:14823): Servidor o Cliente rechazado.
+[INFO] 15:55:22:862 Team.log/(14820:14842): Fin de hilo GameBoy
+[INFO] 15:55:57:865 Team.log/(14820:14823): No se pudo realizar la conexión entre el socket[46] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:55:57:865 Team.log/(14820:14823): metodo handshake_cliente recibió: -1
+[INFO] 15:55:57:865 Team.log/(14820:14823): Servidor o Cliente rechazado.
+[INFO] 15:56:32:869 Team.log/(14820:14824): No se pudo realizar la conexión entre el socket[50] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:56:32:870 Team.log/(14820:14824): metodo handshake_cliente recibió: -1
+[INFO] 15:56:32:870 Team.log/(14820:14824): Servidor o Cliente rechazado.
+[INFO] 15:56:32:870 Team.log/(14820:14844): Fin de hilo GameBoy
+[INFO] 15:57:52:877 Team.log/(14820:14824): No se pudo realizar la conexión entre el socket[60] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 15:57:52:878 Team.log/(14820:14824): metodo handshake_cliente recibió: -1
+[INFO] 15:57:52:878 Team.log/(14820:14824): Servidor o Cliente rechazado.
