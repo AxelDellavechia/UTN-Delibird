@@ -128,7 +128,7 @@ pthread_mutex_t mutex_lista_particiones;
 pthread_mutex_t mutex_posicion_puntero_fifo;
 
 pthread_mutex_t mutex_logs;
-
+pthread_mutex_t desserializar;
 
 //t_list* lista_msjs;
 t_list* lista_particiones;

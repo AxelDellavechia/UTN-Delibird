@@ -103,6 +103,8 @@ void iniciar_semaforos()
 
 	pthread_mutex_init(&mxBuffer, NULL);
 	pthread_mutex_init(&mutex_logs, NULL);
+	pthread_mutex_init(&desserializar, NULL);
+
 
 }
 
@@ -364,14 +366,18 @@ while(true){
 
 											//cola_NEW_POKEMON  new_poke ;
 
+											pthread_mutex_lock(&desserializar);
+
 											cola_NEW_POKEMON  * ptro_new_poke =  malloc(sizeof(cola_NEW_POKEMON));
-
-
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, ptro_new_poke);
+
+											pthread_mutex_lock(&desserializar);
+
 											//log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
 											pthread_mutex_unlock(&mutex_logs);
+
 											ptro_new_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(NEW_POKEMON, bufferTam - sizeof(uint32_t), ptro_new_poke);
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
@@ -391,13 +397,17 @@ while(true){
 										}
 										case CATCH_POKEMON :{
 
-											cola_CATCH_POKEMON * cath_poke = malloc (sizeof(cola_CATCH_POKEMON));
+											pthread_mutex_lock(&desserializar);
 
+											cola_CATCH_POKEMON * cath_poke = malloc (sizeof(cola_CATCH_POKEMON));
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
+
+											pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon,cath_poke->posicion_x,cath_poke->posicion_y);
 											pthread_mutex_unlock(&mutex_logs);
+
 											//GUARDAR O CACHEAR MSJ
 											cath_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(CATCH_POKEMON, bufferTam - sizeof(uint32_t), cath_poke);
@@ -418,10 +428,13 @@ while(true){
 										}
 										case GET_POKEMON :{
 
+											pthread_mutex_lock(&desserializar);
+
 											cola_GET_POKEMON * get_poke = malloc (sizeof(cola_GET_POKEMON));
-
-
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, get_poke);
+
+											pthread_mutex_unlock(&desserializar);
+
 
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
@@ -448,11 +461,12 @@ while(true){
 
 										case APPEARED_POKEMON :{
 
-											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
+											pthread_mutex_lock(&desserializar);
 
-											pthread_mutex_lock(&mxHilos);
+											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
-											pthread_mutex_unlock(&mxHilos);
+
+											pthread_mutex_unlock(&desserializar);
 
 
 											pthread_mutex_lock(&mutex_logs);
@@ -479,9 +493,21 @@ while(true){
 										}
 
 										case CAUGHT_POKEMON :{
+
+											pthread_mutex_lock(&desserializar);
+
 											cola_CAUGHT_POKEMON * caug_poke = malloc (sizeof(cola_CAUGHT_POKEMON));
 											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, caug_poke);
+
+											pthread_mutex_unlock(&desserializar);
+
+											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke->id_mensaje,caug_poke->atrapo_pokemon);
+
+											pthread_mutex_unlock(&mutex_logs);
+
+
 											caug_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(CAUGHT_POKEMON, bufferTam - sizeof(uint32_t), caug_poke);
 
@@ -502,8 +528,16 @@ while(true){
 										}
 
 										case LOCALIZED_POKEMON :{
+
+											pthread_mutex_lock(&desserializar);
+
 											cola_LOCALIZED_POKEMON * loc_poke = malloc (sizeof(cola_LOCALIZED_POKEMON));
 											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, loc_poke);
+
+											pthread_mutex_unlock(&desserializar);
+
+											pthread_mutex_lock(&mutex_logs);
+
 											for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++)
 											{
 												posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
@@ -511,6 +545,9 @@ while(true){
 												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
 												pthread_mutex_unlock(&mutex_logs);
 											}
+
+											pthread_mutex_unlock(&mutex_logs);
+
 											loc_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(LOCALIZED_POKEMON, bufferTam - sizeof(uint32_t), loc_poke);
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
@@ -532,8 +569,14 @@ while(true){
 										}
 
 										case ACK :{
+
+											pthread_mutex_lock(&desserializar);
+
 											respuesta_ACK * ack = malloc(sizeof(respuesta_ACK));
 											deserealizar_ACK( head, mensaje, bufferTam, ack);
+
+											pthread_mutex_unlock(&desserializar);
+
 											pthread_mutex_lock(&mutex_logs);
 											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
 											pthread_mutex_unlock(&mutex_logs);
