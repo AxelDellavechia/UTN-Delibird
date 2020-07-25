@@ -866,9 +866,11 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 			//free(suscriptor);
 		}
 
-		free(new_poke->nombre_pokemon);
+		if(head != CAUGHT_POKEMON ){
+			free(new_poke->nombre_pokemon);
+		}
 
-		//free(mensaje);
+		free(mensaje);
 
 		list_destroy(aux_lista_de_suscriptores);
 		list_remove(lista_Msjs_Cola, 0);
