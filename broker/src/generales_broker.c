@@ -371,12 +371,12 @@ while(true){
 
 											//cola_NEW_POKEMON  new_poke ;
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_NEW_POKEMON  * ptro_new_poke =  malloc(sizeof(cola_NEW_POKEMON));
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, ptro_new_poke);
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 
@@ -403,12 +403,12 @@ while(true){
 										}
 										case CATCH_POKEMON :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_CATCH_POKEMON * cath_poke = malloc (sizeof(cola_CATCH_POKEMON));
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 
@@ -437,12 +437,12 @@ while(true){
 										}
 										case GET_POKEMON :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_GET_POKEMON * get_poke = malloc (sizeof(cola_GET_POKEMON));
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, get_poke);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 
 											pthread_mutex_lock(&mutex_logs);
@@ -472,12 +472,12 @@ while(true){
 
 										case APPEARED_POKEMON :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 
 											pthread_mutex_lock(&mutex_logs);
@@ -508,12 +508,12 @@ while(true){
 
 										case CAUGHT_POKEMON :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_CAUGHT_POKEMON * caug_poke = malloc (sizeof(cola_CAUGHT_POKEMON));
 											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, caug_poke);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 
@@ -543,12 +543,12 @@ while(true){
 
 										case LOCALIZED_POKEMON :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											cola_LOCALIZED_POKEMON * loc_poke = malloc (sizeof(cola_LOCALIZED_POKEMON));
 											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, loc_poke);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 
@@ -583,12 +583,12 @@ while(true){
 
 										case ACK :{
 
-											pthread_mutex_lock(&desserializar);
+											//pthread_mutex_lock(&desserializar);
 
 											respuesta_ACK * ack = malloc(sizeof(respuesta_ACK));
 											deserealizar_ACK( head, mensaje, bufferTam, ack);
 
-											pthread_mutex_unlock(&desserializar);
+											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
 
