@@ -270,7 +270,11 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 					particion_select->tiempoLRU = obtener_timestamp();
 
 					pthread_mutex_lock(&mxBuffer);
-					void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+					int tamSeria = tamano + sizeof(uint32_t) ;
+
+					void * buffer = serealizar(head, msj, tamSeria );
+
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
@@ -335,7 +339,9 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 			pthread_mutex_lock(&mxBuffer);
 
-			void * buffer = serealizar(head, msj, tamano_buddy);
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 
 			pthread_mutex_unlock(&mxBuffer);
 
@@ -406,12 +412,14 @@ void consolidar_bs(Particion_bs * particion_liberada){
 				partPadre =  list_find(lista_particiones, (void*) espartPadreDer);
 
 				Particion_bs * buscado = list_find(lista_particiones,(void*) esBorrableBuddy) ;
-				free(buscado);
-				buscado = list_find(lista_particiones,(void*) esBorrableLiberada) ;
-				free(buscado);
+				Particion_bs * victima = list_find(lista_particiones,(void*) esBorrableLiberada) ;
+
 
 				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
 				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+
+				free(buscado);
+				free(victima);
 
 
 				partPadre->esPadre = false;
@@ -436,12 +444,14 @@ void consolidar_bs(Particion_bs * particion_liberada){
 				partPadre =  list_find(lista_particiones, (void*) espartPadreIzq);
 
 				Particion_bs * buscado = list_find(lista_particiones,(void*) esBorrableBuddy) ;
-				free(buscado);
-				buscado = list_find(lista_particiones,(void*) esBorrableLiberada);
-				free(buscado);
+				Particion_bs * victima = list_find(lista_particiones,(void*) esBorrableLiberada) ;
+
 
 				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
 				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+
+				free(buscado);
+				free(victima);
 
 				partPadre->esPadre = false;
 				particion_liberada = partPadre;
@@ -479,7 +489,9 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 					particion_select->tiempoLRU = obtener_timestamp();
 
 					pthread_mutex_lock(&mxBuffer);
-					void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+					int tamSeria = tamano + sizeof(uint32_t) ;
+
+					void * buffer = serealizar(head, msj, tamSeria );
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
@@ -543,7 +555,9 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 			partSelected->tiempoLRU = obtener_timestamp();
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&partSelected->id_msj, buffer , sizeof(uint32_t));
@@ -637,7 +651,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_add(lista_particiones, aux_particion);
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
@@ -673,7 +689,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			aux_particion->tiempoLRU = obtener_timestamp(); //obtener Timestamp
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 
@@ -761,7 +779,9 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		particionBestFit->tiempoLRU = obtener_timestamp();
 
 		pthread_mutex_lock(&mxBuffer);
-		void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+		int tamSeria = tamano + sizeof(uint32_t) ;
+
+		void * buffer = serealizar(head, msj, tamSeria );
 		pthread_mutex_unlock(&mxBuffer);
 
 		memcpy(&particionBestFit->id_msj,buffer, sizeof(uint32_t));

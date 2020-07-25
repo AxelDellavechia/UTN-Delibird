@@ -21,10 +21,10 @@
 #include <commons/string.h>
 #include <commons/collections/list.h>
 
-#include "../digiCommons/src/mensajeria.h"
 #include "../digiCommons/src/protocolos_comunicacion.h"
 #include "../digiCommons/src/generales.h"
 #include "../digiCommons/src/sockets.h"
+#include "../digiCommons/src/mensajeria.h"
 
 #define FALSE 0
 #define TRUE 1
