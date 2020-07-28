@@ -293,6 +293,8 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 			desplazamiento += sizeof(uint32_t);
 			memcpy(buffer+desplazamiento,&ack->token,sizeof(uint32_t));
 			desplazamiento += sizeof(uint32_t);
+			memcpy(buffer+desplazamiento,&ack->head,sizeof(uint32_t));
+			desplazamiento += sizeof(uint32_t);
 			break;
 	}
 
@@ -311,7 +313,7 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += sizeof(uint32_t);
 
 		for (int i = 0 ; i < list_size(sucriptor->cola_a_suscribir) ; i++){
-		int elemento = list_get(sucriptor->cola_a_suscribir,i) ;
+		int elemento = (int) list_get(sucriptor->cola_a_suscribir,i) ;
 		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		}
@@ -339,6 +341,9 @@ void deserealizar_ACK(int head, void * buffer, int tamanio , respuesta_ACK * ack
 
 							memcpy(&ack->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
+
+							memcpy(&ack->head,(buffer+desplazamiento),sizeof(uint32_t));
+							desplazamiento += sizeof(uint32_t);
 }
 
 void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor * suscriptor){
@@ -347,8 +352,6 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 
 							memcpy(&suscriptor->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
-
-							suscriptor->cola_a_suscribir = list_create();
 
 							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) ) / sizeof(uint32_t) ;
 
@@ -514,8 +517,6 @@ void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola
 							memcpy(&loc_poke_des->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							loc_poke_des->lista_posiciones = list_create();
-
 							for (int i = 0 ; i < loc_poke_des->cantidad ; i++){
 							posicion *laPosicion = malloc (sizeof(posicion));
 							memcpy(&laPosicion->posicion_x,buffer+desplazamiento,sizeof(uint32_t));
@@ -535,7 +536,7 @@ int calcularTamanioMensaje(int head, void* mensaje){
 	int tamanio = 0 ;
 
 	if ( head == ACK ) {
-		tamanio = sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t);
+		tamanio = sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t);
 		return tamanio;
 	}
 

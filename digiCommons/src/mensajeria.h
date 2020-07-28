@@ -70,6 +70,7 @@ typedef struct{
 	uint32_t ack;
 	uint32_t id_msj;
 	int token;
+	int head;
 }respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

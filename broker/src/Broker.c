@@ -180,7 +180,15 @@ void guardar_msj(int head, int tamano, void * msj){
 		}
 		else{/*ERROR CONFIG*/}
 	}
-	else{log_info(logger,"No se puede guardar el mensaje con el tamanio %d", tamano);}
+	else{
+
+		//pthread_mutex_lock(&mutex_logs);
+
+		log_info(logger,"No se puede guardar el mensaje con el tamanio %d", tamano);
+
+		//pthread_mutex_unlock(&mutex_logs);
+
+	}
 
 }
 
@@ -203,7 +211,12 @@ void buscar_victima(int head, int tamano, Algoritmos Algoritmo, void * msj){
 					break;
 				}
 				default:
+					//pthread_mutex_lock(&mutex_logs);
+
 					log_info(logger, "Algoritmo de Seleccion no reconocido");
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 					break;
 			}
 			if(!encontro_particion)
@@ -235,7 +248,13 @@ void buscar_victima_bs(int head, int tamano, Algoritmos Algoritmo, void * msj) {
 				break;
 			}
 			default:
+
+				//pthread_mutex_lock(&mutex_logs);
+
 				log_info(logger, "Algoritmo de Seleccion no reconocido");
+
+				//pthread_mutex_unlock(&mutex_logs);
+
 				break;
 		}
 		if(!encontro_particion)
@@ -270,7 +289,11 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 					particion_select->tiempoLRU = obtener_timestamp();
 
 					pthread_mutex_lock(&mxBuffer);
-					void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+
+					int tamSeria = tamano + sizeof(uint32_t) ;
+
+					void * buffer = serealizar(head, msj, tamSeria );
+
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
@@ -281,7 +304,12 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 					pthread_mutex_unlock(&mutex_memoria_cache);
 					pthread_mutex_unlock(&mutex_lista_particiones);
 
+					//pthread_mutex_lock(&mutex_logs);
+
 					log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",particion_select->id_msj, particion_select->punteroInicial, particion_select->punteroFinal, particion_select->tamano);
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 
 		}
 		else
@@ -335,7 +363,9 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 			pthread_mutex_lock(&mxBuffer);
 
-			void * buffer = serealizar(head, msj, tamano_buddy);
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 
 			pthread_mutex_unlock(&mxBuffer);
 
@@ -349,7 +379,12 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 			free(buffer);
 
+			//pthread_mutex_lock(&mutex_logs);
+
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",partSelected->id_msj, partSelected->punteroInicial, partSelected->punteroFinal, partSelected->tamano);
+
+			//pthread_mutex_unlock(&mutex_logs);
+
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			pthread_mutex_unlock(&mutex_lista_particiones);
@@ -406,12 +441,14 @@ void consolidar_bs(Particion_bs * particion_liberada){
 				partPadre =  list_find(lista_particiones, (void*) espartPadreDer);
 
 				Particion_bs * buscado = list_find(lista_particiones,(void*) esBorrableBuddy) ;
-				free(buscado);
-				buscado = list_find(lista_particiones,(void*) esBorrableLiberada) ;
-				free(buscado);
+				Particion_bs * victima = list_find(lista_particiones,(void*) esBorrableLiberada) ;
+
 
 				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
 				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+
+				free(buscado);
+				free(victima);
 
 
 				partPadre->esPadre = false;
@@ -436,12 +473,14 @@ void consolidar_bs(Particion_bs * particion_liberada){
 				partPadre =  list_find(lista_particiones, (void*) espartPadreIzq);
 
 				Particion_bs * buscado = list_find(lista_particiones,(void*) esBorrableBuddy) ;
-				free(buscado);
-				buscado = list_find(lista_particiones,(void*) esBorrableLiberada);
-				free(buscado);
+				Particion_bs * victima = list_find(lista_particiones,(void*) esBorrableLiberada) ;
+
 
 				list_remove_by_condition(lista_particiones, (void*)esBorrableBuddy);
 				list_remove_by_condition(lista_particiones, (void*)esBorrableLiberada);
+
+				free(buscado);
+				free(victima);
 
 				partPadre->esPadre = false;
 				particion_liberada = partPadre;
@@ -479,7 +518,9 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 					particion_select->tiempoLRU = obtener_timestamp();
 
 					pthread_mutex_lock(&mxBuffer);
-					void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+					int tamSeria = tamano + sizeof(uint32_t) ;
+
+					void * buffer = serealizar(head, msj, tamSeria );
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
@@ -488,7 +529,12 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 					free(buffer);
 
+					//pthread_mutex_lock(&mutex_logs);
+
 					log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",particion_select->id_msj, particion_select->punteroInicial, particion_select->punteroFinal, particion_select->tamano);
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 
 					pthread_mutex_unlock(&mutex_memoria_cache);
 					pthread_mutex_unlock(&mutex_lista_particiones);
@@ -543,18 +589,20 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 			partSelected->tiempoLRU = obtener_timestamp();
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&partSelected->id_msj, buffer , sizeof(uint32_t));
 
 			memcpy(memoria_cache+partSelected->punteroInicial, buffer + sizeof(uint32_t) , tamano); //ojo aca, porque el buffer mide menos
 
-			//int aux_ptro_inicial, aux_ptro_final;
+			//pthread_mutex_lock(&mutex_logs);
 
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",partSelected->id_msj, partSelected->punteroInicial, partSelected->punteroFinal, partSelected->tamano);
 
-			//Borrar esto, es para chequear como queda la lista de particiones
+			//pthread_mutex_unlock(&mutex_logs);
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			pthread_mutex_unlock(&mutex_lista_particiones);
@@ -637,7 +685,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_add(lista_particiones, aux_particion);
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
@@ -655,7 +705,12 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 		    //memset(memoria_cache+nueva_particion->punteroInicial, '\0', nueva_particion->tamano);
 
+			//pthread_mutex_lock(&mutex_logs);
+
+
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d LRU: %llu",aux_particion->id_msj, aux_particion->punteroInicial, aux_particion->punteroFinal, aux_particion->tamano,aux_particion->tiempoLRU);
+
+			//pthread_mutex_unlock(&mutex_logs);
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 
@@ -673,7 +728,9 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			aux_particion->tiempoLRU = obtener_timestamp(); //obtener Timestamp
 
 			pthread_mutex_lock(&mxBuffer);
-			void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 
@@ -691,7 +748,13 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 			list_remove(lista_particiones, index);
 			list_add_in_index(lista_particiones, index, aux_particion);
+
+			//pthread_mutex_lock(&mutex_logs);
+
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d LRU: %llu",aux_particion->id_msj, aux_particion->punteroInicial, aux_particion->punteroFinal, aux_particion->tamano,aux_particion->tiempoLRU);
+
+			//pthread_mutex_unlock(&mutex_logs);
+
 			pthread_mutex_unlock(&mutex_lista_particiones);
 			//pthread_mutex_unlock(&mutex_lista_particiones);
 		}
@@ -761,7 +824,9 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		particionBestFit->tiempoLRU = obtener_timestamp();
 
 		pthread_mutex_lock(&mxBuffer);
-		void * buffer = serealizar(head, msj, tamano + sizeof(uint32_t));
+		int tamSeria = tamano + sizeof(uint32_t) ;
+
+		void * buffer = serealizar(head, msj, tamSeria );
 		pthread_mutex_unlock(&mxBuffer);
 
 		memcpy(&particionBestFit->id_msj,buffer, sizeof(uint32_t));
@@ -778,7 +843,11 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 
 		pthread_mutex_unlock(&mutex_lista_particiones);
 
+		//pthread_mutex_lock(&mutex_logs);
+
 		log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d LRU: %llu",particionBestFit->id_msj, particionBestFit->punteroInicial, particionBestFit->punteroFinal, particionBestFit->tamano,particionBestFit->tiempoLRU);
+
+		//pthread_mutex_unlock(&mutex_logs);
 
 		return true;
 
@@ -888,7 +957,15 @@ void eliminar_particion(){
 	{
 		algoritmo_lru();
 	}
-	else{log_info(logger,"El algoritmo de reemplazo %d, no es valido",config_File->FRECUENCIA_COMPACTACION);}
+	else{
+
+		//pthread_mutex_lock(&mutex_logs);
+
+		log_info(logger,"El algoritmo de reemplazo %d, no es valido",config_File->FRECUENCIA_COMPACTACION);
+
+		//pthread_mutex_unlock(&mutex_logs);
+
+	}
 }
 
 void algoritmo_fifo()
@@ -905,7 +982,11 @@ void algoritmo_fifo()
 
 		Particion * particion_victima = list_get(lista_particiones,0);
 
+		//pthread_mutex_lock(&mutex_logs);
+
 		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+
+		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
 		particion_victima->libre = true;
@@ -925,7 +1006,11 @@ void algoritmo_fifo()
 
 		Particion_bs * particion_victima = list_get(listanoEsPadre,0);
 
+		//pthread_mutex_lock(&mutex_logs);
+
 		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+
+		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
 		particion_victima->libre = true;
@@ -954,7 +1039,12 @@ void algoritmo_lru()
 		list_sort(lista_particiones, (void*)ordenarLRU);
 		Particion * particion_victima = list_get(lista_particiones, 0);
 
+		//pthread_mutex_lock(&mutex_logs);
+
 		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+
+		//pthread_mutex_unlock(&mutex_logs);
+
 		particion_victima->id_msj = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
@@ -976,7 +1066,12 @@ void algoritmo_lru()
 
 		list_destroy(lista_victma);
 
+		//pthread_mutex_lock(&mutex_logs);
+
 		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+
+		//pthread_mutex_unlock(&mutex_logs);
+
 		particion_victima->id_msj = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
@@ -1109,6 +1204,12 @@ void dumpMemoria (int senial) {
 		//return -1 ;
 	}
 	fclose(dump);
+
+	//pthread_mutex_lock(&mutex_logs);
+
 	log_info(loggerCatedra,"Se realizo un Dump");
+
+	//pthread_mutex_lock(&mutex_logs);
+
 	//return 0 ;
 }

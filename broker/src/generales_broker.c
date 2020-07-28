@@ -41,6 +41,9 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
+	caught_pokemon_pendientes = list_create();
+
+
 	//desplazamientoCache = 0 ;
 
 	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
@@ -103,6 +106,10 @@ void iniciar_semaforos()
 
 	pthread_mutex_init(&mxBuffer, NULL);
 	pthread_mutex_init(&mutex_logs, NULL);
+	pthread_mutex_init(&desserializar, NULL);
+
+	pthread_mutex_init(&msjPendientesCaught, NULL);
+
 
 }
 
@@ -141,15 +148,17 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
-	//list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	free(suscripcionC->laSus);
 	free(suscripcionC);
 	//pthread_mutex_unlock(&mutex_suscripcion);
 
 
 	//pthread_mutex_lock(&mutex_lista_ack);
-	for(int i=0 ; i < list_size(lista_ack) ; i++){
+	int tamLista = list_size(lista_ack);
+
+	for(int i=0 ; i < tamLista ; i++){
 	  respuesta_ACK * elack = list_get(lista_ack,i);
-	  list_remove(lista_ack,i);
+	  list_remove(lista_ack,0);
 	  free(elack);
 	}
 
@@ -160,16 +169,14 @@ void liberarRecursos(){
 
 	//pthread_mutex_lock(&mutex_lista_particiones);
 
-	int tamLista;
+	tamLista = list_size(lista_particiones) ;
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-		tamLista = list_size(lista_particiones) ;
 		for(int i=0 ; i < tamLista ; i++){
 			  Particion * laParti = list_get(lista_particiones,i);
 			  free(laParti);
 			  list_remove(lista_particiones,0);
 			}
 		}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-			tamLista = list_size(lista_particiones) ;
 			for(int i=0 ; i < tamLista ; i++){
 			  Particion_bs * laParti = list_get(lista_particiones,i);
 			  free(laParti);
@@ -206,68 +213,26 @@ void liberarRecursos(){
 	//pthread_mutex_unlock(&mutex_cola_new_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
-	tamLista = list_size(suscriptores_appeared_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_appeared_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_appeared_pokemon,0);
-	}
-
 	list_destroy(suscriptores_appeared_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
-	tamLista = list_size(suscriptores_catch_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_catch_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_catch_pokemon,0);
-	}
-
 	list_destroy(suscriptores_catch_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_caught_pokemon);
-	tamLista = list_size(suscriptores_caught_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_caught_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_caught_pokemon,0);
-	}
-
 	list_destroy(suscriptores_caught_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_caught_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
-	tamLista = list_size(suscriptores_get_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_get_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_get_pokemon,0);
-	}
-
 	list_destroy(suscriptores_get_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
-	tamLista = list_size(suscriptores_localized_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_localized_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_localized_pokemon,0);
-	}
-
 	list_destroy(suscriptores_localized_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 
 	//pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
-	tamLista = list_size(suscriptores_new_pokemon) ;
-	for(int i=0 ; i < tamLista ; i++){
-	  losSuscriptores * elSus = list_get(suscriptores_new_pokemon,i);
-	  free(elSus);
-	  list_remove(suscriptores_localized_pokemon,0);
-	}
-
 	list_destroy(suscriptores_new_pokemon);
 	//pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
 
@@ -294,7 +259,12 @@ void consola() {
 		if(strcasecmp(comando,"dump\n") == 0)  kill(pid,SIGUSR1);
 	}
 
+	//pthread_mutex_lock(&mutex_logs);
+
 	log_info(logger,"Comenzando a cerrar los hilos");
+
+	//pthread_mutex_unlock(&mutex_logs);
+
 	pthread_mutex_lock(&mxHilos);
 
 	pthread_cancel(hilo_servidor);
@@ -338,9 +308,9 @@ void servidor() {
 	asociarSocket(fdBroker, config_File->PUERTO_BROKER);
 	escucharSocket(fdBroker, CONEXIONES_PERMITIDAS);
 
-	pthread_mutex_lock(&mutex_logs);
+	//pthread_mutex_lock(&mutex_logs);
 	log_info(logger," Escuchando conexiones");
-	pthread_mutex_unlock(&mutex_logs);
+	//pthread_mutex_unlock(&mutex_logs);
 
 	while(TRUE) {
 
@@ -406,14 +376,25 @@ while(true){
 										case NEW_POKEMON :{
 
 											//cola_NEW_POKEMON  new_poke ;
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_NEW_POKEMON  * ptro_new_poke =  malloc(sizeof(cola_NEW_POKEMON));
+
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, ptro_new_poke);
-											//log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
+
+											//pthread_mutex_lock(&desserializar);
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
+
 											pthread_mutex_unlock(&mutex_logs);
+
 											ptro_new_poke->id_mensaje = obtener_idMsj();
+
 											guardar_msj(NEW_POKEMON, bufferTam - sizeof(uint32_t), ptro_new_poke);
+
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											list_add(cola_new_pokemon, ptro_new_poke);
 											pthread_mutex_unlock(&mutex_cola_new_pokemon);
@@ -422,6 +403,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = ptro_new_poke->id_mensaje;
 											ack->token = 0 ;
+											ack->head = NEW_POKEMON ;
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											free(ack);
 
@@ -430,14 +412,31 @@ while(true){
 											break;
 										}
 										case CATCH_POKEMON :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_CATCH_POKEMON * cath_poke = malloc (sizeof(cola_CATCH_POKEMON));
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, cath_poke);
+
+											//pthread_mutex_unlock(&desserializar);
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon,cath_poke->posicion_x,cath_poke->posicion_y);
+
 											pthread_mutex_unlock(&mutex_logs);
+
+
 											//GUARDAR O CACHEAR MSJ
+
 											cath_poke->id_mensaje = obtener_idMsj();
+
+											//pthread_mutex_lock(&msjPendientesCaught);
+											//list_add(caught_pokemon_pendientes,cath_poke->id_mensaje);
+											//pthread_mutex_unlock(&msjPendientesCaught);
+
 											guardar_msj(CATCH_POKEMON, bufferTam - sizeof(uint32_t), cath_poke);
+
 											pthread_mutex_lock(&mutex_cola_catch_pokemon);
 											list_add(cola_catch_pokemon, cath_poke);;
 											pthread_mutex_unlock(&mutex_cola_catch_pokemon);
@@ -446,6 +445,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = cath_poke->id_mensaje;
 											ack->token = 0 ;
+											ack->head = NEW_POKEMON ;
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											free(ack);
 
@@ -454,11 +454,19 @@ while(true){
 											break;
 										}
 										case GET_POKEMON :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_GET_POKEMON * get_poke = malloc (sizeof(cola_GET_POKEMON));
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, get_poke);
 
+											//pthread_mutex_unlock(&desserializar);
+
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
+
 											pthread_mutex_unlock(&mutex_logs);
 
 											get_poke->id_mensaje = obtener_idMsj();
@@ -472,6 +480,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = get_poke->id_mensaje;
 											ack->token = 0 ;
+											ack->head = GET_POKEMON ;
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											free(ack);
 
@@ -481,12 +490,21 @@ while(true){
 										}
 
 										case APPEARED_POKEMON :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_APPEARED_POKEMON * app_poke = malloc (sizeof(cola_APPEARED_POKEMON));
 											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, app_poke);
 
+											//pthread_mutex_unlock(&desserializar);
+
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+
 											pthread_mutex_unlock(&mutex_logs);
+
 
 											app_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(APPEARED_POKEMON, bufferTam - sizeof(uint32_t), app_poke);
@@ -499,6 +517,7 @@ while(true){
 																						ack->ack = TRUE;
 																						ack->id_msj = app_poke->id_mensaje;
 																						ack->token = 0 ;
+																						ack->head = APPEARED_POKEMON ;
 																						aplicar_protocolo_enviar(fdCliente,ACK,ack);
 																						free(ack);
 
@@ -508,10 +527,20 @@ while(true){
 										}
 
 										case CAUGHT_POKEMON :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_CAUGHT_POKEMON * caug_poke = malloc (sizeof(cola_CAUGHT_POKEMON));
 											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, caug_poke);
+
+											//pthread_mutex_unlock(&desserializar);
+
+											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke->id_mensaje,caug_poke->atrapo_pokemon);
-											caug_poke->id_mensaje = obtener_idMsj();
+
+											pthread_mutex_unlock(&mutex_logs);
+
 											guardar_msj(CAUGHT_POKEMON, bufferTam - sizeof(uint32_t), caug_poke);
 
 											pthread_mutex_lock(&mutex_cola_caught_pokemon);
@@ -522,6 +551,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = caug_poke->id_mensaje;
 											ack->token = 0 ;
+											ack->head = CAUGHT_POKEMON ;
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											free(ack);
 
@@ -531,15 +561,28 @@ while(true){
 										}
 
 										case LOCALIZED_POKEMON :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											cola_LOCALIZED_POKEMON * loc_poke = malloc (sizeof(cola_LOCALIZED_POKEMON));
+
+											loc_poke->lista_posiciones = list_create();
+
 											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, loc_poke);
+
+											//pthread_mutex_unlock(&desserializar);
+
+											pthread_mutex_lock(&mutex_logs);
+
 											for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++)
 											{
 												posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
-												pthread_mutex_lock(&mutex_logs);
+
 												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
-												pthread_mutex_unlock(&mutex_logs);
 											}
+
+											pthread_mutex_unlock(&mutex_logs);
+
 											loc_poke->id_mensaje = obtener_idMsj();
 											guardar_msj(LOCALIZED_POKEMON, bufferTam - sizeof(uint32_t), loc_poke);
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
@@ -550,6 +593,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = loc_poke->id_mensaje;
 											ack->token = 0 ;
+											ack->head = LOCALIZED_POKEMON ;
 											aplicar_protocolo_enviar(fdCliente,ACK,ack);
 											free(ack);
 
@@ -561,12 +605,19 @@ while(true){
 										}
 
 										case ACK :{
+
+											//pthread_mutex_lock(&desserializar);
+
 											respuesta_ACK * ack = malloc(sizeof(respuesta_ACK));
 											deserealizar_ACK( head, mensaje, bufferTam, ack);
+
+											//pthread_mutex_unlock(&desserializar);
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
+
 											pthread_mutex_unlock(&mutex_logs);
-											//log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
 
 											pthread_mutex_lock(&mutex_lista_ack);
 
@@ -582,6 +633,8 @@ while(true){
 											pthread_mutex_lock(&mutex_suscripcion);
 											suscripcionC = malloc(sizeof(losSuscriptores));
 											suscripcionC->laSus = malloc(sizeof(suscriptor));
+											suscripcionC->laSus->cola_a_suscribir = list_create();
+
 
 											//pthread_mutex_lock(&mutex_socket);
 											suscripcionC->suSocket = fdCliente;
@@ -589,12 +642,13 @@ while(true){
 
 											deserealizar_suscriptor( head, mensaje, bufferTam, suscripcionC->laSus);
 
+											pthread_mutex_lock(&mutex_logs);
+
 											for ( int i = 0 ; i < list_size(suscripcionC->laSus->cola_a_suscribir) ; i++){
-												pthread_mutex_lock(&mutex_logs);
 												log_info(loggerCatedra,"Recibí del modulo %s una suscribición a la cola %s con el token %d", (char*) devolverModulo(suscripcionC->laSus->modulo),tipoMsjIntoToChar( (int) list_get(suscripcionC->laSus->cola_a_suscribir,i)),suscripcionC->laSus->token);
-												pthread_mutex_unlock(&mutex_logs);
 											}
 
+											pthread_mutex_unlock(&mutex_logs);
 
 											suscribirse(suscripcionC);
 
@@ -602,6 +656,7 @@ while(true){
 											ack->ack = TRUE;
 											ack->id_msj = obtener_idMsj();
 											ack->token = 0 ;
+											ack->head = SUSCRIPCION ;
 
 											/*struct sockaddr_in peer;
 											int peer_len = sizeof(peer);
@@ -616,20 +671,29 @@ while(true){
 
 											reenviarMsjCache(suscripcionC);
 
+											list_destroy(suscripcionC->laSus->cola_a_suscribir);
+
 											pthread_mutex_unlock(&mutex_suscripcion);
 
 											break;
 										}
 										default:
+
 											pthread_mutex_lock(&mutex_logs);
+
 											log_info(logger, "Instrucción no reconocida");
+
 											pthread_mutex_unlock(&mutex_logs);
+
 											break;
 									}
-							free(mensaje);
 					}
 
 	}
+
+	pthread_mutex_lock(&mxHilos);
+	pthread_detach( pthread_self() );
+	pthread_mutex_unlock(&mxHilos);
 }
 
 
@@ -899,16 +963,40 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 				}
 
 			if (enviados == ERROR ) {
+
+				//pthread_mutex_lock(&mutex_logs);
+
 				log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
+
+				//pthread_mutex_unlock(&mutex_logs);
+
+
 			} else {
+
+				//pthread_mutex_lock(&mutex_logs);
+
 				log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(suscriptor->laSus->modulo), tipoMsjIntoToChar(head),suscriptor->laSus->token);
 				log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
+
+				//pthread_mutex_unlock(&mutex_logs);
+
 			}
 			list_remove(aux_lista_de_suscriptores, 0);
-			free(suscriptor);
+			//free(suscriptor);
 		}
 
-		free(new_poke->nombre_pokemon);
+		if(head != CAUGHT_POKEMON ){
+			free(new_poke->nombre_pokemon);
+		}
+
+		if(head == LOCALIZED_POKEMON ){
+			int tamLista = list_size(loc_poke->lista_posiciones);
+			for(int i=0 ; i < tamLista ; i++){
+			  posicion * elack = list_get(loc_poke->lista_posiciones,i);
+			  list_remove(loc_poke->lista_posiciones,0);
+			  free(elack);
+			}
+		}
 
 		free(mensaje);
 
@@ -921,11 +1009,16 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 
 	int recibidos;
 
-	_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == id_msj; }
-	pthread_mutex_lock(&mutex_lista_ack);
-	_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
-	pthread_mutex_unlock(&mutex_lista_ack);
-		for ( int j = 0 ; j < list_size(laSus->laSus->cola_a_suscribir) ;j++){
+	for ( int j = 0 ; j < list_size(laSus->laSus->cola_a_suscribir) ;j++){
+
+		int cola_asignada = list_get(laSus->laSus->cola_a_suscribir,j);
+
+		_Bool estaPresente(respuesta_ACK * elAck){ return elAck->token == laSus->laSus->token && elAck->id_msj == id_msj && elAck->head == cola_asignada ; }
+
+		pthread_mutex_lock(&mutex_lista_ack);
+		_Bool fueRespondido = list_any_satisfy(lista_ack, (void*)estaPresente);
+		pthread_mutex_unlock(&mutex_lista_ack);
+
 			if(!fueRespondido && colaAsignada == (int) list_get(laSus->laSus->cola_a_suscribir,j)) {
 
 									switch( colaAsignada ) {
@@ -1026,11 +1119,23 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 									}
 
 									if (recibidos == ERROR ) {
+
+										//pthread_mutex_lock(&mutex_logs);
+
 										log_info(logger,"No se puedo enviar correctamente el msj de la cola al suscriptor");
+
+										//pthread_mutex_unlock(&mutex_logs);
+
 									} else {
 										reenvieMsj = true;
+
+										//pthread_mutex_lock(&mutex_logs);
+
 										log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(laSus->laSus->modulo), tipoMsjIntoToChar(colaAsignada),laSus->laSus->token);
 										log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
+
+										//pthread_mutex_unlock(&mutex_logs);
+
 									}
 					}
 		}
@@ -1049,11 +1154,23 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 			pthread_mutex_lock(&mutex_lista_particiones);
 			Particion_bs * laParti = list_get(lista_particiones,i);
 			 if ( !laParti->libre && !laParti->esPadre) {
+
+					//pthread_mutex_lock(&mutex_logs);
+
 				 log_info(logger,"La partición %d - %d tiene tiempo LRU %llu",laParti->punteroInicial,laParti->punteroFinal,laParti->tiempoLRU);
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 				envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
 				if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
 					laParti->tiempoLRU = obtener_timestamp() ;
+
+					//pthread_mutex_lock(&mutex_logs);
+
 					log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 				}
 			}
 			 reenvieMsj=false;
@@ -1062,11 +1179,23 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 			pthread_mutex_lock(&mutex_lista_particiones);
 			Particion * laParti = list_get(lista_particiones,i);
 			 if ( !laParti->libre) {
+
+					//pthread_mutex_lock(&mutex_logs);
+
 				 log_info(logger,"La partición %d - %d tiene tiempo LRU %llu",laParti->punteroInicial,laParti->punteroFinal,laParti->tiempoLRU);
+
+					//pthread_mutex_unlock(&mutex_logs);
+
 				 envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
 					if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
 							laParti->tiempoLRU = obtener_timestamp() ;
+
+							//pthread_mutex_lock(&mutex_logs);
+
 							log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
+
+							//pthread_mutex_unlock(&mutex_logs);
+
 						}			 }
 			reenvieMsj=false;
 			pthread_mutex_unlock(&mutex_lista_particiones);
@@ -1150,7 +1279,12 @@ void suscribirse(losSuscriptores * suscp){
 			break;
 		}
 		default:
+			//pthread_mutex_lock(&mutex_logs);
+
 			log_info(logger, "Instrucción para suscribirse alguna cola no reconocida");
+
+			//pthread_mutex_unlock(&mutex_logs);
+
 			break;
 		}
 		i++;
