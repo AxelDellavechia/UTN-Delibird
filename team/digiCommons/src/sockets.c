@@ -65,6 +65,7 @@ int aceptarConexionSocket(int fd_socket) {
 
 // Conexión del socket con una máquina remota (Servidor)
 int conectarSocket(int fd_socket, const char * ipDestino, int puerto){
+
 	struct sockaddr_in direccionServidor;
 
 	direccionServidor.sin_family = AF_INET;
