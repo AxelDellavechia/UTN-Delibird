@@ -13,5 +13,11 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+<<<<<<< HEAD
 src \
+=======
+Team \
+digiCommons/Debug/src \
+digiCommons/src \
+>>>>>>> origin/master
 

@@ -1,4 +1,15 @@
 /*
+<<<<<<< HEAD
+=======
+ * sockets.c
+ *
+ *  Created on: 12/4/2019
+ *      Author: utnso
+ */
+
+
+
+>>>>>>> origin/master
 #include "sockets.h" // Incluimos nuestro propio header de Sockets
 
 // *******************************
@@ -83,8 +94,13 @@ int enviarPorSocket(int fdCliente, const void * mensaje, int tamanioBytes) {
 
 	while (totalBytes < tamanioBytes) {
 		bytes_enviados = send(fdCliente, mensaje + totalBytes, tamanioBytes, MSG_NOSIGNAL); // El 0 significa que no le paso ningún Flag
+<<<<<<< HEAD
 // send: devuelve el múmero de bytes que se enviaron en realidad, pero como estos podrían ser menos
  //de los que pedimos que se enviaran, realizamos la siguiente validación:
+=======
+/* send: devuelve el múmero de bytes que se enviaron en realidad, pero como estos podrían ser menos
+ * de los que pedimos que se enviaran, realizamos la siguiente validación: */
+>>>>>>> origin/master
 
 		if (bytes_enviados == ERROR) {
 			break;
@@ -138,17 +154,28 @@ void cerrarSocket(int fd_socket) {
 // *    Selección entre Sockets Listos	    *
 // ******************************************
 
+<<<<<<< HEAD
 //select: permite comprobar varios sockets al mismo tiempo.
 //Indica cuáles están listos para leer o para escribir, y cuáles han generado excepciones.
 //Le pasamos nuestro conjunto de FD de sockets Listos y los parámetros de tiempo
+=======
+/* select: permite comprobar varios sockets al mismo tiempo.
+Indica cuáles están listos para leer o para escribir, y cuáles han generado excepciones.
+Le pasamos nuestro conjunto de FD de sockets Listos y los parámetros de tiempo */
+>>>>>>> origin/master
 void seleccionarSocket(int mayorValorDeFD,
 		fd_set *fdListosParaLectura, fd_set *fdListosParaEscritura, fd_set *fdListosParaEjecucion,
 		int* segundos, int* milisegundos) {
 
 	inicioSeleccion:
 
+<<<<<<< HEAD
 // Si segundos o microsegundos valen NULL:
 // el temporizador nunca expirará y se tendrá que esperar hasta que algún FD esté listo
+=======
+/* Si segundos o microsegundos valen NULL:
+ el temporizador nunca expirará y se tendrá que esperar hasta que algún FD esté listo */
+>>>>>>> origin/master
 	if(segundos == NULL || milisegundos == NULL){
 
 	int retornoSelect = select((mayorValorDeFD + 1), fdListosParaLectura, fdListosParaEscritura, fdListosParaEjecucion, NULL);
@@ -156,8 +183,13 @@ void seleccionarSocket(int mayorValorDeFD,
 	if(retornoSelect == ERROR && errno != EINTR) printf("[SOCKETS] No se pudo seleccionar ningún fd del conjunto.\n");
 
 	}else{
+<<<<<<< HEAD
 // Si segundos y microsegundos valen cero:
 //select regresará inmediatamente después de interrogar a todos los FD incluidos en los conjuntos de Listos
+=======
+/* Si segundos y microsegundos valen cero:
+select regresará inmediatamente después de interrogar a todos los FD incluidos en los conjuntos de Listos*/
+>>>>>>> origin/master
 		struct timeval periodoMaximoDeEspera;
 
 		int seg = *segundos; // segundos
@@ -177,4 +209,7 @@ void seleccionarSocket(int mayorValorDeFD,
 		goto inicioSeleccion;
 	}
 }
+<<<<<<< HEAD
 */
+=======
+>>>>>>> origin/master

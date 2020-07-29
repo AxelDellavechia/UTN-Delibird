@@ -15,6 +15,7 @@ int main(){//int argc, char **argv) {
 
 	leer_configFile(CONFIG_PATH);
 
+<<<<<<< HEAD
 	//chequear que el punto de montaje del archivo esté creado, sino crearlo
 	//YA ESTAN CREADOS LOS BLOQUES y bitmap VER SI DESPUES PUEDO HACER ALGO DETECTANDO SI EXISTEN O NO, O INGRESAR UN COMANDO POR CONSOLA
 	//crearBloques();
@@ -43,4 +44,15 @@ int main(){//int argc, char **argv) {
 }
 
 
+=======
+	inicializar_semaforos();
+	crearBloques();  //Verifico si los bloques existen y si coinciden con la cantidad de bloques del archivo de configuración.
+	creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques); //Verifico la existencia del Bitmap.
+	crearBitmap(); //Cargo el contenigo del bitmap.
+	loadPokemons();
+	crearHilos();
+
+
+}
+>>>>>>> origin/master
 

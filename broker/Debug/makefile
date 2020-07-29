@@ -26,6 +26,7 @@ endif
 all: broker
 
 dependents:
+<<<<<<< HEAD
 	-cd /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug && $(MAKE) clean all
 
 # Tool invocations
@@ -33,6 +34,15 @@ broker: $(OBJS) $(USER_OBJS) /home/utnso/workspace/tp-2020-1c-Digimon/digiCommon
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross GCC Linker'
 	gcc -L"/home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug" -o "broker" $(OBJS) $(USER_OBJS) $(LIBS)
+=======
+	-cd /home/utnso/workspace/digiCommons/Debug && $(MAKE) all
+
+# Tool invocations
+broker: $(OBJS) $(USER_OBJS) /home/utnso/workspace/digiCommons/Debug/libdigiCommons.so
+	@echo 'Building target: $@'
+	@echo 'Invoking: Cross GCC Linker'
+	gcc -L"/home/utnso/workspace/digiCommons/Debug" -o "broker" $(OBJS) $(USER_OBJS) $(LIBS)
+>>>>>>> origin/master
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -42,6 +52,10 @@ clean:
 	-@echo ' '
 
 .PHONY: all clean dependents
+<<<<<<< HEAD
 /home/utnso/workspace/tp-2020-1c-Digimon/digiCommons/Debug/libdigiCommons.so:
+=======
+/home/utnso/workspace/digiCommons/Debug/libdigiCommons.so:
+>>>>>>> origin/master
 
 -include ../makefile.targets

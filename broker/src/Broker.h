@@ -8,9 +8,9 @@
 #ifndef BROKER_H_
 #define BROKER_H_
 
-#define LRU_MAX 4294967295
+#define LRU_MAX 9999999999999
 
-#include "generales.h"
+#include "generales_broker.h"
 
 typedef struct {
 	uint32_t id_msj;
@@ -44,6 +44,10 @@ typedef struct {
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
+<<<<<<< HEAD
+=======
+void iniciar_semaforos();
+>>>>>>> origin/master
 
 void guardar_msj(int head, int tamano, void * msj);
 void buscar_victima(int head,int tamano, Algoritmos Algoritmo, void * msj);
@@ -64,6 +68,10 @@ void algoritmo_fifo();
 void algoritmo_lru();
 void consolidar();//Particion *particion_victima);
 
+<<<<<<< HEAD
 int dumpMemoria(int senial);
+=======
+void  dumpMemoria(int senial);
+>>>>>>> origin/master
 
 #endif /* BROKER_H_ */

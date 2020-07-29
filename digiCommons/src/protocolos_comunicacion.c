@@ -311,7 +311,8 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 		desplazamiento += sizeof(uint32_t);
 
 		for (int i = 0 ; i < list_size(sucriptor->cola_a_suscribir) ; i++){
-		int elemento = list_get(sucriptor->cola_a_suscribir,i) ;
+		int elemento = (int) list_get(sucriptor->cola_a_suscribir,i) ;
+
 		memcpy(buffer+desplazamiento,&elemento,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		}
@@ -348,8 +349,6 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 							memcpy(&suscriptor->token,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							suscriptor->cola_a_suscribir = list_create();
-
 							int cantidadElementos =  ( tamanio - sizeof(uint32_t) - sizeof(uint32_t) ) / sizeof(uint32_t) ;
 
 							for (int i = 0 ; i < cantidadElementos ; i++){
@@ -365,7 +364,6 @@ void deserealizar_suscriptor (int head, void * buffer, int tamanio , suscriptor 
 }
 
 
-
 void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke){
 
 	int desplazamiento = 0;
@@ -377,9 +375,8 @@ void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_P
 							memcpy(&new_poke->tamanio_nombre,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							new_poke->nombre_pokemon = malloc(1);
 
-							new_poke->nombre_pokemon = realloc(new_poke->nombre_pokemon,new_poke->tamanio_nombre + 1);
+							new_poke->nombre_pokemon = malloc(new_poke->tamanio_nombre + 1);
 							memcpy(new_poke->nombre_pokemon,(buffer+desplazamiento),new_poke->tamanio_nombre);
 							desplazamiento += new_poke->tamanio_nombre;
 
@@ -516,8 +513,6 @@ void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola
 							memcpy(&loc_poke_des->cantidad,(buffer+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							loc_poke_des->lista_posiciones = list_create();
-
 							for (int i = 0 ; i < loc_poke_des->cantidad ; i++){
 							posicion *laPosicion = malloc (sizeof(posicion));
 							memcpy(&laPosicion->posicion_x,buffer+desplazamiento,sizeof(uint32_t));
@@ -625,7 +620,7 @@ void recibirMensajeSinEspera(int fdEmisor , int bufferTam , void * mensaje ) {
 
 }
 */
-void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
+int recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 
 	//setlocale(LC_ALL,"");
 
@@ -649,7 +644,7 @@ void * recibirProtocolo(int * head , int * bufferTam ,int fdEmisor ) {
 	// Recibo por último el mensaje serealizado:
 }
 
-void * recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
+int recibirMensaje(int fdEmisor , int bufferTam , void * mensaje ) {
 
 	return recibirPorSocket(fdEmisor, mensaje, bufferTam);
 

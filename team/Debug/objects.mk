@@ -4,5 +4,9 @@
 
 USER_OBJS :=
 
+<<<<<<< HEAD
 LIBS := -ldigiCommons -lpthread -lcommons
+=======
+LIBS := -lcommons -lpthread
+>>>>>>> origin/master
 
