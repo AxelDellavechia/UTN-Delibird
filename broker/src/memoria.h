@@ -8,16 +8,8 @@
 #ifndef SRC_MEMORIA_H_
 #define SRC_MEMORIA_H_
 
-<<<<<<< HEAD
-#include "generales.h"
-#include "Broker.h"
-#include "../digiCommons/src/mensajeria.h"
-#include "../digiCommons/src/protocolos_comunicacion.h"
-#include "../digiCommons/src/generales.h"
-=======
 #include "Broker.h"
 #include "generales_broker.h"
->>>>>>> origin/master
 
 
 void deserealizar_mem_NEW_POKEMON (void * laParti , cola_NEW_POKEMON * new_poke );

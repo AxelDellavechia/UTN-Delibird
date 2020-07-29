@@ -14,6 +14,7 @@
 
 typedef struct {
 	uint32_t id_msj;
+	uint32_t id_tracking;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
@@ -32,6 +33,7 @@ typedef enum {
 typedef struct {
 	_Bool esPadre;
 	uint32_t id_msj;
+	uint32_t id_tracking;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
@@ -44,10 +46,7 @@ typedef struct {
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);
-<<<<<<< HEAD
-=======
 void iniciar_semaforos();
->>>>>>> origin/master
 
 void guardar_msj(int head, int tamano, void * msj);
 void buscar_victima(int head,int tamano, Algoritmos Algoritmo, void * msj);
@@ -68,10 +67,6 @@ void algoritmo_fifo();
 void algoritmo_lru();
 void consolidar();//Particion *particion_victima);
 
-<<<<<<< HEAD
-int dumpMemoria(int senial);
-=======
 void  dumpMemoria(int senial);
->>>>>>> origin/master
 
 #endif /* BROKER_H_ */

@@ -392,6 +392,7 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 											ptro_new_poke->id_mensaje = obtener_idMsj();
+											ptro_new_poke->id_tracking = 0;
 
 											guardar_msj(NEW_POKEMON, bufferTam - sizeof(uint32_t), ptro_new_poke);
 
@@ -429,6 +430,7 @@ while(true){
 											//GUARDAR O CACHEAR MSJ
 
 											cath_poke->id_mensaje = obtener_idMsj();
+											cath_poke->id_tracking = 0;
 
 											//pthread_mutex_lock(&msjPendientesCaught);
 											//list_add(caught_pokemon_pendientes,cath_poke->id_mensaje);
@@ -468,6 +470,7 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 											get_poke->id_mensaje = obtener_idMsj();
+											get_poke->id_tracking = 0;
 											guardar_msj(GET_POKEMON, bufferTam - sizeof(uint32_t), get_poke);
 
 											pthread_mutex_lock(&mutex_cola_get_pokemon);
@@ -504,6 +507,7 @@ while(true){
 
 
 											app_poke->id_mensaje = obtener_idMsj();
+											app_poke->id_tracking = 0;
 											guardar_msj(APPEARED_POKEMON, bufferTam - sizeof(uint32_t), app_poke);
 
 											pthread_mutex_lock(&mutex_cola_appeared_pokemon);
@@ -579,6 +583,7 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 											loc_poke->id_mensaje = obtener_idMsj();
+											loc_poke->id_tracking = 0;
 											guardar_msj(LOCALIZED_POKEMON, bufferTam - sizeof(uint32_t), loc_poke);
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
 											list_add(cola_localized_pokemon, loc_poke);
