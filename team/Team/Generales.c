@@ -681,7 +681,7 @@ void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon
 	pthread_mutex_lock(&mxListaCatch);
 	for(int posicionPokemon = 0; posicionPokemon < list_size(listaCatchPokemon); posicionPokemon++) {
 		cola_CATCH_POKEMON* pokemonCatch = list_get(listaCatchPokemon, posicionPokemon);
-		if(pokemonCatch->id_mensaje == pokemonRecibido->id_mensaje) {
+		if(pokemonCatch->id_mensaje == pokemonRecibido->id_tracking) {
 			entrenador->proximaAccion = realloc(entrenador->proximaAccion,string_length("") + 1);
 			strcpy(entrenador->proximaAccion,"");
 			list_add(entrenador->pokemonesAtrapados, string_duplicate(pokemonCatch->nombre_pokemon));
@@ -1340,7 +1340,7 @@ void threadCaught(cola_CAUGHT_POKEMON* caug_poke) {
 	pthread_mutex_lock(&mutexColaBlocked);
 		for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaBlocked); posicionEntrenador++) {
 			entrenador = list_get(colaBlocked, posicionEntrenador);
-			if (caug_poke->id_mensaje == entrenador->idMsjEsperado) {
+			if (caug_poke->id_tracking == entrenador->idMsjEsperado) {
 				res = TRUE;
 			}
 		}
@@ -1713,7 +1713,7 @@ void thread_NewGameboy(int comandoNuevo){
 			//responde por caught_pokemon
 			deserealizar_CAUGHT_POKEMON(head, mensaje, bufferTam, caug_poke);
 			entrenadorPokemon* entrenador = malloc(sizeof(entrenadorPokemon));
-			int res = verificarMensajeRecibido(caug_poke->id_mensaje, entrenador);
+			int res = verificarMensajeRecibido(caug_poke->id_tracking, entrenador);
 			if (res == TRUE) {
 				if (caug_poke->atrapo_pokemon == OK) {
 					pthread_mutex_lock(&mxListaCatch);
