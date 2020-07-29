@@ -31,18 +31,6 @@ typedef enum {
 	GAMEBOY
 } modulos;
 
-typedef struct{
-	int token;
-	t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
-	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
-} suscriptor;
-
-typedef struct{
-	uint32_t ack;
-	uint32_t id_msj;
-	int token;
-}respuesta_ACK;
-
 
 
 void * buffer ;
@@ -59,13 +47,13 @@ int conectarCon(int fdServer , char * ipServer , int portServer,t_log* logger);
 void * recibirACK(int fdEmisor );
 
 void * serealizar(int head, void * mensaje ,  int tamanio);
+void deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke);
+void deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio, cola_CATCH_POKEMON* cat_poke);
 
-void * deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke);
-void * deserealizar_APPEARED_POKEMON (int head, void * buffer, int tamanio , cola_APPEARED_POKEMON * app_poke) ;
-void * deserealizar_CATCH_POKEMON (int head, void * buffer, int tamanio , cola_CATCH_POKEMON* cat_poke);
-void * deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
-void * deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
-void * deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
+void deserealizar_NEW_POKEMON (int head, void * buffer, int tamanio , cola_NEW_POKEMON * new_poke);
+void deserealizar_CAUGHT_POKEMON (int head, void * buffer, int tamanio , cola_CAUGHT_POKEMON* cau_poke) ;
+void deserealizar_GET_POKEMON (int head, void * buffer, int tamanio , cola_GET_POKEMON * get_poke) ;
+void deserealizar_LOCALIZED_POKEMON (int head, void * buffer, int tamanio , cola_LOCALIZED_POKEMON * loc_poke);
 
 int calcularTamanioMensaje(int head, void* mensaje);
 
