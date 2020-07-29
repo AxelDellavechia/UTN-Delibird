@@ -715,6 +715,7 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	strcpy(locPokemon.nombre_pokemon,get_poke->nombre_pokemon);
 	locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
 	locPokemon.id_mensaje = get_poke->id_mensaje;
+	locPokemon.id_tracking = get_poke->id_tracking;
 	locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
 
 	/*int socket = nuevoSocket();
@@ -750,6 +751,7 @@ void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
 	int result = CatchPokemon(catch_poke);
 	cola_CAUGHT_POKEMON caught_pokemon;
 	caught_pokemon.id_mensaje = catch_poke->id_mensaje;
+	caught_pokemon.id_tracking = catch_poke->id_tracking;
 	caught_pokemon.atrapo_pokemon = result;
 	/*int socket = nuevoSocket();
 	int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
@@ -774,6 +776,7 @@ void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 	if(result==OK){
 		cola_APPEARED_POKEMON appeared_pokemon;
 		appeared_pokemon.id_mensaje = new_poke->id_mensaje;
+		appeared_pokemon.id_tracking = new_poke->id_tracking;
 		appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke->nombre_pokemon));
 		strcpy(appeared_pokemon.nombre_pokemon,new_poke->nombre_pokemon);
 		appeared_pokemon.posicion_x = new_poke->posicion_x;
@@ -858,6 +861,7 @@ void thread_GameBoy(int fdSocket) {
 											int result = NewPokemon(&new_poke);
 											if(result==OK){
 												cola_APPEARED_POKEMON appeared_pokemon;
+												appeared_pokemon.id_tracking = new_poke.id_tracking;
 												appeared_pokemon.id_mensaje = new_poke.id_mensaje;
 												appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke.nombre_pokemon));
 												strcpy(appeared_pokemon.nombre_pokemon,new_poke.nombre_pokemon);
@@ -884,6 +888,7 @@ void thread_GameBoy(int fdSocket) {
 											pthread_mutex_unlock(&mxLog);
 											int result = CatchPokemon(&cath_poke);
 											cola_CAUGHT_POKEMON caught_pokemon;
+											caught_pokemon.id_tracking = cath_poke.id_tracking;
 											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
 											caught_pokemon.atrapo_pokemon = result;
 											int envio = aplicar_protocolo_enviar(fdSocket, CAUGHT_POKEMON, &caught_pokemon);
@@ -907,6 +912,7 @@ void thread_GameBoy(int fdSocket) {
 											locPokemon.nombre_pokemon = malloc (1 + string_length(get_poke.nombre_pokemon));
 											strcpy(locPokemon.nombre_pokemon,get_poke.nombre_pokemon);
 											locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
+											locPokemon.id_tracking = get_poke.id_tracking;
 											locPokemon.id_mensaje = get_poke.id_mensaje;
 
 											locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
@@ -1056,7 +1062,7 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 				printf("Error en el fopen\n");
 			}
 			int i;
-			for( i=0;i<cantidad;i++){
+			for( i=0;i<cantidad/32;i++){
 				if (fh != NULL) {
 						fwrite (&x, sizeof (x), 1, fh);
 				}
