@@ -15,6 +15,7 @@
 
 #include "../digiCommons/src/mensajeria.h"
 #include "../digiCommons/src/protocolos_comunicacion.h"
+#include "../digiCommons/src/generales.h"
 
 #define LOG_PATH "../GameBoyCatedra.log"
 #define LOG_PATH_INTERNO "../GameBoy.log"

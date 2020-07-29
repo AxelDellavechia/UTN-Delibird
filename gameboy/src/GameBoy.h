@@ -30,6 +30,8 @@ void comandoNoR();
 void catch(cola_CATCH_POKEMON * cat_poke , int idMsj,int argc, char *argv[] ) ;
 void new(cola_NEW_POKEMON * new_poke , int idMsj,int argc, char *argv[] );
 void get(cola_GET_POKEMON * get_poke , int idMsj,int argc, char *argv[] );
+void localized(cola_LOCALIZED_POKEMON * loc_poke , int idMsj,int argc, char *argv[] );
+void appeared(cola_APPEARED_POKEMON * app_poke , int idMsj,int argc, char *argv[] );
 
 
 #endif /* GAMEBOY_H_ */
