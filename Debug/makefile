@@ -31,7 +31,7 @@ all: tp-2020-1c-Digimon
 tp-2020-1c-Digimon: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -L"/home/utnso/Delibird/tp-2020-1c-Digimon/digiCommons/Debug" -L"/home/utnso/Delibird/so-commons-library/src/build" -o "tp-2020-1c-Digimon" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "tp-2020-1c-Digimon" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
