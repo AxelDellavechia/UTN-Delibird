@@ -338,7 +338,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 							cola_APPEARED_POKEMON app_poke;
 							deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
 							free(mensaje);
-							log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.id_mensaje ,app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
+							log_info(loggerCatedra,"Recibí de la suscripción -> APPEARED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.id_tracking ,app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
 							sendACK(fdCliente , app_poke.id_mensaje);
 							free(app_poke.nombre_pokemon);
 							break; }
@@ -348,7 +348,7 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 							cola_CAUGHT_POKEMON caug_poke ;
 							deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
 							free(mensaje);
-							log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
+							log_info(loggerCatedra,"Recibí de la suscripción -> CAUGHT_POKEMON : MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_tracking,caug_poke.atrapo_pokemon);
 							sendACK(fdCliente , caug_poke.id_mensaje);
 							break; }
 
@@ -358,8 +358,8 @@ int conexion = conectarCon(fdCliente, configGB->ipBroker, configGB->puertoBroker
 							deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
 							free(mensaje);
 							for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-							log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-							i++;
+							posicion * pos = list_get(loc_poke.lista_posiciones,i + 1);
+							log_info(loggerCatedra,"Recibí de la suscripción -> LOCALIZED_POKEMON : EL ID MSJ: %d  ->  POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.id_tracking,loc_poke.nombre_pokemon,loc_poke.cantidad,pos->posicion_x,pos->posicion_y);
 							}
 							sendACK(fdCliente , loc_poke.id_mensaje);
 							free(loc_poke.nombre_pokemon);

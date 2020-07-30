@@ -48,6 +48,8 @@ typedef struct ConfigFile{
 	int FRECUENCIA_COMPACTACION;
 } ConfigFile;
 
+int TAMANIO_EXTRA_MSJ ;
+
 typedef struct {
 	suscriptor * laSus;
 	int suSocket;
@@ -77,6 +79,7 @@ int comandoNuevo; // Socket de Escucha
 
 int frecuencia_compactacion;
 int32_t id_msj;
+int32_t id_tracking;
 int contador_msjs_en_cola;
 int puntero_reemplazo;
 int cantidad_liberaciones;
@@ -181,6 +184,7 @@ int32_t obtener_idMsj();
 _Bool buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 void procesarMsj(void * mensaje, int fdCliente, int head , int bufferTam );
 void liberarRecursos();
+int32_t obtener_idtracking();
 
 void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscriptores *laSus);
 

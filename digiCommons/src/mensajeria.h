@@ -12,6 +12,7 @@
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t  posicion_x;
@@ -21,6 +22,7 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t cantidad;
@@ -34,12 +36,14 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 }cola_GET_POKEMON;
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t posicion_x;
@@ -48,6 +52,7 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t posicion_x;
@@ -56,6 +61,7 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
@@ -70,7 +76,6 @@ typedef struct{
 	uint32_t ack;
 	uint32_t id_msj;
 	int token;
-	int head;
 }respuesta_ACK;
 
 #endif /* SRC_MENSAJERIA_H_ */

@@ -14,6 +14,7 @@
 
 typedef struct {
 	uint32_t id_msj;
+	uint32_t id_tracking;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
@@ -32,6 +33,7 @@ typedef enum {
 typedef struct {
 	_Bool esPadre;
 	uint32_t id_msj;
+	uint32_t id_tracking;
 	int tamano;
 	_Bool libre;
 	int colaAsignada;
