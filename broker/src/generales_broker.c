@@ -1156,17 +1156,16 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 				 log_info(logger,"La partición %d - %d tiene tiempo LRU %llu",laParti->punteroInicial,laParti->punteroFinal,laParti->tiempoLRU);
 
 					//pthread_mutex_unlock(&mutex_logs);
+				int cola = laParti->colaAsignada ;
+				if ( cola != CAUGHT_POKEMON || cola != APPEARED_POKEMON || cola != LOCALIZED_POKEMON ) envidoDesdeCache(laParti ,cola  , laParti->id_msj , laSus);
+				else envidoDesdeCache(laParti ,cola  , laParti->id_tracking , laSus);
 
-				envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
 				if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
+
 					laParti->tiempoLRU = obtener_timestamp() ;
-
 					//pthread_mutex_lock(&mutex_logs);
-
 					log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
-
 					//pthread_mutex_unlock(&mutex_logs);
-
 				}
 			}
 			 reenvieMsj=false;
@@ -1182,16 +1181,15 @@ void reenviarMsjCache(losSuscriptores * laSus) {
 
 					//pthread_mutex_unlock(&mutex_logs);
 
-				 envidoDesdeCache(laParti , laParti->colaAsignada , laParti->id_msj , laSus);
+					int cola = laParti->colaAsignada ;
+					if ( cola != CAUGHT_POKEMON || cola != APPEARED_POKEMON || cola != LOCALIZED_POKEMON ) envidoDesdeCache(laParti ,cola  , laParti->id_msj , laSus);
+					else envidoDesdeCache(laParti , cola  , laParti->id_tracking , laSus);
+
 					if(strcasecmp(config_File->ALGORITMO_REEMPLAZO,"LRU")==0 && reenvieMsj) {
 							laParti->tiempoLRU = obtener_timestamp() ;
-
 							//pthread_mutex_lock(&mutex_logs);
-
 							log_info(logger,"se actulizo el tiempo LRU %llu de la partición %d - %d ",laParti->tiempoLRU,laParti->punteroInicial,laParti->punteroFinal);
-
 							//pthread_mutex_unlock(&mutex_logs);
-
 						}			 }
 			reenvieMsj=false;
 			pthread_mutex_unlock(&mutex_lista_particiones);
