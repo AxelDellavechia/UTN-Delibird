@@ -368,6 +368,7 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 	cola_CAUGHT_POKEMON * cau_poke = (cola_CAUGHT_POKEMON * ) malloc(sizeof(cola_CAUGHT_POKEMON));
 
 	cau_poke->id_mensaje = atoi(argv[3]);
+	cau_poke->id_tracking = 0 ;
 
 	int enviado;
 	int head ; int tamanioMensaje;
@@ -420,7 +421,8 @@ int prc_caught_pokemon( char * comando,int argc, char *argv[] , char * modulo , 
 
 void catch(cola_CATCH_POKEMON * cat_poke , int idMsj,int argc, char *argv[] ){
 
-	cat_poke->id_mensaje = idMsj ;
+	cat_poke->id_mensaje = 0 ;
+	cat_poke->id_tracking = idMsj ;
 	cat_poke->nombre_pokemon = strdup(argv[3]);
 	cat_poke->tamanio_nombre = string_length(cat_poke->nombre_pokemon ) ;
 	cat_poke->posicion_x = atoi(argv[4]) ;
@@ -496,7 +498,8 @@ int prc_catch_pokemon( char * comando,int argc, char *argv[] , char * modulo , c
 
 void appeared(cola_APPEARED_POKEMON * app_poke , int idMsj,int argc, char *argv[] ) {
 
-	app_poke->id_mensaje = idMsj ;
+	app_poke->id_mensaje = 0 ;
+	app_poke->id_tracking = idMsj ;
 	app_poke->nombre_pokemon = strdup(argv[3]);
 	app_poke->tamanio_nombre = string_length(app_poke->nombre_pokemon);
 	app_poke->posicion_x = atoi(argv[4]) ;
@@ -570,7 +573,8 @@ int prc_appeared_pokemon( char * comando,int argc, char *argv[] , char * modulo 
 
 void new(cola_NEW_POKEMON * new_poke , int idMsj,int argc, char *argv[] ){
 
-	new_poke->id_mensaje = idMsj ;
+	new_poke->id_mensaje = 0 ;
+	new_poke->id_tracking = idMsj ;
 	new_poke->nombre_pokemon = strdup(argv[3]);
 	new_poke->tamanio_nombre = string_length(new_poke->nombre_pokemon ) ;
 	new_poke->posicion_x = atoi(argv[4]) ;
@@ -648,7 +652,8 @@ void localized(cola_LOCALIZED_POKEMON * loc_poke , int idMsj,int argc, char *arg
 
 	loc_poke->lista_posiciones = list_create(); // 16
 
-	loc_poke->id_mensaje = idMsj  ; //4
+	loc_poke->id_mensaje = 0  ;
+	loc_poke->id_tracking = idMsj  ;//4
 	loc_poke->cantidad = atoi(argv[4]) ; // 4
 	loc_poke->nombre_pokemon = strdup(argv[3]);//  "raichu" 6
 
@@ -798,7 +803,9 @@ void liberarRecursosComunes(){
 
 void get(cola_GET_POKEMON * get_poke , int idMsj,int argc, char *argv[] ){
 
-		get_poke->id_mensaje = idMsj ;
+		get_poke->id_mensaje = 0 ;
+
+		get_poke->id_tracking = idMsj ;
 
 		get_poke->nombre_pokemon = strdup(argv[3]);
 

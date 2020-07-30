@@ -16,10 +16,12 @@ void deserealizar_mem_NEW_POKEMON ( void * laParti , cola_NEW_POKEMON * new_poke
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 				new_poke->id_mensaje = laPartiBS->id_msj ;
+				new_poke->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 				new_poke->id_mensaje = laPartiComun->id_msj ;
+				new_poke->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	}
 
@@ -54,10 +56,12 @@ void deserealizar_mem_APPEARED_POKEMON ( void * laParti , cola_APPEARED_POKEMON 
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 				app_poke->id_mensaje = laPartiBS->id_msj ;
+				app_poke->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 				app_poke->id_mensaje = laPartiComun->id_msj ;
+				app_poke->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	}
 
@@ -95,10 +99,12 @@ void deserealizar_mem_CATCH_POKEMON ( void * laParti , cola_CATCH_POKEMON * cat_
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 				cat_poke->id_mensaje = laPartiBS->id_msj ;
+				cat_poke->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 				cat_poke->id_mensaje = laPartiComun->id_msj ;
+				cat_poke->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	}
 
@@ -128,10 +134,12 @@ void deserealizar_mem_CAUGHT_POKEMON ( void * laParti , cola_CAUGHT_POKEMON * ca
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 				cau_poke->id_mensaje = laPartiBS->id_msj ;
+				cau_poke->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 				cau_poke->id_mensaje = laPartiComun->id_msj ;
+				cau_poke->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	};
 
@@ -150,10 +158,12 @@ void deserealizar_mem_GET_POKEMON ( void * laParti , cola_GET_POKEMON * get_poke
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 				get_poke->id_mensaje = laPartiBS->id_msj ;
+				get_poke->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 				get_poke->id_mensaje = laPartiComun->id_msj ;
+				get_poke->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	}
 				get_poke->nombre_pokemon = malloc(1);
@@ -178,10 +188,12 @@ void deserealizar_mem_LOCALIZED_POKEMON ( void * laParti ,  cola_LOCALIZED_POKEM
 	if(strcasecmp(config_File->ALGORITMO_MEMORIA,"BS") == 0) {
 		Particion_bs * laPartiBS = laParti ;
 		loc_poke_des->id_mensaje = laPartiBS->id_msj ;
+		loc_poke_des->id_tracking = laPartiBS->id_tracking ;
 		desplazamiento =laPartiBS->punteroInicial ;
 	} else{
 		Particion  * laPartiComun = laParti ;
 		loc_poke_des->id_mensaje = laPartiComun->id_msj ;
+		loc_poke_des->id_tracking = laPartiComun->id_tracking ;
 		desplazamiento =laPartiComun->punteroInicial ;
 	}
 

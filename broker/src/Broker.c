@@ -290,15 +290,17 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 					pthread_mutex_lock(&mxBuffer);
 
-					int tamSeria = tamano + sizeof(uint32_t) ;
+					int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 					void * buffer = serealizar(head, msj, tamSeria );
 
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
+					memcpy(&particion_select->id_tracking, buffer + sizeof(uint32_t), sizeof(uint32_t));
 
-					memcpy(memoria_cache+particion_select->punteroInicial, buffer + sizeof(uint32_t), tamano);
+
+					memcpy(memoria_cache+particion_select->punteroInicial, buffer + TAMANIO_EXTRA_MSJ, tamano);
 
 					free(buffer);
 					pthread_mutex_unlock(&mutex_memoria_cache);
@@ -363,19 +365,20 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 			pthread_mutex_lock(&mxBuffer);
 
-			int tamSeria = tamano + sizeof(uint32_t) ;
+			int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 			void * buffer = serealizar(head, msj, tamSeria );
 
 			pthread_mutex_unlock(&mxBuffer);
 
-			memcpy(&partSelected->id_msj, buffer , sizeof(uint32_t));
+			memcpy(&partSelected->id_msj, buffer, sizeof(uint32_t));
+			memcpy(&partSelected->id_tracking, buffer + sizeof(uint32_t), sizeof(uint32_t));
 
 			//int basura = tamano_buddy - tamano - sizeof(uint32_t) ;
 
 			//memset( buffer + (tamano - sizeof(uint32_t)),'\0',basura );
 
-			memcpy(memoria_cache+partSelected->punteroInicial, buffer + sizeof(uint32_t) , tamano); //ojo aca, porque el buffer mide menos
+			memcpy(memoria_cache+partSelected->punteroInicial, buffer + TAMANIO_EXTRA_MSJ , tamano); //ojo aca, porque el buffer mide menos
 
 			free(buffer);
 
@@ -389,6 +392,7 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			pthread_mutex_unlock(&mutex_lista_particiones);
 		}
+
 
 		pthread_mutex_unlock(&mutex_memoria_cache);
 		pthread_mutex_unlock(&mutex_lista_particiones);
@@ -413,8 +417,8 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 void consolidar_bs(Particion_bs * particion_liberada){
 
 
-	Particion_bs* partBuddy ;//= malloc (sizeof(Particion_bs));
-	Particion_bs* partPadre ;//= malloc (sizeof(Particion_bs));
+	Particion_bs* partBuddy ;
+	Particion_bs* partPadre ;
 
 	_Bool esPadre(Particion_bs * particion) {return particion->esPadre  && particion->tamano == (particion_liberada->tamano + partBuddy->tamano) && particion->punteroInicial == particion_liberada->punteroInicial && particion->punteroFinal == partBuddy->punteroFinal; }
 
@@ -503,6 +507,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 	pthread_mutex_lock(&mutex_memoria_cache);
 
 	_Bool esHojaLibre(Particion_bs * particion) {return !particion->esPadre && particion->libre && particion->tamano >= tamano;}
+
 	t_list * lista_hijos = list_filter(lista_particiones, (void*)esHojaLibre);
 	_Bool encontro_particion = list_any_satisfy(lista_hijos, (void*)esHojaLibre);
 	_Bool ordenar(Particion_bs* a, Particion_bs* b){return a->tamano < b->tamano;}
@@ -510,22 +515,27 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 	Particion_bs * particion_select =list_get(lista_hijos, 0);
 
+
 	if(encontro_particion){
 		if(particion_select->tamano == tamano){
+
 					particion_select->tamano = tamano;
 					particion_select->libre = false;
 					particion_select->colaAsignada = head;
 					particion_select->tiempoLRU = obtener_timestamp();
 
 					pthread_mutex_lock(&mxBuffer);
-					int tamSeria = tamano + sizeof(uint32_t) ;
+
+					int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 					void * buffer = serealizar(head, msj, tamSeria );
 					pthread_mutex_unlock(&mxBuffer);
 
 					memcpy(&particion_select->id_msj, buffer, sizeof(uint32_t));
+					memcpy(&particion_select->id_tracking, buffer + sizeof(uint32_t), sizeof(uint32_t));
 
-					memcpy(memoria_cache+particion_select->punteroInicial, buffer + sizeof(uint32_t), tamano);
+
+					memcpy(memoria_cache+particion_select->punteroInicial, buffer + TAMANIO_EXTRA_MSJ, tamano);
 
 					free(buffer);
 
@@ -589,20 +599,23 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 			partSelected->tiempoLRU = obtener_timestamp();
 
 			pthread_mutex_lock(&mxBuffer);
-			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&partSelected->id_msj, buffer , sizeof(uint32_t));
+			memcpy(&partSelected->id_tracking, buffer + sizeof(uint32_t), sizeof(uint32_t));
 
-			memcpy(memoria_cache+partSelected->punteroInicial, buffer + sizeof(uint32_t) , tamano); //ojo aca, porque el buffer mide menos
+			memcpy(memoria_cache+partSelected->punteroInicial, buffer + TAMANIO_EXTRA_MSJ , tamano); //ojo aca, porque el buffer mide menos
 
 			//pthread_mutex_lock(&mutex_logs);
 
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",partSelected->id_msj, partSelected->punteroInicial, partSelected->punteroFinal, partSelected->tamano);
 
 			//pthread_mutex_unlock(&mutex_logs);
+
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			pthread_mutex_unlock(&mutex_lista_particiones);
@@ -622,7 +635,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
-	Particion * aux_particion; // = malloc(sizeof(Particion));
+	Particion * aux_particion;
 
 	int index = 0;
 	_Bool encontro_particion = false;
@@ -685,18 +698,20 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			list_add(lista_particiones, aux_particion);
 
 			pthread_mutex_lock(&mxBuffer);
-			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
+			memcpy(&aux_particion->id_tracking, buffer +  sizeof(uint32_t), sizeof(uint32_t));
 
 			pthread_mutex_unlock(&mutex_lista_particiones);
 
 			pthread_mutex_lock(&mutex_memoria_cache);
 
-			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + sizeof(uint32_t) , tamano);
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + TAMANIO_EXTRA_MSJ , tamano);
 
 			//imprimirCache(head , aux_particion);
 
@@ -728,17 +743,19 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			aux_particion->tiempoLRU = obtener_timestamp(); //obtener Timestamp
 
 			pthread_mutex_lock(&mxBuffer);
-			int tamSeria = tamano + sizeof(uint32_t) ;
+
+			int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 			void * buffer = serealizar(head, msj, tamSeria );
 			pthread_mutex_unlock(&mxBuffer);
 
 
 			memcpy(&aux_particion->id_msj,buffer, sizeof(uint32_t));
+			memcpy(&aux_particion->id_tracking, buffer + sizeof(uint32_t), sizeof(uint32_t));
 
 			pthread_mutex_lock(&mutex_memoria_cache);
 
-			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + sizeof(uint32_t) , tamano);
+			memcpy(memoria_cache+aux_particion->punteroInicial, buffer + TAMANIO_EXTRA_MSJ , tamano);
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 
@@ -824,17 +841,19 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		particionBestFit->tiempoLRU = obtener_timestamp();
 
 		pthread_mutex_lock(&mxBuffer);
-		int tamSeria = tamano + sizeof(uint32_t) ;
+
+		int tamSeria = tamano + TAMANIO_EXTRA_MSJ ;
 
 		void * buffer = serealizar(head, msj, tamSeria );
 		pthread_mutex_unlock(&mxBuffer);
 
 		memcpy(&particionBestFit->id_msj,buffer, sizeof(uint32_t));
+		memcpy(&particionBestFit->id_tracking, buffer + sizeof(uint32_t) , sizeof(uint32_t));
 
 
 		pthread_mutex_lock(&mutex_memoria_cache);
 
-		memcpy(memoria_cache+particionBestFit->punteroInicial, buffer + sizeof(uint32_t) , tamano);
+		memcpy(memoria_cache+particionBestFit->punteroInicial, buffer + TAMANIO_EXTRA_MSJ , tamano);
 
 
 		pthread_mutex_unlock(&mutex_memoria_cache);
@@ -989,6 +1008,7 @@ void algoritmo_fifo()
 		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
+		particion_victima->id_tracking = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
 		particion_victima->tiempoLRU = LRU_MAX;
@@ -1013,6 +1033,7 @@ void algoritmo_fifo()
 		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
+		particion_victima->id_tracking = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
 		particion_victima->tiempoLRU = LRU_MAX;
@@ -1046,6 +1067,7 @@ void algoritmo_lru()
 		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
+		particion_victima->id_tracking = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
 		particion_victima->tiempoLRU = LRU_MAX;
@@ -1073,6 +1095,7 @@ void algoritmo_lru()
 		//pthread_mutex_unlock(&mutex_logs);
 
 		particion_victima->id_msj = 0;
+		particion_victima->id_tracking = 0;
 		particion_victima->libre = true;
 		particion_victima->colaAsignada = 0;
 		particion_victima->tiempoLRU = LRU_MAX;
@@ -1129,6 +1152,7 @@ void consolidar(Particion * particion_liberada) {
 
 
 }
+
 
 void dumpMemoria (int senial) {
 
