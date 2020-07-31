@@ -576,12 +576,16 @@ while(true){
 											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
+											if(loc_poke->cantidad > 0){
+												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , sin posiciones y cantidad",loc_poke->nombre_pokemon);
+											}
+											else{
+												for (int i = 0 ; i < loc_poke->cantidad; i++)
+												{
+													posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
 
-											for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++)
-											{
-												posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
-
-												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
+													log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
+												}
 											}
 
 											pthread_mutex_unlock(&mutex_logs);
@@ -1108,6 +1112,12 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , loc_poke);
 
 											free(loc_poke->nombre_pokemon);
+
+											for(int i=0 ; i < loc_poke->cantidad ; i++){
+												posicion * loc_poke_posi = list_get(loc_poke->lista_posiciones ,i);
+											  list_remove(loc_poke->lista_posiciones,0);
+											  free(loc_poke_posi);
+											}
 
 											free(loc_poke);
 											break;
