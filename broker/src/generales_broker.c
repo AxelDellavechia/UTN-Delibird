@@ -37,6 +37,7 @@ void iniciar_estructuras(){
 	suscriptores_catch_pokemon = list_create();
 	suscriptores_caught_pokemon = list_create();
 	//SE CREAN LAS LISTAS PARA LAS COLAS DE MSJS
+
 	cola_new_pokemon = list_create();
 	cola_localized_pokemon = list_create();
 	cola_get_pokemon = list_create();
@@ -44,7 +45,7 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
-	caught_pokemon_pendientes = list_create();
+	//caught_pokemon_pendientes = list_create();
 
 
 	//desplazamientoCache = 0 ;
@@ -151,7 +152,8 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
-	//free(suscripcionC->laSus);
+	list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	free(suscripcionC->laSus);
 	free(suscripcionC);
 	//pthread_mutex_unlock(&mutex_suscripcion);
 
@@ -160,7 +162,7 @@ void liberarRecursos(){
 	int tamLista = list_size(lista_ack);
 
 	for(int i=0 ; i < tamLista ; i++){
-	  respuesta_ACK * elack = list_get(lista_ack,i);
+	  respuesta_ACK * elack = list_get(lista_ack,0);
 	  list_remove(lista_ack,0);
 	  free(elack);
 	}
@@ -175,13 +177,13 @@ void liberarRecursos(){
 	tamLista = list_size(lista_particiones) ;
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
 		for(int i=0 ; i < tamLista ; i++){
-			  Particion * laParti = list_get(lista_particiones,i);
+			  Particion * laParti = list_get(lista_particiones,0);
 			  free(laParti);
 			  list_remove(lista_particiones,0);
 			}
 		}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
 			for(int i=0 ; i < tamLista ; i++){
-			  Particion_bs * laParti = list_get(lista_particiones,i);
+			  Particion_bs * laParti = list_get(lista_particiones,0);
 			  free(laParti);
 			  list_remove(lista_particiones,0);
 			}
@@ -275,12 +277,12 @@ void consola() {
 
 	pthread_detach(hilo_servidor);
 	pthread_detach(hilo_Publisher);
-/*
-	for(int i=0 ; i < contadorHilos ; i++){
+
+	/*for(int i=0 ; i < contadorHilos ; i++){
 		pthread_cancel(hilo);
 		pthread_detach(hilo);
-	}
-*/
+	}*/
+
 	pthread_mutex_unlock(&mxHilos);
 
 	log_info(logger,"Finalice todos los hilos");
@@ -339,6 +341,8 @@ void servidor() {
 		pthread_mutex_lock(&mxHilos);
 
 			pthread_create(&hilo, NULL, (void*) thread_Broker,(int *) comandoNuevo);
+			//contadorHilos++;
+			//pthread_join(hilo,NULL);
 
 		pthread_mutex_unlock(&mxHilos);
 
@@ -357,6 +361,7 @@ while(true){
 		pthread_mutex_lock(&mxHilos);
 		pthread_detach( pthread_self() );
 		pthread_mutex_unlock(&mxHilos);
+		//contadorHilos--;
 		return false;
 	}else{
 
@@ -676,8 +681,6 @@ while(true){
 
 											reenviarMsjCache(suscripcionC);
 
-											list_destroy(suscripcionC->laSus->cola_a_suscribir);
-
 											pthread_mutex_unlock(&mutex_suscripcion);
 
 											break;
@@ -692,12 +695,14 @@ while(true){
 
 											break;
 									}
+							free(mensaje);
 					}
 
 	}
 
 	pthread_mutex_lock(&mxHilos);
 	pthread_detach( pthread_self() );
+	//contadorHilos--;
 	pthread_mutex_unlock(&mxHilos);
 }
 
