@@ -322,9 +322,11 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 			if (posicionXEntrenador < posicionXDestino) {
 				posicionXEntrenador++;
 				ciclosEnCPUEntrenador++;
+				log_info(logger, "El entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, posicionXEntrenador, entrenador->posicion_y);
 			} else if (posicionXEntrenador > posicionXDestino) {
 				posicionXEntrenador--;
 				ciclosEnCPUEntrenador++;
+				log_info(logger, "El entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, posicionXEntrenador, entrenador->posicion_y);
 			} else {
 				moverEntrenadorEnX = FALSE;
 			}
@@ -338,9 +340,11 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 			if (posicionYEntrenador < posicionYDestino) {
 				posicionYEntrenador++;
 				ciclosEnCPUEntrenador++;
+				log_info(logger, "El entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, posicionYEntrenador);
 			} else if (posicionYEntrenador > posicionYDestino) {
 				posicionYEntrenador--;
 				ciclosEnCPUEntrenador++;
+				log_info(logger, "El entrenador %i se movió a la posición %i %i", entrenador->idEntrenador, entrenador->posicion_x, posicionYEntrenador);
 			} else {
 				moverEntrenadorEnY = FALSE;
 			}
@@ -1209,55 +1213,51 @@ void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
 
 		posicionPokemon* newPoke = malloc(sizeof(posicionPokemon));
 		newPoke->posiciones = list_create();
-					posicion* pos = malloc(sizeof(posicion));
-					pos->posicion_x = app_poke->posicion_x;
-					pos->posicion_y = app_poke->posicion_y;
-					list_add(newPoke->posiciones,pos);
-					newPoke->tipoPokemon = malloc(1+string_length(app_poke->nombre_pokemon));
-					strcpy(newPoke->tipoPokemon,app_poke->nombre_pokemon);
-
-					_Bool pokeSeleccionado = true;
-							//desBloquearSemaforoEnt(colaNew,1);
-					pthread_mutex_lock(&mxListaCatch);
-					pthread_mutex_lock(&mxListaEjecutando);
-					//AHORA VERIFICO SI EL POKEMON BUSCADO NO ESTÁ EN CATCH O EJECUTANDOSE (NO DEBERÍAN)
-					entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
-					seleccionarEntrenadorMasCercano(newPoke,pos, proximoEntrenadorEnEjecutar);
-					pthread_mutex_unlock(&mxListaCatch);
-					pthread_mutex_unlock(&mxListaEjecutando);
-					char* pos_x = string_itoa(pos->posicion_x);
-					char* pos_y = string_itoa(pos->posicion_y);
-					char* proximaAccionEntrenador = malloc(string_length("AtraparPokemon   ") + string_length(newPoke->tipoPokemon) + string_length(pos_x) + string_length(pos_y) + 1);
-					strcpy(proximaAccionEntrenador, "AtraparPokemon ");
-					strcat(proximaAccionEntrenador, newPoke->tipoPokemon);
-					strcat(proximaAccionEntrenador, " ");
-					strcat(proximaAccionEntrenador, pos_x);
-					strcat(proximaAccionEntrenador, " ");
-					strcat(proximaAccionEntrenador, pos_y);
-					//string_append_with_format(&proximaAccionEntrenador, "AtraparPokemon %s %i %i", app_poke.nombre_pokemon, app_poke.posicion_x, app_poke.posicion_y);
-					proximoEntrenadorEnEjecutar->proximaAccion = malloc(strlen(proximaAccionEntrenador) + 1);
-					strcpy(proximoEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
-					pthread_mutex_lock(&mutexColaReady);
-					list_add(colaReady, proximoEntrenadorEnEjecutar);
-
-					if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF con desalojo") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF sin desalojo")){
-						for(int i= 0; i<list_size(colaReady);i++){
-							entrenadorPokemon* ent = list_get(colaReady,i);
-							ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
-						}
-
-						_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
-						list_sort(colaReady, (void*)ordenarSJF);
-					}
-					pthread_mutex_unlock(&mutexColaReady);
-
-					free(pos_x);
-					free(pos_y);
-					free(proximaAccionEntrenador);
-					sem_post(&elementosEnReady);
-				} else {
-					sem_post(&entrenadoresLibres);
-				}
+		posicion* pos = malloc(sizeof(posicion));
+		pos->posicion_x = app_poke->posicion_x;
+		pos->posicion_y = app_poke->posicion_y;
+		list_add(newPoke->posiciones,pos);
+		newPoke->tipoPokemon = malloc(1+string_length(app_poke->nombre_pokemon));
+		strcpy(newPoke->tipoPokemon,app_poke->nombre_pokemon);
+		_Bool pokeSeleccionado = true;
+		//desBloquearSemaforoEnt(colaNew,1);
+		pthread_mutex_lock(&mxListaCatch);
+		pthread_mutex_lock(&mxListaEjecutando);
+		//AHORA VERIFICO SI EL POKEMON BUSCADO NO ESTÁ EN CATCH O EJECUTANDOSE (NO DEBERÍAN)
+		entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
+		seleccionarEntrenadorMasCercano(newPoke,pos, proximoEntrenadorEnEjecutar);
+		pthread_mutex_unlock(&mxListaCatch);
+		pthread_mutex_unlock(&mxListaEjecutando);
+		char* pos_x = string_itoa(pos->posicion_x);
+		char* pos_y = string_itoa(pos->posicion_y);
+		char* proximaAccionEntrenador = malloc(string_length("AtraparPokemon   ") + string_length(newPoke->tipoPokemon) + string_length(pos_x) + string_length(pos_y) + 1);
+		strcpy(proximaAccionEntrenador, "AtraparPokemon ");
+		strcat(proximaAccionEntrenador, newPoke->tipoPokemon);
+		strcat(proximaAccionEntrenador, " ");
+		strcat(proximaAccionEntrenador, pos_x);
+		strcat(proximaAccionEntrenador, " ");
+		strcat(proximaAccionEntrenador, pos_y);
+		//string_append_with_format(&proximaAccionEntrenador, "AtraparPokemon %s %i %i", app_poke.nombre_pokemon, app_poke.posicion_x, app_poke.posicion_y);
+		proximoEntrenadorEnEjecutar->proximaAccion = malloc(strlen(proximaAccionEntrenador) + 1);
+		strcpy(proximoEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
+		pthread_mutex_lock(&mutexColaReady);
+		list_add(colaReady, proximoEntrenadorEnEjecutar);
+		if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF con desalojo") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF sin desalojo")){
+			for(int i= 0; i<list_size(colaReady);i++){
+				entrenadorPokemon* ent = list_get(colaReady,i);
+				ent->estimacionUltimaRafaga = calcularRafagaCPU(ent);
+			}
+			_Bool ordenarSJF(entrenadorPokemon* a, entrenadorPokemon* b){return a->estimacionUltimaRafaga < b->estimacionUltimaRafaga;}
+			list_sort(colaReady, (void*)ordenarSJF);
+		}
+		pthread_mutex_unlock(&mutexColaReady);
+		free(pos_x);
+		free(pos_y);
+		free(proximaAccionEntrenador);
+		sem_post(&elementosEnReady);
+	} else {
+		sem_post(&entrenadoresLibres);
+	}
 	}
 
 
