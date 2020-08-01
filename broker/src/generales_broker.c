@@ -152,6 +152,9 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
+	list_destroy(suscripcionC->laSus->cola_a_suscribir);
+	free(suscripcionC->laSus);
+	free(suscripcionC);
 	//pthread_mutex_unlock(&mutex_suscripcion);
 
 
@@ -673,10 +676,6 @@ while(true){
 											//pthread_mutex_unlock(&mutex_memoria_cache);
 
 											reenviarMsjCache(suscripcionC);
-
-											list_destroy(suscripcionC->laSus->cola_a_suscribir);
-											free(suscripcionC->laSus);
-											free(suscripcionC);
 
 											pthread_mutex_unlock(&mutex_suscripcion);
 
