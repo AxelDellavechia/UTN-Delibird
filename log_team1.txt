@@ -1,59 +1,177 @@
-[INFO] 16:01:07:404 logCatedra.log/(4858:4858): Entrenador 0 creado y en cola de New
-[INFO] 16:01:07:404 logCatedra.log/(4858:4858): Entrenador 1 creado y en cola de New
-[INFO] 16:01:07:404 logCatedra.log/(4858:4858): Entrenador 2 creado y en cola de New
-[INFO] 16:01:07:430 logCatedra.log/(4858:4858): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:431 logCatedra.log/(4858:4858): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:431 logCatedra.log/(4858:4858): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:431 logCatedra.log/(4858:4858): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:440 logCatedra.log/(4858:4877): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:01:07:454 logCatedra.log/(4858:4879): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:01:07:457 logCatedra.log/(4858:4881): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 16:01:07:528 logCatedra.log/(4858:4898): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:531 logCatedra.log/(4858:4898): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  ,sin posiciones.
-[INFO] 16:01:07:540 logCatedra.log/(4858:4899): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:540 logCatedra.log/(4858:4899): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  ,sin posiciones.
-[INFO] 16:01:07:558 logCatedra.log/(4858:4901): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:562 logCatedra.log/(4858:4901): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Onix  ,sin posiciones.
-[INFO] 16:01:07:565 logCatedra.log/(4858:4903): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:07:565 logCatedra.log/(4858:4903): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Gengar  ,sin posiciones.
-[INFO] 16:01:56:613 logCatedra.log/(4858:4944): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:56:614 logCatedra.log/(4858:4944): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
-[INFO] 16:01:56:614 logCatedra.log/(4858:4944): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 16:01:56:662 logCatedra.log/(4858:4949): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:56:664 logCatedra.log/(4858:4949): Recibí en la cola APPEARED_POKEMON . POKEMON: Flareon  , CORDENADA X: 4 , CORDENADA Y: 6 
-[INFO] 16:01:56:667 logCatedra.log/(4858:4950): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:56:667 logCatedra.log/(4858:4950): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
-[INFO] 16:01:56:667 logCatedra.log/(4858:4950): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 16:01:56:670 logCatedra.log/(4858:4952): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:01:56:671 logCatedra.log/(4858:4952): Recibí en la cola APPEARED_POKEMON . POKEMON: Jolteon  , CORDENADA X: 2 , CORDENADA Y: 2 
-[INFO] 16:03:11:623 logCatedra.log/(4858:4872): Entrenador 2 se movió a la posición 9 9
-[INFO] 16:03:11:624 logCatedra.log/(4858:4872): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
-[INFO] 16:03:16:665 logCatedra.log/(4858:5000): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:03:16:668 logCatedra.log/(4858:5000): Pokemon atrapado: Pikachu id tracking:-1208404008 
-[INFO] 16:03:16:668 logCatedra.log/(4858:5000): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 24  , ATRAPO: 1
-[INFO] 16:03:41:647 logCatedra.log/(4858:4869): Entrenador 1 se movió a la posición 5 2
-[INFO] 16:03:41:647 logCatedra.log/(4858:4869): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
-[INFO] 16:03:46:708 logCatedra.log/(4858:5039): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:03:46:769 logCatedra.log/(4858:5039): Pokemon atrapado: Squirtle id tracking:-1264582592 
-[INFO] 16:03:46:774 logCatedra.log/(4858:5039): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 26  , ATRAPO: 1
-[INFO] 16:04:41:89 logCatedra.log/(4858:5090): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:94 logCatedra.log/(4858:5090): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
-[INFO] 16:04:41:94 logCatedra.log/(4858:5090): Entrenador 0 a cola de Ready por ser el más cercano
-[INFO] 16:04:41:125 logCatedra.log/(4858:5095): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:188 logCatedra.log/(4858:5097): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:188 logCatedra.log/(4858:5097): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
-[INFO] 16:04:41:188 logCatedra.log/(4858:5097): Entrenador 1 a cola de Ready por ser el más cercano
-[INFO] 16:04:41:189 logCatedra.log/(4858:5095): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
-[INFO] 16:04:41:199 logCatedra.log/(4858:5102): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:206 logCatedra.log/(4858:5102): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
-[INFO] 16:04:41:206 logCatedra.log/(4858:5102): Entrenador 2 a cola de Ready por ser el más cercano
-[INFO] 16:04:41:209 logCatedra.log/(4858:5104): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:255 logCatedra.log/(4858:5106): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:04:41:255 logCatedra.log/(4858:5106): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
-[INFO] 16:04:41:256 logCatedra.log/(4858:5104): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
-[INFO] 16:05:21:99 logCatedra.log/(4858:4867): Entrenador 0 se movió a la posición 2 8
-[INFO] 16:05:21:99 logCatedra.log/(4858:4867): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
-[INFO] 16:05:26:140 logCatedra.log/(4858:5128): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
-[INFO] 16:05:26:140 logCatedra.log/(4858:5128): Pokemon atrapado: Onix id tracking:-1254096832 
-[INFO] 16:05:26:140 logCatedra.log/(4858:5128): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 40  , ATRAPO: 1
-[INFO] 16:05:46:110 logCatedra.log/(4858:4869): Entrenador 1 se movió a la posición 5 5
+[INFO] 19:58:08:491 logCatedra.log/(13246:13246): Entrenador 0 creado y en cola de New
+[INFO] 19:58:08:491 logCatedra.log/(13246:13246): Entrenador 1 creado y en cola de New
+[INFO] 19:58:08:491 logCatedra.log/(13246:13246): Entrenador 2 creado y en cola de New
+[INFO] 19:58:08:511 logCatedra.log/(13246:13246): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:511 logCatedra.log/(13246:13246): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:512 logCatedra.log/(13246:13246): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:512 logCatedra.log/(13246:13246): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:515 logCatedra.log/(13246:13267): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:58:08:520 logCatedra.log/(13246:13269): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:58:08:531 logCatedra.log/(13246:13271): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 19:58:08:587 logCatedra.log/(13246:13286): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:603 logCatedra.log/(13246:13286): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Gengar  ,sin posiciones.
+[INFO] 19:58:08:611 logCatedra.log/(13246:13287): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:08:611 logCatedra.log/(13246:13287): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Onix  ,sin posiciones.
+[INFO] 19:58:13:533 logCatedra.log/(13246:13293): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:13:549 logCatedra.log/(13246:13293): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 19:58:13:549 logCatedra.log/(13246:13293): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 19:58:13:576 logCatedra.log/(13246:13296): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:58:13:583 logCatedra.log/(13246:13296): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 19:58:13:583 logCatedra.log/(13246:13296): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 19:58:17:551 logCatedra.log/(13246:13262): Entrenador 2 se movió a la posición 5 2
+[INFO] 19:58:17:551 logCatedra.log/(13246:13262): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 19:58:22:572 logCatedra.log/(13246:13313): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 19:59:23:521 logCatedra.log/(13246:13313): Pokemon atrapado: Squirtle id tracking:-1264582592 
+[INFO] 19:59:23:521 logCatedra.log/(13246:13313): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 24  , ATRAPO: 1
+[INFO] 19:59:31:532 logCatedra.log/(13246:13259): Entrenador 1 se movió a la posición 9 9
+[INFO] 19:59:31:532 logCatedra.log/(13246:13259): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 19:59:55:611 logCatedra.log/(13246:13362): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:02:00:68 logCatedra.log/(13246:13362): Pokemon atrapado: Pikachu id tracking:-1208403936 
+[INFO] 20:06:27:859 logCatedra.log/(13656:13656): Entrenador 0 creado y en cola de New
+[INFO] 20:06:27:859 logCatedra.log/(13656:13656): Entrenador 1 creado y en cola de New
+[INFO] 20:06:27:860 logCatedra.log/(13656:13656): Entrenador 2 creado y en cola de New
+[INFO] 20:06:27:878 logCatedra.log/(13656:13656): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:879 logCatedra.log/(13656:13656): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:880 logCatedra.log/(13656:13656): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:880 logCatedra.log/(13656:13656): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:885 logCatedra.log/(13656:13674): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:06:27:894 logCatedra.log/(13656:13676): Se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:06:27:902 logCatedra.log/(13656:13678): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:06:27:948 logCatedra.log/(13656:13693): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:960 logCatedra.log/(13656:13693): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Onix  ,sin posiciones.
+[INFO] 20:06:27:968 logCatedra.log/(13656:13694): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:27:969 logCatedra.log/(13656:13694): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Gengar  ,sin posiciones.
+[INFO] 20:06:32:910 logCatedra.log/(13656:13701): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:32:911 logCatedra.log/(13656:13701): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 20:06:32:911 logCatedra.log/(13656:13701): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 20:06:32:948 logCatedra.log/(13656:13704): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:06:32:950 logCatedra.log/(13656:13704): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 20:06:32:950 logCatedra.log/(13656:13704): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 20:06:36:911 logCatedra.log/(13656:13669): Entrenador 2 se movió a la posición 5 2
+[INFO] 20:06:36:911 logCatedra.log/(13656:13669): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:06:46:557 logCatedra.log/(13656:13719): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:07:28:288 logCatedra.log/(13656:13719): Pokemon atrapado: Squirtle id tracking:-1264582592 
+[INFO] 20:07:31:647 logCatedra.log/(13656:13667): Entrenador 1 se movió a la posición 9 9
+[INFO] 20:07:31:647 logCatedra.log/(13656:13667): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:07:38:3 logCatedra.log/(13656:13780): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:07:39:36 logCatedra.log/(13656:13719): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 24  , ATRAPO: 1
+[INFO] 20:07:56:834 logCatedra.log/(13656:13780): Pokemon atrapado: Pikachu id tracking:-1208404008 
+[INFO] 20:08:06:362 logCatedra.log/(13656:13780): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 26  , ATRAPO: 1
+[INFO] 20:08:21:147 logCatedra.log/(13656:13851): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:148 logCatedra.log/(13656:13851): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 20:08:21:148 logCatedra.log/(13656:13851): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 20:08:21:160 logCatedra.log/(13656:13852): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:161 logCatedra.log/(13656:13852): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 20:08:21:161 logCatedra.log/(13656:13852): Entrenador 0 a cola de Ready por ser el más cercano
+[INFO] 20:08:21:177 logCatedra.log/(13656:13856): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:182 logCatedra.log/(13656:13856): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 20:08:21:183 logCatedra.log/(13656:13856): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 20:08:21:191 logCatedra.log/(13656:13860): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:194 logCatedra.log/(13656:13860): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 20:08:21:200 logCatedra.log/(13656:13863): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:202 logCatedra.log/(13656:13863): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 20:08:21:210 logCatedra.log/(13656:13865): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:21:214 logCatedra.log/(13656:13865): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 20:08:28:151 logCatedra.log/(13656:13669): Entrenador 2 se movió a la posición 6 6
+[INFO] 20:08:28:152 logCatedra.log/(13656:13669): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:08:33:181 logCatedra.log/(13656:13875): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:08:56:777 logCatedra.log/(13656:13665): Entrenador 0 se movió a la posición 2 8
+[INFO] 20:08:56:777 logCatedra.log/(13656:13665): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:09:01:872 logCatedra.log/(13656:13908): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:09:19:993 logCatedra.log/(13656:13875): Pokemon atrapado: Gengar id tracking:-1264582592 
+[INFO] 20:09:19:993 logCatedra.log/(13656:13875): Se pasa entrenador 2 a estado Deadlock
+[INFO] 20:09:19:993 logCatedra.log/(13656:13875): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 40  , ATRAPO: 1
+[INFO] 20:09:32:547 logCatedra.log/(13656:13667): Entrenador 1 se movió a la posición 5 5
+[INFO] 20:09:32:547 logCatedra.log/(13656:13667): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:09:37:369 logCatedra.log/(13656:13908): Pokemon atrapado: Onix id tracking:8 
+[INFO] 20:09:38:365 logCatedra.log/(13656:13949): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:09:40:855 logCatedra.log/(13656:13908): Se pasa entrenador 0 a estado Deadlock
+[INFO] 20:09:40:855 logCatedra.log/(13656:13908): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 42  , ATRAPO: 1
+[INFO] 20:10:04:964 logCatedra.log/(13656:13949): Pokemon atrapado: Squirtle id tracking:9 
+[INFO] 20:11:10:802 logCatedra.log/(13656:13949): Se pasa entrenador 1 a estado Deadlock
+[INFO] 20:12:12:544 logCatedra.log/(13656:13949): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 44  , ATRAPO: 1
+[INFO] 20:24:17:476 logCatedra.log/(14393:14393): Entrenador 0 creado y en cola de New
+[INFO] 20:24:17:477 logCatedra.log/(14393:14393): Entrenador 1 creado y en cola de New
+[INFO] 20:24:17:478 logCatedra.log/(14393:14393): Entrenador 2 creado y en cola de New
+[INFO] 20:24:17:478 logCatedra.log/(14393:14393): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:479 logCatedra.log/(14393:14393): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:483 logCatedra.log/(14393:14393): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:489 logCatedra.log/(14393:14393): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:493 logCatedra.log/(14393:14411): Se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:24:17:494 logCatedra.log/(14393:14412): Se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:24:17:494 logCatedra.log/(14393:14413): Se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:24:17:557 logCatedra.log/(14393:14429): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:561 logCatedra.log/(14393:14429): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Onix  ,sin posiciones.
+[INFO] 20:24:17:562 logCatedra.log/(14393:14431): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:17:569 logCatedra.log/(14393:14431): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Gengar  ,sin posiciones.
+[INFO] 20:24:22:497 logCatedra.log/(14393:14437): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:22:498 logCatedra.log/(14393:14437): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 20:24:22:498 logCatedra.log/(14393:14437): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 20:24:22:556 logCatedra.log/(14393:14440): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:22:556 logCatedra.log/(14393:14440): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 20:24:22:556 logCatedra.log/(14393:14440): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 20:24:26:505 logCatedra.log/(14393:14404): Entrenador 2 se movió a la posición 5 2
+[INFO] 20:24:26:506 logCatedra.log/(14393:14404): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:24:31:543 logCatedra.log/(14393:14459): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:31:544 logCatedra.log/(14393:14459): Pokemon atrapado: Squirtle id tracking:-1298137024 
+[INFO] 20:24:31:544 logCatedra.log/(14393:14459): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 24  , ATRAPO: 1
+[INFO] 20:24:41:545 logCatedra.log/(14393:14403): Entrenador 1 se movió a la posición 9 9
+[INFO] 20:24:41:545 logCatedra.log/(14393:14403): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:24:46:563 logCatedra.log/(14393:14489): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:24:46:565 logCatedra.log/(14393:14489): Pokemon atrapado: Pikachu id tracking:24 
+[INFO] 20:24:46:566 logCatedra.log/(14393:14489): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 26  , ATRAPO: 1
+[INFO] 20:25:09:262 logCatedra.log/(14393:14530): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:263 logCatedra.log/(14393:14530): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 20:25:09:263 logCatedra.log/(14393:14530): Entrenador 0 a cola de Ready por ser el más cercano
+[INFO] 20:25:09:285 logCatedra.log/(14393:14533): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:285 logCatedra.log/(14393:14533): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 20:25:09:285 logCatedra.log/(14393:14533): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 20:25:09:303 logCatedra.log/(14393:14536): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:304 logCatedra.log/(14393:14536): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 20:25:09:304 logCatedra.log/(14393:14536): Entrenador 1 a cola de Ready por ser el más cercano
+[INFO] 20:25:09:325 logCatedra.log/(14393:14539): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:326 logCatedra.log/(14393:14539): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 20:25:09:343 logCatedra.log/(14393:14542): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:344 logCatedra.log/(14393:14542): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 20:25:09:374 logCatedra.log/(14393:14545): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:09:375 logCatedra.log/(14393:14545): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 20:25:17:269 logCatedra.log/(14393:14402): Entrenador 0 se movió a la posición 2 8
+[INFO] 20:25:17:269 logCatedra.log/(14393:14402): Se movió al entrenador id 0 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:25:22:287 logCatedra.log/(14393:14563): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:22:287 logCatedra.log/(14393:14563): Pokemon atrapado: Onix id tracking:-1298137024 
+[INFO] 20:25:22:287 logCatedra.log/(14393:14563): Se pasa entrenador 0 a estado Deadlock
+[INFO] 20:25:22:287 logCatedra.log/(14393:14563): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 40  , ATRAPO: 1
+[INFO] 20:25:24:286 logCatedra.log/(14393:14404): Entrenador 2 se movió a la posición 6 6
+[INFO] 20:25:24:286 logCatedra.log/(14393:14404): Se movió al entrenador id 2 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:25:29:293 logCatedra.log/(14393:14578): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:29:293 logCatedra.log/(14393:14578): Pokemon atrapado: Gengar id tracking:-1298137024 
+[INFO] 20:25:29:293 logCatedra.log/(14393:14578): Se pasa entrenador 2 a estado Deadlock
+[INFO] 20:25:29:293 logCatedra.log/(14393:14578): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 42  , ATRAPO: 1
+[INFO] 20:25:34:292 logCatedra.log/(14393:14403): Entrenador 1 se movió a la posición 5 5
+[INFO] 20:25:34:293 logCatedra.log/(14393:14403): Se movió al entrenador id 1 a la cola de Blocked a la espera del resultado del catch
+[INFO] 20:25:39:301 logCatedra.log/(14393:14589): Me conecte correctamente con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Pokemon atrapado: Squirtle id tracking:25 
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Se pasa entrenador 1 a estado Deadlock
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Inicia algoritmo de detección de deadlock
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Se detectó deadlock entre los entrenadores 0 y 2
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Se detectó deadlock entre los entrenadores 0 y 1
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Se detectó deadlock entre los entrenadores 2 y 1
+[INFO] 20:25:39:302 logCatedra.log/(14393:14589): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 44  , ATRAPO: 1
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Entrenador 0 se movió a la posición 5 5
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Se realizó el intercambio del pokemon Onix del entrenador 0 por el pokemon Squirtle del entrenador 1
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Se movió al entrenador de id 0 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Inicia algoritmo de detección de deadlock
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Se detectó deadlock entre los entrenadores 2 y 1
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Inicia algoritmo de detección de deadlock
+[INFO] 20:25:47:309 logCatedra.log/(14393:14402): Se detectó deadlock entre los entrenadores 2 y 1
+[INFO] 20:25:51:309 logCatedra.log/(14393:14404): Entrenador 2 se movió a la posición 5 5
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Se realizó el intercambio del pokemon Gengar del entrenador 2 por el pokemon Onix del entrenador 1
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Se movió al entrenador de id 2 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Se movió al entrenador de id 1 a Exit ya que atrapó a todos los Pokemon que tenía como objetivo
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Cantidad de ciclos de CPU totales: 85
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Cantidad de cambios de contexto realizados: 8
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Cantidad de ciclos de CPU realizados por entrenador:
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Entrenador 0 - Ciclos de CPU: 12
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Entrenador 2 - Ciclos de CPU: 9
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Entrenador 1 - Ciclos de CPU: 21
+[INFO] 20:25:51:310 logCatedra.log/(14393:14404): Deadlocks producidos y resueltos: 5
