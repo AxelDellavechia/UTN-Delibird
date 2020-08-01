@@ -693,7 +693,7 @@ void pokemonAtrapado(entrenadorPokemon* entrenador, cola_CAUGHT_POKEMON* pokemon
 				}
 			}
 			pthread_mutex_lock(&mutexLogCatedra);
-			log_info(loggerCatedra, "Pokemon atrapado: ", pokemonCatch->nombre_pokemon);
+			log_info(loggerCatedra, "Pokemon atrapado: %s id tracking:%d ", pokemonCatch->nombre_pokemon, pokemonCatch->id_tracking);
 			pthread_mutex_unlock(&mutexLogCatedra);
 			list_remove(listaCatchPokemon, posicionPokemon);
 			break;
@@ -1409,6 +1409,7 @@ void suscripcion_LOCALIZED_POKEMON() {
 				switch( head ){
 					case LOCALIZED_POKEMON :{
 						cola_LOCALIZED_POKEMON* loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON));
+						loc_poke->lista_posiciones =list_create();
 						deserealizar_LOCALIZED_POKEMON(head, mensaje, bufferTam, loc_poke);
 						pthread_t hilo_LOCALIZED;
 						pthread_create(&hilo_LOCALIZED, NULL, (void*) threadLocalized, loc_poke);
@@ -1431,11 +1432,13 @@ void suscripcion_LOCALIZED_POKEMON() {
 
 void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke) {
 	sendACK(loc_poke->id_mensaje);
+	if(loc_poke->cantidad >0){
 	if (mensajeNoRecibido(loc_poke) == TRUE) {
 
-		for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++){
+		for (int i = 0 ; i < loc_poke->cantidad; i++){
 			pthread_mutex_lock(&mutexLogCatedra);
-			log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,list_get(loc_poke->lista_posiciones,i),list_get(loc_poke->lista_posiciones,i + 1));
+			posicion* pos = list_get(loc_poke->lista_posiciones,i);
+			log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
 			pthread_mutex_unlock(&mutexLogCatedra);
 						//printf("Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d\n",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
 			i++;
@@ -1508,6 +1511,11 @@ void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke) {
 			sem_post(&entrenadoresLibres);
 		}
 		}
+	}
+	}else{
+		pthread_mutex_lock(&mutexLogCatedra);
+		log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  ,sin posiciones.",loc_poke->nombre_pokemon);
+		pthread_mutex_unlock(&mutexLogCatedra);
 	}
 }
 
