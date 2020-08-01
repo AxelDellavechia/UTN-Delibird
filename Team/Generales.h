@@ -22,6 +22,7 @@
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
 
+
 t_log* logger;
 t_log* loggerCatedra;
 t_list* objetivoTeam;
@@ -34,6 +35,8 @@ t_list* listaCatchPokemon;
 t_list* pokemonesBuscados;
 t_list* pokemonesEjecutando;
 
+t_config *config;
+int EXIT_TEAM;
 int fdBroker;
 int ciclosEnCPU;
 int fdTeam;
