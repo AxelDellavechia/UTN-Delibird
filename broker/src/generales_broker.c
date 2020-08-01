@@ -152,7 +152,6 @@ void liberarRecursos(){
 
 
 	//pthread_mutex_lock(&mutex_suscripcion);
-
 	//pthread_mutex_unlock(&mutex_suscripcion);
 
 
@@ -393,7 +392,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , ID_TRACKING: %d , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->id_tracking,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
+											log_info(loggerCatedra,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",ptro_new_poke->nombre_pokemon,ptro_new_poke->cantidad,ptro_new_poke->posicion_x,ptro_new_poke->posicion_y);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -428,7 +427,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , ID_TRACKING: %d , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon,cath_poke->posicion_x,cath_poke->posicion_y);
+											log_info(loggerCatedra,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke->nombre_pokemon,cath_poke->posicion_x,cath_poke->posicion_y);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -471,7 +470,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s, ID_TRACKING: %d ",get_poke->nombre_pokemon);
+											log_info(loggerCatedra,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke->nombre_pokemon);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -507,7 +506,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , ID_TRACKING: %d , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
+											log_info(loggerCatedra,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke->nombre_pokemon,app_poke->posicion_x,app_poke->posicion_y);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -542,7 +541,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . ID_TRACKING: %d , ATRAPO: %d",caug_poke->id_mensaje,caug_poke->atrapo_pokemon);
+											log_info(loggerCatedra,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke->id_mensaje,caug_poke->atrapo_pokemon);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -579,16 +578,12 @@ while(true){
 											//pthread_mutex_unlock(&desserializar);
 
 											pthread_mutex_lock(&mutex_logs);
-											if(loc_poke->cantidad == 0){
-												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , ID_TRACKING: %d , sin posiciones y cantidad",loc_poke->nombre_pokemon);
-											}
-											else{
-												for (int i = 0 ; i < loc_poke->cantidad; i++)
-												{
-													posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
 
-													log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , ID_TRACKING: %d , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
-												}
+											for (int i = 0 ; i < list_size(loc_poke->lista_posiciones); i++)
+											{
+												posicion * pos = list_get(loc_poke->lista_posiciones,i) ;
+
+												log_info(loggerCatedra,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke->nombre_pokemon,loc_poke->cantidad,pos->posicion_x,pos->posicion_y);
 											}
 
 											pthread_mutex_unlock(&mutex_logs);
@@ -624,7 +619,7 @@ while(true){
 
 											pthread_mutex_lock(&mutex_logs);
 
-											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_TRACKING: %d ",ack->token,ack->ack,ack->id_msj);
+											log_info(loggerCatedra,"Recibí un ACK del token %d con los siguientes datos ESTADO: %d ID_MSJ: %d ",ack->token,ack->ack,ack->id_msj);
 
 											pthread_mutex_unlock(&mutex_logs);
 
@@ -640,7 +635,6 @@ while(true){
 										case SUSCRIPCION :{
 
 											pthread_mutex_lock(&mutex_suscripcion);
-
 											suscripcionC = malloc(sizeof(losSuscriptores));
 											suscripcionC->laSus = malloc(sizeof(suscriptor));
 											suscripcionC->laSus->cola_a_suscribir = list_create();
@@ -680,13 +674,6 @@ while(true){
 
 											reenviarMsjCache(suscripcionC);
 
-											int tamLista = list_size(suscripcionC->laSus->cola_a_suscribir);
-
-											for(int i=0 ; i < tamLista ; i++){
-												int * laParti = list_get(lista_particiones,0);
-												 free(laParti);
-												list_remove(lista_particiones,0);
-											}
 											list_destroy(suscripcionC->laSus->cola_a_suscribir);
 											free(suscripcionC->laSus);
 											free(suscripcionC);
@@ -905,9 +892,6 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 		cola_GET_POKEMON * get_poke = mensaje ;
 		cola_LOCALIZED_POKEMON  * loc_poke = mensaje ;
 
-		int idMsj = new_poke->id_mensaje;
-		int idTracking = new_poke->id_tracking;
-
 		t_list * aux_lista_de_suscriptores = list_create();
 
 		switch( head ){
@@ -972,8 +956,6 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 					}
 					case CAUGHT_POKEMON :{
 						cola_CAUGHT_POKEMON  * cau_poke = mensaje ;
-						idMsj = cau_poke->id_mensaje;
-						idTracking = cau_poke->id_tracking;
 						enviados =  aplicar_protocolo_enviar(suscriptor->suSocket, head, cau_poke);
 						break;
 					}
@@ -1000,8 +982,8 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 
 				//pthread_mutex_lock(&mutex_logs);
 
-				log_info(loggerCatedra, "Se le envio el MSJ_ID %d , MSJ_ID_Tracking %d al Suscriptor -> Modulo: %s de la cola %s y token: %d", idMsj , idTracking , labsdevolverModulo(suscriptor->laSus->modulo), tipoMsjIntoToChar(head),suscriptor->laSus->token);
-				//log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
+				log_info(loggerCatedra, "Se le envio un Mensaje al Suscriptor -> Modulo: %s de la cola %s y token: %d", devolverModulo(suscriptor->laSus->modulo), tipoMsjIntoToChar(head),suscriptor->laSus->token);
+				log_info(logger,"Se puedo enviar correctamente el msj de la cola al suscriptor");
 
 				//pthread_mutex_unlock(&mutex_logs);
 
@@ -1017,7 +999,7 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 		if(head == LOCALIZED_POKEMON ){
 			int tamLista = list_size(loc_poke->lista_posiciones);
 			for(int i=0 ; i < tamLista ; i++){
-			  posicion * elack = list_get(loc_poke->lista_posiciones,0);
+			  posicion * elack = list_get(loc_poke->lista_posiciones,i);
 			  list_remove(loc_poke->lista_posiciones,0);
 			  free(elack);
 			}
@@ -1132,12 +1114,6 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , loc_poke);
 
 											free(loc_poke->nombre_pokemon);
-
-											for(int i=0 ; i < loc_poke->cantidad ; i++){
-												posicion * loc_poke_posi = list_get(loc_poke->lista_posiciones ,i);
-											  list_remove(loc_poke->lista_posiciones,0);
-											  free(loc_poke_posi);
-											}
 
 											free(loc_poke);
 											break;
