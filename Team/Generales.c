@@ -1141,6 +1141,8 @@ void consola() {
 
 	free(configFile->posicionEntrenadores);
 	free(configFile);
+	free(configFile->algoritmoPlanificacion);
+	free(configFile->ipBroker);
 	//config_destroy(config);
 	//free(hilo);
 
