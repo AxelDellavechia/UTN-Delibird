@@ -517,6 +517,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 
 	if(encontro_particion){
+
 		if(particion_select->tamano == tamano){
 
 					particion_select->tamano = tamano;
@@ -661,7 +662,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 			pthread_mutex_lock(&mutex_lista_particiones);
 
-			Particion * nueva_particion = malloc(sizeof(Particion));
+			nueva_particion = malloc(sizeof(Particion));
 
 			if( tamano >= config_File->TAMANO_MINIMO_PARTICION ) {
 
@@ -931,8 +932,9 @@ void compactacion(){
 	pthread_mutex_lock(&mutex_lista_particiones);
 	Particion* a = list_get(lista_particiones,j);
 		if(a->libre == TRUE){
-		free(a);
 		list_remove(lista_particiones,j);
+		free(a);
+
 		//cantidadElementos++;
 		//if(a->id_msj == 0) cantidad_particiones_liberadas++;
 		}else{
