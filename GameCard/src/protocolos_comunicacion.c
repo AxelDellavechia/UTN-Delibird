@@ -602,9 +602,14 @@ int calcularTamanioMensaje(int head, void* mensaje){
 		return tamanio;
 	}
 
+	if ( head == SUSCRIPCION) {
+		suscriptor * laSus = (suscriptor *) mensaje;
+		tamanio = sizeof(uint32_t) + sizeof(uint32_t) + ( sizeof(uint32_t) * list_size(laSus->cola_a_suscribir));
+		return tamanio;
+	}
+
 	cola_NEW_POKEMON * new_poke = (cola_NEW_POKEMON *) mensaje;
 	cola_LOCALIZED_POKEMON * loc_poke = (cola_LOCALIZED_POKEMON *) mensaje;
-	suscriptor * laSus = (suscriptor *) mensaje;
 
 	tamanio = tamanio + strlen(new_poke->nombre_pokemon) ;
 
@@ -621,13 +626,9 @@ int calcularTamanioMensaje(int head, void* mensaje){
 			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t);
 			break;
 		}
+
 		case GET_POKEMON: {
 			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) ;
-			break;
-		}
-
-		case SUSCRIPCION: {
-			tamanio = sizeof(uint32_t) + sizeof(uint32_t) + ( sizeof(uint32_t) * list_size(laSus->cola_a_suscribir));
 			break;
 		}
 

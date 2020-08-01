@@ -742,6 +742,7 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	free(get_poke->nombre_pokemon);
 	free(locPokemon.nombre_pokemon);
 	//free(locPokemon);
+	free(get_poke);
 	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
