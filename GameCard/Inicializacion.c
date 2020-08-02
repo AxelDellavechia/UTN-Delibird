@@ -1,36 +1,10 @@
 #include "Inicializacion.h"
 #include <commons/config.h>
 #include "src/sockets.h"
-<<<<<<< HEAD
-
-
-/*void leer_configFile(char* ruta) {
-
-
-	t_config *config;
-	char *ptrRuta = ruta;
-	config = config_create(ptrRuta);
-		if (config != NULL) {
-			config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
-			config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
-			config_File->PUNTO_MONTAJE_TALLGRASS = config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS");
-			config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
-			config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
-			config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
-			config_destroy(config);
-
-			crearPuntoMontaje();
-			leer_metaData_principal();
-		}
-
-
-}*/
-=======
 #include "src/mensajeria.h"
 #include "MetodosGC.h"
 
 
->>>>>>> origin/master
 
 void* reservarMemoria(int size) {
 	void *puntero = malloc(size);
@@ -45,25 +19,6 @@ void* reservarMemoria(int size) {
 
 void leer_configFile(char* ruta) {
 
-<<<<<<< HEAD
-	config_File = reservarMemoria(sizeof(ConfigFile));
-	t_config *config;
-	config = reservarMemoria (sizeof(t_config));
-	config = config_create(ruta);
-	log_info(logger, "Por setear los valores del archivo de configuracion");
-	if (config != NULL) {
-		log_info(logger, "FS: Leyendo Archivo de Configuracion..");
-
-		config_File->TIEMPO_DE_REINTENTO_CONEXION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_CONEXION");
-		config_File->TIEMPO_DE_REINTENTO_OPERACION = config_get_int_value(config, "TIEMPO_DE_REINTENTO_OPERACION");
-		config_File->PUNTO_MONTAJE_TALLGRASS = config_get_string_value(config, "PUNTO_MONTAJE_TALLGRASS");
-		config_File->IP_BROKER = config_get_string_value(config,"IP_BROKER");
-		config_File->PUERTO_BROKER = config_get_int_value(config,"PUERTO_BROKER");
-		config_File->PUERTO_GAMECARD = config_get_int_value(config,"PUERTO_GAMECARD");
-
-		}
-	//config_destroy(config);
-=======
 	config_File = malloc(1 + sizeof(ConfigFile));
 	t_config *config;
 	//config = malloc (1+sizeof(t_config));
@@ -97,19 +52,10 @@ void leer_configFile(char* ruta) {
 
 		}
 	config_destroy(config);
->>>>>>> origin/master
 	crearPuntoMontaje();
 	leer_metaData_principal();
 
 }
-<<<<<<< HEAD
-
-void crearPuntoMontaje()
-{
-		PuntoMontaje = malloc (sizeof(t_config_PuntosMontaje));
-
-		PuntoMontaje->PUNTOMONTAJE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
-=======
 void grabarToken(unsigned int token)
 {
 
@@ -134,18 +80,11 @@ void crearPuntoMontaje()
 		PuntoMontaje = malloc (  sizeof(t_config_PuntosMontaje));
 
 		PuntoMontaje->PUNTOMONTAJE = malloc ( 1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS));
->>>>>>> origin/master
 		PuntoMontaje->FILES = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Files/") ) ;
 		PuntoMontaje->BLOCKS = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Blocks/") ) ;
 		PuntoMontaje->METADATA = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/") ) ;
 		PuntoMontaje->METADATA_FILE = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Metadata.bin") ) ;
-<<<<<<< HEAD
-		PuntoMontaje->BITMAP = malloc (1 + string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
-
-
-=======
 		PuntoMontaje->BITMAP = malloc (1 +string_length(config_File->PUNTO_MONTAJE_TALLGRASS) + string_length("Metadata/Bitmap.bin") ) ;
->>>>>>> origin/master
 
 		strcpy(PuntoMontaje->PUNTOMONTAJE,config_File->PUNTO_MONTAJE_TALLGRASS);
 		//printf("puntoMontaje %s\n",configFile->puntoMontaje);
@@ -174,15 +113,6 @@ int leer_metaData_principal(){
 	string_append(&direccionArchivoMedata,PuntoMontaje->METADATA);
 	printf("direccionArchivoMedata: %s\n",direccionArchivoMedata);*/
 
-<<<<<<< HEAD
-	config_MetaData = reservarMemoria(sizeof(t_config_MetaData));
-
-	t_config *archivo_MetaData;
-
-	archivo_MetaData = reservarMemoria (sizeof(t_config));
-
-	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
-=======
 	config_MetaData = malloc (sizeof(t_config_MetaData));
 
 	t_config *archivo_MetaData;
@@ -191,24 +121,16 @@ int leer_metaData_principal(){
 	pthread_mutex_lock(&mxLog);
 	log_info(logger,"Ruta Archivo Metadata.bin -> %s", PuntoMontaje->METADATA_FILE);
 	pthread_mutex_unlock(&mxLog);
->>>>>>> origin/master
 
 	archivo_MetaData=config_create(PuntoMontaje->METADATA_FILE);
 
 	config_MetaData->cantidad_bloques=config_get_int_value(archivo_MetaData,"BLOCKS");
-<<<<<<< HEAD
-    config_MetaData->magic_number=string_duplicate(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
-	config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
-	//free(direccionArchivoMedata);
-	//config_destroy(archivo_MetaData);
-=======
     config_MetaData->magic_number= malloc(1 + string_length(config_get_string_value(archivo_MetaData,"MAGIC_NUMBER")));
     strcpy(config_MetaData->magic_number,config_get_string_value(archivo_MetaData,"MAGIC_NUMBER"));
     config_MetaData->tamanio_bloques=config_get_int_value(archivo_MetaData,"BLOCK_SIZE");
 	//free(direccionArchivoMedata);
 
 	config_destroy(archivo_MetaData);
->>>>>>> origin/master
 	return 0;
 }
 
@@ -216,15 +138,6 @@ void crearHilos() {
 
 
 	hilo_servidor= 0;
-<<<<<<< HEAD
-	hilo_consola= 0;
-
-
-	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
-	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
-
-	pthread_join(hilo_servidor, NULL);
-=======
 	//hilo_suscribir= 0;
 	hilo_consola= 0;
 	hilo_New=0;
@@ -240,7 +153,6 @@ void crearHilos() {
 
 	//pthread_join(hilo_suscribir, NULL);
 	//pthread_join(hilo_servidor, NULL);
->>>>>>> origin/master
 	pthread_join(hilo_consola, NULL);
 
 }
@@ -248,20 +160,14 @@ void crearHilos() {
 
 void iniciar_log(){
 	char *archivoLog = string_duplicate("GameCard.log");
-<<<<<<< HEAD
-	logger = log_create(LOG_PATH, archivoLog, false, LOG_LEVEL_INFO);
-=======
 	pthread_mutex_lock(&mxLog);
 	logger = log_create(LOG_PATH, archivoLog, false, LOG_LEVEL_INFO);
 	pthread_mutex_unlock(&mxLog);
->>>>>>> origin/master
 	free(archivoLog);
 	archivoLog = NULL;
 }
 
 
-<<<<<<< HEAD
-=======
 void inicializar_semaforos(){
 
 	  mxPokemones = malloc(sizeof(pthread_mutex_t)); //Este se inicializa cuando se agreguen nuevos
@@ -276,7 +182,6 @@ void inicializar_semaforos(){
 }
 
 
->>>>>>> origin/master
 
 
 void consola() {
@@ -289,109 +194,17 @@ void consola() {
 		printf(">");
 		int bytes_read = getline(&comando, &buffer_size, stdin);
 		if (bytes_read == -1) {
-<<<<<<< HEAD
-			log_error(logger,"Error en getline");
-=======
 			pthread_mutex_lock(&mxLog);
 			log_error(logger,"Error en getline");
 			pthread_mutex_unlock(&mxLog);
 
->>>>>>> origin/master
 		}
 		if (bytes_read == 1) {
 			continue;
 		}
 
 	}
-<<<<<<< HEAD
 
-	free(comando);
-/*
- *
- 	bitarray_destroy(bitarray);
-  log_destroy(logger);
-	pthread_detach(hilo_servidor);
-	pthread_detach( pthread_self() );
-	pthread_cancel(hilo_servidor);
-*/
-}
-
-/*
-void servidor() {
-
-	comandoIn = nuevoSocket();
-	asociarSocket(comandoIn, config_File->PUERTO_GAMECARD);
-	escucharSocket(comandoIn, CONEXIONES_PERMITIDAS);
-
-	fd_set setAux;
-	int maxFD,i,socket_nuevo;
-
-	FD_ZERO(&setMaestro); 	// borra los conjuntos maestro y temporal
-	FD_ZERO(&setAux);
-
-	maxFD = comandoIn; //Llevo control del FD maximo de los sockets
-	FD_SET(comandoIn, &setMaestro); //agrego el FD del socketEscucha al setMaestro
-
-
-	log_info(logger," Escuchando conexiones. Socket: %d\n",comandoIn);
-
-	while(TRUE) {
-		//pthread_mutex_lock(&mxSocketsFD);
-		setAux = setMaestro;
-		//pthread_mutex_unlock(&mxSocketsFD);
-
-				if (select((maxFD + 1), &setAux, NULL, NULL, NULL ) == -1) {
-					printf("Error en la escucha.\n");
-					log_error(logger,"Error en la escucha.\n" );
-					return;
-				}
-
-		int conexionNueva = 0;
-		int comandoNuevo;//= reservarMemoria(INT);
-
-		for (i = 0; i <= maxFD; i++) {
-			//		pthread_mutex_lock(&mxSocketsFD);
-					int check = FD_ISSET(i,&setAux);
-			//		pthread_mutex_unlock(&mxSocketsFD);
-					if (check) { // Me fijo en el set de descriptores a ver cual respondió
-						if (i == comandoIn) { //Tengo un nuevo hilo de Sac Cli queriendose conectar
-							//Esta funcion acepta una nueva conexion del Broker o del Gameboy
-							//y agrega un nuevo nodo a la lista de scripts con el nuevo socket
-
-							log_info(logger,"Nuevo Cliente Conectado");
-							comandoNuevo = aceptarConexionSocket(comandoIn);
-							if (comandoNuevo == -1){
-								return;
-							}
-
-							if( ! validar_conexion(conexionNueva, 0 , logger) ) {
-				//					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
-									FD_CLR(i, &setMaestro); // borra el file descriptor del set
-				//					pthread_mutex_unlock(&mxSocketsFD);
-									cerrarSocket(i);
-
-									continue; // vuelve al inicio del while
-							}else{
-					//				pthread_mutex_lock(&mxSocketsFD);
-									FD_SET(comandoNuevo, &setMaestro); //agrego el nuevo socket al setMaestro
-					//				pthread_mutex_unlock(&mxSocketsFD);
-									if (comandoNuevo > maxFD) maxFD = comandoNuevo;
-						}
-						}else { // Hay actividad nueva en algún socket conectado
-							//SI RECIBO TRUE EN CONEXIONNUEVA, ABRO UN HILO POR CADA UNO QUE SE CONECTE
-							pthread_t hilo_thread;
-							pthread_mutex_lock(&mxHilos);
-							pthread_create(&hilo_thread, NULL, (void*) thread_cliente, i);
-							pthread_mutex_unlock(&mxHilos);
-						}
-					}
-
-		}
-		//free(comandoNuevo);
-	}
-}
-*/
-=======
 	pthread_mutex_lock (&mxPokeList);
 	for(int i = 0;i<list_size(pokeList);i++){
 		t_Pokemones* poke = list_get(pokeList,i);
@@ -903,6 +716,7 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	strcpy(locPokemon.nombre_pokemon,get_poke->nombre_pokemon);
 	locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
 	locPokemon.id_mensaje = get_poke->id_mensaje;
+	locPokemon.id_tracking = get_poke->id_tracking;
 	locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
 
 	/*int socket = nuevoSocket();
@@ -929,6 +743,7 @@ void thread_GetPokemon(cola_GET_POKEMON* get_poke){
 	free(get_poke->nombre_pokemon);
 	free(locPokemon.nombre_pokemon);
 	//free(locPokemon);
+	free(get_poke);
 	pthread_cancel( pthread_self() );
 	pthread_detach( pthread_self() );
 }
@@ -938,6 +753,7 @@ void thread_CatchPokemon(cola_CATCH_POKEMON* catch_poke){
 	int result = CatchPokemon(catch_poke);
 	cola_CAUGHT_POKEMON caught_pokemon;
 	caught_pokemon.id_mensaje = catch_poke->id_mensaje;
+	caught_pokemon.id_tracking = catch_poke->id_tracking;
 	caught_pokemon.atrapo_pokemon = result;
 	/*int socket = nuevoSocket();
 	int conect  = conectarCon( socket,config_File->IP_BROKER,config_File->PUERTO_BROKER,logger);
@@ -962,6 +778,7 @@ void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 	if(result==OK){
 		cola_APPEARED_POKEMON appeared_pokemon;
 		appeared_pokemon.id_mensaje = new_poke->id_mensaje;
+		appeared_pokemon.id_tracking = new_poke->id_tracking;
 		appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke->nombre_pokemon));
 		strcpy(appeared_pokemon.nombre_pokemon,new_poke->nombre_pokemon);
 		appeared_pokemon.posicion_x = new_poke->posicion_x;
@@ -989,7 +806,6 @@ void thread_NewPokemon(cola_NEW_POKEMON* new_poke){
 }
 
 
->>>>>>> origin/master
 
 void servidor() {
 
@@ -997,11 +813,6 @@ void servidor() {
 	asociarSocket(comandoIn, config_File->PUERTO_GAMECARD);
 	escucharSocket(comandoIn, CONEXIONES_PERMITIDAS);
 
-<<<<<<< HEAD
-	log_info(logger," Escuchando conexiones");
-
-=======
->>>>>>> origin/master
 	while(TRUE) {
 
 		int conexionNueva = 0;
@@ -1016,17 +827,6 @@ void servidor() {
 
 
 			if( ! validar_conexion(conexionNueva, 0,logger) ) {
-<<<<<<< HEAD
-					pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
-					cerrarSocket(comandoIn);
-					pthread_mutex_unlock(&mxSocketsFD);
-			}
-		}
-		pthread_t hilo;
-		pthread_mutex_lock(&mxHilos);
-		pthread_create(&hilo, NULL, (void*) thread_cliente, comandoNuevo);
-		pthread_mutex_unlock(&mxHilos);
-=======
 				//	pthread_mutex_lock(&mxSocketsFD); //desbloquea el semaforo
 					cerrarSocket(comandoIn);
 				//	pthread_mutex_unlock(&mxSocketsFD);
@@ -1037,20 +837,13 @@ void servidor() {
 	//	pthread_mutex_lock(&mxHilos);
 		pthread_create(&hilo, NULL, (void*) thread_GameBoy, comandoNuevo);
 	//	pthread_mutex_unlock(&mxHilos);
->>>>>>> origin/master
 
 	}
 }
 
-<<<<<<< HEAD
-void thread_cliente(int fdSocket) {
-
-	int head , bufferTam  ;
-=======
 void thread_GameBoy(int fdSocket) {
 
 	int head , bufferTam=0  ;
->>>>>>> origin/master
 
 	recibirProtocolo(&head,&bufferTam,fdSocket); // recibo head y tamaño de msj
 
@@ -1058,24 +851,11 @@ void thread_GameBoy(int fdSocket) {
 
 	recibirMensaje(fdSocket , bufferTam , mensaje ); // recibo msj serializado para el tratamiento deseado
 
-<<<<<<< HEAD
-	log_info(logger,"aplicar_protocolo_recibir -> recibió el HEAD #%d",head);
-
-	log_info(logger,"aplicar_protocolo_recibir -> recibió un tamaño de -> %d",bufferTam);
-
-	log_info(logger,"aplicar_protocolo_recibir -> comienza a deserealizar");
-=======
->>>>>>> origin/master
 
 							switch( head ){
 
 										case NEW_POKEMON :{
-<<<<<<< HEAD
-											cola_NEW_POKEMON  new_poke ;
-											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
-											log_info(logger,"Recibí en la cola NEW_POKEMON . POKEMON: %s  , CANTIDAD: %d  , CORDENADA X: %d , CORDENADA Y: %d ",new_poke.nombre_pokemon,new_poke.cantidad,new_poke.posicion_x,new_poke.posicion_y);
-											NewPokemon(new_poke);
-=======
+
 											cola_NEW_POKEMON  new_poke;
 											deserealizar_NEW_POKEMON ( head, mensaje, bufferTam, & new_poke);
 											pthread_mutex_lock(&mxLog);
@@ -1084,6 +864,7 @@ void thread_GameBoy(int fdSocket) {
 											int result = NewPokemon(&new_poke);
 											if(result==OK){
 												cola_APPEARED_POKEMON appeared_pokemon;
+												appeared_pokemon.id_tracking = new_poke.id_tracking;
 												appeared_pokemon.id_mensaje = new_poke.id_mensaje;
 												appeared_pokemon.nombre_pokemon = malloc(1 + string_length(new_poke.nombre_pokemon));
 												strcpy(appeared_pokemon.nombre_pokemon,new_poke.nombre_pokemon);
@@ -1100,20 +881,17 @@ void thread_GameBoy(int fdSocket) {
 												free(appeared_pokemon.nombre_pokemon);
 											}
 											free(new_poke.nombre_pokemon);
->>>>>>> origin/master
 											break;
 										}
 										case CATCH_POKEMON :{
 											cola_CATCH_POKEMON cath_poke;
 											deserealizar_CATCH_POKEMON( head, mensaje, bufferTam, & cath_poke);
-<<<<<<< HEAD
-											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon,cath_poke.posicion_x,cath_poke.posicion_y);
-=======
 											pthread_mutex_lock(&mxLog);
 											log_info(logger,"Recibí en la cola CATCH_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",cath_poke.nombre_pokemon, cath_poke.posicion_x,cath_poke.posicion_y);
 											pthread_mutex_unlock(&mxLog);
 											int result = CatchPokemon(&cath_poke);
 											cola_CAUGHT_POKEMON caught_pokemon;
+											caught_pokemon.id_tracking = cath_poke.id_tracking;
 											caught_pokemon.id_mensaje = cath_poke.id_mensaje;
 											caught_pokemon.atrapo_pokemon = result;
 											int envio = aplicar_protocolo_enviar(fdSocket, CAUGHT_POKEMON, &caught_pokemon);
@@ -1123,98 +901,11 @@ void thread_GameBoy(int fdSocket) {
 												pthread_mutex_unlock(&mxLog);
 											}
 											free(cath_poke.nombre_pokemon);
->>>>>>> origin/master
 											break;
 										}
 										case GET_POKEMON :{
 											cola_GET_POKEMON get_poke ;
 											deserealizar_GET_POKEMON ( head, mensaje, bufferTam, & get_poke);
-<<<<<<< HEAD
-											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
-											break;
-										}
-
-										case APPEARED_POKEMON :{
-											cola_APPEARED_POKEMON app_poke;
-											deserealizar_APPEARED_POKEMON ( head, mensaje, bufferTam, & app_poke);
-
-											//responder por localized_pokemon
-											log_info(logger,"Recibí en la cola APPEARED_POKEMON . POKEMON: %s  , CORDENADA X: %d , CORDENADA Y: %d ",app_poke.nombre_pokemon,app_poke.posicion_x,app_poke.posicion_y);
-											free(app_poke.nombre_pokemon);
-											break;
-										}
-
-										case CAUGHT_POKEMON :{
-											cola_CAUGHT_POKEMON caug_poke ;
-											//responde por caught_pokemon
-											deserealizar_CAUGHT_POKEMON ( head, mensaje, bufferTam, & caug_poke);
-											log_info(logger,"Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: %d  , ATRAPO: %d",caug_poke.id_mensaje,caug_poke.atrapo_pokemon);
-											break;
-										}
-
-										case LOCALIZED_POKEMON :{
-											cola_LOCALIZED_POKEMON loc_poke ;
-											deserealizar_LOCALIZED_POKEMON ( head, mensaje, bufferTam, & loc_poke);
-											for (int i = 0 ; i < list_size(loc_poke.lista_posiciones); i++){
-											log_info(logger,"Recibí en la cola LOCALIZED_POKEMON . POKEMON: %s  , CANTIDAD: %d , POSICIÓN X: %d , POSICIÓN Y: %d",loc_poke.nombre_pokemon,loc_poke.cantidad,list_get(loc_poke.lista_posiciones,i),list_get(loc_poke.lista_posiciones,i + 1));
-											i++;
-											}
-											free(loc_poke.nombre_pokemon);
-											list_destroy(loc_poke.lista_posiciones);
-											break;
-										}
-										default:
-											log_info(logger, "Instrucción no reconocida");
-											break;
-									}
-
-			pthread_mutex_lock(&mxHilos);
-			pthread_detach( pthread_self() );
-			pthread_mutex_unlock(&mxHilos);
-}
-
-/*
-// -- CONEXIONES ENTRE MÓDULOS --
-int handshake_servidor(int sockCliente, char *mensaje) {
-
-	enviarPorSocket(sockCliente, mensaje, string_length(mensaje));
-
-	HANDSHAKE_SIZE = sizeof(char) * string_length(KEY_HANDSHAKE);
-	char *buff = (char*) malloc(HANDSHAKE_SIZE);
-	int status = recibirPorSocket(sockCliente, buff, HANDSHAKE_SIZE);
-
-	if( validar_recive(status, 0) == TRUE ) { // El cliente envió un mensaje
-
-		buff[HANDSHAKE_SIZE-1] = '\0';
-		if (validar_cliente(buff)) {
-			log_info(logger,"Hice el handshake y me respondieron: %s\n", buff);
-			//enviarPorSocket(sockCliente, "SacServer", string_length("SacServer"));
-			free(buff);
-			return TRUE;
-		} else {
-			free(buff);
-			return FALSE;
-		}
-
-	} else { // Hubo algún error o se desconectó el cliente
-
-		free(buff);
-		return FALSE;
-	}
-	return FALSE; // No debería llegar acá pero lo pongo por el warning
-}
-
-int validar_cliente(char *id) {
-	if( !strcmp(id, KEY_HANDSHAKE)) {
-		log_info(logger,"Cliente aceptado");
-		return TRUE;
-	} else {
-		printf("Cliente rechazado\n");
-		return FALSE;
-	}
-}
-*/
-=======
 											pthread_mutex_lock(&mxLog);
 											log_info(logger,"Recibí en la cola GET_POKEMON . POKEMON: %s",get_poke.nombre_pokemon);
 											pthread_mutex_unlock(&mxLog);
@@ -1224,6 +915,7 @@ int validar_cliente(char *id) {
 											locPokemon.nombre_pokemon = malloc (1 + string_length(get_poke.nombre_pokemon));
 											strcpy(locPokemon.nombre_pokemon,get_poke.nombre_pokemon);
 											locPokemon.tamanio_nombre = string_length(locPokemon.nombre_pokemon);
+											locPokemon.id_tracking = get_poke.id_tracking;
 											locPokemon.id_mensaje = get_poke.id_mensaje;
 
 											locPokemon.cantidad = list_size(locPokemon.lista_posiciones);
@@ -1261,24 +953,10 @@ int validar_cliente(char *id) {
 		//	pthread_mutex_unlock(&mxHilos);
 }
 
->>>>>>> origin/master
 
 void crearBloques(void)
 {
 	int i;
-<<<<<<< HEAD
-	for (i=0; i< config_MetaData->cantidad_bloques;i++ )
-	{
-			FILE *block;
-			char* bloque = (char*) malloc(string_length(PuntoMontaje->BLOCKS)+ string_length(string_itoa(i))+ string_length(".bin"));
-			strcpy(bloque,PuntoMontaje->BLOCKS);
-			strcat(bloque,string_itoa(i));
-			strcat(bloque,".bin");
-			block = fopen(bloque,"a");
-			fclose(block);
-			free(bloque);
-	}
-=======
 	int countBlocks = 0;
 	  //Verificamos la cantidad de bloques existentes.
 	DIR *dir;
@@ -1326,7 +1004,6 @@ void crearBloques(void)
 	}
 
 
->>>>>>> origin/master
 }
 
 void crearBitmap(){
@@ -1366,11 +1043,6 @@ void crearBitmap(){
 
 
 	close(bitmap);
-<<<<<<< HEAD
-
-	printf("cantidadDebits: %i\n",cantidadDebits);
-	int i;
-=======
 	pthread_mutex_lock(&mxLog);
 	log_info("Se carga bitmap con %i bloques.",cantidadDebits);
 	pthread_mutex_unlock(&mxLog);
@@ -1384,25 +1056,11 @@ void crearBitmap(){
 	}
 =======
 	}*/
->>>>>>> origin/master
 
 }
 
 int creacionDeArchivoBitmap(char *path,int cantidad){
     int x = 0;
-<<<<<<< HEAD
-    FILE *fh = fopen (path, "wb");
-    if(fh == NULL){
-    	printf("Error en el fopen\n");
-    }
-    int i;
-    for( i=0;i<cantidad;i++){
-        if (fh != NULL) {
-                fwrite (&x, sizeof (x), 1, fh);
-        }
-    }
-    fclose(fh);
-=======
 
     int fd = fopen(path, "r");
     if (fd<=0){
@@ -1410,7 +1068,7 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 			if(fh == NULL){
 				printf("Error en el fopen\n");
 			}
-			int i; 
+			int i;
 			for( i=0;i<cantidad/32;i++){
 				if (fh != NULL) {
 						fwrite (&x, sizeof (x), 1, fh);
@@ -1421,17 +1079,13 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
     }else{
     	fclose(fd);
     }
->>>>>>> origin/master
     return 0;
 
 }
 
 
 int cantidadDeBloquesLibres (void){
-<<<<<<< HEAD
-=======
 	pthread_rwlock_rdlock(&mxBitmap);
->>>>>>> origin/master
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
 	int libre =ERROR;
 	int i;
@@ -1440,23 +1094,11 @@ int cantidadDeBloquesLibres (void){
 			libre++;
 		}
 	}
-<<<<<<< HEAD
-=======
 	pthread_rwlock_unlock(&mxBitmap);
->>>>>>> origin/master
 	return libre;
 }
 
 int proximobloqueLibre (void){
-<<<<<<< HEAD
-
-	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
-	int i;
-	int libre= ERROR;
-	//pthread_mutex_lock(&mxBitmap);
-	for (i=0;i<cantidadDebits;i++){
-		if(bitarray_test_bit(bitarray,i)==0){
-=======
 	pthread_rwlock_wrlock(&mxBitmap);
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
 	int i;
@@ -1464,19 +1106,13 @@ int proximobloqueLibre (void){
 	for (i=0;i<cantidadDebits;i++){
 		if(bitarray_test_bit(bitarray,i)==0){
 			bitarray_set_bit(bitarray,i);
->>>>>>> origin/master
 			libre=i;
 			break;
 		}
 	}
-<<<<<<< HEAD
-//	pthread_mutex_unlock(&mxBitmap);
-	return libre;
-=======
 	pthread_rwlock_unlock(&mxBitmap);
 	return libre;
 
->>>>>>> origin/master
 }
 
 void listarArchivos(char *archivo)
@@ -1500,8 +1136,6 @@ void listarArchivos(char *archivo)
 }
 
 
-<<<<<<< HEAD
-=======
 void loadPokemons()
 {
 	  	  DIR *dir;
@@ -1565,4 +1199,3 @@ void addMxPokemon(t_Pokemones* Pokemon){
 	pthread_mutex_unlock(&mxNewPokemonsList);
 
 }
->>>>>>> origin/master

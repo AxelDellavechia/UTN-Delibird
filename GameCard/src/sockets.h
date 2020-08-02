@@ -1,12 +1,9 @@
 /*
-<<<<<<< HEAD
-=======
  * sockets.h
  *
  *  Created on: 12/4/2019
  *      Author: utnso
  */
->>>>>>> origin/master
 
 #ifndef SRC_LIB_SOCKETS_H_
 #define SRC_LIB_SOCKETS_H_
@@ -56,9 +53,4 @@ void seleccionarSocket(int mayorValorDeFD,
 			int* segundos, int* milisegundos);
 
 
-<<<<<<< HEAD
-#endif SRC_LIB_SOCKETS_H_
-*/
-=======
 #endif /* SRC_LIB_SOCKETS_H_ */
->>>>>>> origin/master

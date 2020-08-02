@@ -48,13 +48,15 @@ typedef struct ConfigFile{
 	int FRECUENCIA_COMPACTACION;
 } ConfigFile;
 
+int TAMANIO_EXTRA_MSJ ;
+
 typedef struct {
 	suscriptor * laSus;
 	int suSocket;
 } losSuscriptores;
 
-int posicion_puntero_fifo;
-int contadorHilos;
+//int posicion_puntero_fifo;
+//int contadorHilos;
 
 ConfigFile* config_File;
 
@@ -67,7 +69,7 @@ pthread_mutex_t mxSocketsFD;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t hilo_Publisher;
-pthread_t hilo;
+//
 
 
 fd_set setMaestro;
@@ -77,27 +79,30 @@ int comandoNuevo; // Socket de Escucha
 
 int frecuencia_compactacion;
 int32_t id_msj;
-int contador_msjs_en_cola;
-int puntero_reemplazo;
-int cantidad_liberaciones;
+int32_t id_tracking;
+//int contador_msjs_en_cola;
+//int puntero_reemplazo;
+//int cantidad_liberaciones;
 
 int pid;
 
-_Bool compacte;
+//_Bool compacte;
 _Bool reenvieMsj;
-int cantidad_particiones_liberadas;
+//int cantidad_particiones_liberadas;
 
 losSuscriptores * suscripcionC ;
 
-int  msj_a_enviar(int suSocket , int head , void * mensaje);
+//int  msj_a_enviar(int suSocket , int head , void * mensaje);
 
 
 void * memoria_cache;
 
 //SEMAFOROS CONTADOR
+
 sem_t sem_contador_msjs_cola;
 
 //SEMAFOROS MUTEX
+
 pthread_mutex_t mutex_memoria_cache;
 pthread_mutex_t mutex_id_msj;
 pthread_mutex_t mutex_contador_msjs_cola;
@@ -152,9 +157,9 @@ t_list* cola_appeared_pokemon;
 t_list* cola_catch_pokemon;
 t_list* cola_caught_pokemon;
 
-t_list * caught_pokemon_pendientes;
-t_list * appreared_pokemon_pendientes;
-t_list * localized_pokemon_pendientes;
+//t_list * caught_pokemon_pendientes;
+//t_list * appreared_pokemon_pendientes;
+//t_list * localized_pokemon_pendientes;
 
 
 
@@ -181,6 +186,7 @@ int32_t obtener_idMsj();
 _Bool buscarEnLista( t_list * lista , suscriptor * buscado ) ;
 void procesarMsj(void * mensaje, int fdCliente, int head , int bufferTam );
 void liberarRecursos();
+int32_t obtener_idtracking();
 
 void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscriptores *laSus);
 

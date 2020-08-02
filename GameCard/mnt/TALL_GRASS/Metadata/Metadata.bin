@@ -1,7 +1,0 @@
-BLOCK_SIZE=64
-<<<<<<< HEAD
-BLOCKS=4096
-=======
-BLOCKS=1024
->>>>>>> origin/master
-MAGIC_NUMBER=TALL_GRASS

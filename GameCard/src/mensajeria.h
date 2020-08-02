@@ -1,45 +1,19 @@
 /*
-<<<<<<< HEAD
-=======
  * mensajeria.h
  *
  *  Created on: 22 abr. 2020
  *      Author: utnso
  */
 
->>>>>>> origin/master
 #ifndef SRC_MENSAJERIA_H_
 #define SRC_MENSAJERIA_H_
 #include <commons/collections/list.h>
 #include <stdint.h>
 
-<<<<<<< HEAD
-=======
-
-
-
-
-typedef struct{
-	uint32_t fdSocket;
-	uint32_t head;
-} new_msj_broker;
-
 
 typedef struct{
 	uint32_t id_mensaje;
-	char* nombre_pokemon;
-	uint32_t  tamanio_nombre;
-	uint32_t  posicion_x;
-	uint32_t posicion_y;
-	uint32_t cantidad;
-	uint32_t fdSocket;
-	uint32_t head;
-}GENERIC_POKEMON;
-
-
->>>>>>> origin/master
-typedef struct{
-	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t  posicion_x;
@@ -49,6 +23,7 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t cantidad;
@@ -60,8 +35,6 @@ typedef struct{
 	uint32_t posicion_y;
 }posicion;
 
-<<<<<<< HEAD
-=======
 
 typedef struct{
 	int Pos_x;
@@ -69,15 +42,16 @@ typedef struct{
 	int Cantidad;
 } t_positions;
 
->>>>>>> origin/master
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 }cola_GET_POKEMON;
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t posicion_x;
@@ -86,6 +60,7 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	char* nombre_pokemon;
 	uint32_t  tamanio_nombre;
 	uint32_t posicion_x;
@@ -94,13 +69,21 @@ typedef struct{
 
 typedef struct{
 	uint32_t id_mensaje;
+	uint32_t id_tracking;
 	uint32_t atrapo_pokemon;
 }cola_CAUGHT_POKEMON;
 
+typedef struct{
+	int token;
+	t_list * cola_a_suscribir; // USA EL ENUM PROTOCOLO DEFINIDO EN PROTOCOLOS COMUNICACION H
+	int modulo ; // USA EL ENUM MODULOS DEFINIDO EN PROTOCOLOS COMUNICACION H
+} suscriptor;
 
-<<<<<<< HEAD
-#endif SRC_MENSAJERIA_H_
-*/
-=======
+
+typedef struct{
+	uint32_t ack;
+	uint32_t id_msj;
+	int token;
+}respuesta_ACK;
+
 #endif /* SRC_MENSAJERIA_H_ */
->>>>>>> origin/master
