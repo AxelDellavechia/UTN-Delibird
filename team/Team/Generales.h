@@ -14,13 +14,14 @@
 #include "../digiCommons/src/mensajeria.h"
 
 #define LOG_PATH "./CatedraTeam.log"
-#define LOG_PATH_INTERNO "../team.log"
-#define RUTA_CONFIG_TEAM "../configTeam.txt"
+#define LOG_PATH_INTERNO "./Team.log"
+#define RUTA_CONFIG_TEAM "./configTeam.txt"
 #define FALSE 0
 #define TRUE 1
 #define OK 1
 #define ERROR -1
 #define CONEXIONES_PERMITIDAS 100
+
 
 t_log* logger;
 t_log* loggerCatedra;
@@ -34,6 +35,8 @@ t_list* listaCatchPokemon;
 t_list* pokemonesBuscados;
 t_list* pokemonesEjecutando;
 
+t_config *config;
+int EXIT_TEAM;
 int fdBroker;
 int ciclosEnCPU;
 int fdTeam;

@@ -43,10 +43,6 @@ typedef struct {
 }Particion_bs;
 
 
-Particion * particion_memoria ;
-Particion_bs * particion_memoria_bs ;
-Particion * nueva_particion;
-
 void iniciar_servicio_broker();
 void esperar_conexion(int servidor);
 void atender(int socket);

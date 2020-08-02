@@ -9,33 +9,33 @@
 #include "Broker.h"
 
 void iniciar_estructuras(){
+
 	//SE RESERVA LA MEMORIA TOTAL DEL BROKER
+
 	memoria_cache = malloc(config_File->TAMANO_MEMORIA);
 	memset(memoria_cache, '\0', config_File->TAMANO_MEMORIA);
 
-	//Setea cantidad fallidas
+	//VARIABLES GLOBALES
+
 	frecuencia_compactacion = config_File->FRECUENCIA_COMPACTACION;
 	id_msj = 0;
-	contador_msjs_en_cola = 0;
-	puntero_reemplazo = 0;
-	compacte=false;
-	cantidad_particiones_liberadas=0;
-	contadorHilos=0;
 	id_tracking=9000;
-
 	TAMANIO_EXTRA_MSJ = sizeof(uint32_t) + sizeof(uint32_t) ;
 
 	//SE CREAN LAS LISTAS PARA LA ADMINISTRACION DE MEMORIA Y MSJS
-	//lista_msjs = list_create();
+
 	lista_particiones = list_create();
 	lista_ack = list_create();
+
 	//SE CREA LAS LISTAS DE LOS SUSCRIPTORES POR COLA
+
 	suscriptores_new_pokemon = list_create();
 	suscriptores_localized_pokemon = list_create();
 	suscriptores_get_pokemon = list_create();
 	suscriptores_appeared_pokemon = list_create();
 	suscriptores_catch_pokemon = list_create();
 	suscriptores_caught_pokemon = list_create();
+
 	//SE CREAN LAS LISTAS PARA LAS COLAS DE MSJS
 
 	cola_new_pokemon = list_create();
@@ -45,14 +45,13 @@ void iniciar_estructuras(){
 	cola_catch_pokemon = list_create();
 	cola_caught_pokemon = list_create();
 
-	//caught_pokemon_pendientes = list_create();
-
-
-	//desplazamientoCache = 0 ;
 
 	//CREO LA PARTICION INICIAL QUE CONTENGA TODA LA MEMORIA
+
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-		particion_memoria = malloc(sizeof(Particion));
+
+		Particion * particion_memoria = malloc(sizeof(Particion));
+
 		particion_memoria->id_msj= 0;
 		particion_memoria->punteroInicial = 0;
 		particion_memoria->colaAsignada = 0;
@@ -60,9 +59,13 @@ void iniciar_estructuras(){
 		particion_memoria->tamano = config_File->TAMANO_MEMORIA;
 		particion_memoria->libre = true;
 		particion_memoria->tiempoLRU = 0;
+
 		list_add(lista_particiones, particion_memoria);
+
 	}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-		particion_memoria_bs = malloc(sizeof(Particion_bs));
+
+		Particion_bs * particion_memoria_bs = malloc(sizeof(Particion_bs));
+
 		particion_memoria_bs->esPadre = false;
 		particion_memoria_bs->id_msj= 0;
 		particion_memoria_bs->punteroInicial = 0;
@@ -71,6 +74,7 @@ void iniciar_estructuras(){
 		particion_memoria_bs->tamano = config_File->TAMANO_MEMORIA;
 		particion_memoria_bs->libre = true;
 		particion_memoria_bs->tiempoLRU = 0;
+
 		list_add(lista_particiones, particion_memoria_bs);
 	}
 }
@@ -179,14 +183,12 @@ void liberarRecursos(){
 			  list_remove(lista_particiones,0);
 			  free(laParti);
 		}
-		free(particion_memoria);
 		}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
 			for(int i=0 ; i <= tamLista ; i++){
 			  Particion_bs * laParti = list_get(lista_particiones,0);
 			  list_remove(lista_particiones,0);
 			  free(laParti);
 			}
-			free(particion_memoria_bs);
 		}
 
 	list_destroy(lista_particiones);
@@ -447,7 +449,7 @@ void servidor() {
 			pthread_mutex_unlock(&mutex_logs);
 		}
 		pthread_mutex_lock(&mxHilos);
-
+			pthread_t hilo;
 			pthread_create(&hilo, NULL, (void*) thread_Broker,(int *) comandoNuevo);
 			//contadorHilos++;
 			//pthread_join(hilo,NULL);
@@ -645,7 +647,7 @@ while(true){
 																						aplicar_protocolo_enviar(fdCliente,ACK,ack);
 																						free(ack);
 
-											agregar_contador_msj();
+											//agregar_contador_msj();
 											sem_post(&sem_contador_msjs_cola);
 											break;
 										}
@@ -685,7 +687,7 @@ while(true){
 											free(ack);
 
 											sem_post(&sem_contador_msjs_cola);
-											agregar_contador_msj();
+											//agregar_contador_msj();
 											break;
 										}
 
@@ -734,7 +736,7 @@ while(true){
 											free(ack);
 
 											sem_post(&sem_contador_msjs_cola);
-											agregar_contador_msj();
+											//agregar_contador_msj();
 											//free(loc_poke->nombre_pokemon);
 											//list_destroy(loc_poke->lista_posiciones);
 											break;
@@ -807,14 +809,6 @@ while(true){
 											//pthread_mutex_unlock(&mutex_memoria_cache);
 
 											reenviarMsjCache(suscripcionC);
-
-											int tamLista = list_size(suscripcionC->laSus->cola_a_suscribir);
-
-											for(int i=0 ; i < tamLista ; i++){
-												//int * laParti = list_get(lista_particiones,0);
-												 //free(laParti);
-												list_remove(lista_particiones,0);
-											}
 
 											pthread_mutex_unlock(&mutex_suscripcion);
 
@@ -1475,7 +1469,7 @@ int32_t obtener_idtracking(){
 	pthread_mutex_unlock(&mutex_id_msj);
 	return id_msj_aux;
 }
-
+/*
 void agregar_contador_msj(){
 	pthread_mutex_lock(&mutex_contador_msjs_cola);
 	contador_msjs_en_cola++;
@@ -1487,5 +1481,5 @@ void actualizarLRU(Particion * particion){
 		particion->tiempoLRU = (int) obtener_timestamp();
 	}
 }
-
+*/
 

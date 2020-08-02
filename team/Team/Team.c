@@ -7,6 +7,7 @@ int main(void) {
 	//crearLogger("CatedraTeam.log",LOG_PATH);
 	//fdBroker = nuevoSocket();
 	//inicializar_semaforos();
+	EXIT_TEAM = TRUE;
 	crearEstructuras();
 	iniciar_log();
 	leerArchivoDeConfiguracion(RUTA_CONFIG_TEAM);

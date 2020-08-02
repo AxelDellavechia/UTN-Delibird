@@ -662,7 +662,7 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 
 			pthread_mutex_lock(&mutex_lista_particiones);
 
-			nueva_particion = malloc(sizeof(Particion));
+			Particion * nueva_particion = malloc(sizeof(Particion));
 
 			if( tamano >= config_File->TAMANO_MINIMO_PARTICION ) {
 
@@ -1005,7 +1005,7 @@ void algoritmo_fifo()
 
 		//pthread_mutex_lock(&mutex_logs);
 
-		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+		if ( list_size(lista_particiones) != 0 ) log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
 
 		//pthread_mutex_unlock(&mutex_logs);
 
@@ -1030,7 +1030,7 @@ void algoritmo_fifo()
 
 		//pthread_mutex_lock(&mutex_logs);
 
-		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+		if ( list_size(lista_particiones) != 0 ) log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
 
 		//pthread_mutex_unlock(&mutex_logs);
 
@@ -1063,8 +1063,7 @@ void algoritmo_lru()
 		Particion * particion_victima = list_get(lista_particiones, 0);
 
 		//pthread_mutex_lock(&mutex_logs);
-
-		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+		if ( list_size(lista_particiones) != 0 ) log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
 
 		//pthread_mutex_unlock(&mutex_logs);
 
@@ -1092,7 +1091,7 @@ void algoritmo_lru()
 
 		//pthread_mutex_lock(&mutex_logs);
 
-		log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
+		if ( list_size(lista_particiones) != 0 ) log_info(loggerCatedra,"Se elimino la particion asociada al ID_MSJ: %d Puntero Inicial:%d  Puntero Final:%d LRU: %llu",particion_victima->id_msj,particion_victima->punteroInicial, particion_victima->punteroFinal,particion_victima->tiempoLRU);
 
 		//pthread_mutex_unlock(&mutex_logs);
 
