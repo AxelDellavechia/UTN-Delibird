@@ -512,3 +512,104 @@
 [INFO] 20:25:45:308 Team.log/(14393:14402): El entrenador 0 se movió a la posición 2 5
 [INFO] 20:25:47:309 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 6
 [INFO] 20:25:49:309 Team.log/(14393:14404): El entrenador 2 se movió a la posición 6 5
+[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:37:738 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:37:738 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:37:750 Team.log/(3964:3981): Obteniendo los Entrenadores
+[INFO] 14:54:37:750 Team.log/(3964:3981): Escuchando conexiones
+[INFO] 14:54:37:756 Team.log/(3964:3982): Obteniendo los Entrenadores
+[INFO] 14:54:37:756 Team.log/(3964:3982): Escuchando conexiones
+[INFO] 14:54:37:756 Team.log/(3964:3983): Obteniendo los Entrenadores
+[INFO] 14:54:37:756 Team.log/(3964:3983): Escuchando conexiones
+[INFO] 14:54:37:756 Team.log/(3964:3984): Escuchando conexiones
+[INFO] 14:54:47:673 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:54:47:673 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:54:47:673 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:54:47:680 Team.log/(3964:3991): Fin de hilo GameBoy
+[INFO] 14:54:47:681 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:54:47:681 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:54:47:681 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:54:47:705 Team.log/(3964:3993): Fin de hilo GameBoy
+[INFO] 14:54:47:706 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:54:47:706 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:54:47:706 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:54:47:711 Team.log/(3964:3995): Fin de hilo GameBoy
+[INFO] 14:54:47:712 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:54:47:712 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:54:47:712 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:54:47:730 Team.log/(3964:3997): Fin de hilo GameBoy
+[INFO] 14:54:48:712 Team.log/(3964:3976): El entrenador 0 se movió a la posición 2 2
+[INFO] 14:54:50:714 Team.log/(3964:3976): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:54:50:714 Team.log/(3964:3977): El entrenador 1 se movió a la posición 5 5
+[INFO] 14:54:53:715 Team.log/(3964:3977): El entrenador 1 se movió a la posición 4 5
+[INFO] 14:54:57:717 Team.log/(3964:3977): El entrenador 1 se movió a la posición 4 6
+[INFO] 14:54:59:719 Team.log/(3964:3977): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:55:47:890 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:890 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:890 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:902 Team.log/(3964:4011): Fin de hilo GameBoy
+[INFO] 14:55:47:906 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:906 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:906 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:918 Team.log/(3964:4013): Fin de hilo GameBoy
+[INFO] 14:55:47:929 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:929 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:929 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:948 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:948 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:948 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:948 Team.log/(3964:4015): Fin de hilo GameBoy
+[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:951 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 9
+[INFO] 14:55:47:951 Team.log/(3964:4017): Fin de hilo GameBoy
+[INFO] 14:55:47:953 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:953 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:953 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:956 Team.log/(3964:4019): Fin de hilo GameBoy
+[INFO] 14:55:47:981 Team.log/(3964:3984): Servidor o Cliente aceptado.
+[INFO] 14:55:47:981 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
+[INFO] 14:55:47:981 Team.log/(3964:3984): Alguien se conectó
+[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 14:55:47:991 Team.log/(3964:4021): Fin de hilo GameBoy
+[INFO] 14:55:50:954 Team.log/(3964:3979): El entrenador 3 se movió a la posición 8 2
+[INFO] 14:55:53:957 Team.log/(3964:3980): El entrenador 4 se movió a la posición 3 9
+[INFO] 14:55:57:960 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 8
+[INFO] 14:55:59:961 Team.log/(3964:3979): El entrenador 3 se movió a la posición 7 2
+[INFO] 14:56:02:964 Team.log/(3964:3980): El entrenador 4 se movió a la posición 4 9
+[INFO] 14:56:06:965 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 7
+[INFO] 14:56:09:967 Team.log/(3964:3979): El entrenador 3 se movió a la posición 7 1
+[INFO] 14:56:11:969 Team.log/(3964:3979): No se pudo realizar la conexión entre el socket[36] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:56:12:969 Team.log/(3964:3980): El entrenador 4 se movió a la posición 4 10
+[INFO] 14:56:14:971 Team.log/(3964:3980): No se pudo realizar la conexión entre el socket[37] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 14:56:15:971 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 6
+[INFO] 14:56:17:972 Team.log/(3964:3978): No se pudo realizar la conexión entre el socket[38] y el servidor ip: 127.0.0.1 / puerto: 5003 
