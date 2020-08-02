@@ -96,7 +96,19 @@ void leerArchivoDeConfiguracion(char *ruta) {
 
 
 	 // Libero la estructura archivoConfig
-	/*free(posicionEntrenadoresAux);
+	/*for(int i = 0;i<sizeof(objetivosEntrenadoresAux);i++){
+		char* obj = objetivosEntrenadoresAux[i];
+		free(obj);
+	}
+	for(int i = 0;i<sizeof(posicionEntrenadoresAux);i++){
+		char* obj = posicionEntrenadoresAux[i];
+		free(obj);
+	}
+	for(int i = 0;i<sizeof(pokemonEntrenadoresAux);i++){
+			char* obj = pokemonEntrenadoresAux[i];
+			free(obj);
+		}
+	free(posicionEntrenadoresAux);
 	free(pokemonEntrenadoresAux);
 	free(objetivosEntrenadoresAux);*/
 }
@@ -326,7 +338,7 @@ int moverEntrenador(entrenadorPokemon* entrenador, int posicionXDestino, int pos
 	int tiempo = 0;
 	if (string_equals_ignore_case("RR", configFile->algoritmoPlanificacion)){
 		tiempo = configFile->quantum;
-	}else if (string_equals_ignore_case("SJF sin desalojo", configFile->algoritmoPlanificacion)){
+	}else if (string_equals_ignore_case("SJF con desalojo", configFile->algoritmoPlanificacion)){
 		tiempo = 1;
 	}
 
@@ -619,8 +631,10 @@ void verificarIntercambios() {
 					free(pos_y2);
 					free(proximaAccionEntrenador);
 					hayIntercambios = TRUE;
+					break;
 				}
 			}
+			break;
 		}
 	}
 	pthread_mutex_unlock(&mxEntrenadoresDeadLock);
@@ -885,15 +899,8 @@ void getPokemon() {
 
 void planificador() {
 	entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
-	char* accion;
-	int sizeReady;
-	int posicionProximoAEjecutar = 0;
-	double rafagaCPUAccion;
-	entrenadorPokemon* entrenador;
 	while(TRUE) {
-
 		sem_wait(&elementosEnReady);
-
 		//if(hayIntercambios == FALSE) {
 /*		} else {
 			proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
@@ -919,7 +926,7 @@ void planificador() {
 			pthread_mutex_lock(&mxEntrenadoresList);
 			pthread_mutex_unlock(mxEntrenadores + proximoEntrenadorEnEjecutar->idEntrenador);
 		} else if (string_equals_ignore_case("SJF sin desalojo", configFile->algoritmoPlanificacion)) {
-					cantCambiosContexto++;
+			cantCambiosContexto++;
 			pthread_mutex_lock(&mutexColaReady);
 			proximoEntrenadorEnEjecutar = list_get(colaReady, 0);
 			pthread_mutex_unlock(&mutexColaReady);
@@ -936,7 +943,7 @@ void planificador() {
 			pthread_mutex_unlock(mxEntrenadores + proximoEntrenadorEnEjecutar->idEntrenador);
 			}
 		pthread_mutex_lock(&mxEjecutando);
-
+		//free(proximoEntrenadorEnEjecutar);
 		/*pthread_mutex_lock(&mutexObjetivoTeam);
 		if (list_size(objetivoTeam) == 0) {
 			pthread_mutex_unlock(&mutexObjetivoTeam);
@@ -944,30 +951,8 @@ void planificador() {
 		}else{
 		pthread_mutex_unlock(&mutexObjetivoTeam);
 		}*/
-
-}
-}
-
-/*void buscarEntrenadorParaIntercambio(entrenadorPokemon* proximoEntrenadorEnEjecutar) {
-	pthread_mutex_lock(&mutexColaReady);
-	for (int posicionEnReady = 0; posicionEnReady < list_size(colaReady); posicionEnReady++) {
-		entrenadorPokemon* entrenadorEnReady = list_get(colaReady, posicionEnReady);
-		if (string_starts_with(entrenadorEnReady->proximaAccion, "HacerIntercambio")) {
-			proximoEntrenadorEnEjecutar->ciclosEnCPU = entrenador->ciclosEnCPU;
-			proximoEntrenadorEnEjecutar->estimacionUltimaRafaga = entrenador->estimacionUltimaRafaga;
-			proximoEntrenadorEnEjecutar->idEntrenador = entrenador->idEntrenador;
-			proximoEntrenadorEnEjecutar->idMsjEsperado = entrenador->idMsjEsperado;
-			proximoEntrenadorEnEjecutar->pokemonesAtrapados = list_create();
-			proximoEntrenadorEnEjecutar->pokemonesObjetivo = list_create();
-			list_add_all(proximoEntrenadorEnEjecutar->pokemonesAtrapados, entrenador->pokemonesAtrapados);
-			list_add_all(proximoEntrenadorEnEjecutar->pokemonesObjetivo, entrenador->pokemonesObjetivo);
-			proximoEntrenadorEnEjecutar->posicion_x = entrenador->posicion_x;
-			proximoEntrenadorEnEjecutar->posicion_y = entrenador->posicion_y;
-			proximoEntrenadorEnEjecutar->semaforMutex = entrenador->semaforMutex;
-		}
 	}
-	pthread_mutex_unlock(&mutexColaReady);
-}*/
+}
 
 double calcularRafagaCPU(entrenadorPokemon* entrenador) {
 	double rafagaActual = entrenador->estimacionUltimaRafaga;
@@ -1137,6 +1122,9 @@ void consola() {
 	}
 
 	free(configFile->posicionEntrenadores);
+	/*free(configFile->algoritmoPlanificacion);
+	free(configFile->ipBroker);
+	free(configFile->logFile);*/
 	free(configFile);
 	//config_destroy(config);
 	//free(hilo);
