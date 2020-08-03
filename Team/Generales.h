@@ -48,6 +48,7 @@ int cantEntrenadores;
 int cantCambiosContexto;
 int cantDeadlocks;
 int getEnviado;
+int idEntrenadorAnterior;
 
 pthread_t hilo_servidor;
 pthread_t hilo_gameboy;
