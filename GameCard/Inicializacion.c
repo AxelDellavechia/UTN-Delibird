@@ -1081,7 +1081,7 @@ int creacionDeArchivoBitmap(char *path,int cantidad){
 int cantidadDeBloquesLibres (void){
 	pthread_rwlock_rdlock(&mxBitmap);
 	size_t	cantidadDebits= bitarray_get_max_bit (bitarray);
-	int libre =ERROR;
+	int libre =0;
 	int i;
 	for (i=0;i<cantidadDebits;i++){
 		if (bitarray_test_bit(bitarray,i)==0){

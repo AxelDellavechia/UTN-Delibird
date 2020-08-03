@@ -212,6 +212,20 @@ void liberarRecursos(){
 	//pthread_mutex_unlock(&mutex_cola_get_pokemon);
 
 	//pthread_mutex_lock(&mutex_cola_localized_pokemon);
+	tamLista = list_size(cola_localized_pokemon) - 1 ;
+
+	for(int i=0 ; i <= tamLista ; i++){
+	  cola_LOCALIZED_POKEMON * laParti = list_get(cola_localized_pokemon,0);
+	  int otraLista = list_size(laParti->lista_posiciones) - 1;
+	  	  for(int j=0 ; j <= otraLista ; j++){
+	  		  posicion *laPos = list_get(laParti->lista_posiciones,0);
+	  		  list_remove(laParti->lista_posiciones,0);
+	  		  free(laPos);
+	  	  }
+	  	  list_destroy(laParti->lista_posiciones);
+	  list_remove(lista_particiones,0);
+	  free(laParti);
+	}
 	list_destroy(cola_localized_pokemon);
 	//pthread_mutex_unlock(&mutex_cola_localized_pokemon);
 

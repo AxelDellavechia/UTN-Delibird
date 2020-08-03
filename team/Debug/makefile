@@ -25,19 +25,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: team
+all: tp-2020-1c-Digimon
 
 # Tool invocations
-team: $(OBJS) $(USER_OBJS)
+tp-2020-1c-Digimon: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "team" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "tp-2020-1c-Digimon" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) team
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) tp-2020-1c-Digimon
 	-@echo ' '
 
 .PHONY: all clean dependents

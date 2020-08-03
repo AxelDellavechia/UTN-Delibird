@@ -19,6 +19,8 @@ int main(){//int argc, char **argv) {
 	crearBloques();  //Verifico si los bloques existen y si coinciden con la cantidad de bloques del archivo de configuración.
 	creacionDeArchivoBitmap(PuntoMontaje->BITMAP,config_MetaData->cantidad_bloques); //Verifico la existencia del Bitmap.
 	crearBitmap(); //Cargo el contenigo del bitmap.
+	int bloquesLibres = cantidadDeBloquesLibres();
+	log_info(logger,"Se inicia el sistema con %d bloques libres", bloquesLibres);
 	loadPokemons();
 	crearHilos();
 
