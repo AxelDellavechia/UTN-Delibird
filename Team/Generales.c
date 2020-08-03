@@ -429,119 +429,109 @@ void quitarPokemonDeAtrapados(entrenadorPokemon* entrenador, char* pokemon) {
 	}
 }
 
-//Verifica si el entrenador esta en deadlock. Si no lo esta, lo quita de blocked y lo pasa a ready seteandole "" como proxima accion
-void verificarDeadlock(entrenadorPokemon* entrenador) {
+void verificarEstado(entrenadorPokemon* entrenador) {
 	int pokemonEncontrado;
 	int entrenadorEnDeadlock;
 	t_list* listaObjetivosAuxiliar = list_duplicate(entrenador->pokemonesObjetivo);
 	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
 	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
-	/*printf("Entrenador %i\n", entrenador->idEntrenador);
-	for (int i=0; i < cantidadPokemonesAtrapados;i++) {
-		char* pokemon = list_get(entrenador->pokemonesAtrapados, i);
-		printf("Pokemon atrapado %s\n", pokemon);
-	}
-	for (int i=0; i < cantidadPokemonesObjetivo;i++) {
-		char* pokemon = list_get(entrenador->pokemonesObjetivo, i);
-		printf("Pokemon objetivo %s\n", pokemon);
-	}*/
 	int cantidadObjetivosAuxiliar = cantidadPokemonesObjetivo;
-	if (cantidadPokemonesAtrapados == cantidadPokemonesObjetivo) {
-		pthread_mutex_lock(&mxEntrenadoresDeadLock);
-		for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
-			pokemonEncontrado = FALSE;
-			char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
-			for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
-				char* pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
-				if (string_equals_ignore_case(pokemonAtrapado, pokemonObjetivo)) {
-					list_remove(listaObjetivosAuxiliar, posicionObjetivos);
-					cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
-					pokemonEncontrado = TRUE;
-					break;
-				}
-			}
-			if (pokemonEncontrado == FALSE) {
-				entrenadorEnDeadlock = FALSE;
-
-				for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
-					entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
-					if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
-						entrenadorEnDeadlock = TRUE;
-						break;
-					}
-				}
-
-				if (entrenadorEnDeadlock == FALSE) {
-					log_info(loggerCatedra,"Se pasa entrenador %d a estado Deadlock", entrenador->idEntrenador);
-					list_add(entrenadoresEnDeadlock, entrenador);
-					//printf("Entrenador %i en deadlock\n", entrenador->idEntrenador);
-				}
-
-				//verificarIntercambios();
+	for (int posicionAtrapados = 0; posicionAtrapados < cantidadPokemonesAtrapados; posicionAtrapados++) {
+		pokemonEncontrado = FALSE;
+		char* pokemonAtrapado = list_get(entrenador->pokemonesAtrapados, posicionAtrapados);
+		for (int posicionObjetivos = 0; posicionObjetivos < cantidadObjetivosAuxiliar; posicionObjetivos++) {
+			char* pokemonObjetivo = list_get(listaObjetivosAuxiliar, posicionObjetivos);
+			if (string_equals_ignore_case(pokemonAtrapado, pokemonObjetivo)) {
+				list_remove(listaObjetivosAuxiliar, posicionObjetivos);
+				cantidadObjetivosAuxiliar = list_size(listaObjetivosAuxiliar);
+				pokemonEncontrado = TRUE;
 				break;
 			}
 		}
-		if (cantidadObjetivosAuxiliar == 0) {
+		if (pokemonEncontrado == FALSE) {
+			entrenadorEnDeadlock = FALSE;
+
 			for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
 				entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
 				if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
-					list_remove(entrenadoresEnDeadlock, posicionEnListaDeadlock);
-					/*for (int i=0; i < list_size(entrenadoresEnDeadlock);i++) {
-						entrenadorPokemon* entrenador = list_get(entrenadoresEnDeadlock, i);
-						//printf("Entrenador en deadlock %i\n", entrenador->idEntrenador);
-					}*/
+					entrenadorEnDeadlock = TRUE;
 					break;
 				}
 			}
-			pthread_mutex_lock(&mutexColaBlocked);
-			quitarDeColaBlocked(entrenador);
-			pthread_mutex_unlock(&mutexColaBlocked);
-			pthread_mutex_lock(&mutexColaExit);
-			list_add(colaExit, entrenador);
-			pthread_mutex_unlock(&mutexColaExit);
-			pthread_mutex_lock(&mutexLogCatedra);
-			log_info(loggerCatedra, "Se movió al entrenador de id %i a Exit ya que atrapó a todos los Pokemon que tenía como objetivo", entrenador->idEntrenador);
-			pthread_mutex_unlock(&mutexLogCatedra);
-			if (cantEntrenadores == list_size(colaExit)) {
-				pthread_mutex_lock(&mutexLogCatedra);
-				pthread_mutex_lock(&mxCiclosCPU);
-				printf("Cantidad de ciclos de CPU totales: %i\n", ciclosEnCPU);
-				log_info(loggerCatedra, "Cantidad de ciclos de CPU totales: %i", ciclosEnCPU);
-				pthread_mutex_unlock(&mxCiclosCPU);
-				printf("Cantidad de cambios de contexto realizados: %i\n", cantCambiosContexto);
-				log_info(loggerCatedra, "Cantidad de cambios de contexto realizados: %i", cantCambiosContexto);
-				printf("Cantidad de ciclos de CPU realizados por entrenador:\n");
-				log_info(loggerCatedra, "Cantidad de ciclos de CPU realizados por entrenador:");
-				pthread_mutex_unlock(&mutexLogCatedra);
-				for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaExit); posicionEntrenador++) {
-					entrenadorPokemon* entrenadorEnExit = list_get(colaExit, posicionEntrenador);
-					pthread_mutex_lock(&mutexLogCatedra);
-					printf("Entrenador %i - Ciclos de CPU: %i\n", entrenadorEnExit->idEntrenador, entrenadorEnExit->ciclosEnCPU);
-					log_info(loggerCatedra, "Entrenador %i - Ciclos de CPU: %i", entrenadorEnExit->idEntrenador, entrenadorEnExit->ciclosEnCPU);
-					pthread_mutex_unlock(&mutexLogCatedra);
-				}
-				pthread_mutex_lock(&mutexLogCatedra);
-				printf("Deadlocks producidos y resueltos: %i\n", cantDeadlocks);
-				log_info(loggerCatedra, "Deadlocks producidos y resueltos: %i", cantDeadlocks);
-				pthread_mutex_unlock(&mutexLogCatedra);
+
+			if (entrenadorEnDeadlock == FALSE) {
+				log_info(loggerCatedra,"Se pasa entrenador %d a estado Deadlock", entrenador->idEntrenador);
+				list_add(entrenadoresEnDeadlock, entrenador);
+				//printf("Entrenador %i en deadlock\n", entrenador->idEntrenador);
 			}
 
+			//verificarIntercambios();
+			break;
+		}
+	}
+	if (cantidadObjetivosAuxiliar == 0) {
+		for (int posicionEnListaDeadlock = 0; posicionEnListaDeadlock < list_size(entrenadoresEnDeadlock); posicionEnListaDeadlock++) {
+			entrenadorPokemon* entrenadorEnListaDeadlock = list_get(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+			if (entrenador->idEntrenador == entrenadorEnListaDeadlock->idEntrenador) {
+				list_remove(entrenadoresEnDeadlock, posicionEnListaDeadlock);
+				/*for (int i=0; i < list_size(entrenadoresEnDeadlock);i++) {
+							entrenadorPokemon* entrenador = list_get(entrenadoresEnDeadlock, i);
+								//printf("Entrenador en deadlock %i\n", entrenador->idEntrenador);
+						}*/
+				break;
+			}
+		}
+		pthread_mutex_lock(&mutexColaBlocked);
+		quitarDeColaBlocked(entrenador);
+		pthread_mutex_unlock(&mutexColaBlocked);
+		pthread_mutex_lock(&mutexColaExit);
+		list_add(colaExit, entrenador);
+		pthread_mutex_unlock(&mutexColaExit);
+		pthread_mutex_lock(&mutexLogCatedra);
+		log_info(loggerCatedra, "Se movió al entrenador de id %i a Exit ya que atrapó a todos los Pokemon que tenía como objetivo", entrenador->idEntrenador);
+		pthread_mutex_unlock(&mutexLogCatedra);
+	}
+}
+
+//Verifica si el entrenador esta en deadlock. Si no lo esta, lo quita de blocked y lo pasa a ready seteandole "" como proxima accion
+void verificarDeadlock(entrenadorPokemon* entrenador) {
+	int cantidadPokemonesAtrapados = list_size(entrenador->pokemonesAtrapados);
+	int cantidadPokemonesObjetivo = list_size(entrenador->pokemonesObjetivo);
+	if (cantidadPokemonesAtrapados == cantidadPokemonesObjetivo) {
+		pthread_mutex_lock(&mxEntrenadoresDeadLock);
+		verificarEstado(entrenador);
+		if (cantEntrenadores == list_size(colaExit)) {
+			pthread_mutex_lock(&mutexLogCatedra);
+			pthread_mutex_lock(&mxCiclosCPU);
+			printf("Cantidad de ciclos de CPU totales: %i\n", ciclosEnCPU);
+			log_info(loggerCatedra, "Cantidad de ciclos de CPU totales: %i", ciclosEnCPU);
+			pthread_mutex_unlock(&mxCiclosCPU);
+			printf("Cantidad de cambios de contexto realizados: %i\n", cantCambiosContexto);
+			log_info(loggerCatedra, "Cantidad de cambios de contexto realizados: %i", cantCambiosContexto);
+			printf("Cantidad de ciclos de CPU realizados por entrenador:\n");
+			log_info(loggerCatedra, "Cantidad de ciclos de CPU realizados por entrenador:");
+			pthread_mutex_unlock(&mutexLogCatedra);
+			for (int posicionEntrenador = 0; posicionEntrenador < list_size(colaExit); posicionEntrenador++) {
+				entrenadorPokemon* entrenadorEnExit = list_get(colaExit, posicionEntrenador);
+				pthread_mutex_lock(&mutexLogCatedra);
+				printf("Entrenador %i - Ciclos de CPU: %i\n", entrenadorEnExit->idEntrenador, entrenadorEnExit->ciclosEnCPU);
+				log_info(loggerCatedra, "Entrenador %i - Ciclos de CPU: %i", entrenadorEnExit->idEntrenador, entrenadorEnExit->ciclosEnCPU);
+				pthread_mutex_unlock(&mutexLogCatedra);
+			}
+			pthread_mutex_lock(&mutexLogCatedra);
+			printf("Deadlocks producidos y resueltos: %i\n", cantDeadlocks);
+			log_info(loggerCatedra, "Deadlocks producidos y resueltos: %i", cantDeadlocks);
+			pthread_mutex_unlock(&mutexLogCatedra);
 		}
 		pthread_mutex_unlock(&mxEntrenadoresDeadLock);
 	} else {
-
 		entrenador->proximaAccion = realloc(entrenador->proximaAccion,string_length("") + 1);
 		strcpy(entrenador->proximaAccion,"");
-
-
-
 		sem_post(&entrenadoresLibres);
 	}
-
 	if (list_size(objetivoTeam) == 0){
 		verificarIntercambios();
 	}
-
 }
 
 void quitarDeColaBlocked(entrenadorPokemon* entrenador) {
@@ -2170,7 +2160,7 @@ void thread_Entrenador(int idEntrenador) {
 				realizarIntercambio(entrenador, entrenador2, atrapadoInnecesarioEntrenador1, atrapadoInnecesarioEntrenador2);
 				entrenador->proximaAccion = "";
 				entrenador2->proximaAccion = "";
-				verificarDeadlock(entrenador);
+				verificarEstado(entrenador);
 				verificarDeadlock(entrenador2);
 			} else {
 				pthread_mutex_lock(&mutexLogCatedra);

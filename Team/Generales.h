@@ -149,6 +149,7 @@ void verificarIntercambios();
 char* obtenerPokemonObjetivoFaltante(entrenadorPokemon* entrenador);
 char* obtenerPokemonAtrapadoInnecesario(entrenadorPokemon* entrenador);
 void quitarDeColaBlocked(entrenadorPokemon* entrenador);
+void quitarDeColaNew(entrenadorPokemon* entrenador);
 void realizarAccion(entrenadorPokemon* entrenador, int tiempo);
 void servidor();
 void consola();
@@ -186,5 +187,6 @@ void threadCaught(cola_CAUGHT_POKEMON* caug_poke);
 void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke);
 int mensajeNoRecibido(cola_LOCALIZED_POKEMON* pokemonLocalizado);
 void grabarToken(unsigned int token);
+void verificarEstado(entrenadorPokemon* entrenador);
 
 #endif
