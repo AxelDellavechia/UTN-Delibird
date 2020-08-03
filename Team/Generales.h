@@ -85,6 +85,7 @@ pthread_mutex_t mutexListaCatch;
 pthread_mutex_t mxEntrenadoresList;
 pthread_mutex_t mxEntrenadoresDeadLock;
 pthread_mutex_t mxCiclosCPU;
+pthread_mutex_t mxExitEntrenadores;
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
 sem_t elementosEnReady;
