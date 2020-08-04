@@ -1,615 +1,101 @@
-[INFO] 19:58:08:511 Team.log/(13246:13246): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:511 Team.log/(13246:13246): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:511 Team.log/(13246:13246): Servidor o Cliente aceptado.
-[INFO] 19:58:08:511 Team.log/(13246:13246): Handshake recibido: Broker
-[INFO] 19:58:08:511 Team.log/(13246:13246): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:511 Team.log/(13246:13246): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:511 Team.log/(13246:13246): Servidor o Cliente aceptado.
-[INFO] 19:58:08:512 Team.log/(13246:13246): Handshake recibido: Broker
-[INFO] 19:58:08:512 Team.log/(13246:13246): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:512 Team.log/(13246:13246): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:512 Team.log/(13246:13246): Servidor o Cliente aceptado.
-[INFO] 19:58:08:512 Team.log/(13246:13246): Handshake recibido: Broker
-[INFO] 19:58:08:512 Team.log/(13246:13246): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:512 Team.log/(13246:13246): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:512 Team.log/(13246:13246): Servidor o Cliente aceptado.
-[INFO] 19:58:08:512 Team.log/(13246:13246): Handshake recibido: Broker
-[INFO] 19:58:08:515 Team.log/(13246:13267): Obteniendo los Entrenadores
-[INFO] 19:58:08:515 Team.log/(13246:13267): Escuchando conexiones
-[INFO] 19:58:08:516 Team.log/(13246:13267): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:516 Team.log/(13246:13267): Servidor o Cliente aceptado.
-[INFO] 19:58:08:516 Team.log/(13246:13267): Handshake recibido: Broker
-[INFO] 19:58:08:519 Team.log/(13246:13269): Obteniendo los Entrenadores
-[INFO] 19:58:08:519 Team.log/(13246:13269): Escuchando conexiones
-[INFO] 19:58:08:520 Team.log/(13246:13269): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:520 Team.log/(13246:13269): Servidor o Cliente aceptado.
-[INFO] 19:58:08:520 Team.log/(13246:13269): Handshake recibido: Broker
-[INFO] 19:58:08:520 Team.log/(13246:13267): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 19:58:08:520 Team.log/(13246:13267): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 19:58:08:520 Team.log/(13246:13267): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:08:526 Team.log/(13246:13271): Obteniendo los Entrenadores
-[INFO] 19:58:08:526 Team.log/(13246:13271): Escuchando conexiones
-[INFO] 19:58:08:531 Team.log/(13246:13271): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:531 Team.log/(13246:13271): Servidor o Cliente aceptado.
-[INFO] 19:58:08:531 Team.log/(13246:13271): Handshake recibido: Broker
-[INFO] 19:58:08:531 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 19:58:08:531 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 19:58:08:531 Team.log/(13246:13269): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:08:537 Team.log/(13246:13274): Escuchando conexiones
-[INFO] 19:58:08:537 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 19:58:08:537 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 19:58:08:537 Team.log/(13246:13271): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:08:570 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 19:58:08:570 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
-[INFO] 19:58:08:570 Team.log/(13246:13269): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:08:573 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 19:58:08:573 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
-[INFO] 19:58:08:573 Team.log/(13246:13269): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:08:587 Team.log/(13246:13286): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:588 Team.log/(13246:13286): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:588 Team.log/(13246:13286): Servidor o Cliente aceptado.
-[INFO] 19:58:08:588 Team.log/(13246:13286): Handshake recibido: Broker
-[INFO] 19:58:08:611 Team.log/(13246:13287): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:08:611 Team.log/(13246:13287): metodo handshake_cliente recibió: 6
-[INFO] 19:58:08:611 Team.log/(13246:13287): Servidor o Cliente aceptado.
-[INFO] 19:58:08:611 Team.log/(13246:13287): Handshake recibido: Broker
-[INFO] 19:58:13:529 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 19:58:13:529 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
-[INFO] 19:58:13:529 Team.log/(13246:13269): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:13:532 Team.log/(13246:13293): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:13:533 Team.log/(13246:13293): metodo handshake_cliente recibió: 6
-[INFO] 19:58:13:533 Team.log/(13246:13293): Servidor o Cliente aceptado.
-[INFO] 19:58:13:549 Team.log/(13246:13293): Handshake recibido: Broker
-[INFO] 19:58:13:549 Team.log/(13246:13262): El entrenador 2 se movió a la posición 4 2
-[INFO] 19:58:13:571 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 19:58:13:571 Team.log/(13246:13269): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
-[INFO] 19:58:13:571 Team.log/(13246:13269): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:13:576 Team.log/(13246:13296): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:13:577 Team.log/(13246:13296): metodo handshake_cliente recibió: 6
-[INFO] 19:58:13:577 Team.log/(13246:13296): Servidor o Cliente aceptado.
-[INFO] 19:58:13:577 Team.log/(13246:13296): Handshake recibido: Broker
-[INFO] 19:58:14:550 Team.log/(13246:13262): El entrenador 2 se movió a la posición 5 2
-[INFO] 19:58:17:554 Team.log/(13246:13262): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:17:554 Team.log/(13246:13262): metodo handshake_cliente recibió: 6
-[INFO] 19:58:17:554 Team.log/(13246:13262): Servidor o Cliente aceptado.
-[INFO] 19:58:17:554 Team.log/(13246:13262): Handshake recibido: Broker
-[INFO] 19:58:17:558 Team.log/(13246:13259): El entrenador 1 se movió a la posición 3 3
-[INFO] 19:58:18:559 Team.log/(13246:13259): El entrenador 1 se movió a la posición 4 3
-[INFO] 19:58:19:560 Team.log/(13246:13259): El entrenador 1 se movió a la posición 5 3
-[INFO] 19:58:20:560 Team.log/(13246:13259): El entrenador 1 se movió a la posición 6 3
-[INFO] 19:58:21:561 Team.log/(13246:13259): El entrenador 1 se movió a la posición 7 3
-[INFO] 19:58:22:561 Team.log/(13246:13259): El entrenador 1 se movió a la posición 8 3
-[INFO] 19:58:22:567 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 19:58:22:567 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 19:58:22:567 Team.log/(13246:13271): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:58:22:572 Team.log/(13246:13313): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:58:22:572 Team.log/(13246:13313): metodo handshake_cliente recibió: 6
-[INFO] 19:58:22:572 Team.log/(13246:13313): Servidor o Cliente aceptado.
-[INFO] 19:58:22:572 Team.log/(13246:13313): Handshake recibido: Broker
-[INFO] 19:59:20:718 Team.log/(13246:13259): El entrenador 1 se movió a la posición 9 3
-[INFO] 19:59:24:520 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 4
-[INFO] 19:59:25:523 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 5
-[INFO] 19:59:26:525 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 6
-[INFO] 19:59:27:525 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 7
-[INFO] 19:59:28:525 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 8
-[INFO] 19:59:29:526 Team.log/(13246:13259): El entrenador 1 se movió a la posición 2 9
-[INFO] 19:59:31:533 Team.log/(13246:13259): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:59:31:534 Team.log/(13246:13259): metodo handshake_cliente recibió: 6
-[INFO] 19:59:31:534 Team.log/(13246:13259): Servidor o Cliente aceptado.
-[INFO] 19:59:31:534 Team.log/(13246:13259): Handshake recibido: Broker
-[INFO] 19:59:55:596 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 19:59:55:596 Team.log/(13246:13271): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 19:59:55:596 Team.log/(13246:13271): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 19:59:55:611 Team.log/(13246:13362): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 19:59:55:611 Team.log/(13246:13362): metodo handshake_cliente recibió: 6
-[INFO] 19:59:55:616 Team.log/(13246:13362): Servidor o Cliente aceptado.
-[INFO] 19:59:55:616 Team.log/(13246:13362): Handshake recibido: Broker
-[INFO] 20:06:27:878 Team.log/(13656:13656): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:878 Team.log/(13656:13656): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:878 Team.log/(13656:13656): Servidor o Cliente aceptado.
-[INFO] 20:06:27:878 Team.log/(13656:13656): Handshake recibido: Broker
-[INFO] 20:06:27:879 Team.log/(13656:13656): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:879 Team.log/(13656:13656): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:879 Team.log/(13656:13656): Servidor o Cliente aceptado.
-[INFO] 20:06:27:879 Team.log/(13656:13656): Handshake recibido: Broker
-[INFO] 20:06:27:880 Team.log/(13656:13656): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:880 Team.log/(13656:13656): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:880 Team.log/(13656:13656): Servidor o Cliente aceptado.
-[INFO] 20:06:27:880 Team.log/(13656:13656): Handshake recibido: Broker
-[INFO] 20:06:27:880 Team.log/(13656:13656): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:880 Team.log/(13656:13656): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:880 Team.log/(13656:13656): Servidor o Cliente aceptado.
-[INFO] 20:06:27:880 Team.log/(13656:13656): Handshake recibido: Broker
-[INFO] 20:06:27:885 Team.log/(13656:13674): Obteniendo los Entrenadores
-[INFO] 20:06:27:885 Team.log/(13656:13674): Escuchando conexiones
-[INFO] 20:06:27:885 Team.log/(13656:13674): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:885 Team.log/(13656:13674): Servidor o Cliente aceptado.
-[INFO] 20:06:27:885 Team.log/(13656:13674): Handshake recibido: Broker
-[INFO] 20:06:27:892 Team.log/(13656:13676): Obteniendo los Entrenadores
-[INFO] 20:06:27:892 Team.log/(13656:13676): Escuchando conexiones
-[INFO] 20:06:27:894 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:06:27:894 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:06:27:894 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:27:894 Team.log/(13656:13676): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:897 Team.log/(13656:13676): Servidor o Cliente aceptado.
-[INFO] 20:06:27:897 Team.log/(13656:13676): Handshake recibido: Broker
-[INFO] 20:06:27:902 Team.log/(13656:13678): Obteniendo los Entrenadores
-[INFO] 20:06:27:902 Team.log/(13656:13678): Escuchando conexiones
-[INFO] 20:06:27:902 Team.log/(13656:13678): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:905 Team.log/(13656:13678): Servidor o Cliente aceptado.
-[INFO] 20:06:27:905 Team.log/(13656:13678): Handshake recibido: Broker
-[INFO] 20:06:27:905 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:06:27:905 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:06:27:905 Team.log/(13656:13676): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:27:907 Team.log/(13656:13681): Escuchando conexiones
-[INFO] 20:06:27:907 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:06:27:907 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:06:27:907 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:27:942 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:06:27:942 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
-[INFO] 20:06:27:942 Team.log/(13656:13676): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:27:948 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:06:27:948 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
-[INFO] 20:06:27:948 Team.log/(13656:13676): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:27:948 Team.log/(13656:13693): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:948 Team.log/(13656:13693): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:948 Team.log/(13656:13693): Servidor o Cliente aceptado.
-[INFO] 20:06:27:948 Team.log/(13656:13693): Handshake recibido: Broker
-[INFO] 20:06:27:968 Team.log/(13656:13694): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:27:969 Team.log/(13656:13694): metodo handshake_cliente recibió: 6
-[INFO] 20:06:27:969 Team.log/(13656:13694): Servidor o Cliente aceptado.
-[INFO] 20:06:27:969 Team.log/(13656:13694): Handshake recibido: Broker
-[INFO] 20:06:32:906 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:06:32:906 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
-[INFO] 20:06:32:906 Team.log/(13656:13676): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:32:910 Team.log/(13656:13701): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:32:910 Team.log/(13656:13701): metodo handshake_cliente recibió: 6
-[INFO] 20:06:32:910 Team.log/(13656:13701): Servidor o Cliente aceptado.
-[INFO] 20:06:32:910 Team.log/(13656:13701): Handshake recibido: Broker
-[INFO] 20:06:32:911 Team.log/(13656:13669): El entrenador 2 se movió a la posición 4 2
-[INFO] 20:06:32:941 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:06:32:941 Team.log/(13656:13676): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
-[INFO] 20:06:32:941 Team.log/(13656:13676): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:32:947 Team.log/(13656:13704): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:32:948 Team.log/(13656:13704): metodo handshake_cliente recibió: 6
-[INFO] 20:06:32:948 Team.log/(13656:13704): Servidor o Cliente aceptado.
-[INFO] 20:06:32:948 Team.log/(13656:13704): Handshake recibido: Broker
-[INFO] 20:06:33:911 Team.log/(13656:13669): El entrenador 2 se movió a la posición 5 2
-[INFO] 20:06:36:912 Team.log/(13656:13669): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:36:912 Team.log/(13656:13669): metodo handshake_cliente recibió: 6
-[INFO] 20:06:36:912 Team.log/(13656:13669): Servidor o Cliente aceptado.
-[INFO] 20:06:36:912 Team.log/(13656:13669): Handshake recibido: Broker
-[INFO] 20:06:46:544 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:06:46:544 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:06:46:544 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:06:46:545 Team.log/(13656:13667): El entrenador 1 se movió a la posición 3 3
-[INFO] 20:06:46:557 Team.log/(13656:13719): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:06:46:557 Team.log/(13656:13719): metodo handshake_cliente recibió: 6
-[INFO] 20:06:46:557 Team.log/(13656:13719): Servidor o Cliente aceptado.
-[INFO] 20:06:46:557 Team.log/(13656:13719): Handshake recibido: Broker
-[INFO] 20:06:52:818 Team.log/(13656:13667): El entrenador 1 se movió a la posición 4 3
-[INFO] 20:07:00:394 Team.log/(13656:13667): El entrenador 1 se movió a la posición 5 3
-[INFO] 20:07:05:858 Team.log/(13656:13667): El entrenador 1 se movió a la posición 6 3
-[INFO] 20:07:07:69 Team.log/(13656:13667): El entrenador 1 se movió a la posición 7 3
-[INFO] 20:07:08:542 Team.log/(13656:13667): El entrenador 1 se movió a la posición 8 3
-[INFO] 20:07:09:961 Team.log/(13656:13667): El entrenador 1 se movió a la posición 9 3
-[INFO] 20:07:12:767 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 4
-[INFO] 20:07:14:68 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 5
-[INFO] 20:07:15:998 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 6
-[INFO] 20:07:18:198 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 7
-[INFO] 20:07:27:620 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 8
-[INFO] 20:07:28:906 Team.log/(13656:13667): El entrenador 1 se movió a la posición 2 9
-[INFO] 20:07:31:649 Team.log/(13656:13667): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:07:31:649 Team.log/(13656:13667): metodo handshake_cliente recibió: 6
-[INFO] 20:07:31:649 Team.log/(13656:13667): Servidor o Cliente aceptado.
-[INFO] 20:07:31:649 Team.log/(13656:13667): Handshake recibido: Broker
-[INFO] 20:07:37:340 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:07:37:340 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:07:37:340 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:07:38:3 Team.log/(13656:13780): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:07:38:3 Team.log/(13656:13780): metodo handshake_cliente recibió: 6
-[INFO] 20:07:38:3 Team.log/(13656:13780): Servidor o Cliente aceptado.
-[INFO] 20:07:38:3 Team.log/(13656:13780): Handshake recibido: Broker
-[INFO] 20:08:21:141 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:141 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 20:08:21:141 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:143 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:143 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 20:08:21:143 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:147 Team.log/(13656:13851): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:147 Team.log/(13656:13851): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:147 Team.log/(13656:13851): Servidor o Cliente aceptado.
-[INFO] 20:08:21:147 Team.log/(13656:13851): Handshake recibido: Broker
-[INFO] 20:08:21:148 Team.log/(13656:13669): El entrenador 2 se movió a la posición 6 2
-[INFO] 20:08:21:159 Team.log/(13656:13852): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:160 Team.log/(13656:13852): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:160 Team.log/(13656:13852): Servidor o Cliente aceptado.
-[INFO] 20:08:21:160 Team.log/(13656:13852): Handshake recibido: Broker
-[INFO] 20:08:21:163 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:163 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 20:08:21:163 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:176 Team.log/(13656:13856): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:177 Team.log/(13656:13856): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:177 Team.log/(13656:13856): Servidor o Cliente aceptado.
-[INFO] 20:08:21:177 Team.log/(13656:13856): Handshake recibido: Broker
-[INFO] 20:08:21:182 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:182 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 20:08:21:182 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:190 Team.log/(13656:13860): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:192 Team.log/(13656:13860): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:193 Team.log/(13656:13860): Servidor o Cliente aceptado.
-[INFO] 20:08:21:193 Team.log/(13656:13860): Handshake recibido: Broker
-[INFO] 20:08:21:194 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:194 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 20:08:21:194 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:200 Team.log/(13656:13863): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:200 Team.log/(13656:13863): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:200 Team.log/(13656:13863): Servidor o Cliente aceptado.
-[INFO] 20:08:21:200 Team.log/(13656:13863): Handshake recibido: Broker
-[INFO] 20:08:21:202 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:08:21:202 Team.log/(13656:13674): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 20:08:21:202 Team.log/(13656:13674): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:21:209 Team.log/(13656:13865): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:21:210 Team.log/(13656:13865): metodo handshake_cliente recibió: 6
-[INFO] 20:08:21:210 Team.log/(13656:13865): Servidor o Cliente aceptado.
-[INFO] 20:08:21:210 Team.log/(13656:13865): Handshake recibido: Broker
-[INFO] 20:08:23:149 Team.log/(13656:13669): El entrenador 2 se movió a la posición 5 3
-[INFO] 20:08:24:149 Team.log/(13656:13669): El entrenador 2 se movió a la posición 5 4
-[INFO] 20:08:25:150 Team.log/(13656:13669): El entrenador 2 se movió a la posición 5 5
-[INFO] 20:08:26:151 Team.log/(13656:13669): El entrenador 2 se movió a la posición 5 6
-[INFO] 20:08:28:152 Team.log/(13656:13669): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:28:152 Team.log/(13656:13669): metodo handshake_cliente recibió: 6
-[INFO] 20:08:28:152 Team.log/(13656:13669): Servidor o Cliente aceptado.
-[INFO] 20:08:28:152 Team.log/(13656:13669): Handshake recibido: Broker
-[INFO] 20:08:28:161 Team.log/(13656:13665): El entrenador 0 se movió a la posición 2 3
-[INFO] 20:08:30:162 Team.log/(13656:13665): El entrenador 0 se movió a la posición 1 4
-[INFO] 20:08:31:163 Team.log/(13656:13665): El entrenador 0 se movió a la posición 1 5
-[INFO] 20:08:32:163 Team.log/(13656:13665): El entrenador 0 se movió a la posición 1 6
-[INFO] 20:08:33:164 Team.log/(13656:13665): El entrenador 0 se movió a la posición 1 7
-[INFO] 20:08:33:170 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:08:33:170 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:08:33:170 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:08:33:181 Team.log/(13656:13875): Se pudo realizar la conexión entre el socket[13] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:33:185 Team.log/(13656:13875): metodo handshake_cliente recibió: 6
-[INFO] 20:08:33:185 Team.log/(13656:13875): Servidor o Cliente aceptado.
-[INFO] 20:08:33:185 Team.log/(13656:13875): Handshake recibido: Broker
-[INFO] 20:08:38:594 Team.log/(13656:13665): El entrenador 0 se movió a la posición 1 8
-[INFO] 20:08:56:777 Team.log/(13656:13665): Se pudo realizar la conexión entre el socket[13] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:08:56:777 Team.log/(13656:13665): metodo handshake_cliente recibió: 6
-[INFO] 20:08:56:777 Team.log/(13656:13665): Servidor o Cliente aceptado.
-[INFO] 20:08:56:777 Team.log/(13656:13665): Handshake recibido: Broker
-[INFO] 20:08:57:496 Team.log/(13656:13667): El entrenador 1 se movió a la posición 8 9
-[INFO] 20:08:58:821 Team.log/(13656:13667): El entrenador 1 se movió a la posición 7 9
-[INFO] 20:09:00:107 Team.log/(13656:13667): El entrenador 1 se movió a la posición 6 9
-[INFO] 20:09:01:247 Team.log/(13656:13667): El entrenador 1 se movió a la posición 5 9
-[INFO] 20:09:01:859 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:09:01:859 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:09:01:859 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:09:01:872 Team.log/(13656:13908): Se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:09:01:872 Team.log/(13656:13908): metodo handshake_cliente recibió: 6
-[INFO] 20:09:01:872 Team.log/(13656:13908): Servidor o Cliente aceptado.
-[INFO] 20:09:01:872 Team.log/(13656:13908): Handshake recibido: Broker
-[INFO] 20:09:16:50 Team.log/(13656:13667): El entrenador 1 se movió a la posición 9 8
-[INFO] 20:09:19:994 Team.log/(13656:13667): El entrenador 1 se movió a la posición 9 7
-[INFO] 20:09:22:229 Team.log/(13656:13667): El entrenador 1 se movió a la posición 9 6
-[INFO] 20:09:29:936 Team.log/(13656:13667): El entrenador 1 se movió a la posición 9 5
-[INFO] 20:09:32:550 Team.log/(13656:13667): Se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:09:32:550 Team.log/(13656:13667): metodo handshake_cliente recibió: 6
-[INFO] 20:09:32:550 Team.log/(13656:13667): Servidor o Cliente aceptado.
-[INFO] 20:09:32:550 Team.log/(13656:13667): Handshake recibido: Broker
-[INFO] 20:09:38:349 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:09:38:349 Team.log/(13656:13678): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:09:38:349 Team.log/(13656:13678): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:09:38:365 Team.log/(13656:13949): Se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:09:38:366 Team.log/(13656:13949): metodo handshake_cliente recibió: 6
-[INFO] 20:09:38:366 Team.log/(13656:13949): Servidor o Cliente aceptado.
-[INFO] 20:09:38:366 Team.log/(13656:13949): Handshake recibido: Broker
-[INFO] 20:24:17:478 Team.log/(14393:14393): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:478 Team.log/(14393:14393): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:478 Team.log/(14393:14393): Servidor o Cliente aceptado.
-[INFO] 20:24:17:478 Team.log/(14393:14393): Handshake recibido: Broker
-[INFO] 20:24:17:479 Team.log/(14393:14393): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:479 Team.log/(14393:14393): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:479 Team.log/(14393:14393): Servidor o Cliente aceptado.
-[INFO] 20:24:17:479 Team.log/(14393:14393): Handshake recibido: Broker
-[INFO] 20:24:17:483 Team.log/(14393:14393): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:483 Team.log/(14393:14393): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:483 Team.log/(14393:14393): Servidor o Cliente aceptado.
-[INFO] 20:24:17:483 Team.log/(14393:14393): Handshake recibido: Broker
-[INFO] 20:24:17:489 Team.log/(14393:14393): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:490 Team.log/(14393:14393): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:490 Team.log/(14393:14393): Servidor o Cliente aceptado.
-[INFO] 20:24:17:490 Team.log/(14393:14393): Handshake recibido: Broker
-[INFO] 20:24:17:493 Team.log/(14393:14414): Escuchando conexiones
-[INFO] 20:24:17:493 Team.log/(14393:14411): Obteniendo los Entrenadores
-[INFO] 20:24:17:493 Team.log/(14393:14411): Escuchando conexiones
-[INFO] 20:24:17:493 Team.log/(14393:14411): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:493 Team.log/(14393:14411): Servidor o Cliente aceptado.
-[INFO] 20:24:17:493 Team.log/(14393:14411): Handshake recibido: Broker
-[INFO] 20:24:17:494 Team.log/(14393:14412): Obteniendo los Entrenadores
-[INFO] 20:24:17:494 Team.log/(14393:14412): Escuchando conexiones
-[INFO] 20:24:17:494 Team.log/(14393:14412): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:494 Team.log/(14393:14412): Servidor o Cliente aceptado.
-[INFO] 20:24:17:494 Team.log/(14393:14412): Handshake recibido: Broker
-[INFO] 20:24:17:494 Team.log/(14393:14413): Obteniendo los Entrenadores
-[INFO] 20:24:17:494 Team.log/(14393:14413): Escuchando conexiones
-[INFO] 20:24:17:494 Team.log/(14393:14413): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:494 Team.log/(14393:14413): Servidor o Cliente aceptado.
-[INFO] 20:24:17:494 Team.log/(14393:14413): Handshake recibido: Broker
-[INFO] 20:24:17:507 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:24:17:507 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:24:17:507 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:17:508 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:24:17:508 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:24:17:508 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:17:508 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió el HEAD #7
-[INFO] 20:24:17:508 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:24:17:508 Team.log/(14393:14412): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:17:554 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:24:17:554 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
-[INFO] 20:24:17:554 Team.log/(14393:14412): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:17:557 Team.log/(14393:14429): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:558 Team.log/(14393:14429): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:558 Team.log/(14393:14429): Servidor o Cliente aceptado.
-[INFO] 20:24:17:558 Team.log/(14393:14429): Handshake recibido: Broker
-[INFO] 20:24:17:561 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:24:17:561 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
-[INFO] 20:24:17:561 Team.log/(14393:14412): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:17:562 Team.log/(14393:14431): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:17:562 Team.log/(14393:14431): metodo handshake_cliente recibió: 6
-[INFO] 20:24:17:562 Team.log/(14393:14431): Servidor o Cliente aceptado.
-[INFO] 20:24:17:562 Team.log/(14393:14431): Handshake recibido: Broker
-[INFO] 20:24:22:497 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:24:22:497 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
-[INFO] 20:24:22:497 Team.log/(14393:14412): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:22:497 Team.log/(14393:14437): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:22:497 Team.log/(14393:14437): metodo handshake_cliente recibió: 6
-[INFO] 20:24:22:497 Team.log/(14393:14437): Servidor o Cliente aceptado.
-[INFO] 20:24:22:497 Team.log/(14393:14437): Handshake recibido: Broker
-[INFO] 20:24:22:498 Team.log/(14393:14404): El entrenador 2 se movió a la posición 4 2
-[INFO] 20:24:22:555 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió el HEAD #6
-[INFO] 20:24:22:555 Team.log/(14393:14412): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
-[INFO] 20:24:22:555 Team.log/(14393:14412): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:22:556 Team.log/(14393:14440): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:22:556 Team.log/(14393:14440): metodo handshake_cliente recibió: 6
-[INFO] 20:24:22:556 Team.log/(14393:14440): Servidor o Cliente aceptado.
-[INFO] 20:24:22:556 Team.log/(14393:14440): Handshake recibido: Broker
-[INFO] 20:24:23:499 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 2
-[INFO] 20:24:26:506 Team.log/(14393:14404): Se pudo realizar la conexión entre el socket[10] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:26:506 Team.log/(14393:14404): metodo handshake_cliente recibió: 6
-[INFO] 20:24:26:506 Team.log/(14393:14404): Servidor o Cliente aceptado.
-[INFO] 20:24:26:506 Team.log/(14393:14404): Handshake recibido: Broker
-[INFO] 20:24:26:526 Team.log/(14393:14403): El entrenador 1 se movió a la posición 3 3
-[INFO] 20:24:27:526 Team.log/(14393:14403): El entrenador 1 se movió a la posición 4 3
-[INFO] 20:24:28:527 Team.log/(14393:14403): El entrenador 1 se movió a la posición 5 3
-[INFO] 20:24:29:527 Team.log/(14393:14403): El entrenador 1 se movió a la posición 6 3
-[INFO] 20:24:30:528 Team.log/(14393:14403): El entrenador 1 se movió a la posición 7 3
-[INFO] 20:24:31:528 Team.log/(14393:14403): El entrenador 1 se movió a la posición 8 3
-[INFO] 20:24:31:543 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:24:31:543 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:24:31:543 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:31:543 Team.log/(14393:14459): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:31:543 Team.log/(14393:14459): metodo handshake_cliente recibió: 6
-[INFO] 20:24:31:543 Team.log/(14393:14459): Servidor o Cliente aceptado.
-[INFO] 20:24:31:543 Team.log/(14393:14459): Handshake recibido: Broker
-[INFO] 20:24:32:529 Team.log/(14393:14403): El entrenador 1 se movió a la posición 9 3
-[INFO] 20:24:34:541 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 4
-[INFO] 20:24:35:542 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 5
-[INFO] 20:24:36:543 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 6
-[INFO] 20:24:37:543 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 7
-[INFO] 20:24:38:545 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 8
-[INFO] 20:24:39:545 Team.log/(14393:14403): El entrenador 1 se movió a la posición 2 9
-[INFO] 20:24:41:546 Team.log/(14393:14403): Se pudo realizar la conexión entre el socket[11] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:41:546 Team.log/(14393:14403): metodo handshake_cliente recibió: 6
-[INFO] 20:24:41:546 Team.log/(14393:14403): Servidor o Cliente aceptado.
-[INFO] 20:24:41:546 Team.log/(14393:14403): Handshake recibido: Broker
-[INFO] 20:24:46:562 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:24:46:562 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:24:46:562 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:24:46:563 Team.log/(14393:14489): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:24:46:563 Team.log/(14393:14489): metodo handshake_cliente recibió: 6
-[INFO] 20:24:46:563 Team.log/(14393:14489): Servidor o Cliente aceptado.
-[INFO] 20:24:46:563 Team.log/(14393:14489): Handshake recibido: Broker
-[INFO] 20:25:09:262 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:262 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 20:25:09:262 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:262 Team.log/(14393:14530): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:262 Team.log/(14393:14530): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:263 Team.log/(14393:14530): Servidor o Cliente aceptado.
-[INFO] 20:25:09:263 Team.log/(14393:14530): Handshake recibido: Broker
-[INFO] 20:25:09:263 Team.log/(14393:14402): El entrenador 0 se movió a la posición 2 3
-[INFO] 20:25:09:285 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:285 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 20:25:09:285 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:285 Team.log/(14393:14533): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:285 Team.log/(14393:14533): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:285 Team.log/(14393:14533): Servidor o Cliente aceptado.
-[INFO] 20:25:09:285 Team.log/(14393:14533): Handshake recibido: Broker
-[INFO] 20:25:09:303 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:303 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 20:25:09:303 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:303 Team.log/(14393:14536): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:303 Team.log/(14393:14536): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:303 Team.log/(14393:14536): Servidor o Cliente aceptado.
-[INFO] 20:25:09:303 Team.log/(14393:14536): Handshake recibido: Broker
-[INFO] 20:25:09:325 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:325 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 20:25:09:325 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:325 Team.log/(14393:14539): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:325 Team.log/(14393:14539): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:325 Team.log/(14393:14539): Servidor o Cliente aceptado.
-[INFO] 20:25:09:326 Team.log/(14393:14539): Handshake recibido: Broker
-[INFO] 20:25:09:339 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:340 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 20:25:09:340 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:343 Team.log/(14393:14542): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:343 Team.log/(14393:14542): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:343 Team.log/(14393:14542): Servidor o Cliente aceptado.
-[INFO] 20:25:09:343 Team.log/(14393:14542): Handshake recibido: Broker
-[INFO] 20:25:09:374 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 20:25:09:374 Team.log/(14393:14411): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 20:25:09:374 Team.log/(14393:14411): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:09:374 Team.log/(14393:14545): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:09:374 Team.log/(14393:14545): metodo handshake_cliente recibió: 6
-[INFO] 20:25:09:374 Team.log/(14393:14545): Servidor o Cliente aceptado.
-[INFO] 20:25:09:374 Team.log/(14393:14545): Handshake recibido: Broker
-[INFO] 20:25:11:266 Team.log/(14393:14402): El entrenador 0 se movió a la posición 1 4
-[INFO] 20:25:12:267 Team.log/(14393:14402): El entrenador 0 se movió a la posición 1 5
-[INFO] 20:25:13:267 Team.log/(14393:14402): El entrenador 0 se movió a la posición 1 6
-[INFO] 20:25:14:268 Team.log/(14393:14402): El entrenador 0 se movió a la posición 1 7
-[INFO] 20:25:15:269 Team.log/(14393:14402): El entrenador 0 se movió a la posición 1 8
-[INFO] 20:25:17:270 Team.log/(14393:14402): Se pudo realizar la conexión entre el socket[12] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:17:270 Team.log/(14393:14402): metodo handshake_cliente recibió: 6
-[INFO] 20:25:17:270 Team.log/(14393:14402): Servidor o Cliente aceptado.
-[INFO] 20:25:17:270 Team.log/(14393:14402): Handshake recibido: Broker
-[INFO] 20:25:17:282 Team.log/(14393:14404): El entrenador 2 se movió a la posición 6 2
-[INFO] 20:25:19:283 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 3
-[INFO] 20:25:20:284 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 4
-[INFO] 20:25:21:285 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 5
-[INFO] 20:25:22:285 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 6
-[INFO] 20:25:22:286 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:25:22:286 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:25:22:286 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:22:287 Team.log/(14393:14563): Se pudo realizar la conexión entre el socket[13] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:22:287 Team.log/(14393:14563): metodo handshake_cliente recibió: 6
-[INFO] 20:25:22:287 Team.log/(14393:14563): Servidor o Cliente aceptado.
-[INFO] 20:25:22:287 Team.log/(14393:14563): Handshake recibido: Broker
-[INFO] 20:25:24:287 Team.log/(14393:14404): Se pudo realizar la conexión entre el socket[13] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:24:287 Team.log/(14393:14404): metodo handshake_cliente recibió: 6
-[INFO] 20:25:24:287 Team.log/(14393:14404): Servidor o Cliente aceptado.
-[INFO] 20:25:24:287 Team.log/(14393:14404): Handshake recibido: Broker
-[INFO] 20:25:24:287 Team.log/(14393:14403): El entrenador 1 se movió a la posición 8 9
-[INFO] 20:25:25:288 Team.log/(14393:14403): El entrenador 1 se movió a la posición 7 9
-[INFO] 20:25:26:289 Team.log/(14393:14403): El entrenador 1 se movió a la posición 6 9
-[INFO] 20:25:27:289 Team.log/(14393:14403): El entrenador 1 se movió a la posición 5 9
-[INFO] 20:25:29:290 Team.log/(14393:14403): El entrenador 1 se movió a la posición 9 8
-[INFO] 20:25:29:292 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:25:29:292 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:25:29:292 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:29:293 Team.log/(14393:14578): Se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:29:293 Team.log/(14393:14578): metodo handshake_cliente recibió: 6
-[INFO] 20:25:29:293 Team.log/(14393:14578): Servidor o Cliente aceptado.
-[INFO] 20:25:29:293 Team.log/(14393:14578): Handshake recibido: Broker
-[INFO] 20:25:30:291 Team.log/(14393:14403): El entrenador 1 se movió a la posición 9 7
-[INFO] 20:25:31:291 Team.log/(14393:14403): El entrenador 1 se movió a la posición 9 6
-[INFO] 20:25:32:292 Team.log/(14393:14403): El entrenador 1 se movió a la posición 9 5
-[INFO] 20:25:34:293 Team.log/(14393:14403): Se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:34:293 Team.log/(14393:14403): metodo handshake_cliente recibió: 6
-[INFO] 20:25:34:293 Team.log/(14393:14403): Servidor o Cliente aceptado.
-[INFO] 20:25:34:293 Team.log/(14393:14403): Handshake recibido: Broker
-[INFO] 20:25:39:301 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió el HEAD #4
-[INFO] 20:25:39:301 Team.log/(14393:14413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
-[INFO] 20:25:39:301 Team.log/(14393:14413): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 20:25:39:301 Team.log/(14393:14589): Se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 20:25:39:301 Team.log/(14393:14589): metodo handshake_cliente recibió: 6
-[INFO] 20:25:39:301 Team.log/(14393:14589): Servidor o Cliente aceptado.
-[INFO] 20:25:39:301 Team.log/(14393:14589): Handshake recibido: Broker
-[INFO] 20:25:39:302 Team.log/(14393:14402): El entrenador 0 se movió a la posición 3 8
-[INFO] 20:25:40:302 Team.log/(14393:14402): El entrenador 0 se movió a la posición 4 8
-[INFO] 20:25:41:306 Team.log/(14393:14402): El entrenador 0 se movió a la posición 5 8
-[INFO] 20:25:43:307 Team.log/(14393:14402): El entrenador 0 se movió a la posición 2 7
-[INFO] 20:25:44:308 Team.log/(14393:14402): El entrenador 0 se movió a la posición 2 6
-[INFO] 20:25:45:308 Team.log/(14393:14402): El entrenador 0 se movió a la posición 2 5
-[INFO] 20:25:47:309 Team.log/(14393:14404): El entrenador 2 se movió a la posición 5 6
-[INFO] 20:25:49:309 Team.log/(14393:14404): El entrenador 2 se movió a la posición 6 5
-[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:37:737 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:37:738 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:37:738 Team.log/(3964:3964): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:37:750 Team.log/(3964:3981): Obteniendo los Entrenadores
-[INFO] 14:54:37:750 Team.log/(3964:3981): Escuchando conexiones
-[INFO] 14:54:37:756 Team.log/(3964:3982): Obteniendo los Entrenadores
-[INFO] 14:54:37:756 Team.log/(3964:3982): Escuchando conexiones
-[INFO] 14:54:37:756 Team.log/(3964:3983): Obteniendo los Entrenadores
-[INFO] 14:54:37:756 Team.log/(3964:3983): Escuchando conexiones
-[INFO] 14:54:37:756 Team.log/(3964:3984): Escuchando conexiones
-[INFO] 14:54:47:673 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:54:47:673 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:54:47:673 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 14:54:47:680 Team.log/(3964:3991): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:54:47:680 Team.log/(3964:3991): Fin de hilo GameBoy
-[INFO] 14:54:47:681 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:54:47:681 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:54:47:681 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 14:54:47:705 Team.log/(3964:3993): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:54:47:705 Team.log/(3964:3993): Fin de hilo GameBoy
-[INFO] 14:54:47:706 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:54:47:706 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:54:47:706 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 14:54:47:711 Team.log/(3964:3995): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:54:47:711 Team.log/(3964:3995): Fin de hilo GameBoy
-[INFO] 14:54:47:712 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:54:47:712 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:54:47:712 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 14:54:47:730 Team.log/(3964:3997): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:54:47:730 Team.log/(3964:3997): Fin de hilo GameBoy
-[INFO] 14:54:48:712 Team.log/(3964:3976): El entrenador 0 se movió a la posición 2 2
-[INFO] 14:54:50:714 Team.log/(3964:3976): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:54:50:714 Team.log/(3964:3977): El entrenador 1 se movió a la posición 5 5
-[INFO] 14:54:53:715 Team.log/(3964:3977): El entrenador 1 se movió a la posición 4 5
-[INFO] 14:54:57:717 Team.log/(3964:3977): El entrenador 1 se movió a la posición 4 6
-[INFO] 14:54:59:719 Team.log/(3964:3977): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:55:47:890 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:890 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:890 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
-[INFO] 14:55:47:902 Team.log/(3964:4011): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:902 Team.log/(3964:4011): Fin de hilo GameBoy
-[INFO] 14:55:47:906 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:906 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:906 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 14:55:47:917 Team.log/(3964:4013): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:918 Team.log/(3964:4013): Fin de hilo GameBoy
-[INFO] 14:55:47:929 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:929 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:929 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:948 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:948 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:948 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 14:55:47:948 Team.log/(3964:4015): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:948 Team.log/(3964:4015): Fin de hilo GameBoy
-[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
-[INFO] 14:55:47:949 Team.log/(3964:4017): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:951 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 9
-[INFO] 14:55:47:951 Team.log/(3964:4017): Fin de hilo GameBoy
-[INFO] 14:55:47:953 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:953 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:953 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
-[INFO] 14:55:47:956 Team.log/(3964:4019): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:956 Team.log/(3964:4019): Fin de hilo GameBoy
-[INFO] 14:55:47:981 Team.log/(3964:3984): Servidor o Cliente aceptado.
-[INFO] 14:55:47:981 Team.log/(3964:3984): Hice el handshake y me respondieron: BROKER
-[INFO] 14:55:47:981 Team.log/(3964:3984): Alguien se conectó
-[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> recibió el HEAD #2
-[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
-[INFO] 14:55:47:983 Team.log/(3964:4021): aplicar_protocolo_recibir -> comienza a deserealizar
-[INFO] 14:55:47:991 Team.log/(3964:4021): Fin de hilo GameBoy
-[INFO] 14:55:50:954 Team.log/(3964:3979): El entrenador 3 se movió a la posición 8 2
-[INFO] 14:55:53:957 Team.log/(3964:3980): El entrenador 4 se movió a la posición 3 9
-[INFO] 14:55:57:960 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 8
-[INFO] 14:55:59:961 Team.log/(3964:3979): El entrenador 3 se movió a la posición 7 2
-[INFO] 14:56:02:964 Team.log/(3964:3980): El entrenador 4 se movió a la posición 4 9
-[INFO] 14:56:06:965 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 7
-[INFO] 14:56:09:967 Team.log/(3964:3979): El entrenador 3 se movió a la posición 7 1
-[INFO] 14:56:11:969 Team.log/(3964:3979): No se pudo realizar la conexión entre el socket[36] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:56:12:969 Team.log/(3964:3980): El entrenador 4 se movió a la posición 4 10
-[INFO] 14:56:14:971 Team.log/(3964:3980): No se pudo realizar la conexión entre el socket[37] y el servidor ip: 127.0.0.1 / puerto: 5003 
-[INFO] 14:56:15:971 Team.log/(3964:3978): El entrenador 2 se movió a la posición 10 6
-[INFO] 14:56:17:972 Team.log/(3964:3978): No se pudo realizar la conexión entre el socket[38] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:728 Team.log/(10775:10775): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:729 Team.log/(10775:10775): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:729 Team.log/(10775:10775): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:729 Team.log/(10775:10775): No se pudo realizar la conexión entre el socket[8] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:729 Team.log/(10775:10775): No se pudo realizar la conexión entre el socket[9] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:00:735 Team.log/(10775:10796): Obteniendo los Entrenadores
+[INFO] 20:25:00:735 Team.log/(10775:10796): Escuchando conexiones
+[INFO] 20:25:00:741 Team.log/(10775:10797): Obteniendo los Entrenadores
+[INFO] 20:25:00:741 Team.log/(10775:10797): Escuchando conexiones
+[INFO] 20:25:00:746 Team.log/(10775:10798): Obteniendo los Entrenadores
+[INFO] 20:25:00:746 Team.log/(10775:10798): Escuchando conexiones
+[INFO] 20:25:00:746 Team.log/(10775:10799): Escuchando conexiones
+[INFO] 20:25:09:21 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:09:21 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:09:21 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:09:36 Team.log/(10775:10805): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:09:36 Team.log/(10775:10805): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 20:25:09:36 Team.log/(10775:10805): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:09:36 Team.log/(10775:10805): Fin de hilo GameBoy
+[INFO] 20:25:09:44 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:09:45 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:09:45 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:09:62 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:09:62 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:09:62 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:09:62 Team.log/(10775:10807): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:09:62 Team.log/(10775:10807): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 20:25:09:62 Team.log/(10775:10807): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:09:62 Team.log/(10775:10807): Fin de hilo GameBoy
+[INFO] 20:25:09:72 Team.log/(10775:10809): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:09:72 Team.log/(10775:10809): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 20:25:09:72 Team.log/(10775:10809): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:09:72 Team.log/(10775:10809): Fin de hilo GameBoy
+[INFO] 20:25:09:73 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:09:73 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:09:73 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:09:76 Team.log/(10775:10811): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:09:76 Team.log/(10775:10811): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 20:25:09:76 Team.log/(10775:10811): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:09:76 Team.log/(10775:10811): Fin de hilo GameBoy
+[INFO] 20:25:10:73 Team.log/(10775:10791): El entrenador 0 se movió a la posición 2 2
+[INFO] 20:25:12:75 Team.log/(10775:10791): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:12:75 Team.log/(10775:10792): El entrenador 1 se movió a la posición 5 5
+[INFO] 20:25:15:76 Team.log/(10775:10792): El entrenador 1 se movió a la posición 4 5
+[INFO] 20:25:19:79 Team.log/(10775:10792): El entrenador 1 se movió a la posición 4 6
+[INFO] 20:25:21:81 Team.log/(10775:10792): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:32:885 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:32:885 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:32:885 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:32:903 Team.log/(10775:10817): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:32:903 Team.log/(10775:10817): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 20:25:32:903 Team.log/(10775:10817): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:32:903 Team.log/(10775:10817): Fin de hilo GameBoy
+[INFO] 20:25:32:915 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:32:915 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:32:915 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:32:921 Team.log/(10775:10819): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:32:921 Team.log/(10775:10819): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 20:25:32:921 Team.log/(10775:10819): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:32:927 Team.log/(10775:10819): Fin de hilo GameBoy
+[INFO] 20:25:32:942 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:32:942 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:32:942 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:32:958 Team.log/(10775:10821): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:32:958 Team.log/(10775:10821): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 20:25:32:958 Team.log/(10775:10821): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:32:960 Team.log/(10775:10821): Fin de hilo GameBoy
+[INFO] 20:25:32:974 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:32:974 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:32:974 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:32:988 Team.log/(10775:10823): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:32:988 Team.log/(10775:10823): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 20:25:32:988 Team.log/(10775:10823): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:32:991 Team.log/(10775:10793): El entrenador 2 se movió a la posición 10 9
+[INFO] 20:25:32:991 Team.log/(10775:10823): Fin de hilo GameBoy
+[INFO] 20:25:33:21 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:33:21 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:33:21 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:33:22 Team.log/(10775:10825): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:33:22 Team.log/(10775:10825): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 20:25:33:22 Team.log/(10775:10825): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:33:22 Team.log/(10775:10825): Fin de hilo GameBoy
+[INFO] 20:25:33:23 Team.log/(10775:10799): Servidor o Cliente aceptado.
+[INFO] 20:25:33:23 Team.log/(10775:10799): Hice el handshake y me respondieron: BROKER
+[INFO] 20:25:33:23 Team.log/(10775:10799): Alguien se conectó
+[INFO] 20:25:33:25 Team.log/(10775:10827): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 20:25:33:25 Team.log/(10775:10827): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 20:25:33:25 Team.log/(10775:10827): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 20:25:33:25 Team.log/(10775:10827): Fin de hilo GameBoy
+[INFO] 20:25:35:992 Team.log/(10775:10794): El entrenador 3 se movió a la posición 8 2
+[INFO] 20:25:38:994 Team.log/(10775:10795): El entrenador 4 se movió a la posición 3 9
+[INFO] 20:25:42:997 Team.log/(10775:10793): El entrenador 2 se movió a la posición 10 8
+[INFO] 20:25:44:998 Team.log/(10775:10794): El entrenador 3 se movió a la posición 7 2
+[INFO] 20:25:47:999 Team.log/(10775:10795): El entrenador 4 se movió a la posición 4 9
+[INFO] 20:25:51:0 Team.log/(10775:10793): El entrenador 2 se movió a la posición 10 7
+[INFO] 20:25:55:2 Team.log/(10775:10794): El entrenador 3 se movió a la posición 7 1
+[INFO] 20:25:57:3 Team.log/(10775:10794): No se pudo realizar la conexión entre el socket[30] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:25:58:3 Team.log/(10775:10795): El entrenador 4 se movió a la posición 4 10
+[INFO] 20:26:00:4 Team.log/(10775:10795): No se pudo realizar la conexión entre el socket[31] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 20:26:01:4 Team.log/(10775:10793): El entrenador 2 se movió a la posición 10 6
+[INFO] 20:26:03:6 Team.log/(10775:10793): No se pudo realizar la conexión entre el socket[35] y el servidor ip: 127.0.0.1 / puerto: 5003 

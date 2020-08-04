@@ -189,5 +189,7 @@ void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke);
 int mensajeNoRecibido(cola_LOCALIZED_POKEMON* pokemonLocalizado);
 void grabarToken(unsigned int token);
 void verificarEstado(entrenadorPokemon* entrenador);
+t_list* obtenerObjetivosFaltantes(entrenadorPokemon* entrenador);
+t_list* obtenerAtrapadosInnecesarios(entrenadorPokemon* entrenador);
 
 #endif
