@@ -75,6 +75,8 @@ void leerArchivoDeConfiguracion(char *ruta) {
 		configFile->token = token();
 		grabarToken(configFile->token);
 	}
+
+
 	//si entra a romper, sacar estos free------
 
 /*	for(int a = 0;a < list_size(configFile->posicionEntrenadores);a++){
@@ -204,10 +206,13 @@ void obtenerEntrenadores() {
 				list_remove_by_condition(objetivoTeam, (void*)mismoObjetivo);
 			}
 		}
+
 	}
+
 	pthread_mutex_lock(&mutexColaNew);
 	cantEntrenadores = list_size(colaNew);
 	pthread_mutex_unlock(&mutexColaNew);
+
 }
 
 
@@ -1109,7 +1114,7 @@ void planificador() {
 		}*/
 	}
 	}
-	free(proximoEntrenadorEnEjecutar);
+	//free(proximoEntrenadorEnEjecutar);
 }
 
 double calcularRafagaCPU(entrenadorPokemon* entrenador) {
@@ -1150,6 +1155,25 @@ void inicializar_semaforos(){
 }
 
 void crearHilos() {
+
+
+	for (int i = 0; i < cantEntrenadores; i++){
+		pthread_mutex_lock(&mutexColaNew);
+		entrenadorPokemon * entrenador = list_get(colaNew,i);
+		pthread_mutex_unlock(&mutexColaNew);
+		//sem_wait(&entrenador->semafoContador);
+		sem_post(&semEntrenadores);
+		sem_post(&entrenadoresLibres);
+
+		pthread_create(&hilo, NULL, (void*) thread_Entrenador,entrenador->idEntrenador);
+
+		//list_add(misHilos,process_get_thread_id());
+		//log_info(logger,"Cree un hilo para el entrenador %d y tiene ID %d",i,hilo=pthread_self());
+	}
+
+
+
+
 	hilo_servidor = 0;
 	hilo_gameboy = 0;
 	hilo_consola = 0;
@@ -1169,12 +1193,123 @@ void crearHilos() {
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 	pthread_create(&hilo_ejecucion, NULL, (void*) planificador, NULL);
 
+	getPokemon();
+
 	/*pthread_mutex_init(&h_reconectar,NULL);
 	pthread_mutex_lock(&h_reconectar);*/
 	//pthread_join(hilo_servidor, NULL);
 //	pthread_join(hilo_gameboy, NULL);
 	pthread_join(hilo_consola, NULL);
 	//pthread_join(hilo_ejecucion, NULL);
+
+
+
+	pthread_cancel(hilo);
+	pthread_detach(hilo);
+	pthread_join(hilo, NULL);
+
+	pthread_cancel(hilo_APPEARED);
+ 	pthread_detach(hilo_APPEARED);
+ 	pthread_join(hilo_APPEARED, NULL);
+ 	pthread_cancel(hilo_LOCALIZED);
+ 	pthread_detach(hilo_LOCALIZED);
+ 	pthread_join(hilo_LOCALIZED, NULL);
+ 	pthread_cancel(hilo_CAUGHT);
+ 	pthread_detach(hilo_CAUGHT);
+ 	pthread_join(hilo_CAUGHT, NULL);
+
+ 	pthread_cancel(hilo_gameboy);
+ 	pthread_detach(hilo_gameboy);
+ 	pthread_join(hilo_gameboy, NULL);
+
+	pthread_cancel(hilo_servidor);
+ 	pthread_detach(hilo_servidor);
+ 	pthread_join(hilo_servidor, NULL);
+
+	pthread_cancel(hilo_ejecucion);
+ 	pthread_detach(hilo_ejecucion);
+ 	pthread_join(hilo_ejecucion, NULL);
+
+
+
+
+
+	for(int i = 0; i < cantEntrenadores; i++){
+		pthread_mutex_lock(mxEntrenadores + i);
+	}
+
+	pthread_mutex_lock (&mutexColaExit);
+		for(int i = 0;i<list_size(colaExit);i++){
+			entrenadorPokemon* ent = list_get(colaExit,i);
+
+			for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
+				char* obj = list_get(ent->pokemonesObjetivo,i);
+				free(obj);
+			}
+		}
+
+		list_destroy(colaExit);
+		pthread_mutex_unlock (&mutexColaExit);
+
+		pthread_mutex_lock (&mutexColaReady);
+		for(int i = 0;i<list_size(colaReady);i++){
+			entrenadorPokemon* ent = list_get(colaReady,i);
+
+			for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
+				char* obj = list_get(ent->pokemonesObjetivo,i);
+				//free(obj);
+			}
+			free(ent);
+		}
+
+		list_destroy(colaReady);
+		pthread_mutex_unlock (&mutexColaReady);
+
+
+		pthread_mutex_lock (&mutexColaBlocked);
+		for(int i = 0;i<list_size(colaBlocked);i++){
+			entrenadorPokemon* ent = list_get(colaBlocked,i);
+			for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
+				char* obj = list_get(ent->pokemonesObjetivo,i);
+				free(obj);
+			}
+			free(ent->proximaAccion);
+			free(ent);
+		}
+
+		list_destroy(colaBlocked);
+		pthread_mutex_unlock (&mutexColaBlocked);
+
+
+	free(mxEntrenadores);
+
+//	free(configFile->algoritmoPlanificacion);
+	//	free(configFile->ipBroker);
+//		free(configFile->logFile);
+		for(int i = 0;i<list_size(configFile->objetivosEntrenadores);i++){
+			char* obj = list_get(configFile->objetivosEntrenadores,i);
+			free(obj);
+		}
+
+		free(configFile->objetivosEntrenadores);
+
+		for(int i = 0;i<list_size(configFile->pokemonEntrenadores);i++){
+			char* obj = list_get(configFile->pokemonEntrenadores,i);
+			free(obj);
+		}
+
+		free(configFile->pokemonEntrenadores);
+
+		for(int i = 0;i<list_size(configFile->posicionEntrenadores);i++){
+			char* obj = list_get(configFile->posicionEntrenadores,i);
+			free(obj);
+		}
+
+
+		free(configFile->posicionEntrenadores);
+
+		free(configFile);
+		config_destroy(config);
 
 	//tener un thread para manejar la reconexión cada x segundos , es un connect por cada msj
 }
@@ -1208,97 +1343,16 @@ void consola() {
 		pthread_mutex_unlock(mxEntrenadores + i);
 	}
 
-	pthread_mutex_lock (&mutexColaExit);
-	for(int i = 0;i<list_size(colaExit);i++){
-		entrenadorPokemon* ent = list_get(colaExit,i);
-
-		for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
-			char* obj = list_get(ent->pokemonesObjetivo,i);
-			free(obj);
-		}
-	}
-
-	list_destroy(colaExit);
-	pthread_mutex_unlock (&mutexColaExit);
-
-	pthread_mutex_lock (&mutexColaReady);
-	for(int i = 0;i<list_size(colaReady);i++){
-		entrenadorPokemon* ent = list_get(colaReady,i);
-
-		for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
-			char* obj = list_get(ent->pokemonesObjetivo,i);
-			//free(obj);
-		}
-	}
-
-	list_destroy(colaReady);
-	pthread_mutex_unlock (&mutexColaReady);
 
 
-	pthread_mutex_lock (&mutexColaBlocked);
-	for(int i = 0;i<list_size(colaBlocked);i++){
-		entrenadorPokemon* ent = list_get(colaBlocked,i);
-		for(int i = 0;i<list_size(ent->pokemonesObjetivo);i++){
-			char* obj = list_get(ent->pokemonesObjetivo,i);
-			free(obj);
-		}
-		free(ent->proximaAccion);
-
-	}
-
-	list_destroy(colaBlocked);
-	pthread_mutex_unlock (&mutexColaBlocked);
 
 
- 	pthread_cancel(hilo_APPEARED);
- 	pthread_detach(hilo_APPEARED);
- 	pthread_cancel(hilo_LOCALIZED);
- 	pthread_detach(hilo_LOCALIZED);
- 	pthread_cancel(hilo_CAUGHT);
- 	pthread_detach(hilo_CAUGHT);
-
- 	pthread_cancel(hilo_gameboy);
- 	pthread_detach(hilo_gameboy);
-
-	pthread_cancel(hilo_servidor);
- 	pthread_detach(hilo_servidor);
-	pthread_cancel(hilo_ejecucion);
- 	pthread_detach(hilo_ejecucion);
-
-	free(configFile->algoritmoPlanificacion);
-	free(configFile->ipBroker);
-	free(configFile->logFile);
-	for(int i = 0;i<list_size(configFile->objetivosEntrenadores);i++){
-		char* obj = list_get(configFile->objetivosEntrenadores,i);
-		free(obj);
-	}
-
-	free(configFile->objetivosEntrenadores);
-
-	for(int i = 0;i<list_size(configFile->pokemonEntrenadores);i++){
-		char* obj = list_get(configFile->pokemonEntrenadores,i);
-		free(obj);
-	}
-
-	free(configFile->pokemonEntrenadores);
-
-	for(int i = 0;i<list_size(configFile->posicionEntrenadores);i++){
-		char* obj = list_get(configFile->posicionEntrenadores,i);
-		free(obj);
-	}
-
-	free(configFile->posicionEntrenadores);
-
-	free(configFile);
 
 
 //para liberar a los entrenadores hay que ponerle sincro y no ejecutarlo hasta que todos los hilos terminen
-	for(int i = 0; i < cantEntrenadores; i++){
-		pthread_mutex_lock(mxEntrenadores + i);
-	}
-	free(mxEntrenadores);
 
-	pthread_detach( pthread_self() );
+
+	//pthread_detach( pthread_self() );
 }
 
 void servidor() {
@@ -1918,8 +1972,8 @@ void thread_NewGameboy(int comandoNuevo){
 				pthread_mutex_lock(&mxListaCatch);
 				pthread_mutex_lock(&mxListaEjecutando);
 				//AHORA VERIFICO SI EL POKEMON BUSCADO NO ESTÁ EN CATCH O EJECUTANDOSE (NO DEBERÍAN)
-				entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
-				seleccionarEntrenadorMasCercano(newPoke,pos, proximoEntrenadorEnEjecutar);
+				entrenadorPokemon* proxEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
+				seleccionarEntrenadorMasCercano(newPoke,pos, proxEntrenadorEnEjecutar);
 				pthread_mutex_unlock(&mxListaCatch);
 				pthread_mutex_unlock(&mxListaEjecutando);
 				char* pos_x = string_itoa(pos->posicion_x);
@@ -1932,10 +1986,10 @@ void thread_NewGameboy(int comandoNuevo){
 				strcat(proximaAccionEntrenador, " ");
 				strcat(proximaAccionEntrenador, pos_y);
 				//string_append_with_format(&proximaAccionEntrenador, "AtraparPokemon %s %i %i", app_poke.nombre_pokemon, app_poke.posicion_x, app_poke.posicion_y);
-				proximoEntrenadorEnEjecutar->proximaAccion = malloc(strlen(proximaAccionEntrenador) + 1);
-				strcpy(proximoEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
+				proxEntrenadorEnEjecutar->proximaAccion = malloc(strlen(proximaAccionEntrenador) + 1);
+				strcpy(proxEntrenadorEnEjecutar->proximaAccion, proximaAccionEntrenador);
 				pthread_mutex_lock(&mutexColaReady);
-				list_add(colaReady, proximoEntrenadorEnEjecutar);
+				list_add(colaReady, proxEntrenadorEnEjecutar);
 				if(string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF-CD") || string_equals_ignore_case(configFile->algoritmoPlanificacion,"SJF-SD")){
 					for(int i= 0; i<list_size(colaReady);i++){
 						entrenadorPokemon* ent = list_get(colaReady,i);
@@ -2218,8 +2272,12 @@ void thread_Entrenador(int idEntrenador) {
 	//free(mxEntrenadores + idEntrenador );
 	//pthread_mutex_unlock(mxExitEntrenadores);
 	pthread_mutex_unlock(mxEntrenadores + idEntrenador);
-	pthread_detach(pthread_self());
-	pthread_cancel(pthread_self());
+	//pthread_cancel(pthread_self());
+//	pthread_detach(pthread_self());
+
+//	pthread_cancel( pthread_self() );
+//	pthread_detach( pthread_self() );
+
 }
 
 /*void reconectar(){
