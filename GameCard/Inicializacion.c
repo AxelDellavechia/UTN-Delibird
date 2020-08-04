@@ -870,6 +870,7 @@ void thread_GameBoy(int fdSocket) {
 												appeared_pokemon.posicion_y = new_poke.posicion_y;
 												appeared_pokemon.tamanio_nombre = string_length(new_poke.nombre_pokemon);
 												int envio = aplicar_protocolo_enviar(fdSocket, APPEARED_POKEMON, &appeared_pokemon);
+
 												//free(new_poke.nombre_pokemon);
 												if(envio == ERROR){
 													pthread_mutex_lock(&mxLog);
@@ -943,6 +944,7 @@ void thread_GameBoy(int fdSocket) {
 									}
 			free(mensaje);
 			//pthread_mutex_lock(&mxHilos);
+			cerrarSocket(fdSocket);
 			pthread_mutex_lock(&mxLog);
 			log_info(logger, "Fin de hilo GameBoy");
 			pthread_mutex_unlock(&mxLog);
