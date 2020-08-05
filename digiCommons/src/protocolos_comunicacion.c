@@ -252,7 +252,6 @@ void * serealizar(int head, void * mensaje ,  int tamanio){
 	case GET_POKEMON: {
 
 
-
 		memcpy(buffer+desplazamiento,&get_pokemon->id_mensaje,sizeof(uint32_t));
 		desplazamiento += sizeof(uint32_t);
 		memcpy(buffer+desplazamiento,&get_pokemon->id_tracking,sizeof(uint32_t));
@@ -603,6 +602,7 @@ int calcularTamanioMensaje(int head, void* mensaje){
 
 		case GET_POKEMON: {
 			tamanio = tamanio + sizeof(uint32_t) + sizeof(uint32_t) + sizeof(uint32_t) ;
+
 			break;
 		}
 
@@ -768,18 +768,23 @@ int conectar_y_enviar(char * modulo , char * ipServer , int puertoServer, char *
 		int enviados = enviarPorSocket(fdServer, buffer, tamanioTotalAEnviar);
 
 		free(buffer);
-
 		free(mensajeSerealizado);
 		pthread_mutex_unlock(&mxBuffer);
+
+		//free(mensajeSerealizado);
+
 		cerrarSocket(fdServer);
 
 		return enviados;
 
 	}else{
+
 	log_info(loggerCatedra,"No se pudo realizar correctamente la conexión con el %s IP: %s y Puerto: %d",modulo,ipServer,puertoServer);
+
 	return ERROR;
 	}
 }
+
 
 int aplicar_protocolo_enviar(int fdReceptor, int head, void *mensaje){
 

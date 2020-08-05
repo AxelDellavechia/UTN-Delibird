@@ -144,3 +144,104 @@
 [INFO] 20:33:18:397 logCatedra.log/(10775:10798): Reinicio de proceso de reconexión con broker
 [INFO] 20:33:18:397 logCatedra.log/(10775:10798): No se pudo realizar la conexión entre el socket[68] y el servidor ip: 127.0.0.1 / puerto: 5003 
 [INFO] 20:33:37:684 logCatedra.log/(10775:10793): Se detectó deadlock entre los entrenadores 0 y 1
+[INFO] 12:39:51:780 logCatedra.log/(10217:10217): Entrenador 0 creado y en cola de New
+[INFO] 12:39:51:780 logCatedra.log/(10217:10217): Entrenador 1 creado y en cola de New
+[INFO] 12:39:51:780 logCatedra.log/(10217:10217): Entrenador 2 creado y en cola de New
+[INFO] 12:39:51:816 logCatedra.log/(10217:10236): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:39:51:818 logCatedra.log/(10217:10237): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:39:51:819 logCatedra.log/(10217:10238): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:39:51:821 logCatedra.log/(10217:10217): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:39:51:821 logCatedra.log/(10217:10217): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:39:51:821 logCatedra.log/(10217:10217): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:39:51:821 logCatedra.log/(10217:10217): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:40:12:747 logCatedra.log/(10217:10254): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 12:40:23:285 logCatedra.log/(10217:10238): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:23:285 logCatedra.log/(10217:10238): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:40:23:285 logCatedra.log/(10217:10237): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:23:285 logCatedra.log/(10217:10237): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:40:23:285 logCatedra.log/(10217:10236): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:23:285 logCatedra.log/(10217:10236): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:40:54:62 logCatedra.log/(10217:10237): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:54:63 logCatedra.log/(10217:10237): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:40:54:63 logCatedra.log/(10217:10236): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:54:63 logCatedra.log/(10217:10236): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:40:54:63 logCatedra.log/(10217:10238): Reinicio de proceso de reconexión con broker
+[INFO] 12:40:54:63 logCatedra.log/(10217:10238): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:41:43:574 logCatedra.log/(10217:10237): Reinicio de proceso de reconexión con broker
+[INFO] 12:41:43:575 logCatedra.log/(10217:10237): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:41:43:575 logCatedra.log/(10217:10236): Reinicio de proceso de reconexión con broker
+[INFO] 12:41:43:575 logCatedra.log/(10217:10236): No se pudo realizar la conexión entre el socket[22] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:41:43:575 logCatedra.log/(10217:10238): Reinicio de proceso de reconexión con broker
+[INFO] 12:41:43:575 logCatedra.log/(10217:10238): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:42:18:419 logCatedra.log/(10217:10237): Reinicio de proceso de reconexión con broker
+[INFO] 12:42:18:419 logCatedra.log/(10217:10237): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:42:18:419 logCatedra.log/(10217:10236): Reinicio de proceso de reconexión con broker
+[INFO] 12:42:18:419 logCatedra.log/(10217:10236): No se pudo realizar la conexión entre el socket[25] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:42:18:420 logCatedra.log/(10217:10238): Reinicio de proceso de reconexión con broker
+[INFO] 12:42:18:420 logCatedra.log/(10217:10238): No se pudo realizar la conexión entre el socket[26] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:42:21:723 logCatedra.log/(10217:10254): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 12:45:55:429 logCatedra.log/(10417:10417): Entrenador 0 creado y en cola de New
+[INFO] 12:45:55:429 logCatedra.log/(10417:10417): Entrenador 1 creado y en cola de New
+[INFO] 12:45:55:429 logCatedra.log/(10417:10417): Entrenador 2 creado y en cola de New
+[INFO] 12:45:55:460 logCatedra.log/(10417:10429): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:45:55:467 logCatedra.log/(10417:10430): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:45:55:470 logCatedra.log/(10417:10431): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:45:55:487 logCatedra.log/(10417:10417): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:45:55:487 logCatedra.log/(10417:10417): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:45:55:487 logCatedra.log/(10417:10417): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:45:55:488 logCatedra.log/(10417:10417): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:46:01:71 logCatedra.log/(10417:10437): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 12:46:25:606 logCatedra.log/(10417:10431): Reinicio de proceso de reconexión con broker
+[INFO] 12:46:25:607 logCatedra.log/(10417:10431): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:46:25:607 logCatedra.log/(10417:10430): Reinicio de proceso de reconexión con broker
+[INFO] 12:46:25:607 logCatedra.log/(10417:10430): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:46:25:607 logCatedra.log/(10417:10429): Reinicio de proceso de reconexión con broker
+[INFO] 12:46:25:607 logCatedra.log/(10417:10429): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:47:09:141 logCatedra.log/(10417:10430): Reinicio de proceso de reconexión con broker
+[INFO] 12:47:09:146 logCatedra.log/(10417:10430): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:47:09:146 logCatedra.log/(10417:10429): Reinicio de proceso de reconexión con broker
+[INFO] 12:47:09:146 logCatedra.log/(10417:10429): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:47:09:146 logCatedra.log/(10417:10431): Reinicio de proceso de reconexión con broker
+[INFO] 12:47:09:146 logCatedra.log/(10417:10431): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:47:12:152 logCatedra.log/(10417:10437): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 12:54:36:622 logCatedra.log/(10756:10756): Entrenador 0 creado y en cola de New
+[INFO] 12:54:36:622 logCatedra.log/(10756:10756): Entrenador 1 creado y en cola de New
+[INFO] 12:54:36:622 logCatedra.log/(10756:10756): Entrenador 2 creado y en cola de New
+[INFO] 12:54:36:639 logCatedra.log/(10756:10767): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:54:36:646 logCatedra.log/(10756:10768): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:54:36:655 logCatedra.log/(10756:10769): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:54:36:663 logCatedra.log/(10756:10756): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:54:36:664 logCatedra.log/(10756:10756): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:54:36:664 logCatedra.log/(10756:10756): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:54:36:664 logCatedra.log/(10756:10756): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 12:54:42:34 logCatedra.log/(10756:10775): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 12:55:06:665 logCatedra.log/(10756:10767): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:06:665 logCatedra.log/(10756:10767): No se pudo realizar la conexión entre el socket[15] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:55:06:665 logCatedra.log/(10756:10768): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:06:665 logCatedra.log/(10756:10768): No se pudo realizar la conexión entre el socket[16] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:55:06:665 logCatedra.log/(10756:10769): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:06:665 logCatedra.log/(10756:10769): No se pudo realizar la conexión entre el socket[17] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:55:24:639 logCatedra.log/(10756:10775): Entrenador 2 a cola de Ready por ser el más cercano
+[INFO] 12:55:37:34 logCatedra.log/(10756:10767): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:37:35 logCatedra.log/(10756:10767): No se pudo realizar la conexión entre el socket[18] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:55:37:35 logCatedra.log/(10756:10769): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:37:35 logCatedra.log/(10756:10769): No se pudo realizar la conexión entre el socket[19] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:55:37:35 logCatedra.log/(10756:10768): Reinicio de proceso de reconexión con broker
+[INFO] 12:55:37:35 logCatedra.log/(10756:10768): No se pudo realizar la conexión entre el socket[20] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:56:08:115 logCatedra.log/(10756:10767): Reinicio de proceso de reconexión con broker
+[INFO] 12:56:08:116 logCatedra.log/(10756:10767): No se pudo realizar la conexión entre el socket[14] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:56:08:116 logCatedra.log/(10756:10769): Reinicio de proceso de reconexión con broker
+[INFO] 12:56:08:116 logCatedra.log/(10756:10769): No se pudo realizar la conexión entre el socket[21] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 12:56:08:116 logCatedra.log/(10756:10768): Reinicio de proceso de reconexión con broker
+[INFO] 12:56:08:116 logCatedra.log/(10756:10768): No se pudo realizar la conexión entre el socket[23] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 13:12:11:516 logCatedra.log/(11632:11632): Entrenador 0 creado y en cola de New
+[INFO] 13:12:11:516 logCatedra.log/(11632:11632): Entrenador 1 creado y en cola de New
+[INFO] 13:12:11:516 logCatedra.log/(11632:11632): Entrenador 2 creado y en cola de New
+[INFO] 13:12:11:540 logCatedra.log/(11632:11644): No se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 13:12:11:546 logCatedra.log/(11632:11645): No se pudo realizar la conexión entre el socket[6] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 13:12:11:548 logCatedra.log/(11632:11646): No se pudo realizar la conexión entre el socket[7] y el servidor ip: 127.0.0.1 / puerto: 5003 
+[INFO] 13:12:11:558 logCatedra.log/(11632:11632): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 13:12:11:558 logCatedra.log/(11632:11632): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 13:12:11:559 logCatedra.log/(11632:11632): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 13:12:11:559 logCatedra.log/(11632:11632): No se pudo realizar correctamente la conexión con el BROKER IP: 127.0.0.1 y Puerto: 5003
+[INFO] 13:12:16:23 logCatedra.log/(11632:11652): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
