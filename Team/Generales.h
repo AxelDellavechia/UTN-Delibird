@@ -191,5 +191,7 @@ void grabarToken(unsigned int token);
 void verificarEstado(entrenadorPokemon* entrenador);
 t_list* obtenerObjetivosFaltantes(entrenadorPokemon* entrenador);
 t_list* obtenerAtrapadosInnecesarios(entrenadorPokemon* entrenador);
+void establecerIntercambioTriple(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, entrenadorPokemon* entrenador3, char* atrapadoInnecesarioEntrenador1, char* atrapadoInnecesarioEntrenador2);
+void establecerIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, char* atrapadoInnecesarioEntrenador1, char* atrapadoInnecesarioEntrenador2);
 
 #endif
