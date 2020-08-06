@@ -222,6 +222,7 @@ void liberarRecursos(){
 	  		  list_remove(laParti->lista_posiciones,0);
 	  		  free(laPos);
 	  	  }
+	  	  free(laParti->nombre_pokemon);
 	  	  list_destroy(laParti->lista_posiciones);
 	  list_remove(lista_particiones,0);
 	  free(laParti);
@@ -1269,6 +1270,8 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 										case LOCALIZED_POKEMON :{
 											cola_LOCALIZED_POKEMON  * loc_poke = malloc(sizeof(cola_LOCALIZED_POKEMON)) ;
 
+											loc_poke->lista_posiciones = list_create();
+
 											pthread_mutex_lock(&mutex_memoria_cache);
 
 											deserealizar_mem_LOCALIZED_POKEMON(laParti,loc_poke);
@@ -1279,6 +1282,13 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 											pthread_mutex_unlock(&mutex_memoria_cache);
 
 											recibidos = aplicar_protocolo_enviar(laSus->suSocket, colaAsignada , loc_poke);
+
+											int cantLista = list_size(loc_poke->lista_posiciones);
+											for(int j=0 ; j <= cantLista ; j++){
+												  posicion *laPos = list_get(loc_poke->lista_posiciones,0);
+												  list_remove(loc_poke->lista_posiciones,0);
+												  free(laPos);
+											  }
 
 											free(loc_poke->nombre_pokemon);
 

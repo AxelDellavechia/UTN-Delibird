@@ -210,7 +210,6 @@ void deserealizar_mem_LOCALIZED_POKEMON ( void * laParti ,  cola_LOCALIZED_POKEM
 							memcpy(&loc_poke_des->cantidad,(memoria_cache+desplazamiento),sizeof(uint32_t));
 							desplazamiento += sizeof(uint32_t);
 
-							loc_poke_des->lista_posiciones = list_create();
 
 							for (int i = 0 ; i < loc_poke_des->cantidad ; i++){
 							posicion *laPosicion = malloc (sizeof(posicion));
