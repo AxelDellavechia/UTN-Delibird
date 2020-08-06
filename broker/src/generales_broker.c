@@ -118,6 +118,9 @@ void iniciar_semaforos()
 
 	pthread_mutex_init(&msjPendientesCaught, NULL);
 
+	pthread_mutex_init(&guardarMsj, NULL);
+
+
 
 }
 
@@ -129,13 +132,21 @@ void crearHilosBroker() {
 	hilo_Publisher = 0;
 	//hilo=0;
 
+	pthread_mutex_lock(&mxHilos);
+
 	pthread_create(&hilo_servidor, NULL, (void*) servidor, NULL);
 	pthread_create(&hilo_consola, NULL, (void*) consola, NULL);
 	pthread_create(&hilo_Publisher, NULL, (void*) publisher, NULL);
 
+	pthread_mutex_unlock(&mxHilos);
+
 	pthread_join(hilo_servidor, NULL);
 	pthread_join(hilo_Publisher, NULL);
 	pthread_join(hilo_consola, NULL);
+
+	pthread_kill(hilo_consola,9);
+	//pthread_kill(hilo,9);
+
 
 }
 /*
@@ -152,18 +163,10 @@ void* reservarMemoria(int size) {
 
 void liberarRecursos(){
 
+	pthread_mutex_lock(&mutex_lista_ack);
+	int tamLista = list_size(lista_ack) ;
 
-
-
-	//pthread_mutex_lock(&mutex_suscripcion);
-
-	//pthread_mutex_unlock(&mutex_suscripcion);
-
-
-	//pthread_mutex_lock(&mutex_lista_ack);
-	int tamLista = list_size(lista_ack) - 1 ;
-
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 	  respuesta_ACK * elack = list_get(lista_ack,0);
 	  list_remove(lista_ack,0);
 	  free(elack);
@@ -171,20 +174,20 @@ void liberarRecursos(){
 
 
 	list_destroy(lista_ack);
-	//pthread_mutex_unlock(&mutex_lista_ack);
+	pthread_mutex_unlock(&mutex_lista_ack);
 
 
-	//pthread_mutex_lock(&mutex_lista_particiones);
+	pthread_mutex_lock(&mutex_lista_particiones);
 
-	tamLista = list_size(lista_particiones) - 1 ;
+	tamLista = list_size(lista_particiones) ;
 	if(strcmp(config_File->ALGORITMO_MEMORIA, "PARTICIONES") == 0){
-		for(int i=0 ; i <= tamLista ; i++){
+		for(int i=0 ; i < tamLista ; i++){
 			  Particion * laParti = list_get(lista_particiones,0);
 			  list_remove(lista_particiones,0);
 			  free(laParti);
 		}
 		}else if(strcmp(config_File->ALGORITMO_MEMORIA, "BS") == 0){
-			for(int i=0 ; i <= tamLista ; i++){
+			for(int i=0 ; i < tamLista ; i++){
 			  Particion_bs * laParti = list_get(lista_particiones,0);
 			  list_remove(lista_particiones,0);
 			  free(laParti);
@@ -193,31 +196,31 @@ void liberarRecursos(){
 
 	list_destroy(lista_particiones);
 
-	//pthread_mutex_unlock(&mutex_lista_particiones);
+	pthread_mutex_unlock(&mutex_lista_particiones);
 
 	pthread_mutex_lock(&mutex_cola_appeared_pokemon);
 	list_destroy(cola_appeared_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
+	pthread_mutex_unlock(&mutex_cola_appeared_pokemon);
 
-	//pthread_mutex_lock(&mutex_cola_catch_pokemon);
+	pthread_mutex_lock(&mutex_cola_catch_pokemon);
 	list_destroy(cola_catch_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_catch_pokemon);
+	pthread_mutex_unlock(&mutex_cola_catch_pokemon);
 
-	//pthread_mutex_lock(&mutex_cola_caught_pokemon);
+	pthread_mutex_lock(&mutex_cola_caught_pokemon);
 	list_destroy(cola_caught_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_caught_pokemon);
+	pthread_mutex_unlock(&mutex_cola_caught_pokemon);
 
-	//pthread_mutex_lock(&mutex_cola_get_pokemon);
+	pthread_mutex_lock(&mutex_cola_get_pokemon);
 	list_destroy(cola_get_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_get_pokemon);
+	pthread_mutex_unlock(&mutex_cola_get_pokemon);
 
-	//pthread_mutex_lock(&mutex_cola_localized_pokemon);
-	tamLista = list_size(cola_localized_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_cola_localized_pokemon);
+	tamLista = list_size(cola_localized_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 	  cola_LOCALIZED_POKEMON * laParti = list_get(cola_localized_pokemon,0);
-	  int otraLista = list_size(laParti->lista_posiciones) - 1;
-	  	  for(int j=0 ; j <= otraLista ; j++){
+	  int otraLista = list_size(laParti->lista_posiciones) ;
+	  	  for(int j=0 ; j < otraLista ; j++){
 	  		  posicion *laPos = list_get(laParti->lista_posiciones,0);
 	  		  list_remove(laParti->lista_posiciones,0);
 	  		  free(laPos);
@@ -228,16 +231,16 @@ void liberarRecursos(){
 	  free(laParti);
 	}
 	list_destroy(cola_localized_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_localized_pokemon);
+	pthread_mutex_unlock(&mutex_cola_localized_pokemon);
 
-	//pthread_mutex_lock(&mutex_cola_new_pokemon);
+	pthread_mutex_lock(&mutex_cola_new_pokemon);
 	list_destroy(cola_new_pokemon);
-	//pthread_mutex_unlock(&mutex_cola_new_pokemon);
+	pthread_mutex_unlock(&mutex_cola_new_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
-	tamLista = list_size(suscriptores_appeared_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_appeared_pokemon);
+	tamLista = list_size(suscriptores_appeared_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_appeared_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -254,12 +257,12 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_appeared_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_appeared_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
-	tamLista = list_size(suscriptores_catch_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_catch_pokemon);
+	tamLista = list_size(suscriptores_catch_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_catch_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -276,12 +279,12 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_catch_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_catch_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_caught_pokemon);
-	tamLista = list_size(suscriptores_caught_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_caught_pokemon);
+	tamLista = list_size(suscriptores_caught_pokemon);
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_caught_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -298,12 +301,12 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_caught_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_caught_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_caught_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
-	tamLista = list_size(suscriptores_get_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_get_pokemon);
+	tamLista = list_size(suscriptores_get_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_get_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -320,12 +323,12 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_get_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_get_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
-	tamLista = list_size(suscriptores_localized_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_localized_pokemon);
+	tamLista = list_size(suscriptores_localized_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_localized_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -342,12 +345,12 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_localized_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_localized_pokemon);
 
-	//pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
-	tamLista = list_size(suscriptores_new_pokemon) - 1 ;
+	pthread_mutex_lock(&mutex_suscriptores_new_pokemon);
+	tamLista = list_size(suscriptores_new_pokemon) ;
 
-	for(int i=0 ; i <= tamLista ; i++){
+	for(int i=0 ; i < tamLista ; i++){
 		  losSuscriptores * suscrip = list_get(suscriptores_new_pokemon,0);
 
 		  suscriptor * elSus = suscrip->laSus ;
@@ -364,11 +367,11 @@ void liberarRecursos(){
 		  free(suscrip);
 	}
 	list_destroy(suscriptores_new_pokemon);
-	//pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
+	pthread_mutex_unlock(&mutex_suscriptores_new_pokemon);
 
 	pthread_mutex_lock(&mutex_memoria_cache);
 	free(memoria_cache);
-	//pthread_mutex_unlock(&mutex_memoria_cache);
+	pthread_mutex_unlock(&mutex_memoria_cache);
 }
 
 void consola() {
@@ -397,11 +400,9 @@ void consola() {
 
 	pthread_mutex_lock(&mxHilos);
 
-	pthread_cancel(hilo_servidor);
-	pthread_detach(hilo_servidor);
+	pthread_kill(hilo_servidor,9);
 
-	pthread_cancel(hilo_Publisher);
-	pthread_detach(hilo_Publisher);
+	pthread_kill(hilo_Publisher,9);
 
 	/*for(int i=0 ; i < contadorHilos ; i++){
 		pthread_cancel(hilo);
@@ -464,11 +465,7 @@ void servidor() {
 			pthread_mutex_unlock(&mutex_logs);
 		}
 		pthread_mutex_lock(&mxHilos);
-			pthread_t hilo;
 			pthread_create(&hilo, NULL, (void*) thread_Broker,(int *) comandoNuevo);
-			//contadorHilos++;
-			//pthread_join(hilo,NULL);
-
 		pthread_mutex_unlock(&mxHilos);
 
 	}
@@ -528,8 +525,11 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 
+											pthread_mutex_lock(&guardarMsj);
 
 											guardar_msj(NEW_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ, ptro_new_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
 
 											pthread_mutex_lock(&mutex_cola_new_pokemon);
 											list_add(cola_new_pokemon, ptro_new_poke);
@@ -573,7 +573,11 @@ while(true){
 											//list_add(caught_pokemon_pendientes,cath_poke->id_mensaje);
 											//pthread_mutex_unlock(&msjPendientesCaught);
 
+											pthread_mutex_lock(&guardarMsj);
+
 											guardar_msj(CATCH_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ, cath_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
 
 											pthread_mutex_lock(&mutex_cola_catch_pokemon);
 											list_add(cola_catch_pokemon, cath_poke);;
@@ -609,7 +613,11 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 
+											pthread_mutex_lock(&guardarMsj);
+
 											guardar_msj(GET_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ, get_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
 
 											pthread_mutex_lock(&mutex_cola_get_pokemon);
 											list_add(cola_get_pokemon, get_poke);
@@ -648,8 +656,11 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 
+											pthread_mutex_lock(&guardarMsj);
 
 											guardar_msj(APPEARED_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ , app_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
 
 											pthread_mutex_lock(&mutex_cola_appeared_pokemon);
 											list_add(cola_appeared_pokemon, app_poke);
@@ -687,8 +698,11 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 
+											pthread_mutex_lock(&guardarMsj);
 
 											guardar_msj(CAUGHT_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ , caug_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
 
 											pthread_mutex_lock(&mutex_cola_caught_pokemon);
 											list_add(cola_caught_pokemon, caug_poke);
@@ -738,7 +752,12 @@ while(true){
 											pthread_mutex_unlock(&mutex_logs);
 
 
+											pthread_mutex_lock(&guardarMsj);
+
 											guardar_msj(LOCALIZED_POKEMON, bufferTam - TAMANIO_EXTRA_MSJ, loc_poke);
+
+											pthread_mutex_unlock(&guardarMsj);
+
 											pthread_mutex_lock(&mutex_cola_localized_pokemon);
 											list_add(cola_localized_pokemon, loc_poke);
 											pthread_mutex_unlock(&mutex_cola_localized_pokemon);
@@ -1151,6 +1170,7 @@ void reenviarMsjs_Cola(int head, t_list * lista_Msjs_Cola, t_list * lista_de_sus
 			  list_remove(loc_poke->lista_posiciones,0);
 			  free(elack);
 			}
+			list_destroy(loc_poke->lista_posiciones);
 		}
 
 		free(mensaje);
@@ -1289,6 +1309,8 @@ void envidoDesdeCache(void * laParti , int colaAsignada , int id_msj , losSuscri
 												  list_remove(loc_poke->lista_posiciones,0);
 												  free(laPos);
 											  }
+
+											list_destroy(loc_poke->lista_posiciones);
 
 											free(loc_poke->nombre_pokemon);
 

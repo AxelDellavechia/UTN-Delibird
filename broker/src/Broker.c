@@ -333,6 +333,7 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 				part_A->esPadre = false;
 				part_A->id_msj = 0;
+				part_A->id_tracking = 0;
 				part_A->colaAsignada = 0;
 				part_A->libre = true;
 				part_A->tamano = tamano_buddy;
@@ -343,6 +344,7 @@ _Bool algoritmo_primer_ajuste_bs(int head, int tamano, void * msj) {
 
 				part_B->esPadre = false;
 				part_B->id_msj = 0;
+				part_B->id_tracking = 0;
 				part_B->colaAsignada = 0;
 				part_B->libre = true;
 				part_B->tamano = tamano_buddy;
@@ -569,6 +571,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 				part_A->esPadre = false;
 				part_A->id_msj = 0;
+				part_A->id_tracking = 0;
 				part_A->colaAsignada = 0;
 				part_A->libre = true;
 				part_A->tamano = tamano_buddy;
@@ -579,6 +582,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 
 				part_B->esPadre = false;
 				part_B->id_msj = 0;
+				part_B->id_tracking = 0;
 				part_B->colaAsignada = 0;
 				part_B->libre = true;
 				part_B->tamano = tamano_buddy;
@@ -616,7 +620,7 @@ _Bool algoritmo_mejor_ajuste_bs(int head, int tamano, void * msj){
 			log_info(loggerCatedra,"Se guardo el Mensaje con ID_MSJ:%d  Puntero Inicial:%d  Puntero Final:%d Tamaño: %d",partSelected->id_msj, partSelected->punteroInicial, partSelected->punteroFinal, partSelected->tamano);
 
 			//pthread_mutex_unlock(&mutex_logs);
-
+			free(buffer);
 
 			pthread_mutex_unlock(&mutex_memoria_cache);
 			pthread_mutex_unlock(&mutex_lista_particiones);
@@ -693,6 +697,8 @@ _Bool algoritmo_primer_ajuste(int head, int tamano, void *msj){
 			nueva_particion->colaAsignada = 0;
 			nueva_particion->tiempoLRU = LRU_MAX;
 			nueva_particion->id_msj = 0;
+			nueva_particion->id_tracking = 0;
+
 
 			list_remove(lista_particiones, index);
 			list_add(lista_particiones, nueva_particion);
@@ -822,6 +828,9 @@ _Bool algoritmo_mejor_ajuste(int head, int tamano, void *msj){
 		if(desperdicio > 0){
 			Particion* nuevaPartLibre = malloc(sizeof(Particion));
 			nuevaPartLibre->libre = true;
+			nuevaPartLibre->id_msj = 0;
+			nuevaPartLibre->id_tracking = 0;
+			nuevaPartLibre->colaAsignada = 0;
 			nuevaPartLibre->tamano = (particionBestFit->tamano - tamano);
 			nuevaPartLibre->punteroFinal = particionBestFit->punteroFinal;
 			nuevaPartLibre->punteroInicial = particionBestFit->punteroInicial + tamano;
@@ -885,7 +894,7 @@ void compactacion(){
 
 
 	//1- Ordeno la lista de particiones según ubicación en la memoria caché
-	pthread_mutex_lock(&mutex_lista_particiones);
+	//pthread_mutex_lock(&mutex_lista_particiones);
 	_Bool ordenar(Particion* a, Particion* b){return a->punteroInicial < b->punteroInicial;}
 	list_sort(lista_particiones, (void*)ordenar);
 
@@ -895,7 +904,7 @@ void compactacion(){
 	int tamOcupado = 0;
 	for(int i = 0; i<list_size(lista_particiones);i++){
 	Particion* p = list_get(lista_particiones,i);
-	pthread_mutex_unlock(&mutex_lista_particiones);
+	//pthread_mutex_unlock(&mutex_lista_particiones);
 	if(p->libre){
 	//Si este bloque está libre, quiere decir que la partición que sigue
 	//la puedo desplazar el tamaño de esta partición reservada.
@@ -953,6 +962,7 @@ void compactacion(){
 	Particion * pFinalLibre = malloc(sizeof(Particion));
 	pFinalLibre->libre = true;
 	pFinalLibre->id_msj = 0;
+	pFinalLibre->id_tracking = 0;
 	pFinalLibre->tiempoLRU = LRU_MAX;
 	pFinalLibre->colaAsignada = 0;
 	pFinalLibre->punteroInicial = tamOcupado;

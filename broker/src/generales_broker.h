@@ -69,7 +69,7 @@ pthread_mutex_t mxSocketsFD;
 pthread_t hilo_servidor;
 pthread_t hilo_consola;
 pthread_t hilo_Publisher;
-//
+pthread_t hilo;
 
 
 fd_set setMaestro;
@@ -136,6 +136,9 @@ pthread_mutex_t mutex_logs;
 pthread_mutex_t desserializar;
 
 pthread_mutex_t msjPendientesCaught;
+
+pthread_mutex_t guardarMsj;
+
 
 
 //t_list* lista_msjs;
