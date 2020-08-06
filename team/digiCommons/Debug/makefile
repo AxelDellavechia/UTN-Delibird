@@ -8,9 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include digiCommons/src/subdir.mk
--include digiCommons/Debug/src/subdir.mk
--include Team/subdir.mk
+-include src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -25,19 +23,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: team
+all: libdigiCommons.so
 
 # Tool invocations
-team: $(OBJS) $(USER_OBJS)
+libdigiCommons.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: GCC C Linker'
-	gcc  -o "team" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cross GCC Linker'
+	gcc -shared -o "libdigiCommons.so" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) team
+	-$(RM) $(LIBRARIES)$(OBJS)$(C_DEPS) libdigiCommons.so
 	-@echo ' '
 
 .PHONY: all clean dependents
