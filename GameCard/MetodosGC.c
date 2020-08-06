@@ -347,7 +347,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		FILE *fMetadata = fopen (dirMetadata, "wb");
 		if(fMetadata == NULL){
 		pthread_mutex_lock(&mxLog);
-		log_info(logger,"Id Mensaje: %d, No se puede crear el Metadata del Pokemon %s\n",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+		log_info(logger,"Id Mensaje: %d, No se puede crear el Metadata del Pokemon %s",Pokemon->id_mensaje, Pokemon->nombre_pokemon);
 		pthread_mutex_unlock(&mxLog);
 		return ERROR;
 		}else{
@@ -364,7 +364,7 @@ int CreatePokemon(cola_NEW_POKEMON* Pokemon){
 		list_add(pokeList, newPokemon);
 		addMxPokemon(newPokemon);
 		pthread_mutex_lock(&mxLog);
-		log_info(logger,"Id Mensaje: %d, Se crear el Pokemon %s\n", Pokemon->id_mensaje, Pokemon->nombre_pokemon);
+		log_info(logger,"Id Mensaje: %d, Se crear el Pokemon %s", Pokemon->id_mensaje, Pokemon->nombre_pokemon);
 		pthread_mutex_unlock(&mxLog);
 
 
@@ -522,7 +522,7 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 			strcpy(tempSize,string_itoa(dataPokemon->size));*/
 			config_set_value(MetadataFiles,"SIZE", tempSize);
 			pthread_mutex_lock(&mxLog);
-			log_info(logger,"Se utilizaron %s bytes para el Pokemon %s\n", tempSize,idPokemon->pokemon);
+			log_info(logger,"Se utilizaron %s bytes para el Pokemon %s", tempSize,idPokemon->pokemon);
 			pthread_mutex_unlock(&mxLog);
 			free(tempSize);
 			tempSize=NULL;
@@ -543,7 +543,7 @@ int update_metaData_files(t_files *dataPokemon,t_Pokemones *idPokemon){
 		strcat(tempBlocks,"]");
 		config_set_value(MetadataFiles,"BLOCKS", tempBlocks);
 		pthread_mutex_lock(&mxLog);
-		log_info(logger,"Se asignaron los bloques %s para el Pokemon %s\n", tempBlocks,idPokemon->pokemon);
+		log_info(logger,"Se asignaron los bloques %s para el Pokemon %s", tempBlocks,idPokemon->pokemon);
 		pthread_mutex_unlock(&mxLog);
 		free(tempBlocks);
 	}
@@ -883,7 +883,7 @@ int grabarBloque(char* data, int bloque)
 	}else
 	{
 		pthread_mutex_lock(&mxLog);
-		log_info(logger,"\nNo se pudo grabar el bloque %i", bloque);
+		log_info(logger,"No se pudo grabar el bloque %i", bloque);
 		pthread_mutex_unlock(&mxLog);
 	}
 
