@@ -2,6 +2,8 @@
 #include <commons/config.h>
 #include "src/sockets.h"
 #include "src/mensajeria.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "MetodosGC.h"
 
 
@@ -104,6 +106,9 @@ void crearPuntoMontaje()
 
 		strcpy(PuntoMontaje->FILES,PuntoMontaje->PUNTOMONTAJE);
 		strcat(PuntoMontaje->FILES,"Files/");
+
+		mkdir(PuntoMontaje->BLOCKS,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		mkdir(PuntoMontaje->FILES,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 }
 

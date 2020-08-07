@@ -1,0 +1,1901 @@
+[INFO] 15:17:47:196 broker.log/(15951:15951): Leyendo Archivo de Configuracion..
+[INFO] 15:17:47:196 broker.log/(15951:15951): Se encontró y cargó el contido del TAMANO_MEMORIA. Valor: 64
+[INFO] 15:17:47:196 broker.log/(15951:15951): Se encontró y cargó el contido del TAMANO_MINIMO_PARTICION. Valor: 4
+[INFO] 15:17:47:196 broker.log/(15951:15951): Se encontró y cargó el contenido de ALGORITMO_MEMORIA a la estructura. Valor: BS
+[INFO] 15:17:47:196 broker.log/(15951:15951): Se encontró y cargó el contenido de ALGORITMO_REEMPLAZO a la estructura. Valor: FIFO
+[INFO] 15:17:47:197 broker.log/(15951:15951): Se encontró y cargó el contenido de ALGORITMO_PARTICION_LIBRE a la estructura. Valor: FF
+[INFO] 15:17:47:197 broker.log/(15951:15951): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 15:17:47:197 broker.log/(15951:15951): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 15:17:47:197 broker.log/(15951:15951): Se encontró y cargó el contido del FRECUENCIA_COMPACTACION. Valor: 1
+[INFO] 15:17:47:204 broker.log/(15951:15953):  Escuchando conexiones
+[INFO] 15:17:49:594 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:49:594 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:49:594 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:49:605 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:49:606 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:49:606 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:49:606 broker.log/(15951:15964): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:17:49:606 broker.log/(15951:15964): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:49:606 broker.log/(15951:15964): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:49:606 broker.log/(15951:15962): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:17:49:606 broker.log/(15951:15962): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:49:606 broker.log/(15951:15962): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:49:607 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:49:607 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:49:607 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:49:607 broker.log/(15951:15965): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:17:49:607 broker.log/(15951:15965): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:49:607 broker.log/(15951:15965): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:149 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:149 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:149 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:149 broker.log/(15951:15969): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:17:54:149 broker.log/(15951:15969): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:17:54:149 broker.log/(15951:15969): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:150 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:17:54:151 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:151 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:151 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:162 broker.log/(15951:15972): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:17:54:162 broker.log/(15951:15972): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:54:162 broker.log/(15951:15972): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:163 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:163 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:163 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:163 broker.log/(15951:15973): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:17:54:163 broker.log/(15951:15973): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:17:54:163 broker.log/(15951:15973): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:163 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:17:54:166 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:166 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:166 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:166 broker.log/(15951:15975): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:17:54:166 broker.log/(15951:15975): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:17:54:166 broker.log/(15951:15975): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:167 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:17:54:169 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:169 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:169 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:169 broker.log/(15951:15977): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:17:54:178 broker.log/(15951:15977): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:17:54:178 broker.log/(15951:15977): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:186 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:17:54:187 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:187 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:187 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:188 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:188 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:188 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:190 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:54:190 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:54:190 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:54:194 broker.log/(15951:15981): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:17:54:195 broker.log/(15951:15981): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:54:195 broker.log/(15951:15981): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:195 broker.log/(15951:15983): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:17:54:195 broker.log/(15951:15983): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:54:195 broker.log/(15951:15983): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:54:195 broker.log/(15951:15982): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:17:54:195 broker.log/(15951:15982): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:17:54:195 broker.log/(15951:15982): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:59:153 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:59:153 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:59:153 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:59:161 broker.log/(15951:15987): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:17:59:161 broker.log/(15951:15987): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:17:59:161 broker.log/(15951:15987): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:59:194 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:59:194 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:59:194 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:59:194 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:59:194 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:59:194 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:59:199 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:17:59:199 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:17:59:199 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:17:59:199 broker.log/(15951:15991): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:17:59:199 broker.log/(15951:15991): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:17:59:199 broker.log/(15951:15991): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:59:199 broker.log/(15951:15989): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:17:59:199 broker.log/(15951:15989): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:17:59:199 broker.log/(15951:15989): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:17:59:199 broker.log/(15951:15990): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:17:59:199 broker.log/(15951:15990): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:17:59:199 broker.log/(15951:15990): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:512 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:512 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:512 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:540 broker.log/(15951:15999): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:18:09:540 broker.log/(15951:15999): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:18:09:540 broker.log/(15951:15999): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:540 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:18:09:543 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:543 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:543 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:546 broker.log/(15951:16001): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:18:09:546 broker.log/(15951:16001): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:18:09:546 broker.log/(15951:16001): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:596 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:596 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:596 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:604 broker.log/(15951:16002): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:18:09:604 broker.log/(15951:16002): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 15:18:09:604 broker.log/(15951:16002): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:604 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:18:09:610 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:610 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:610 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:611 broker.log/(15951:16004): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:18:09:611 broker.log/(15951:16004): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:18:09:611 broker.log/(15951:16004): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:632 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:632 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:632 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:633 broker.log/(15951:16005): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:18:09:633 broker.log/(15951:16005): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 15:18:09:633 broker.log/(15951:16005): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:634 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:18:09:640 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:640 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:640 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:640 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:640 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:640 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:640 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:640 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:640 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:646 broker.log/(15951:16008): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:18:09:646 broker.log/(15951:16008): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:18:09:646 broker.log/(15951:16008): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:646 broker.log/(15951:16009): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:18:09:646 broker.log/(15951:16009): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:18:09:646 broker.log/(15951:16009): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:646 broker.log/(15951:16007): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:18:09:646 broker.log/(15951:16007): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 15:18:09:646 broker.log/(15951:16007): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:646 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:18:09:648 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:648 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:648 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:648 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:18:09:648 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:18:09:648 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:18:09:648 broker.log/(15951:16011): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:18:09:648 broker.log/(15951:16011): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:18:09:649 broker.log/(15951:16011): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:18:09:654 broker.log/(15951:16012): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:18:09:654 broker.log/(15951:16012): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:18:09:654 broker.log/(15951:16012): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:27:695 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:27:695 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:27:696 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:27:696 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:27:696 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:27:696 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:27:696 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:27:696 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:27:696 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:27:699 broker.log/(15951:16039): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:27:699 broker.log/(15951:16039): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:19:27:699 broker.log/(15951:16039): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:27:699 broker.log/(15951:16038): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:27:699 broker.log/(15951:16038): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:19:27:699 broker.log/(15951:16038): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:194 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:194 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:194 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:231 broker.log/(15951:16047): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:19:35:232 broker.log/(15951:16047): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:19:35:232 broker.log/(15951:16047): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:232 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:234 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:235 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:235 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:238 broker.log/(15951:16051): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:238 broker.log/(15951:16051): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:238 broker.log/(15951:16051): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:285 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:285 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:285 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:293 broker.log/(15951:16052): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:19:35:293 broker.log/(15951:16052): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 15:19:35:293 broker.log/(15951:16052): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:293 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:299 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:299 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:299 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:300 broker.log/(15951:16054): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:300 broker.log/(15951:16054): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:300 broker.log/(15951:16054): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:322 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:322 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:323 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:323 broker.log/(15951:16055): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:19:35:323 broker.log/(15951:16055): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 15:19:35:323 broker.log/(15951:16055): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:324 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:330 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:330 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:330 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:331 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:331 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:331 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:331 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:331 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:331 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:333 broker.log/(15951:16059): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:35:333 broker.log/(15951:16059): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:19:35:333 broker.log/(15951:16059): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:333 broker.log/(15951:16058): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:333 broker.log/(15951:16058): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:333 broker.log/(15951:16058): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:333 broker.log/(15951:16057): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:19:35:333 broker.log/(15951:16057): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 15:19:35:333 broker.log/(15951:16057): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:333 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:340 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:340 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:340 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:340 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:340 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:340 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:340 broker.log/(15951:16062): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:341 broker.log/(15951:16062): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:341 broker.log/(15951:16062): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:341 broker.log/(15951:16063): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:35:341 broker.log/(15951:16063): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:19:35:341 broker.log/(15951:16063): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:414 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:414 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:414 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:471 broker.log/(15951:16067): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:19:35:471 broker.log/(15951:16067): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:471 broker.log/(15951:16067): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:471 broker.log/(15951:16067): La partición 48 - 63 tiene tiempo LRU 1596651575340
+[INFO] 15:19:35:471 broker.log/(15951:16067): La partición 0 - 15 tiene tiempo LRU 1596651575324
+[INFO] 15:19:35:471 broker.log/(15951:16067): La partición 32 - 39 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:471 broker.log/(15951:16067): La partición 16 - 31 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:540 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:540 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:540 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:550 broker.log/(15951:16070): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:19:35:550 broker.log/(15951:16070): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:550 broker.log/(15951:16070): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:550 broker.log/(15951:16070): La partición 48 - 63 tiene tiempo LRU 1596651575340
+[INFO] 15:19:35:550 broker.log/(15951:16070): La partición 0 - 15 tiene tiempo LRU 1596651575324
+[INFO] 15:19:35:550 broker.log/(15951:16070): La partición 32 - 39 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:550 broker.log/(15951:16070): La partición 16 - 31 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:571 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:571 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:571 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:582 broker.log/(15951:16071): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:19:35:582 broker.log/(15951:16071): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:582 broker.log/(15951:16071): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:582 broker.log/(15951:16071): La partición 48 - 63 tiene tiempo LRU 1596651575340
+[INFO] 15:19:35:582 broker.log/(15951:16071): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:582 broker.log/(15951:16071): La partición 0 - 15 tiene tiempo LRU 1596651575324
+[INFO] 15:19:35:582 broker.log/(15951:16071): La partición 32 - 39 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:582 broker.log/(15951:16071): La partición 16 - 31 tiene tiempo LRU 1596651575332
+[INFO] 15:19:35:582 broker.log/(15951:16071): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:35:653 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:654 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:654 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:655 broker.log/(15951:16074): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:655 broker.log/(15951:16074): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:655 broker.log/(15951:16074): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:35:659 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:35:659 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:35:659 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:35:661 broker.log/(15951:16075): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:35:661 broker.log/(15951:16075): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:35:661 broker.log/(15951:16075): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:40:236 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:40:236 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:40:236 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:40:236 broker.log/(15951:16079): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:40:237 broker.log/(15951:16079): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:19:40:237 broker.log/(15951:16079): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:40:237 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:40:243 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:40:243 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:40:243 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:40:246 broker.log/(15951:16081): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:40:246 broker.log/(15951:16081): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:40:246 broker.log/(15951:16081): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:40:302 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:40:302 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:40:302 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:40:310 broker.log/(15951:16082): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:19:40:310 broker.log/(15951:16082): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:19:40:310 broker.log/(15951:16082): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:40:310 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:40:422 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:40:422 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:40:422 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:40:434 broker.log/(15951:16084): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:40:434 broker.log/(15951:16084): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:40:434 broker.log/(15951:16084): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:44:505 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:44:505 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:44:505 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:44:511 broker.log/(15951:16085): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:19:44:511 broker.log/(15951:16085): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:19:44:511 broker.log/(15951:16085): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:44:511 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:44:514 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:44:515 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:44:515 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:44:518 broker.log/(15951:16087): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:44:518 broker.log/(15951:16087): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:44:518 broker.log/(15951:16087): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:49:518 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:49:518 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:49:518 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:49:522 broker.log/(15951:16098): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:19:49:522 broker.log/(15951:16098): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:49:522 broker.log/(15951:16098): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:49:522 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:49:543 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:49:543 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:49:543 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:49:551 broker.log/(15951:16101): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:49:551 broker.log/(15951:16101): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:49:551 broker.log/(15951:16101): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:59:563 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:59:563 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:59:563 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:59:563 broker.log/(15951:16106): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:19:59:563 broker.log/(15951:16106): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:19:59:563 broker.log/(15951:16106): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:19:59:564 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:19:59:564 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:19:59:564 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:19:59:564 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:19:59:568 broker.log/(15951:16108): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:19:59:568 broker.log/(15951:16108): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:19:59:568 broker.log/(15951:16108): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:04:571 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:04:571 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:04:571 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:04:571 broker.log/(15951:16118): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:20:04:571 broker.log/(15951:16118): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:04:571 broker.log/(15951:16118): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:04:571 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:04:580 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:04:580 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:04:580 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:04:589 broker.log/(15951:16120): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:04:589 broker.log/(15951:16120): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:04:589 broker.log/(15951:16120): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:490 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:490 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:490 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:491 broker.log/(15951:16132): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:491 broker.log/(15951:16132): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:20:20:491 broker.log/(15951:16132): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:500 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:502 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:502 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:502 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:503 broker.log/(15951:16137): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:503 broker.log/(15951:16137): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:503 broker.log/(15951:16137): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:507 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:507 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:507 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:507 broker.log/(15951:16138): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:507 broker.log/(15951:16138): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 15:20:20:507 broker.log/(15951:16138): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:508 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:509 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:509 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:509 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:511 broker.log/(15951:16141): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:511 broker.log/(15951:16141): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:511 broker.log/(15951:16141): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:511 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:511 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:511 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:512 broker.log/(15951:16142): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:512 broker.log/(15951:16142): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:20:20:512 broker.log/(15951:16142): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:512 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:513 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:513 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:513 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:518 broker.log/(15951:16145): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:518 broker.log/(15951:16145): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:518 broker.log/(15951:16145): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:526 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:526 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:526 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:526 broker.log/(15951:16146): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:526 broker.log/(15951:16146): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:20:20:526 broker.log/(15951:16146): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:527 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:528 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:528 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:528 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:536 broker.log/(15951:16149): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:536 broker.log/(15951:16149): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:536 broker.log/(15951:16149): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:537 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:537 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:537 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:537 broker.log/(15951:16150): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:537 broker.log/(15951:16150): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 15:20:20:537 broker.log/(15951:16150): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:537 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:539 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:539 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:539 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:540 broker.log/(15951:16153): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:540 broker.log/(15951:16153): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:540 broker.log/(15951:16153): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:542 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:550 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:550 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:550 broker.log/(15951:16154): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:20:20:550 broker.log/(15951:16154): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:20:20:550 broker.log/(15951:16154): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:20:558 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:20:559 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:20:559 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:20:559 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:20:559 broker.log/(15951:16156): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:20:560 broker.log/(15951:16156): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:20:560 broker.log/(15951:16156): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:506 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:506 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:506 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:507 broker.log/(15951:16158): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:507 broker.log/(15951:16158): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:20:25:507 broker.log/(15951:16158): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:507 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:511 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:511 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:511 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:515 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:515 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:515 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:523 broker.log/(15951:16159): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:523 broker.log/(15951:16159): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:20:25:523 broker.log/(15951:16159): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:527 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:530 broker.log/(15951:16160): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:530 broker.log/(15951:16160): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:20:25:530 broker.log/(15951:16160): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:530 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:547 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:547 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:547 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:547 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:547 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:547 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:548 broker.log/(15951:16162): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:548 broker.log/(15951:16162): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:20:25:548 broker.log/(15951:16162): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:548 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:548 broker.log/(15951:16161): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:548 broker.log/(15951:16161): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:20:25:548 broker.log/(15951:16161): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:548 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:555 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:556 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:556 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:564 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:564 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:564 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:567 broker.log/(15951:16165): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:20:25:567 broker.log/(15951:16165): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:20:25:567 broker.log/(15951:16165): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:567 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:25:567 broker.log/(15951:16164): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:567 broker.log/(15951:16164): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:567 broker.log/(15951:16164): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:655 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:655 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:655 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:682 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:682 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:682 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:683 broker.log/(15951:16170): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:683 broker.log/(15951:16170): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:683 broker.log/(15951:16170): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:683 broker.log/(15951:16168): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:683 broker.log/(15951:16168): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:683 broker.log/(15951:16168): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:738 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:738 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:738 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:746 broker.log/(15951:16172): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:746 broker.log/(15951:16172): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:746 broker.log/(15951:16172): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:755 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:755 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:755 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:758 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:25:758 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:25:758 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:25:758 broker.log/(15951:16174): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:758 broker.log/(15951:16174): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:758 broker.log/(15951:16174): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:25:762 broker.log/(15951:16175): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:25:762 broker.log/(15951:16175): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:25:762 broker.log/(15951:16175): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:32:745 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:32:745 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:32:745 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:32:746 broker.log/(15951:16178): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:20:32:746 broker.log/(15951:16178): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:20:32:746 broker.log/(15951:16178): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:32:746 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:32:753 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:32:753 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:32:753 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:32:754 broker.log/(15951:16180): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:32:754 broker.log/(15951:16180): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:32:754 broker.log/(15951:16180): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:37:756 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:37:756 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:37:756 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:37:756 broker.log/(15951:16184): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:20:37:756 broker.log/(15951:16184): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:37:756 broker.log/(15951:16184): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:37:756 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:37:761 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:37:761 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:37:761 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:37:763 broker.log/(15951:16186): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:37:765 broker.log/(15951:16186): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:37:765 broker.log/(15951:16186): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:40:760 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:40:760 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:40:761 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:40:761 broker.log/(15951:16189): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:20:40:761 broker.log/(15951:16189): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:20:40:761 broker.log/(15951:16189): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:40:763 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:40:763 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:40:763 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:40:763 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:40:764 broker.log/(15951:16191): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:40:764 broker.log/(15951:16191): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:40:764 broker.log/(15951:16191): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:45:766 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:45:766 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:45:768 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:45:769 broker.log/(15951:16194): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:20:45:770 broker.log/(15951:16194): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:45:770 broker.log/(15951:16194): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:45:770 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:45:786 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:45:786 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:45:786 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:45:790 broker.log/(15951:16196): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:45:790 broker.log/(15951:16196): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:45:790 broker.log/(15951:16196): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:50:779 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:50:779 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:50:779 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:50:781 broker.log/(15951:16198): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:20:50:781 broker.log/(15951:16198): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:20:50:782 broker.log/(15951:16198): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:50:782 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:50:784 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:50:784 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:50:784 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:50:789 broker.log/(15951:16200): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:50:789 broker.log/(15951:16200): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:50:789 broker.log/(15951:16200): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:55:787 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:55:788 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:55:788 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:55:788 broker.log/(15951:16202): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:20:55:788 broker.log/(15951:16202): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:55:788 broker.log/(15951:16202): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:20:55:788 broker.log/(15951:15955): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:20:55:793 broker.log/(15951:15953): Servidor o Cliente aceptado.
+[INFO] 15:20:55:793 broker.log/(15951:15953): Hice el handshake y me respondieron: Team
+[INFO] 15:20:55:793 broker.log/(15951:15953): Alguien se conectó
+[INFO] 15:20:55:805 broker.log/(15951:16204): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:20:55:805 broker.log/(15951:16204): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:20:55:805 broker.log/(15951:16204): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:23:17:366 broker.log/(15951:15954): Comenzando a cerrar los hilos
+[INFO] 15:23:17:367 broker.log/(15951:15954): Finalice todos los hilos
+[INFO] 15:27:50:673 broker.log/(16360:16360): Leyendo Archivo de Configuracion..
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contido del TAMANO_MEMORIA. Valor: 64
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contido del TAMANO_MINIMO_PARTICION. Valor: 4
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contenido de ALGORITMO_MEMORIA a la estructura. Valor: BS
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contenido de ALGORITMO_REEMPLAZO a la estructura. Valor: FIFO
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contenido de ALGORITMO_PARTICION_LIBRE a la estructura. Valor: FF
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 15:27:50:682 broker.log/(16360:16360): Se encontró y cargó el contido del FRECUENCIA_COMPACTACION. Valor: 1
+[INFO] 15:27:50:685 broker.log/(16360:16362):  Escuchando conexiones
+[INFO] 15:27:55:814 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:55:814 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:55:814 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:55:826 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:55:826 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:55:827 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:55:827 broker.log/(16360:16372): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:27:55:827 broker.log/(16360:16372): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:55:827 broker.log/(16360:16372): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:55:827 broker.log/(16360:16373): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:27:55:827 broker.log/(16360:16373): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:55:827 broker.log/(16360:16373): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:55:828 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:55:828 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:55:828 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:55:828 broker.log/(16360:16374): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:27:55:828 broker.log/(16360:16374): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:55:828 broker.log/(16360:16374): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:295 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:295 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:295 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:295 broker.log/(16360:16377): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:27:59:295 broker.log/(16360:16377): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:27:59:295 broker.log/(16360:16377): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:296 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:27:59:296 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:296 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:296 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:299 broker.log/(16360:16380): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:27:59:307 broker.log/(16360:16380): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:59:307 broker.log/(16360:16380): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:307 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:307 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:307 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:307 broker.log/(16360:16381): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:27:59:307 broker.log/(16360:16381): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:27:59:307 broker.log/(16360:16381): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:308 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:27:59:311 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:311 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:311 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:312 broker.log/(16360:16383): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:27:59:312 broker.log/(16360:16383): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:27:59:312 broker.log/(16360:16383): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:312 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:27:59:314 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:314 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:314 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:314 broker.log/(16360:16385): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:27:59:314 broker.log/(16360:16385): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:27:59:314 broker.log/(16360:16385): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:330 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:27:59:334 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:334 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:334 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:335 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:335 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:335 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:336 broker.log/(16360:16389): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:27:59:336 broker.log/(16360:16389): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:59:336 broker.log/(16360:16389): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:336 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:27:59:336 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:27:59:336 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:27:59:337 broker.log/(16360:16390): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:27:59:337 broker.log/(16360:16390): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:59:337 broker.log/(16360:16390): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:27:59:338 broker.log/(16360:16391): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:27:59:338 broker.log/(16360:16391): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:27:59:338 broker.log/(16360:16391): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:04:300 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:04:300 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:04:300 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:04:308 broker.log/(16360:16394): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:28:04:308 broker.log/(16360:16394): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:28:04:308 broker.log/(16360:16394): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:04:336 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:04:336 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:04:336 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:04:336 broker.log/(16360:16396): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:28:04:336 broker.log/(16360:16396): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:28:04:336 broker.log/(16360:16396): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:04:337 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:04:337 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:04:337 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:04:338 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:04:338 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:04:338 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:04:338 broker.log/(16360:16398): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:28:04:338 broker.log/(16360:16398): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:28:04:338 broker.log/(16360:16398): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:04:342 broker.log/(16360:16397): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:28:04:342 broker.log/(16360:16397): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:28:04:343 broker.log/(16360:16397): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:76 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:76 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:76 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:114 broker.log/(16360:16405): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:13:114 broker.log/(16360:16405): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:28:13:114 broker.log/(16360:16405): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:114 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:117 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:117 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:117 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:120 broker.log/(16360:16409): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:13:120 broker.log/(16360:16409): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:13:120 broker.log/(16360:16409): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:164 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:164 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:164 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:173 broker.log/(16360:16410): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:13:173 broker.log/(16360:16410): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 15:28:13:173 broker.log/(16360:16410): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:174 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:191 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:191 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:191 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:191 broker.log/(16360:16412): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:13:191 broker.log/(16360:16412): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:13:191 broker.log/(16360:16412): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:203 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:203 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:203 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:207 broker.log/(16360:16413): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:13:207 broker.log/(16360:16413): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 15:28:13:207 broker.log/(16360:16413): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:207 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:214 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:214 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:214 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:222 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:222 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:222 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:222 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:222 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:223 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:229 broker.log/(16360:16417): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:13:230 broker.log/(16360:16417): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:28:13:230 broker.log/(16360:16417): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:230 broker.log/(16360:16416): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:13:230 broker.log/(16360:16416): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:13:230 broker.log/(16360:16416): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:238 broker.log/(16360:16415): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:13:238 broker.log/(16360:16415): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 15:28:13:238 broker.log/(16360:16415): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:238 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:242 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:242 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:242 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:242 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:243 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:243 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:243 broker.log/(16360:16419): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:13:243 broker.log/(16360:16419): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:13:243 broker.log/(16360:16419): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:243 broker.log/(16360:16420): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:13:243 broker.log/(16360:16420): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:28:13:243 broker.log/(16360:16420): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:316 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:13:316 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:13:316 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:13:374 broker.log/(16360:16426): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:28:13:374 broker.log/(16360:16426): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:13:374 broker.log/(16360:16426): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:13:374 broker.log/(16360:16426): La partición 16 - 31 tiene tiempo LRU 1596652093242
+[INFO] 15:28:13:374 broker.log/(16360:16426): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:374 broker.log/(16360:16426): La partición 32 - 47 tiene tiempo LRU 1596652093206
+[INFO] 15:28:13:374 broker.log/(16360:16426): La partición 48 - 63 tiene tiempo LRU 1596652093229
+[INFO] 15:28:13:374 broker.log/(16360:16426): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:13:374 broker.log/(16360:16426): La partición 0 - 7 tiene tiempo LRU 1596652093238
+[INFO] 15:28:51:646 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:51:647 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:51:647 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:51:647 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:51:647 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:51:647 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:51:647 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:51:647 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:51:650 broker.log/(16360:16441): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:51:650 broker.log/(16360:16441): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:28:51:650 broker.log/(16360:16441): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:51:650 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:51:650 broker.log/(16360:16440): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:51:651 broker.log/(16360:16440): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:28:51:651 broker.log/(16360:16440): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:51:651 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:326 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:326 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:326 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:359 broker.log/(16360:16448): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:56:359 broker.log/(16360:16448): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:28:56:359 broker.log/(16360:16448): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:359 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:362 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:362 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:362 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:364 broker.log/(16360:16450): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:364 broker.log/(16360:16450): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:364 broker.log/(16360:16450): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:418 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:418 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:418 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:422 broker.log/(16360:16451): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:56:422 broker.log/(16360:16451): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 15:28:56:422 broker.log/(16360:16451): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:422 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:430 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:430 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:430 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:431 broker.log/(16360:16453): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:431 broker.log/(16360:16453): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:431 broker.log/(16360:16453): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:451 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:451 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:451 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:457 broker.log/(16360:16454): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:56:457 broker.log/(16360:16454): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 15:28:56:457 broker.log/(16360:16454): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:458 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:462 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:462 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:462 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:463 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:463 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:463 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:474 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:474 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:474 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:475 broker.log/(16360:16458): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:56:482 broker.log/(16360:16458): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:28:56:482 broker.log/(16360:16458): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:482 broker.log/(16360:16457): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:482 broker.log/(16360:16457): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:482 broker.log/(16360:16457): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:482 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:482 broker.log/(16360:16456): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:28:56:482 broker.log/(16360:16456): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 15:28:56:482 broker.log/(16360:16456): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:482 broker.log/(16360:16364): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:483 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:483 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:483 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:483 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:483 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:483 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:483 broker.log/(16360:16461): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:483 broker.log/(16360:16461): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:483 broker.log/(16360:16461): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:483 broker.log/(16360:16462): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:28:56:483 broker.log/(16360:16462): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:28:56:484 broker.log/(16360:16462): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:484 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:557 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:557 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:557 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:598 broker.log/(16360:16467): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:28:56:598 broker.log/(16360:16467): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:598 broker.log/(16360:16467): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:598 broker.log/(16360:16467): La partición 16 - 31 tiene tiempo LRU 1596652136483
+[INFO] 15:28:56:598 broker.log/(16360:16467): La partición 32 - 47 tiene tiempo LRU 1596652136457
+[INFO] 15:28:56:598 broker.log/(16360:16467): La partición 48 - 63 tiene tiempo LRU 1596652136481
+[INFO] 15:28:56:598 broker.log/(16360:16467): La partición 0 - 7 tiene tiempo LRU 1596652136482
+[INFO] 15:28:56:662 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:662 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:662 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:666 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:666 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:666 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:687 broker.log/(16360:16469): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:28:56:687 broker.log/(16360:16469): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:687 broker.log/(16360:16469): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:687 broker.log/(16360:16469): La partición 16 - 31 tiene tiempo LRU 1596652136483
+[INFO] 15:28:56:687 broker.log/(16360:16469): La partición 32 - 47 tiene tiempo LRU 1596652136457
+[INFO] 15:28:56:687 broker.log/(16360:16469): La partición 48 - 63 tiene tiempo LRU 1596652136481
+[INFO] 15:28:56:687 broker.log/(16360:16469): La partición 0 - 7 tiene tiempo LRU 1596652136482
+[INFO] 15:28:56:695 broker.log/(16360:16470): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:28:56:695 broker.log/(16360:16470): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:695 broker.log/(16360:16470): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:695 broker.log/(16360:16470): La partición 16 - 31 tiene tiempo LRU 1596652136483
+[INFO] 15:28:56:696 broker.log/(16360:16470): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:696 broker.log/(16360:16470): La partición 32 - 47 tiene tiempo LRU 1596652136457
+[INFO] 15:28:56:696 broker.log/(16360:16470): La partición 48 - 63 tiene tiempo LRU 1596652136481
+[INFO] 15:28:56:696 broker.log/(16360:16470): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:28:56:696 broker.log/(16360:16470): La partición 0 - 7 tiene tiempo LRU 1596652136482
+[INFO] 15:28:56:768 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:768 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:768 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:774 broker.log/(16360:16473): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:774 broker.log/(16360:16473): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:774 broker.log/(16360:16473): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:28:56:778 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:28:56:778 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:28:56:778 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:28:56:783 broker.log/(16360:16474): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:28:56:783 broker.log/(16360:16474): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:28:56:783 broker.log/(16360:16474): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:29:01:364 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:29:01:364 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:29:01:364 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:29:01:364 broker.log/(16360:16476): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:29:01:364 broker.log/(16360:16476): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:29:01:364 broker.log/(16360:16476): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:29:01:364 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:29:01:432 broker.log/(16360:16362): Servidor o Cliente aceptado.
+[INFO] 15:29:01:432 broker.log/(16360:16362): Hice el handshake y me respondieron: Team
+[INFO] 15:29:01:432 broker.log/(16360:16362): Alguien se conectó
+[INFO] 15:29:01:432 broker.log/(16360:16477): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:29:01:432 broker.log/(16360:16477): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:29:01:432 broker.log/(16360:16477): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:29:01:432 broker.log/(16360:16364): No se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:29:21:687 broker.log/(16360:16363): Comenzando a cerrar los hilos
+[INFO] 15:29:21:687 broker.log/(16360:16363): Finalice todos los hilos
+[INFO] 15:37:20:996 broker.log/(16710:16710): Leyendo Archivo de Configuracion..
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contido del TAMANO_MEMORIA. Valor: 64
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contido del TAMANO_MINIMO_PARTICION. Valor: 4
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contenido de ALGORITMO_MEMORIA a la estructura. Valor: BS
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contenido de ALGORITMO_REEMPLAZO a la estructura. Valor: FIFO
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contenido de ALGORITMO_PARTICION_LIBRE a la estructura. Valor: FF
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 15:37:20:997 broker.log/(16710:16710): Se encontró y cargó el contido del FRECUENCIA_COMPACTACION. Valor: 1
+[INFO] 15:37:21:6 broker.log/(16710:16712):  Escuchando conexiones
+[INFO] 15:37:24:797 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:24:797 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:24:797 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:24:798 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:24:798 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:24:798 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:24:798 broker.log/(16710:16722): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:24:798 broker.log/(16710:16722): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:24:799 broker.log/(16710:16722): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:24:799 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:24:799 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:24:799 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:24:800 broker.log/(16710:16723): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:24:800 broker.log/(16710:16723): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:24:800 broker.log/(16710:16723): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:24:800 broker.log/(16710:16724): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:24:800 broker.log/(16710:16724): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:24:800 broker.log/(16710:16724): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:35:905 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:35:905 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:35:905 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:35:925 broker.log/(16710:16734): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:37:35:925 broker.log/(16710:16734): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:37:35:925 broker.log/(16710:16734): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:35:925 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:35:928 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:35:928 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:35:928 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:35:930 broker.log/(16710:16736): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:35:930 broker.log/(16710:16736): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:35:930 broker.log/(16710:16736): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:35:979 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:35:979 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:35:979 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:35:988 broker.log/(16710:16737): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:37:35:988 broker.log/(16710:16737): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 15:37:35:988 broker.log/(16710:16737): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:35:988 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:36:10 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:10 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:10 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:14 broker.log/(16710:16741): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:36:14 broker.log/(16710:16741): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:14 broker.log/(16710:16741): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:35 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:35 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:35 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:51 broker.log/(16710:16742): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:37:36:51 broker.log/(16710:16742): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 15:37:36:51 broker.log/(16710:16742): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:54 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:36:67 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:67 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:67 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:68 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:68 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:68 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:68 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:68 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:68 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:70 broker.log/(16710:16746): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:37:36:70 broker.log/(16710:16746): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 15:37:36:70 broker.log/(16710:16746): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:70 broker.log/(16710:16745): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:36:70 broker.log/(16710:16745): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:70 broker.log/(16710:16745): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:74 broker.log/(16710:16744): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 15:37:36:74 broker.log/(16710:16744): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 15:37:36:74 broker.log/(16710:16744): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:82 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:36:83 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:83 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:83 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:83 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:83 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:83 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:84 broker.log/(16710:16748): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:36:84 broker.log/(16710:16748): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:84 broker.log/(16710:16748): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:84 broker.log/(16710:16749): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:37:36:84 broker.log/(16710:16749): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 15:37:36:84 broker.log/(16710:16749): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:136 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:136 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:136 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:142 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:142 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:142 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:193 broker.log/(16710:16755): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:36:193 broker.log/(16710:16755): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:193 broker.log/(16710:16755): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:193 broker.log/(16710:16755): La partición 16 - 31 tiene tiempo LRU 1596652656083
+[INFO] 15:37:36:193 broker.log/(16710:16755): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:36:193 broker.log/(16710:16755): La partición 32 - 47 tiene tiempo LRU 1596652656051
+[INFO] 15:37:36:193 broker.log/(16710:16755): La partición 48 - 63 tiene tiempo LRU 1596652656069
+[INFO] 15:37:36:194 broker.log/(16710:16755): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:36:194 broker.log/(16710:16755): La partición 0 - 7 tiene tiempo LRU 1596652656082
+[INFO] 15:37:36:210 broker.log/(16710:16754): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:36:210 broker.log/(16710:16754): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:210 broker.log/(16710:16754): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:210 broker.log/(16710:16754): La partición 16 - 31 tiene tiempo LRU 1596652656083
+[INFO] 15:37:36:210 broker.log/(16710:16754): La partición 32 - 47 tiene tiempo LRU 1596652656051
+[INFO] 15:37:36:210 broker.log/(16710:16754): La partición 48 - 63 tiene tiempo LRU 1596652656069
+[INFO] 15:37:36:210 broker.log/(16710:16754): La partición 0 - 7 tiene tiempo LRU 1596652656082
+[INFO] 15:37:36:215 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:215 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:215 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:256 broker.log/(16710:16758): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 15:37:36:256 broker.log/(16710:16758): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:256 broker.log/(16710:16758): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:256 broker.log/(16710:16758): La partición 16 - 31 tiene tiempo LRU 1596652656083
+[INFO] 15:37:36:256 broker.log/(16710:16758): La partición 32 - 47 tiene tiempo LRU 1596652656051
+[INFO] 15:37:36:256 broker.log/(16710:16758): La partición 48 - 63 tiene tiempo LRU 1596652656069
+[INFO] 15:37:36:256 broker.log/(16710:16758): La partición 0 - 7 tiene tiempo LRU 1596652656082
+[INFO] 15:37:36:372 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:372 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:372 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:378 broker.log/(16710:16761): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:36:378 broker.log/(16710:16761): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:378 broker.log/(16710:16761): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:36:386 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:36:386 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:36:386 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:36:397 broker.log/(16710:16762): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:36:402 broker.log/(16710:16762): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:36:402 broker.log/(16710:16762): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:40:932 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:40:932 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:40:932 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:40:933 broker.log/(16710:16771): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:37:40:933 broker.log/(16710:16771): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:37:40:933 broker.log/(16710:16771): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:40:933 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:40:993 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:40:993 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:40:993 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:41:10 broker.log/(16710:16773): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:41:10 broker.log/(16710:16773): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:41:10 broker.log/(16710:16773): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:41:15 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:41:15 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:41:15 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:41:20 broker.log/(16710:16774): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 15:37:41:20 broker.log/(16710:16774): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:37:41:20 broker.log/(16710:16774): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:41:20 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:41:134 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:41:134 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:41:134 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:41:139 broker.log/(16710:16776): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:41:139 broker.log/(16710:16776): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:41:139 broker.log/(16710:16776): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:45:331 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:45:331 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:45:331 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:45:344 broker.log/(16710:16778): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:37:45:344 broker.log/(16710:16778): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:37:45:344 broker.log/(16710:16778): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:45:344 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:45:346 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:45:346 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:45:346 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:45:358 broker.log/(16710:16780): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:45:358 broker.log/(16710:16780): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:45:358 broker.log/(16710:16780): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:50:353 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:50:353 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:50:353 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:50:358 broker.log/(16710:16789): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:37:50:358 broker.log/(16710:16789): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:50:358 broker.log/(16710:16789): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:37:50:359 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:37:50:388 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:37:50:388 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:37:50:388 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:37:50:397 broker.log/(16710:16792): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:37:50:397 broker.log/(16710:16792): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:37:50:397 broker.log/(16710:16792): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:00:430 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:00:430 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:00:430 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:00:431 broker.log/(16710:16795): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:38:00:431 broker.log/(16710:16795): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:38:00:431 broker.log/(16710:16795): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:00:431 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:00:431 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:00:431 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:00:431 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:00:435 broker.log/(16710:16797): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:00:435 broker.log/(16710:16797): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:00:435 broker.log/(16710:16797): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:05:439 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:05:439 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:05:439 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:05:439 broker.log/(16710:16799): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:38:05:439 broker.log/(16710:16799): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:05:439 broker.log/(16710:16799): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:05:439 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:05:461 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:05:461 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:05:461 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:05:463 broker.log/(16710:16801): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:05:463 broker.log/(16710:16801): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:05:463 broker.log/(16710:16801): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:902 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:902 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:902 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:914 broker.log/(16710:16813): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:914 broker.log/(16710:16813): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:38:18:914 broker.log/(16710:16813): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:915 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:915 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:915 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:915 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:918 broker.log/(16710:16817): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:918 broker.log/(16710:16817): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:918 broker.log/(16710:16817): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:921 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:921 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:921 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:921 broker.log/(16710:16818): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:925 broker.log/(16710:16818): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 15:38:18:925 broker.log/(16710:16818): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:926 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:952 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:952 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:952 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:952 broker.log/(16710:16820): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:952 broker.log/(16710:16820): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:38:18:952 broker.log/(16710:16820): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:952 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:962 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:962 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:962 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:962 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:963 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:963 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:964 broker.log/(16710:16824): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:964 broker.log/(16710:16824): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:964 broker.log/(16710:16824): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:964 broker.log/(16710:16825): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:964 broker.log/(16710:16825): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:964 broker.log/(16710:16825): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:965 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:965 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:965 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:965 broker.log/(16710:16826): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:965 broker.log/(16710:16826): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 15:38:18:965 broker.log/(16710:16826): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:965 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:966 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:966 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:966 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:971 broker.log/(16710:16829): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:971 broker.log/(16710:16829): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:971 broker.log/(16710:16829): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:972 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:972 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:972 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:974 broker.log/(16710:16830): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:974 broker.log/(16710:16830): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 15:38:18:974 broker.log/(16710:16830): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:974 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:980 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:980 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:980 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:983 broker.log/(16710:16833): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:983 broker.log/(16710:16833): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:983 broker.log/(16710:16833): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:983 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:983 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:983 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:983 broker.log/(16710:16834): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 15:38:18:983 broker.log/(16710:16834): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 15:38:18:983 broker.log/(16710:16834): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:18:984 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:18:995 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:18:995 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:18:995 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:18:996 broker.log/(16710:16836): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:18:996 broker.log/(16710:16836): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:18:996 broker.log/(16710:16836): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:919 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:919 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:919 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:919 broker.log/(16710:16838): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:919 broker.log/(16710:16838): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:38:23:919 broker.log/(16710:16838): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:919 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:23:929 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:929 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:929 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:937 broker.log/(16710:16840): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:23:938 broker.log/(16710:16840): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:23:938 broker.log/(16710:16840): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:967 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:967 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:967 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:967 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:967 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:967 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:972 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:972 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:972 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:972 broker.log/(16710:16842): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:972 broker.log/(16710:16842): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:38:23:972 broker.log/(16710:16842): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:973 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:23:973 broker.log/(16710:16841): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:973 broker.log/(16710:16841): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:38:23:973 broker.log/(16710:16841): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:973 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:23:986 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:986 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:986 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:987 broker.log/(16710:16843): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:987 broker.log/(16710:16843): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 15:38:23:987 broker.log/(16710:16843): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:987 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:23:987 broker.log/(16710:16845): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:987 broker.log/(16710:16845): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:38:23:987 broker.log/(16710:16845): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:987 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:23:2 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:23:2 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:23:2 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:23:4 broker.log/(16710:16847): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 15:38:23:4 broker.log/(16710:16847): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:38:23:4 broker.log/(16710:16847): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:23:4 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:24:28 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:24:28 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:24:28 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:24:55 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:24:55 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:24:55 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:24:63 broker.log/(16710:16849): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:24:63 broker.log/(16710:16849): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:24:63 broker.log/(16710:16849): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:24:63 broker.log/(16710:16852): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:24:63 broker.log/(16710:16852): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:24:63 broker.log/(16710:16852): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:24:99 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:24:99 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:24:99 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:24:113 broker.log/(16710:16854): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:24:118 broker.log/(16710:16854): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:24:118 broker.log/(16710:16854): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:24:120 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:24:120 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:24:120 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:24:126 broker.log/(16710:16855): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:24:126 broker.log/(16710:16855): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:24:126 broker.log/(16710:16855): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:24:135 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:24:135 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:24:135 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:24:136 broker.log/(16710:16857): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:24:136 broker.log/(16710:16857): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:24:136 broker.log/(16710:16857): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:32:107 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:32:107 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:32:107 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:32:114 broker.log/(16710:16860): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:38:32:114 broker.log/(16710:16860): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 15:38:32:114 broker.log/(16710:16860): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:32:114 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:32:118 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:32:118 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:32:118 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:32:122 broker.log/(16710:16862): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:32:122 broker.log/(16710:16862): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:32:122 broker.log/(16710:16862): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:37:124 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:37:124 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:37:124 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:37:124 broker.log/(16710:16864): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:38:37:124 broker.log/(16710:16864): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:37:124 broker.log/(16710:16864): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:37:125 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:37:128 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:37:128 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:37:128 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:37:130 broker.log/(16710:16866): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:37:130 broker.log/(16710:16866): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:37:130 broker.log/(16710:16866): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:42:129 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:42:129 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:42:129 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:42:129 broker.log/(16710:16871): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:38:42:129 broker.log/(16710:16871): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 15:38:42:129 broker.log/(16710:16871): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:42:130 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:42:130 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:42:130 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:42:130 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:42:131 broker.log/(16710:16873): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:42:131 broker.log/(16710:16873): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:42:131 broker.log/(16710:16873): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:47:136 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:47:136 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:47:136 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:47:142 broker.log/(16710:16877): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:38:47:142 broker.log/(16710:16877): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:47:142 broker.log/(16710:16877): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:47:142 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:47:156 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:47:156 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:47:156 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:47:157 broker.log/(16710:16879): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:47:158 broker.log/(16710:16879): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:47:158 broker.log/(16710:16879): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:49:142 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:49:142 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:49:142 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:49:142 broker.log/(16710:16881): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 15:38:49:142 broker.log/(16710:16881): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 15:38:49:142 broker.log/(16710:16881): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:49:143 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:49:143 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:49:143 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:49:143 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:49:144 broker.log/(16710:16883): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:49:144 broker.log/(16710:16883): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:49:144 broker.log/(16710:16883): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:54:146 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:54:146 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:54:146 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:54:146 broker.log/(16710:16886): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 15:38:54:146 broker.log/(16710:16886): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:54:146 broker.log/(16710:16886): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:38:54:146 broker.log/(16710:16714): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 15:38:54:151 broker.log/(16710:16712): Servidor o Cliente aceptado.
+[INFO] 15:38:54:151 broker.log/(16710:16712): Hice el handshake y me respondieron: Team
+[INFO] 15:38:54:151 broker.log/(16710:16712): Alguien se conectó
+[INFO] 15:38:54:154 broker.log/(16710:16888): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 15:38:54:154 broker.log/(16710:16888): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 15:38:54:154 broker.log/(16710:16888): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 15:40:21:67 broker.log/(16710:16713): Comenzando a cerrar los hilos
+[INFO] 15:40:21:67 broker.log/(16710:16713): Finalice todos los hilos
+[INFO] 19:53:51:3 broker.log/(7261:7261): Leyendo Archivo de Configuracion..
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contido del TAMANO_MEMORIA. Valor: 64
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contido del TAMANO_MINIMO_PARTICION. Valor: 4
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contenido de ALGORITMO_MEMORIA a la estructura. Valor: BS
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contenido de ALGORITMO_REEMPLAZO a la estructura. Valor: FIFO
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contenido de ALGORITMO_PARTICION_LIBRE a la estructura. Valor: FF
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 19:53:51:3 broker.log/(7261:7261): Se encontró y cargó el contido del FRECUENCIA_COMPACTACION. Valor: 1
+[INFO] 19:53:52:8 broker.log/(7261:7262):  Escuchando conexiones
+[INFO] 19:54:31:136 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:31:136 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:31:136 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:31:142 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:31:142 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:31:142 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:31:186 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:31:186 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:31:186 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:31:189 broker.log/(7261:7275): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:54:31:189 broker.log/(7261:7275): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:31:189 broker.log/(7261:7275): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:31:203 broker.log/(7261:7274): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:54:31:203 broker.log/(7261:7274): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:31:205 broker.log/(7261:7274): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:31:206 broker.log/(7261:7276): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:54:31:206 broker.log/(7261:7276): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:31:206 broker.log/(7261:7276): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:611 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:611 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:611 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:611 broker.log/(7261:7285): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:54:34:611 broker.log/(7261:7285): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 19:54:34:612 broker.log/(7261:7285): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:612 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:54:34:625 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:625 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:625 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:627 broker.log/(7261:7287): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:54:34:627 broker.log/(7261:7287): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 19:54:34:627 broker.log/(7261:7287): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:640 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:54:34:648 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:648 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:648 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:648 broker.log/(7261:7290): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:54:34:648 broker.log/(7261:7290): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 19:54:34:648 broker.log/(7261:7290): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:648 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:54:34:666 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:666 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:666 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:666 broker.log/(7261:7293): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:54:34:666 broker.log/(7261:7293): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 19:54:34:666 broker.log/(7261:7293): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:666 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:54:34:707 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:707 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:708 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:731 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:731 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:731 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:738 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:738 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:738 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:739 broker.log/(7261:7295): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:54:34:739 broker.log/(7261:7295): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:34:739 broker.log/(7261:7295): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:752 broker.log/(7261:7298): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:54:34:752 broker.log/(7261:7298): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:34:752 broker.log/(7261:7298): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:755 broker.log/(7261:7297): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:54:34:755 broker.log/(7261:7297): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:34:755 broker.log/(7261:7297): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:34:758 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:34:758 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:34:758 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:34:760 broker.log/(7261:7299): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:54:34:760 broker.log/(7261:7299): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:54:34:760 broker.log/(7261:7299): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:40:65 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:40:65 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:40:65 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:40:67 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:40:67 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:40:67 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:40:84 broker.log/(7261:7305): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:54:40:84 broker.log/(7261:7305): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 19:54:40:84 broker.log/(7261:7305): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:40:85 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:40:85 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:40:85 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:40:87 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:40:87 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:40:87 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:40:87 broker.log/(7261:7304): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:54:40:87 broker.log/(7261:7304): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 19:54:40:87 broker.log/(7261:7304): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:40:113 broker.log/(7261:7307): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:54:40:114 broker.log/(7261:7307): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:54:40:114 broker.log/(7261:7307): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:40:114 broker.log/(7261:7306): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:54:40:114 broker.log/(7261:7306): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 19:54:40:114 broker.log/(7261:7306): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:59:902 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:54:59:902 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:54:59:902 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:54:59:922 broker.log/(7261:7313): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 19:54:59:923 broker.log/(7261:7313): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 19:54:59:923 broker.log/(7261:7313): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:54:59:923 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:45 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:45 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:45 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:53 broker.log/(7261:7317): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:53 broker.log/(7261:7317): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:53 broker.log/(7261:7317): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:92 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:92 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:92 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:101 broker.log/(7261:7318): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 19:55:00:101 broker.log/(7261:7318): aplicar_protocolo_recibir -> recibió un tamaño de -> 19
+[INFO] 19:55:00:101 broker.log/(7261:7318): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:101 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:127 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:127 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:127 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:144 broker.log/(7261:7319): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 19:55:00:144 broker.log/(7261:7319): aplicar_protocolo_recibir -> recibió un tamaño de -> 18
+[INFO] 19:55:00:144 broker.log/(7261:7319): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:145 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:158 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:158 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:158 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:171 broker.log/(7261:7320): aplicar_protocolo_recibir -> recibió el HEAD #5
+[INFO] 19:55:00:172 broker.log/(7261:7320): aplicar_protocolo_recibir -> recibió un tamaño de -> 16
+[INFO] 19:55:00:172 broker.log/(7261:7320): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:172 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:276 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:276 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:276 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:297 broker.log/(7261:7327): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:297 broker.log/(7261:7327): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:297 broker.log/(7261:7327): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:299 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:299 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:299 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:328 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:328 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:328 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:330 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:330 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:330 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:339 broker.log/(7261:7330): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:339 broker.log/(7261:7330): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:339 broker.log/(7261:7330): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:344 broker.log/(7261:7331): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:344 broker.log/(7261:7331): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:344 broker.log/(7261:7331): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:367 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:367 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:367 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:394 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:395 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:395 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:396 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:396 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:396 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:446 broker.log/(7261:7334): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 19:55:00:446 broker.log/(7261:7334): aplicar_protocolo_recibir -> recibió un tamaño de -> 22
+[INFO] 19:55:00:446 broker.log/(7261:7334): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:452 broker.log/(7261:7329): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:55:00:452 broker.log/(7261:7329): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:452 broker.log/(7261:7329): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:452 broker.log/(7261:7329): La partición 0 - 15 tiene tiempo LRU 1596754500446
+[INFO] 19:55:00:452 broker.log/(7261:7329): La partición 16 - 31 tiene tiempo LRU 1596754500101
+[INFO] 19:55:00:452 broker.log/(7261:7329): La partición 32 - 47 tiene tiempo LRU 1596754500144
+[INFO] 19:55:00:452 broker.log/(7261:7329): La partición 48 - 55 tiene tiempo LRU 1596754500171
+[INFO] 19:55:00:523 broker.log/(7261:7333): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:55:00:523 broker.log/(7261:7333): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:523 broker.log/(7261:7333): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:523 broker.log/(7261:7333): La partición 0 - 15 tiene tiempo LRU 1596754500446
+[INFO] 19:55:00:523 broker.log/(7261:7333): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:523 broker.log/(7261:7333): La partición 16 - 31 tiene tiempo LRU 1596754500101
+[INFO] 19:55:00:523 broker.log/(7261:7333): La partición 32 - 47 tiene tiempo LRU 1596754500144
+[INFO] 19:55:00:523 broker.log/(7261:7333): La partición 48 - 55 tiene tiempo LRU 1596754500171
+[INFO] 19:55:00:544 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:544 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:544 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:592 broker.log/(7261:7335): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 19:55:00:592 broker.log/(7261:7335): aplicar_protocolo_recibir -> recibió un tamaño de -> 20
+[INFO] 19:55:00:592 broker.log/(7261:7335): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:592 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:00:638 broker.log/(7261:7337): aplicar_protocolo_recibir -> recibió el HEAD #8
+[INFO] 19:55:00:638 broker.log/(7261:7337): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:638 broker.log/(7261:7337): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:638 broker.log/(7261:7337): La partición 16 - 31 tiene tiempo LRU 1596754500591
+[INFO] 19:55:00:638 broker.log/(7261:7337): La partición 32 - 47 tiene tiempo LRU 1596754500144
+[INFO] 19:55:00:638 broker.log/(7261:7337): La partición 48 - 55 tiene tiempo LRU 1596754500171
+[INFO] 19:55:00:638 broker.log/(7261:7337): La partición 0 - 15 tiene tiempo LRU 1596754500446
+[INFO] 19:55:00:714 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:714 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:714 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:716 broker.log/(7261:7340): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:716 broker.log/(7261:7340): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:716 broker.log/(7261:7340): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:00:720 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:00:720 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:00:720 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:00:723 broker.log/(7261:7341): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:00:724 broker.log/(7261:7341): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:00:724 broker.log/(7261:7341): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:05:600 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:05:600 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:05:600 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:05:607 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:05:607 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:05:607 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:05:608 broker.log/(7261:7343): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 19:55:05:608 broker.log/(7261:7343): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 19:55:05:608 broker.log/(7261:7343): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:05:608 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:05:619 broker.log/(7261:7344): aplicar_protocolo_recibir -> recibió el HEAD #6
+[INFO] 19:55:05:619 broker.log/(7261:7344): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 19:55:05:619 broker.log/(7261:7344): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:05:619 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:05:630 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:05:630 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:05:630 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:05:640 broker.log/(7261:7347): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:05:640 broker.log/(7261:7347): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:05:640 broker.log/(7261:7347): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:05:646 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:05:646 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:05:646 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:05:653 broker.log/(7261:7348): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:05:653 broker.log/(7261:7348): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:05:653 broker.log/(7261:7348): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:11:831 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:11:831 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:11:831 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:11:837 broker.log/(7261:7350): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 19:55:11:837 broker.log/(7261:7350): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:55:11:837 broker.log/(7261:7350): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:11:838 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:11:876 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:11:876 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:11:876 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:11:883 broker.log/(7261:7352): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:11:883 broker.log/(7261:7352): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:11:883 broker.log/(7261:7352): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:16:967 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:16:967 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:16:967 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:16:971 broker.log/(7261:7354): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:55:16:971 broker.log/(7261:7354): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:16:971 broker.log/(7261:7354): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:16:972 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:16:989 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:16:989 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:16:989 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:16:999 broker.log/(7261:7356): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:16:0 broker.log/(7261:7356): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:16:0 broker.log/(7261:7356): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:26:879 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:26:879 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:26:879 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:26:880 broker.log/(7261:7358): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 19:55:26:880 broker.log/(7261:7358): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 19:55:26:880 broker.log/(7261:7358): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:26:883 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:26:895 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:26:895 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:26:895 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:26:902 broker.log/(7261:7361): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:26:902 broker.log/(7261:7361): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:26:902 broker.log/(7261:7361): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:31:917 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:31:917 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:31:917 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:31:918 broker.log/(7261:7363): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:55:31:918 broker.log/(7261:7363): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:31:918 broker.log/(7261:7363): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:55:31:918 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:55:31:925 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:55:31:925 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:55:31:925 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:55:31:928 broker.log/(7261:7365): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:55:31:928 broker.log/(7261:7365): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:55:31:928 broker.log/(7261:7365): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:860 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:860 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:860 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:860 broker.log/(7261:7381): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:07:860 broker.log/(7261:7381): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:57:07:860 broker.log/(7261:7381): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:861 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:07:883 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:883 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:883 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:886 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:886 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:886 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:896 broker.log/(7261:7387): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:07:896 broker.log/(7261:7387): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 19:57:07:896 broker.log/(7261:7387): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:897 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:07:900 broker.log/(7261:7386): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:07:900 broker.log/(7261:7386): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:07:900 broker.log/(7261:7386): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:902 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:902 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:902 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:916 broker.log/(7261:7389): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:07:916 broker.log/(7261:7389): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 19:57:07:916 broker.log/(7261:7389): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:916 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:07:918 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:918 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:919 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:934 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:934 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:934 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:937 broker.log/(7261:7393): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:07:937 broker.log/(7261:7393): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:07:937 broker.log/(7261:7393): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:939 broker.log/(7261:7392): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:07:939 broker.log/(7261:7392): aplicar_protocolo_recibir -> recibió un tamaño de -> 31
+[INFO] 19:57:07:939 broker.log/(7261:7392): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:940 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:07:954 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:955 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:955 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:07:961 broker.log/(7261:7396): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:07:961 broker.log/(7261:7396): aplicar_protocolo_recibir -> recibió un tamaño de -> 30
+[INFO] 19:57:07:961 broker.log/(7261:7396): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:07:961 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:07:990 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:07:990 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:07:990 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:08:5 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:08:5 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:08:5 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:08:5 broker.log/(7261:7399): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:08:5 broker.log/(7261:7399): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:08:5 broker.log/(7261:7399): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:08:5 broker.log/(7261:7401): aplicar_protocolo_recibir -> recibió el HEAD #1
+[INFO] 19:57:08:5 broker.log/(7261:7401): aplicar_protocolo_recibir -> recibió un tamaño de -> 32
+[INFO] 19:57:08:5 broker.log/(7261:7401): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:08:5 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:08:32 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:08:32 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:08:32 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:08:43 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:08:44 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:08:44 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:08:55 broker.log/(7261:7404): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:08:55 broker.log/(7261:7404): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:08:56 broker.log/(7261:7404): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:08:62 broker.log/(7261:7403): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:08:62 broker.log/(7261:7403): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:08:62 broker.log/(7261:7403): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:08:78 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:08:78 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:08:79 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:08:97 broker.log/(7261:7405): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:08:97 broker.log/(7261:7405): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:08:97 broker.log/(7261:7405): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:12:999 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:12:999 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:12:999 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:12:999 broker.log/(7261:7407): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:12:999 broker.log/(7261:7407): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 19:57:12:999 broker.log/(7261:7407): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:12:999 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:17 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:17 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:17 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:19 broker.log/(7261:7409): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:19 broker.log/(7261:7409): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:19 broker.log/(7261:7409): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:122 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:122 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:122 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:141 broker.log/(7261:7410): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:13:141 broker.log/(7261:7410): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 19:57:13:141 broker.log/(7261:7410): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:141 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:175 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:175 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:175 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:200 broker.log/(7261:7412): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:13:200 broker.log/(7261:7412): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:57:13:200 broker.log/(7261:7412): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:200 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:216 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:216 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:216 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:241 broker.log/(7261:7413): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:242 broker.log/(7261:7413): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:242 broker.log/(7261:7413): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:259 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:259 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:259 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:291 broker.log/(7261:7415): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:13:291 broker.log/(7261:7415): aplicar_protocolo_recibir -> recibió un tamaño de -> 27
+[INFO] 19:57:13:291 broker.log/(7261:7415): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:292 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:305 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:305 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:305 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:327 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:328 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:328 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:329 broker.log/(7261:7416): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:13:329 broker.log/(7261:7416): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 19:57:13:329 broker.log/(7261:7416): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:329 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:343 broker.log/(7261:7418): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:343 broker.log/(7261:7418): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:343 broker.log/(7261:7418): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:352 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:352 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:352 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:360 broker.log/(7261:7419): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:360 broker.log/(7261:7419): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:360 broker.log/(7261:7419): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:377 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:377 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:377 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:378 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:378 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:378 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:380 broker.log/(7261:7422): aplicar_protocolo_recibir -> recibió el HEAD #2
+[INFO] 19:57:13:380 broker.log/(7261:7422): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:57:13:380 broker.log/(7261:7422): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:380 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:13:387 broker.log/(7261:7421): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:387 broker.log/(7261:7421): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:387 broker.log/(7261:7421): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:13:395 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:13:395 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:13:395 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:13:397 broker.log/(7261:7424): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:13:397 broker.log/(7261:7424): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:13:397 broker.log/(7261:7424): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:21:148 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:21:148 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:21:148 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:21:149 broker.log/(7261:7426): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 19:57:21:149 broker.log/(7261:7426): aplicar_protocolo_recibir -> recibió un tamaño de -> 24
+[INFO] 19:57:21:149 broker.log/(7261:7426): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:21:150 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:21:166 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:21:166 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:21:166 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:21:169 broker.log/(7261:7429): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:21:169 broker.log/(7261:7429): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:21:169 broker.log/(7261:7429): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:26:203 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:26:203 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:26:203 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:26:204 broker.log/(7261:7431): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:57:26:204 broker.log/(7261:7431): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:26:204 broker.log/(7261:7431): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:26:204 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:26:214 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:26:214 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:26:214 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:26:214 broker.log/(7261:7433): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:26:214 broker.log/(7261:7433): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:26:214 broker.log/(7261:7433): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:28:159 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:28:159 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:28:159 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:28:159 broker.log/(7261:7434): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 19:57:28:159 broker.log/(7261:7434): aplicar_protocolo_recibir -> recibió un tamaño de -> 26
+[INFO] 19:57:28:159 broker.log/(7261:7434): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:28:161 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:28:164 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:28:164 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:28:164 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:28:167 broker.log/(7261:7436): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:28:167 broker.log/(7261:7436): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:28:167 broker.log/(7261:7436): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:33:194 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:33:194 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:33:194 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:33:194 broker.log/(7261:7439): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:57:33:194 broker.log/(7261:7439): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:33:194 broker.log/(7261:7439): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:33:195 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:33:205 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:33:205 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:33:205 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:33:217 broker.log/(7261:7441): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:33:217 broker.log/(7261:7441): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:33:217 broker.log/(7261:7441): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:38:174 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:38:174 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:38:174 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:38:174 broker.log/(7261:7445): aplicar_protocolo_recibir -> recibió el HEAD #3
+[INFO] 19:57:38:174 broker.log/(7261:7445): aplicar_protocolo_recibir -> recibió un tamaño de -> 28
+[INFO] 19:57:38:174 broker.log/(7261:7445): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:38:175 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:38:178 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:38:178 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:38:178 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:38:195 broker.log/(7261:7447): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:38:196 broker.log/(7261:7447): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:38:196 broker.log/(7261:7447): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:43:210 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:43:210 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:43:210 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:43:211 broker.log/(7261:7450): aplicar_protocolo_recibir -> recibió el HEAD #4
+[INFO] 19:57:43:211 broker.log/(7261:7450): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:43:211 broker.log/(7261:7450): aplicar_protocolo_recibir -> comienza a deserealizar
+[INFO] 19:57:43:211 broker.log/(7261:7264): Se puedo enviar correctamente el msj de la cola al suscriptor
+[INFO] 19:57:43:216 broker.log/(7261:7262): Servidor o Cliente aceptado.
+[INFO] 19:57:43:216 broker.log/(7261:7262): Hice el handshake y me respondieron: Team
+[INFO] 19:57:43:216 broker.log/(7261:7262): Alguien se conectó
+[INFO] 19:57:43:219 broker.log/(7261:7452): aplicar_protocolo_recibir -> recibió el HEAD #7
+[INFO] 19:57:43:219 broker.log/(7261:7452): aplicar_protocolo_recibir -> recibió un tamaño de -> 12
+[INFO] 19:57:43:219 broker.log/(7261:7452): aplicar_protocolo_recibir -> comienza a deserealizar

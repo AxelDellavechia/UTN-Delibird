@@ -1,0 +1,932 @@
+[INFO] 15:17:49:594 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:49:606 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:49:606 brokerCatedra.log/(15951:15964): Recibí del modulo GAMECARD una suscribición a la cola CATCH_POKEMON con el token 107737878
+[INFO] 15:17:49:606 brokerCatedra.log/(15951:15962): Recibí del modulo GAMECARD una suscribición a la cola GET_POKEMON con el token 107737878
+[INFO] 15:17:49:607 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:49:607 brokerCatedra.log/(15951:15965): Recibí del modulo GAMECARD una suscribición a la cola NEW_POKEMON con el token 107737878
+[INFO] 15:17:54:149 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:149 brokerCatedra.log/(15951:15969): Recibí en la cola NEW_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:17:54:149 brokerCatedra.log/(15951:15969): Se guardo el Mensaje con ID_MSJ:4  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:17:54:150 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:17:54:151 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:162 brokerCatedra.log/(15951:15972): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 4 
+[INFO] 15:17:54:163 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:163 brokerCatedra.log/(15951:15973): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:17:54:163 brokerCatedra.log/(15951:15973): Se guardo el Mensaje con ID_MSJ:5  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:17:54:163 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:17:54:166 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:166 brokerCatedra.log/(15951:15975): Recibí en la cola NEW_POKEMON . POKEMON: Jolteon  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 15:17:54:166 brokerCatedra.log/(15951:15975): Se elimino la particion asociada al ID_MSJ: 4 Puntero Inicial:0  Puntero Final:31 LRU: 1596651474149
+[INFO] 15:17:54:167 brokerCatedra.log/(15951:15975): Se guardo el Mensaje con ID_MSJ:6  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:17:54:167 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:17:54:169 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:178 brokerCatedra.log/(15951:15977): Recibí en la cola NEW_POKEMON . POKEMON: Flareon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 15:17:54:178 brokerCatedra.log/(15951:15977): Se elimino la particion asociada al ID_MSJ: 5 Puntero Inicial:32  Puntero Final:63 LRU: 1596651474162
+[INFO] 15:17:54:178 brokerCatedra.log/(15951:15977): Se guardo el Mensaje con ID_MSJ:7  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:17:54:186 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:17:54:187 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:188 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:190 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:54:195 brokerCatedra.log/(15951:15981): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 7 
+[INFO] 15:17:54:195 brokerCatedra.log/(15951:15983): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 5 
+[INFO] 15:17:54:195 brokerCatedra.log/(15951:15982): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 6 
+[INFO] 15:17:59:153 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:59:161 brokerCatedra.log/(15951:15987): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:17:59:161 brokerCatedra.log/(15951:15987): Se elimino la particion asociada al ID_MSJ: 6 Puntero Inicial:0  Puntero Final:31 LRU: 1596651474166
+[INFO] 15:17:59:161 brokerCatedra.log/(15951:15987): Se guardo el Mensaje con ID_MSJ:8  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:17:59:194 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:59:194 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15991): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15991): Se elimino la particion asociada al ID_MSJ: 7 Puntero Inicial:32  Puntero Final:63 LRU: 1596651474177
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15991): Se guardo el Mensaje con ID_MSJ:9  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15989): Recibí en la cola APPEARED_POKEMON . POKEMON: Flareon  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15989): Se elimino la particion asociada al ID_MSJ: 8 Puntero Inicial:0  Puntero Final:31 LRU: 1596651479160
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15989): Se guardo el Mensaje con ID_MSJ:10  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:17:59:199 brokerCatedra.log/(15951:15990): Recibí en la cola APPEARED_POKEMON . POKEMON: Jolteon  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 15:17:59:200 brokerCatedra.log/(15951:15990): Se elimino la particion asociada al ID_MSJ: 9 Puntero Inicial:32  Puntero Final:63 LRU: 1596651479199
+[INFO] 15:17:59:200 brokerCatedra.log/(15951:15990): Se guardo el Mensaje con ID_MSJ:11  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:18:09:512 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:540 brokerCatedra.log/(15951:15999): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 15:18:09:540 brokerCatedra.log/(15951:15999): Se elimino la particion asociada al ID_MSJ: 10 Puntero Inicial:0  Puntero Final:31 LRU: 1596651479199
+[INFO] 15:18:09:540 brokerCatedra.log/(15951:15999): Se guardo el Mensaje con ID_MSJ:12  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:18:09:540 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:18:09:543 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:546 brokerCatedra.log/(15951:16001): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 12 
+[INFO] 15:18:09:596 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:604 brokerCatedra.log/(15951:16002): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 15:18:09:604 brokerCatedra.log/(15951:16002): Se guardo el Mensaje con ID_MSJ:13  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:18:09:604 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:18:09:610 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:611 brokerCatedra.log/(15951:16004): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 13 
+[INFO] 15:18:09:632 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:633 brokerCatedra.log/(15951:16005): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 15:18:09:633 brokerCatedra.log/(15951:16005): Se elimino la particion asociada al ID_MSJ: 11 Puntero Inicial:32  Puntero Final:63 LRU: 1596651479199
+[INFO] 15:18:09:633 brokerCatedra.log/(15951:16005): Se guardo el Mensaje con ID_MSJ:14  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:18:09:633 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:18:09:640 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:640 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:641 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:16008): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 14 
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:16009): Se guardo el Mensaje con ID_MSJ:15  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:16007): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:16007): Se elimino la particion asociada al ID_MSJ: 12 Puntero Inicial:0  Puntero Final:15 LRU: 1596651489539
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:16007): Se guardo el Mensaje con ID_MSJ:16  Puntero Inicial:0  Puntero Final:7 Tamaño: 8
+[INFO] 15:18:09:646 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:18:09:648 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:648 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:18:09:649 brokerCatedra.log/(15951:16011): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 16 
+[INFO] 15:18:09:654 brokerCatedra.log/(15951:16012): Se elimino la particion asociada al ID_MSJ: 13 Puntero Inicial:16  Puntero Final:31 LRU: 1596651489603
+[INFO] 15:18:09:654 brokerCatedra.log/(15951:16012): Se guardo el Mensaje con ID_MSJ:17  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:19:27:695 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:27:695 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:27:696 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:27:696 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:27:696 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16039): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16039): Se elimino la particion asociada al ID_MSJ: 14 Puntero Inicial:32  Puntero Final:47 LRU: 1596651489633
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16039): Se elimino la particion asociada al ID_MSJ: 15 Puntero Inicial:48  Puntero Final:63 LRU: 1596651489646
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16039): Se guardo el Mensaje con ID_MSJ:18  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16038): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16038): Se elimino la particion asociada al ID_MSJ: 16 Puntero Inicial:0  Puntero Final:7 LRU: 1596651489646
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16038): Se elimino la particion asociada al ID_MSJ: 17 Puntero Inicial:16  Puntero Final:31 LRU: 1596651489653
+[INFO] 15:19:27:699 brokerCatedra.log/(15951:16038): Se guardo el Mensaje con ID_MSJ:19  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:19:35:194 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:232 brokerCatedra.log/(15951:16047): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 15:19:35:232 brokerCatedra.log/(15951:16047): Se elimino la particion asociada al ID_MSJ: 18 Puntero Inicial:32  Puntero Final:63 LRU: 1596651567698
+[INFO] 15:19:35:232 brokerCatedra.log/(15951:16047): Se guardo el Mensaje con ID_MSJ:20  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:19:35:232 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:19:35:235 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:238 brokerCatedra.log/(15951:16051): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 20 
+[INFO] 15:19:35:285 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:293 brokerCatedra.log/(15951:16052): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 15:19:35:293 brokerCatedra.log/(15951:16052): Se guardo el Mensaje con ID_MSJ:21  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:19:35:293 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:19:35:299 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:300 brokerCatedra.log/(15951:16054): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 21 
+[INFO] 15:19:35:323 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:324 brokerCatedra.log/(15951:16055): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 15:19:35:324 brokerCatedra.log/(15951:16055): Se elimino la particion asociada al ID_MSJ: 19 Puntero Inicial:0  Puntero Final:31 LRU: 1596651567699
+[INFO] 15:19:35:324 brokerCatedra.log/(15951:16055): Se guardo el Mensaje con ID_MSJ:22  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:19:35:324 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:19:35:330 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:331 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:331 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:16059): Se guardo el Mensaje con ID_MSJ:23  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:16058): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 22 
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:16057): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:16057): Se elimino la particion asociada al ID_MSJ: 20 Puntero Inicial:32  Puntero Final:47 LRU: 1596651575231
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:16057): Se guardo el Mensaje con ID_MSJ:24  Puntero Inicial:32  Puntero Final:39 Tamaño: 8
+[INFO] 15:19:35:333 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:19:35:340 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:340 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:341 brokerCatedra.log/(15951:16062): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 24 
+[INFO] 15:19:35:341 brokerCatedra.log/(15951:16063): Se elimino la particion asociada al ID_MSJ: 21 Puntero Inicial:48  Puntero Final:63 LRU: 1596651575292
+[INFO] 15:19:35:341 brokerCatedra.log/(15951:16063): Se guardo el Mensaje con ID_MSJ:25  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:19:35:414 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:471 brokerCatedra.log/(15951:16067): Recibí del modulo TEAM una suscribición a la cola APPEARED_POKEMON con el token 441131400
+[INFO] 15:19:35:540 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:550 brokerCatedra.log/(15951:16070): Recibí del modulo TEAM una suscribición a la cola CAUGHT_POKEMON con el token 441131400
+[INFO] 15:19:35:571 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:582 brokerCatedra.log/(15951:16071): Recibí del modulo TEAM una suscribición a la cola LOCALIZED_POKEMON con el token 441131400
+[INFO] 15:19:35:582 brokerCatedra.log/(15951:16071): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:19:35:582 brokerCatedra.log/(15951:16071): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:19:35:654 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:655 brokerCatedra.log/(15951:16074): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 25 
+[INFO] 15:19:35:659 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:35:661 brokerCatedra.log/(15951:16075): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 23 
+[INFO] 15:19:40:236 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:40:237 brokerCatedra.log/(15951:16079): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 15:19:40:237 brokerCatedra.log/(15951:16079): Se elimino la particion asociada al ID_MSJ: 22 Puntero Inicial:0  Puntero Final:15 LRU: 1596651575324
+[INFO] 15:19:40:237 brokerCatedra.log/(15951:16079): Se elimino la particion asociada al ID_MSJ: 23 Puntero Inicial:16  Puntero Final:31 LRU: 1596651575332
+[INFO] 15:19:40:237 brokerCatedra.log/(15951:16079): Se guardo el Mensaje con ID_MSJ:29  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:19:40:237 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:19:40:243 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:40:246 brokerCatedra.log/(15951:16081): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 29 
+[INFO] 15:19:40:302 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:40:310 brokerCatedra.log/(15951:16082): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 15:19:40:310 brokerCatedra.log/(15951:16082): Se elimino la particion asociada al ID_MSJ: 24 Puntero Inicial:32  Puntero Final:39 LRU: 1596651575332
+[INFO] 15:19:40:310 brokerCatedra.log/(15951:16082): Se elimino la particion asociada al ID_MSJ: 25 Puntero Inicial:48  Puntero Final:63 LRU: 1596651575340
+[INFO] 15:19:40:310 brokerCatedra.log/(15951:16082): Se guardo el Mensaje con ID_MSJ:30  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:19:40:310 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:19:40:422 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:40:434 brokerCatedra.log/(15951:16084): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 30 
+[INFO] 15:19:44:505 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:44:511 brokerCatedra.log/(15951:16085): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:19:44:511 brokerCatedra.log/(15951:16085): Se elimino la particion asociada al ID_MSJ: 29 Puntero Inicial:0  Puntero Final:31 LRU: 1596651580236
+[INFO] 15:19:44:511 brokerCatedra.log/(15951:16085): Se guardo el Mensaje con ID_MSJ:31  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:19:44:511 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:19:44:515 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:44:518 brokerCatedra.log/(15951:16087): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 31 
+[INFO] 15:19:49:518 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:49:522 brokerCatedra.log/(15951:16098): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 31  , ATRAPO: 1
+[INFO] 15:19:49:522 brokerCatedra.log/(15951:16098): Se elimino la particion asociada al ID_MSJ: 30 Puntero Inicial:32  Puntero Final:63 LRU: 1596651580310
+[INFO] 15:19:49:522 brokerCatedra.log/(15951:16098): Se guardo el Mensaje con ID_MSJ:32  Puntero Inicial:32  Puntero Final:35 Tamaño: 4
+[INFO] 15:19:49:522 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:19:49:543 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:49:551 brokerCatedra.log/(15951:16101): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 32 
+[INFO] 15:19:59:563 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:59:563 brokerCatedra.log/(15951:16106): Recibí en la cola CATCH_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:19:59:563 brokerCatedra.log/(15951:16106): Se elimino la particion asociada al ID_MSJ: 31 Puntero Inicial:0  Puntero Final:31 LRU: 1596651584511
+[INFO] 15:19:59:563 brokerCatedra.log/(15951:16106): Se guardo el Mensaje con ID_MSJ:33  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:19:59:564 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:19:59:564 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:19:59:568 brokerCatedra.log/(15951:16108): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 33 
+[INFO] 15:20:04:571 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:04:571 brokerCatedra.log/(15951:16118): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 33  , ATRAPO: 1
+[INFO] 15:20:04:571 brokerCatedra.log/(15951:16118): Se guardo el Mensaje con ID_MSJ:34  Puntero Inicial:36  Puntero Final:39 Tamaño: 4
+[INFO] 15:20:04:571 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:20:04:580 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:04:589 brokerCatedra.log/(15951:16120): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 34 
+[INFO] 15:20:20:490 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:491 brokerCatedra.log/(15951:16132): Recibí en la cola NEW_POKEMON . POKEMON: Onix  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:20:20:491 brokerCatedra.log/(15951:16132): Se elimino la particion asociada al ID_MSJ: 32 Puntero Inicial:32  Puntero Final:35 LRU: 1596651589521
+[INFO] 15:20:20:491 brokerCatedra.log/(15951:16132): Se elimino la particion asociada al ID_MSJ: 33 Puntero Inicial:0  Puntero Final:31 LRU: 1596651599563
+[INFO] 15:20:20:491 brokerCatedra.log/(15951:16132): Se guardo el Mensaje con ID_MSJ:35  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:20:500 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:502 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:503 brokerCatedra.log/(15951:16137): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 35 
+[INFO] 15:20:20:507 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:507 brokerCatedra.log/(15951:16138): Recibí en la cola NEW_POKEMON . POKEMON: Gengar  , CANTIDAD: 1  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:20:20:508 brokerCatedra.log/(15951:16138): Se elimino la particion asociada al ID_MSJ: 34 Puntero Inicial:36  Puntero Final:39 LRU: 1596651604571
+[INFO] 15:20:20:508 brokerCatedra.log/(15951:16138): Se guardo el Mensaje con ID_MSJ:36  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:20:508 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:509 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:511 brokerCatedra.log/(15951:16141): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 36 
+[INFO] 15:20:20:511 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:512 brokerCatedra.log/(15951:16142): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:20:20:512 brokerCatedra.log/(15951:16142): Se elimino la particion asociada al ID_MSJ: 35 Puntero Inicial:0  Puntero Final:31 LRU: 1596651620490
+[INFO] 15:20:20:512 brokerCatedra.log/(15951:16142): Se guardo el Mensaje con ID_MSJ:37  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:20:512 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:513 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:518 brokerCatedra.log/(15951:16145): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 37 
+[INFO] 15:20:20:526 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:527 brokerCatedra.log/(15951:16146): Recibí en la cola NEW_POKEMON . POKEMON: Umbreon  , CANTIDAD: 1  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 15:20:20:527 brokerCatedra.log/(15951:16146): Se elimino la particion asociada al ID_MSJ: 36 Puntero Inicial:32  Puntero Final:63 LRU: 1596651620507
+[INFO] 15:20:20:527 brokerCatedra.log/(15951:16146): Se guardo el Mensaje con ID_MSJ:38  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:20:527 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:528 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:536 brokerCatedra.log/(15951:16149): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 38 
+[INFO] 15:20:20:537 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:537 brokerCatedra.log/(15951:16150): Recibí en la cola NEW_POKEMON . POKEMON: Espeon  , CANTIDAD: 1  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 15:20:20:537 brokerCatedra.log/(15951:16150): Se elimino la particion asociada al ID_MSJ: 37 Puntero Inicial:0  Puntero Final:31 LRU: 1596651620511
+[INFO] 15:20:20:537 brokerCatedra.log/(15951:16150): Se guardo el Mensaje con ID_MSJ:39  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:20:537 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:539 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:540 brokerCatedra.log/(15951:16153): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 39 
+[INFO] 15:20:20:550 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:550 brokerCatedra.log/(15951:16154): Recibí en la cola NEW_POKEMON . POKEMON: Vaporeon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 15:20:20:550 brokerCatedra.log/(15951:16154): Se elimino la particion asociada al ID_MSJ: 38 Puntero Inicial:32  Puntero Final:63 LRU: 1596651620526
+[INFO] 15:20:20:550 brokerCatedra.log/(15951:16154): Se guardo el Mensaje con ID_MSJ:40  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:20:558 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:20:20:559 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:20:560 brokerCatedra.log/(15951:16156): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 40 
+[INFO] 15:20:25:506 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:507 brokerCatedra.log/(15951:16158): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:20:25:507 brokerCatedra.log/(15951:16158): Se elimino la particion asociada al ID_MSJ: 39 Puntero Inicial:0  Puntero Final:31 LRU: 1596651620536
+[INFO] 15:20:25:507 brokerCatedra.log/(15951:16158): Se guardo el Mensaje con ID_MSJ:41  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:20:25:507 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:511 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:515 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:523 brokerCatedra.log/(15951:16159): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:20:25:523 brokerCatedra.log/(15951:16159): Se elimino la particion asociada al ID_MSJ: 40 Puntero Inicial:32  Puntero Final:63 LRU: 1596651620550
+[INFO] 15:20:25:523 brokerCatedra.log/(15951:16159): Se guardo el Mensaje con ID_MSJ:42  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:25:527 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:530 brokerCatedra.log/(15951:16160): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:20:25:530 brokerCatedra.log/(15951:16160): Se elimino la particion asociada al ID_MSJ: 41 Puntero Inicial:0  Puntero Final:15 LRU: 1596651625506
+[INFO] 15:20:25:530 brokerCatedra.log/(15951:16160): Se guardo el Mensaje con ID_MSJ:43  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:25:530 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:547 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:547 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16162): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16162): Se elimino la particion asociada al ID_MSJ: 42 Puntero Inicial:32  Puntero Final:63 LRU: 1596651625522
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16162): Se guardo el Mensaje con ID_MSJ:44  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16161): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16161): Se elimino la particion asociada al ID_MSJ: 43 Puntero Inicial:0  Puntero Final:31 LRU: 1596651625529
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:16161): Se guardo el Mensaje con ID_MSJ:45  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:25:548 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:556 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:564 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:567 brokerCatedra.log/(15951:16165): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 15:20:25:567 brokerCatedra.log/(15951:16165): Se elimino la particion asociada al ID_MSJ: 44 Puntero Inicial:32  Puntero Final:63 LRU: 1596651625547
+[INFO] 15:20:25:567 brokerCatedra.log/(15951:16165): Se guardo el Mensaje con ID_MSJ:46  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:20:25:567 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:20:25:567 brokerCatedra.log/(15951:16164): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 41 
+[INFO] 15:20:25:655 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:682 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:683 brokerCatedra.log/(15951:16170): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 43 
+[INFO] 15:20:25:683 brokerCatedra.log/(15951:16168): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 42 
+[INFO] 15:20:25:738 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:746 brokerCatedra.log/(15951:16172): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 44 
+[INFO] 15:20:25:755 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:758 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:25:758 brokerCatedra.log/(15951:16174): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 45 
+[INFO] 15:20:25:762 brokerCatedra.log/(15951:16175): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 46 
+[INFO] 15:20:32:745 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:32:746 brokerCatedra.log/(15951:16178): Recibí en la cola CATCH_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:20:32:746 brokerCatedra.log/(15951:16178): Se elimino la particion asociada al ID_MSJ: 45 Puntero Inicial:0  Puntero Final:31 LRU: 1596651625548
+[INFO] 15:20:32:746 brokerCatedra.log/(15951:16178): Se guardo el Mensaje con ID_MSJ:47  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:32:746 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:20:32:753 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:32:754 brokerCatedra.log/(15951:16180): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 47 
+[INFO] 15:20:37:756 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:37:756 brokerCatedra.log/(15951:16184): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 47  , ATRAPO: 1
+[INFO] 15:20:37:756 brokerCatedra.log/(15951:16184): Se elimino la particion asociada al ID_MSJ: 46 Puntero Inicial:32  Puntero Final:63 LRU: 1596651625567
+[INFO] 15:20:37:756 brokerCatedra.log/(15951:16184): Se guardo el Mensaje con ID_MSJ:48  Puntero Inicial:32  Puntero Final:35 Tamaño: 4
+[INFO] 15:20:37:756 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:20:37:761 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:37:765 brokerCatedra.log/(15951:16186): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 48 
+[INFO] 15:20:40:761 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:40:761 brokerCatedra.log/(15951:16189): Recibí en la cola CATCH_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:20:40:761 brokerCatedra.log/(15951:16189): Se guardo el Mensaje con ID_MSJ:49  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:20:40:763 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:20:40:763 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:40:764 brokerCatedra.log/(15951:16191): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 49 
+[INFO] 15:20:45:768 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:45:770 brokerCatedra.log/(15951:16194): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 49  , ATRAPO: 1
+[INFO] 15:20:45:770 brokerCatedra.log/(15951:16194): Se guardo el Mensaje con ID_MSJ:50  Puntero Inicial:36  Puntero Final:39 Tamaño: 4
+[INFO] 15:20:45:770 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:20:45:786 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:45:790 brokerCatedra.log/(15951:16196): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 50 
+[INFO] 15:20:50:779 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:50:782 brokerCatedra.log/(15951:16198): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:20:50:782 brokerCatedra.log/(15951:16198): Se elimino la particion asociada al ID_MSJ: 47 Puntero Inicial:0  Puntero Final:31 LRU: 1596651632745
+[INFO] 15:20:50:782 brokerCatedra.log/(15951:16198): Se guardo el Mensaje con ID_MSJ:51  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:20:50:782 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:20:50:784 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:50:789 brokerCatedra.log/(15951:16200): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 51 
+[INFO] 15:20:55:788 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:55:788 brokerCatedra.log/(15951:16202): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 51  , ATRAPO: 1
+[INFO] 15:20:55:788 brokerCatedra.log/(15951:16202): Se guardo el Mensaje con ID_MSJ:52  Puntero Inicial:40  Puntero Final:43 Tamaño: 4
+[INFO] 15:20:55:788 brokerCatedra.log/(15951:15955): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:20:55:793 brokerCatedra.log/(15951:15953): Se conecto un Proceso al Broker
+[INFO] 15:20:55:805 brokerCatedra.log/(15951:16204): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 52 
+[INFO] 15:27:55:814 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:55:827 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:55:827 brokerCatedra.log/(16360:16372): Recibí del modulo GAMECARD una suscribición a la cola GET_POKEMON con el token 107737878
+[INFO] 15:27:55:827 brokerCatedra.log/(16360:16373): Recibí del modulo GAMECARD una suscribición a la cola CATCH_POKEMON con el token 107737878
+[INFO] 15:27:55:828 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:55:828 brokerCatedra.log/(16360:16374): Recibí del modulo GAMECARD una suscribición a la cola NEW_POKEMON con el token 107737878
+[INFO] 15:27:59:295 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:295 brokerCatedra.log/(16360:16377): Recibí en la cola NEW_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:27:59:295 brokerCatedra.log/(16360:16377): Se guardo el Mensaje con ID_MSJ:4  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:27:59:296 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:27:59:296 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:307 brokerCatedra.log/(16360:16380): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 4 
+[INFO] 15:27:59:307 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:307 brokerCatedra.log/(16360:16381): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:27:59:307 brokerCatedra.log/(16360:16381): Se guardo el Mensaje con ID_MSJ:5  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:27:59:308 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:27:59:311 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:312 brokerCatedra.log/(16360:16383): Recibí en la cola NEW_POKEMON . POKEMON: Jolteon  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 15:27:59:312 brokerCatedra.log/(16360:16383): Se elimino la particion asociada al ID_MSJ: 4 Puntero Inicial:0  Puntero Final:31 LRU: 1596652079295
+[INFO] 15:27:59:312 brokerCatedra.log/(16360:16383): Se guardo el Mensaje con ID_MSJ:6  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:27:59:312 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:27:59:314 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:314 brokerCatedra.log/(16360:16385): Recibí en la cola NEW_POKEMON . POKEMON: Flareon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 15:27:59:315 brokerCatedra.log/(16360:16385): Se elimino la particion asociada al ID_MSJ: 5 Puntero Inicial:32  Puntero Final:63 LRU: 1596652079307
+[INFO] 15:27:59:315 brokerCatedra.log/(16360:16385): Se guardo el Mensaje con ID_MSJ:7  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:27:59:330 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:27:59:334 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:335 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:336 brokerCatedra.log/(16360:16389): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 7 
+[INFO] 15:27:59:336 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:27:59:337 brokerCatedra.log/(16360:16390): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 6 
+[INFO] 15:27:59:338 brokerCatedra.log/(16360:16391): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 5 
+[INFO] 15:28:04:300 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:04:308 brokerCatedra.log/(16360:16394): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:28:04:308 brokerCatedra.log/(16360:16394): Se elimino la particion asociada al ID_MSJ: 6 Puntero Inicial:0  Puntero Final:31 LRU: 1596652079311
+[INFO] 15:28:04:308 brokerCatedra.log/(16360:16394): Se guardo el Mensaje con ID_MSJ:8  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:28:04:336 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:04:336 brokerCatedra.log/(16360:16396): Recibí en la cola APPEARED_POKEMON . POKEMON: Flareon  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 15:28:04:337 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:04:337 brokerCatedra.log/(16360:16396): Se elimino la particion asociada al ID_MSJ: 7 Puntero Inicial:32  Puntero Final:63 LRU: 1596652079314
+[INFO] 15:28:04:337 brokerCatedra.log/(16360:16396): Se guardo el Mensaje con ID_MSJ:9  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:28:04:338 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:04:338 brokerCatedra.log/(16360:16398): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:28:04:338 brokerCatedra.log/(16360:16398): Se elimino la particion asociada al ID_MSJ: 8 Puntero Inicial:0  Puntero Final:31 LRU: 1596652084308
+[INFO] 15:28:04:338 brokerCatedra.log/(16360:16398): Se guardo el Mensaje con ID_MSJ:10  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:28:04:343 brokerCatedra.log/(16360:16397): Recibí en la cola APPEARED_POKEMON . POKEMON: Jolteon  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 15:28:04:343 brokerCatedra.log/(16360:16397): Se elimino la particion asociada al ID_MSJ: 9 Puntero Inicial:32  Puntero Final:63 LRU: 1596652084337
+[INFO] 15:28:04:343 brokerCatedra.log/(16360:16397): Se guardo el Mensaje con ID_MSJ:11  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:28:13:76 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:114 brokerCatedra.log/(16360:16405): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 15:28:13:114 brokerCatedra.log/(16360:16405): Se elimino la particion asociada al ID_MSJ: 10 Puntero Inicial:0  Puntero Final:31 LRU: 1596652084338
+[INFO] 15:28:13:114 brokerCatedra.log/(16360:16405): Se guardo el Mensaje con ID_MSJ:12  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:28:13:114 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:13:117 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:120 brokerCatedra.log/(16360:16409): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 12 
+[INFO] 15:28:13:164 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:173 brokerCatedra.log/(16360:16410): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 15:28:13:173 brokerCatedra.log/(16360:16410): Se guardo el Mensaje con ID_MSJ:13  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:28:13:174 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:13:191 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:191 brokerCatedra.log/(16360:16412): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 13 
+[INFO] 15:28:13:203 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:207 brokerCatedra.log/(16360:16413): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 15:28:13:207 brokerCatedra.log/(16360:16413): Se elimino la particion asociada al ID_MSJ: 11 Puntero Inicial:32  Puntero Final:63 LRU: 1596652084342
+[INFO] 15:28:13:207 brokerCatedra.log/(16360:16413): Se guardo el Mensaje con ID_MSJ:14  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:28:13:207 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:13:214 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:222 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:223 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:230 brokerCatedra.log/(16360:16417): Se guardo el Mensaje con ID_MSJ:15  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:28:13:230 brokerCatedra.log/(16360:16416): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 14 
+[INFO] 15:28:13:238 brokerCatedra.log/(16360:16415): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 15:28:13:238 brokerCatedra.log/(16360:16415): Se elimino la particion asociada al ID_MSJ: 12 Puntero Inicial:0  Puntero Final:15 LRU: 1596652093113
+[INFO] 15:28:13:238 brokerCatedra.log/(16360:16415): Se guardo el Mensaje con ID_MSJ:16  Puntero Inicial:0  Puntero Final:7 Tamaño: 8
+[INFO] 15:28:13:238 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:13:242 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:243 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:243 brokerCatedra.log/(16360:16419): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 16 
+[INFO] 15:28:13:243 brokerCatedra.log/(16360:16420): Se elimino la particion asociada al ID_MSJ: 13 Puntero Inicial:16  Puntero Final:31 LRU: 1596652093173
+[INFO] 15:28:13:243 brokerCatedra.log/(16360:16420): Se guardo el Mensaje con ID_MSJ:17  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:28:13:316 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:13:374 brokerCatedra.log/(16360:16426): Recibí del modulo TEAM una suscribición a la cola LOCALIZED_POKEMON con el token 441131400
+[INFO] 15:28:13:374 brokerCatedra.log/(16360:16426): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:28:13:374 brokerCatedra.log/(16360:16426): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:28:51:646 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:51:647 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:51:647 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:51:647 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:51:650 brokerCatedra.log/(16360:16441): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 15:28:51:650 brokerCatedra.log/(16360:16441): Se elimino la particion asociada al ID_MSJ: 14 Puntero Inicial:32  Puntero Final:47 LRU: 1596652093206
+[INFO] 15:28:51:650 brokerCatedra.log/(16360:16441): Se elimino la particion asociada al ID_MSJ: 15 Puntero Inicial:48  Puntero Final:63 LRU: 1596652093229
+[INFO] 15:28:51:650 brokerCatedra.log/(16360:16441): Se guardo el Mensaje con ID_MSJ:19  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:28:51:651 brokerCatedra.log/(16360:16440): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 15:28:51:651 brokerCatedra.log/(16360:16440): Se elimino la particion asociada al ID_MSJ: 16 Puntero Inicial:0  Puntero Final:7 LRU: 1596652093238
+[INFO] 15:28:51:651 brokerCatedra.log/(16360:16440): Se elimino la particion asociada al ID_MSJ: 17 Puntero Inicial:16  Puntero Final:31 LRU: 1596652093242
+[INFO] 15:28:51:651 brokerCatedra.log/(16360:16440): Se guardo el Mensaje con ID_MSJ:20  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:28:56:326 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:359 brokerCatedra.log/(16360:16448): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 15:28:56:359 brokerCatedra.log/(16360:16448): Se elimino la particion asociada al ID_MSJ: 20 Puntero Inicial:0  Puntero Final:31 LRU: 1596652131650
+[INFO] 15:28:56:359 brokerCatedra.log/(16360:16448): Se guardo el Mensaje con ID_MSJ:21  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:28:56:359 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:56:362 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:364 brokerCatedra.log/(16360:16450): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 21 
+[INFO] 15:28:56:418 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:422 brokerCatedra.log/(16360:16451): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 15:28:56:422 brokerCatedra.log/(16360:16451): Se guardo el Mensaje con ID_MSJ:22  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:28:56:422 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:56:430 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:431 brokerCatedra.log/(16360:16453): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 22 
+[INFO] 15:28:56:451 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:457 brokerCatedra.log/(16360:16454): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 15:28:56:458 brokerCatedra.log/(16360:16454): Se elimino la particion asociada al ID_MSJ: 19 Puntero Inicial:32  Puntero Final:63 LRU: 1596652131650
+[INFO] 15:28:56:458 brokerCatedra.log/(16360:16454): Se guardo el Mensaje con ID_MSJ:23  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:28:56:458 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:56:462 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:463 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:474 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16458): Se guardo el Mensaje con ID_MSJ:24  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16457): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 23 
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16456): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16456): Se elimino la particion asociada al ID_MSJ: 21 Puntero Inicial:0  Puntero Final:15 LRU: 1596652136359
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16456): Se guardo el Mensaje con ID_MSJ:25  Puntero Inicial:0  Puntero Final:7 Tamaño: 8
+[INFO] 15:28:56:482 brokerCatedra.log/(16360:16364): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:28:56:483 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:483 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:483 brokerCatedra.log/(16360:16461): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 25 
+[INFO] 15:28:56:484 brokerCatedra.log/(16360:16462): Se elimino la particion asociada al ID_MSJ: 22 Puntero Inicial:16  Puntero Final:31 LRU: 1596652136422
+[INFO] 15:28:56:484 brokerCatedra.log/(16360:16462): Se guardo el Mensaje con ID_MSJ:26  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:28:56:557 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:598 brokerCatedra.log/(16360:16467): Recibí del modulo TEAM una suscribición a la cola APPEARED_POKEMON con el token 441131400
+[INFO] 15:28:56:662 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:666 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:687 brokerCatedra.log/(16360:16469): Recibí del modulo TEAM una suscribición a la cola CAUGHT_POKEMON con el token 441131400
+[INFO] 15:28:56:695 brokerCatedra.log/(16360:16470): Recibí del modulo TEAM una suscribición a la cola LOCALIZED_POKEMON con el token 441131400
+[INFO] 15:28:56:695 brokerCatedra.log/(16360:16470): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:28:56:696 brokerCatedra.log/(16360:16470): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:28:56:768 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:774 brokerCatedra.log/(16360:16473): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 26 
+[INFO] 15:28:56:778 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:28:56:783 brokerCatedra.log/(16360:16474): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 24 
+[INFO] 15:29:01:364 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:29:01:364 brokerCatedra.log/(16360:16476): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 15:29:01:364 brokerCatedra.log/(16360:16476): Se elimino la particion asociada al ID_MSJ: 23 Puntero Inicial:32  Puntero Final:47 LRU: 1596652136457
+[INFO] 15:29:01:364 brokerCatedra.log/(16360:16476): Se elimino la particion asociada al ID_MSJ: 24 Puntero Inicial:48  Puntero Final:63 LRU: 1596652136481
+[INFO] 15:29:01:364 brokerCatedra.log/(16360:16476): Se guardo el Mensaje con ID_MSJ:30  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:29:01:432 brokerCatedra.log/(16360:16362): Se conecto un Proceso al Broker
+[INFO] 15:29:01:432 brokerCatedra.log/(16360:16477): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 15:29:01:432 brokerCatedra.log/(16360:16477): Se elimino la particion asociada al ID_MSJ: 25 Puntero Inicial:0  Puntero Final:7 LRU: 1596652136482
+[INFO] 15:29:01:432 brokerCatedra.log/(16360:16477): Se elimino la particion asociada al ID_MSJ: 26 Puntero Inicial:16  Puntero Final:31 LRU: 1596652136483
+[INFO] 15:29:01:432 brokerCatedra.log/(16360:16477): Se guardo el Mensaje con ID_MSJ:31  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:37:24:797 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:24:798 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:24:799 brokerCatedra.log/(16710:16722): Recibí del modulo GAMECARD una suscribición a la cola GET_POKEMON con el token 107737878
+[INFO] 15:37:24:799 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:24:800 brokerCatedra.log/(16710:16723): Recibí del modulo GAMECARD una suscribición a la cola CATCH_POKEMON con el token 107737878
+[INFO] 15:37:24:800 brokerCatedra.log/(16710:16724): Recibí del modulo GAMECARD una suscribición a la cola NEW_POKEMON con el token 107737878
+[INFO] 15:37:35:905 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:35:925 brokerCatedra.log/(16710:16734): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 15:37:35:925 brokerCatedra.log/(16710:16734): Se guardo el Mensaje con ID_MSJ:4  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:37:35:925 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:37:35:928 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:35:930 brokerCatedra.log/(16710:16736): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 4 
+[INFO] 15:37:35:979 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:35:988 brokerCatedra.log/(16710:16737): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 15:37:35:988 brokerCatedra.log/(16710:16737): Se guardo el Mensaje con ID_MSJ:5  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:37:35:988 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:37:36:10 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:14 brokerCatedra.log/(16710:16741): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 5 
+[INFO] 15:37:36:35 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:51 brokerCatedra.log/(16710:16742): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 15:37:36:51 brokerCatedra.log/(16710:16742): Se guardo el Mensaje con ID_MSJ:6  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:37:36:54 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:37:36:67 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:68 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:68 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:70 brokerCatedra.log/(16710:16746): Se guardo el Mensaje con ID_MSJ:7  Puntero Inicial:48  Puntero Final:63 Tamaño: 16
+[INFO] 15:37:36:70 brokerCatedra.log/(16710:16745): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 6 
+[INFO] 15:37:36:74 brokerCatedra.log/(16710:16744): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 15:37:36:82 brokerCatedra.log/(16710:16744): Se elimino la particion asociada al ID_MSJ: 4 Puntero Inicial:0  Puntero Final:15 LRU: 1596652655924
+[INFO] 15:37:36:82 brokerCatedra.log/(16710:16744): Se guardo el Mensaje con ID_MSJ:8  Puntero Inicial:0  Puntero Final:7 Tamaño: 8
+[INFO] 15:37:36:82 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 15:37:36:83 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:83 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:84 brokerCatedra.log/(16710:16748): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 8 
+[INFO] 15:37:36:84 brokerCatedra.log/(16710:16749): Se elimino la particion asociada al ID_MSJ: 5 Puntero Inicial:16  Puntero Final:31 LRU: 1596652655987
+[INFO] 15:37:36:84 brokerCatedra.log/(16710:16749): Se guardo el Mensaje con ID_MSJ:9  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 15:37:36:136 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:142 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:193 brokerCatedra.log/(16710:16755): Recibí del modulo TEAM una suscribición a la cola LOCALIZED_POKEMON con el token 441131400
+[INFO] 15:37:36:193 brokerCatedra.log/(16710:16755): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:37:36:194 brokerCatedra.log/(16710:16755): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:37:36:210 brokerCatedra.log/(16710:16754): Recibí del modulo TEAM una suscribición a la cola APPEARED_POKEMON con el token 441131400
+[INFO] 15:37:36:215 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:256 brokerCatedra.log/(16710:16758): Recibí del modulo TEAM una suscribición a la cola CAUGHT_POKEMON con el token 441131400
+[INFO] 15:37:36:372 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:378 brokerCatedra.log/(16710:16761): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 9 
+[INFO] 15:37:36:386 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:36:402 brokerCatedra.log/(16710:16762): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 7 
+[INFO] 15:37:40:932 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:40:933 brokerCatedra.log/(16710:16771): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 15:37:40:933 brokerCatedra.log/(16710:16771): Se elimino la particion asociada al ID_MSJ: 6 Puntero Inicial:32  Puntero Final:47 LRU: 1596652656051
+[INFO] 15:37:40:933 brokerCatedra.log/(16710:16771): Se elimino la particion asociada al ID_MSJ: 7 Puntero Inicial:48  Puntero Final:63 LRU: 1596652656069
+[INFO] 15:37:40:933 brokerCatedra.log/(16710:16771): Se guardo el Mensaje con ID_MSJ:13  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:37:40:933 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:37:40:993 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:41:10 brokerCatedra.log/(16710:16773): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 13 
+[INFO] 15:37:41:15 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:41:20 brokerCatedra.log/(16710:16774): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 15:37:41:20 brokerCatedra.log/(16710:16774): Se elimino la particion asociada al ID_MSJ: 8 Puntero Inicial:0  Puntero Final:7 LRU: 1596652656082
+[INFO] 15:37:41:20 brokerCatedra.log/(16710:16774): Se elimino la particion asociada al ID_MSJ: 9 Puntero Inicial:16  Puntero Final:31 LRU: 1596652656083
+[INFO] 15:37:41:20 brokerCatedra.log/(16710:16774): Se guardo el Mensaje con ID_MSJ:14  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:37:41:20 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 15:37:41:134 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:41:139 brokerCatedra.log/(16710:16776): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 14 
+[INFO] 15:37:45:331 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:45:344 brokerCatedra.log/(16710:16778): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 15:37:45:344 brokerCatedra.log/(16710:16778): Se elimino la particion asociada al ID_MSJ: 13 Puntero Inicial:32  Puntero Final:63 LRU: 1596652660933
+[INFO] 15:37:45:344 brokerCatedra.log/(16710:16778): Se guardo el Mensaje con ID_MSJ:15  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:37:45:344 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:37:45:346 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:45:358 brokerCatedra.log/(16710:16780): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 15 
+[INFO] 15:37:50:353 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:50:358 brokerCatedra.log/(16710:16789): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 15  , ATRAPO: 1
+[INFO] 15:37:50:359 brokerCatedra.log/(16710:16789): Se elimino la particion asociada al ID_MSJ: 14 Puntero Inicial:0  Puntero Final:31 LRU: 1596652661019
+[INFO] 15:37:50:359 brokerCatedra.log/(16710:16789): Se guardo el Mensaje con ID_MSJ:16  Puntero Inicial:0  Puntero Final:3 Tamaño: 4
+[INFO] 15:37:50:359 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:37:50:388 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:37:50:397 brokerCatedra.log/(16710:16792): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 16 
+[INFO] 15:38:00:430 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:00:431 brokerCatedra.log/(16710:16795): Recibí en la cola CATCH_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 15:38:00:431 brokerCatedra.log/(16710:16795): Se elimino la particion asociada al ID_MSJ: 15 Puntero Inicial:32  Puntero Final:63 LRU: 1596652665343
+[INFO] 15:38:00:431 brokerCatedra.log/(16710:16795): Se guardo el Mensaje con ID_MSJ:17  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:00:431 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:38:00:431 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:00:435 brokerCatedra.log/(16710:16797): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 17 
+[INFO] 15:38:05:439 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:05:439 brokerCatedra.log/(16710:16799): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 17  , ATRAPO: 1
+[INFO] 15:38:05:439 brokerCatedra.log/(16710:16799): Se guardo el Mensaje con ID_MSJ:18  Puntero Inicial:4  Puntero Final:7 Tamaño: 4
+[INFO] 15:38:05:439 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:38:05:461 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:05:463 brokerCatedra.log/(16710:16801): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 18 
+[INFO] 15:38:18:902 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:914 brokerCatedra.log/(16710:16813): Recibí en la cola NEW_POKEMON . POKEMON: Onix  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:38:18:914 brokerCatedra.log/(16710:16813): Se elimino la particion asociada al ID_MSJ: 16 Puntero Inicial:0  Puntero Final:3 LRU: 1596652670358
+[INFO] 15:38:18:914 brokerCatedra.log/(16710:16813): Se elimino la particion asociada al ID_MSJ: 17 Puntero Inicial:32  Puntero Final:63 LRU: 1596652680430
+[INFO] 15:38:18:914 brokerCatedra.log/(16710:16813): Se guardo el Mensaje con ID_MSJ:19  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:18:915 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:915 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:918 brokerCatedra.log/(16710:16817): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 19 
+[INFO] 15:38:18:921 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:925 brokerCatedra.log/(16710:16818): Recibí en la cola NEW_POKEMON . POKEMON: Gengar  , CANTIDAD: 1  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:38:18:925 brokerCatedra.log/(16710:16818): Se elimino la particion asociada al ID_MSJ: 18 Puntero Inicial:4  Puntero Final:7 LRU: 1596652685439
+[INFO] 15:38:18:925 brokerCatedra.log/(16710:16818): Se guardo el Mensaje con ID_MSJ:20  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:38:18:926 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:952 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:952 brokerCatedra.log/(16710:16820): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:38:18:952 brokerCatedra.log/(16710:16820): Se elimino la particion asociada al ID_MSJ: 19 Puntero Inicial:32  Puntero Final:63 LRU: 1596652698914
+[INFO] 15:38:18:952 brokerCatedra.log/(16710:16820): Se guardo el Mensaje con ID_MSJ:21  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:18:952 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:962 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:963 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:964 brokerCatedra.log/(16710:16824): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 21 
+[INFO] 15:38:18:964 brokerCatedra.log/(16710:16825): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 20 
+[INFO] 15:38:18:965 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:965 brokerCatedra.log/(16710:16826): Recibí en la cola NEW_POKEMON . POKEMON: Umbreon  , CANTIDAD: 1  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 15:38:18:965 brokerCatedra.log/(16710:16826): Se elimino la particion asociada al ID_MSJ: 20 Puntero Inicial:0  Puntero Final:31 LRU: 1596652698925
+[INFO] 15:38:18:965 brokerCatedra.log/(16710:16826): Se guardo el Mensaje con ID_MSJ:22  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:38:18:965 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:966 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:971 brokerCatedra.log/(16710:16829): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 22 
+[INFO] 15:38:18:972 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:974 brokerCatedra.log/(16710:16830): Recibí en la cola NEW_POKEMON . POKEMON: Espeon  , CANTIDAD: 1  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 15:38:18:974 brokerCatedra.log/(16710:16830): Se elimino la particion asociada al ID_MSJ: 21 Puntero Inicial:32  Puntero Final:63 LRU: 1596652698952
+[INFO] 15:38:18:974 brokerCatedra.log/(16710:16830): Se guardo el Mensaje con ID_MSJ:23  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:18:974 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:980 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:983 brokerCatedra.log/(16710:16833): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 23 
+[INFO] 15:38:18:983 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:983 brokerCatedra.log/(16710:16834): Recibí en la cola NEW_POKEMON . POKEMON: Vaporeon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 15:38:18:983 brokerCatedra.log/(16710:16834): Se elimino la particion asociada al ID_MSJ: 22 Puntero Inicial:0  Puntero Final:31 LRU: 1596652698964
+[INFO] 15:38:18:984 brokerCatedra.log/(16710:16834): Se guardo el Mensaje con ID_MSJ:24  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:38:18:984 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 15:38:18:995 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:18:996 brokerCatedra.log/(16710:16836): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 24 
+[INFO] 15:38:23:919 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:919 brokerCatedra.log/(16710:16838): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:38:23:919 brokerCatedra.log/(16710:16838): Se elimino la particion asociada al ID_MSJ: 23 Puntero Inicial:32  Puntero Final:63 LRU: 1596652698974
+[INFO] 15:38:23:919 brokerCatedra.log/(16710:16838): Se guardo el Mensaje con ID_MSJ:25  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 15:38:23:919 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:23:929 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:938 brokerCatedra.log/(16710:16840): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 25 
+[INFO] 15:38:23:967 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:967 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:972 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:972 brokerCatedra.log/(16710:16842): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:38:23:972 brokerCatedra.log/(16710:16842): Se elimino la particion asociada al ID_MSJ: 24 Puntero Inicial:0  Puntero Final:31 LRU: 1596652698983
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16842): Se guardo el Mensaje con ID_MSJ:26  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16841): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16841): Se elimino la particion asociada al ID_MSJ: 25 Puntero Inicial:32  Puntero Final:47 LRU: 1596652703919
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16841): Se guardo el Mensaje con ID_MSJ:27  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:23:973 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:23:986 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16843): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16843): Se elimino la particion asociada al ID_MSJ: 27 Puntero Inicial:32  Puntero Final:63 LRU: 1596652703972
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16843): Se guardo el Mensaje con ID_MSJ:28  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16845): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16845): Se elimino la particion asociada al ID_MSJ: 26 Puntero Inicial:0  Puntero Final:31 LRU: 1596652703972
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16845): Se guardo el Mensaje con ID_MSJ:29  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 15:38:23:987 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:23:2 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:23:4 brokerCatedra.log/(16710:16847): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 15:38:23:4 brokerCatedra.log/(16710:16847): Se elimino la particion asociada al ID_MSJ: 28 Puntero Inicial:32  Puntero Final:63 LRU: 1596652703986
+[INFO] 15:38:23:4 brokerCatedra.log/(16710:16847): Se guardo el Mensaje con ID_MSJ:30  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:23:4 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 15:38:24:28 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:24:55 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:24:63 brokerCatedra.log/(16710:16849): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 27 
+[INFO] 15:38:24:63 brokerCatedra.log/(16710:16852): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 26 
+[INFO] 15:38:24:99 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:24:118 brokerCatedra.log/(16710:16854): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 28 
+[INFO] 15:38:24:120 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:24:126 brokerCatedra.log/(16710:16855): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 29 
+[INFO] 15:38:24:135 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:24:136 brokerCatedra.log/(16710:16857): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 30 
+[INFO] 15:38:32:107 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:32:114 brokerCatedra.log/(16710:16860): Recibí en la cola CATCH_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 15:38:32:114 brokerCatedra.log/(16710:16860): Se elimino la particion asociada al ID_MSJ: 29 Puntero Inicial:0  Puntero Final:31 LRU: 1596652703987
+[INFO] 15:38:32:114 brokerCatedra.log/(16710:16860): Se guardo el Mensaje con ID_MSJ:31  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 15:38:32:114 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:38:32:118 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:32:122 brokerCatedra.log/(16710:16862): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 31 
+[INFO] 15:38:37:124 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:37:124 brokerCatedra.log/(16710:16864): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 31  , ATRAPO: 1
+[INFO] 15:38:37:124 brokerCatedra.log/(16710:16864): Se guardo el Mensaje con ID_MSJ:32  Puntero Inicial:16  Puntero Final:19 Tamaño: 4
+[INFO] 15:38:37:125 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:38:37:128 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:37:130 brokerCatedra.log/(16710:16866): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 32 
+[INFO] 15:38:42:129 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:42:129 brokerCatedra.log/(16710:16871): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 15:38:42:129 brokerCatedra.log/(16710:16871): Se elimino la particion asociada al ID_MSJ: 30 Puntero Inicial:32  Puntero Final:63 LRU: 1596652704004
+[INFO] 15:38:42:129 brokerCatedra.log/(16710:16871): Se guardo el Mensaje con ID_MSJ:33  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:42:130 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:38:42:131 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:42:131 brokerCatedra.log/(16710:16873): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 33 
+[INFO] 15:38:47:136 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:47:142 brokerCatedra.log/(16710:16877): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 33  , ATRAPO: 1
+[INFO] 15:38:47:142 brokerCatedra.log/(16710:16877): Se guardo el Mensaje con ID_MSJ:34  Puntero Inicial:20  Puntero Final:23 Tamaño: 4
+[INFO] 15:38:47:142 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:38:47:156 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:47:158 brokerCatedra.log/(16710:16879): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 34 
+[INFO] 15:38:49:142 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:49:142 brokerCatedra.log/(16710:16881): Recibí en la cola CATCH_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 15:38:49:142 brokerCatedra.log/(16710:16881): Se elimino la particion asociada al ID_MSJ: 31 Puntero Inicial:0  Puntero Final:15 LRU: 1596652712113
+[INFO] 15:38:49:142 brokerCatedra.log/(16710:16881): Se elimino la particion asociada al ID_MSJ: 32 Puntero Inicial:16  Puntero Final:19 LRU: 1596652717124
+[INFO] 15:38:49:143 brokerCatedra.log/(16710:16881): Se elimino la particion asociada al ID_MSJ: 33 Puntero Inicial:32  Puntero Final:63 LRU: 1596652722129
+[INFO] 15:38:49:143 brokerCatedra.log/(16710:16881): Se guardo el Mensaje con ID_MSJ:35  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 15:38:49:143 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 15:38:49:143 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:49:144 brokerCatedra.log/(16710:16883): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 35 
+[INFO] 15:38:54:146 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:54:146 brokerCatedra.log/(16710:16886): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 35  , ATRAPO: 1
+[INFO] 15:38:54:146 brokerCatedra.log/(16710:16886): Se guardo el Mensaje con ID_MSJ:36  Puntero Inicial:0  Puntero Final:3 Tamaño: 4
+[INFO] 15:38:54:146 brokerCatedra.log/(16710:16714): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 15:38:54:151 brokerCatedra.log/(16710:16712): Se conecto un Proceso al Broker
+[INFO] 15:38:54:154 brokerCatedra.log/(16710:16888): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 36 
+[INFO] 19:54:31:136 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:31:142 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:31:186 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:31:189 brokerCatedra.log/(7261:7275): Recibí del modulo GAMECARD una suscribición a la cola NEW_POKEMON con el token 107737878
+[INFO] 19:54:31:205 brokerCatedra.log/(7261:7274): Recibí del modulo GAMECARD una suscribición a la cola GET_POKEMON con el token 107737878
+[INFO] 19:54:31:206 brokerCatedra.log/(7261:7276): Recibí del modulo GAMECARD una suscribición a la cola CATCH_POKEMON con el token 107737878
+[INFO] 19:54:34:611 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:612 brokerCatedra.log/(7261:7285): Recibí en la cola NEW_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 19:54:34:612 brokerCatedra.log/(7261:7285): Se guardo el Mensaje con ID_MSJ:4  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:54:34:612 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:54:34:625 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:627 brokerCatedra.log/(7261:7287): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 19:54:34:627 brokerCatedra.log/(7261:7287): Se guardo el Mensaje con ID_MSJ:5  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:54:34:640 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:54:34:648 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:648 brokerCatedra.log/(7261:7290): Recibí en la cola NEW_POKEMON . POKEMON: Jolteon  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 19:54:34:648 brokerCatedra.log/(7261:7290): Se elimino la particion asociada al ID_MSJ: 4 Puntero Inicial:0  Puntero Final:31 LRU: 1596754474611
+[INFO] 19:54:34:648 brokerCatedra.log/(7261:7290): Se guardo el Mensaje con ID_MSJ:6  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:54:34:648 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:54:34:666 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:666 brokerCatedra.log/(7261:7293): Recibí en la cola NEW_POKEMON . POKEMON: Flareon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 19:54:34:666 brokerCatedra.log/(7261:7293): Se elimino la particion asociada al ID_MSJ: 5 Puntero Inicial:32  Puntero Final:63 LRU: 1596754474627
+[INFO] 19:54:34:666 brokerCatedra.log/(7261:7293): Se guardo el Mensaje con ID_MSJ:7  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:54:34:666 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:54:34:708 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:731 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:738 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:739 brokerCatedra.log/(7261:7295): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 5 
+[INFO] 19:54:34:752 brokerCatedra.log/(7261:7298): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 6 
+[INFO] 19:54:34:755 brokerCatedra.log/(7261:7297): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 4 
+[INFO] 19:54:34:758 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:34:760 brokerCatedra.log/(7261:7299): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 7 
+[INFO] 19:54:40:65 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:40:67 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:40:84 brokerCatedra.log/(7261:7305): Recibí en la cola APPEARED_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 19:54:40:84 brokerCatedra.log/(7261:7305): Se elimino la particion asociada al ID_MSJ: 6 Puntero Inicial:0  Puntero Final:31 LRU: 1596754474648
+[INFO] 19:54:40:84 brokerCatedra.log/(7261:7305): Se guardo el Mensaje con ID_MSJ:8  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:54:40:85 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:40:87 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:40:87 brokerCatedra.log/(7261:7304): Recibí en la cola APPEARED_POKEMON . POKEMON: Jolteon  , CORDENADA X: 2 , CORDENADA Y: 2 
+[INFO] 19:54:40:87 brokerCatedra.log/(7261:7304): Se elimino la particion asociada al ID_MSJ: 7 Puntero Inicial:32  Puntero Final:63 LRU: 1596754474665
+[INFO] 19:54:40:87 brokerCatedra.log/(7261:7304): Se guardo el Mensaje con ID_MSJ:9  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7307): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7307): Se elimino la particion asociada al ID_MSJ: 8 Puntero Inicial:0  Puntero Final:31 LRU: 1596754480084
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7307): Se guardo el Mensaje con ID_MSJ:10  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7306): Recibí en la cola APPEARED_POKEMON . POKEMON: Flareon  , CORDENADA X: 4 , CORDENADA Y: 6 
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7306): Se elimino la particion asociada al ID_MSJ: 9 Puntero Inicial:32  Puntero Final:63 LRU: 1596754480087
+[INFO] 19:54:40:114 brokerCatedra.log/(7261:7306): Se guardo el Mensaje con ID_MSJ:11  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:54:59:902 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:54:59:923 brokerCatedra.log/(7261:7313): Recibí en la cola GET_POKEMON . POKEMON: Squirtle
+[INFO] 19:54:59:923 brokerCatedra.log/(7261:7313): Se elimino la particion asociada al ID_MSJ: 10 Puntero Inicial:0  Puntero Final:31 LRU: 1596754480113
+[INFO] 19:54:59:923 brokerCatedra.log/(7261:7313): Se guardo el Mensaje con ID_MSJ:12  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 19:54:59:923 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 19:55:00:45 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:53 brokerCatedra.log/(7261:7317): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 12 
+[INFO] 19:55:00:92 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:101 brokerCatedra.log/(7261:7318): Recibí en la cola GET_POKEMON . POKEMON: Pikachu
+[INFO] 19:55:00:101 brokerCatedra.log/(7261:7318): Se guardo el Mensaje con ID_MSJ:13  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 19:55:00:101 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 19:55:00:127 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:145 brokerCatedra.log/(7261:7319): Recibí en la cola GET_POKEMON . POKEMON: Gengar
+[INFO] 19:55:00:145 brokerCatedra.log/(7261:7319): Se elimino la particion asociada al ID_MSJ: 11 Puntero Inicial:32  Puntero Final:63 LRU: 1596754480113
+[INFO] 19:55:00:145 brokerCatedra.log/(7261:7319): Se guardo el Mensaje con ID_MSJ:14  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 19:55:00:145 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 19:55:00:159 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:172 brokerCatedra.log/(7261:7320): Recibí en la cola GET_POKEMON . POKEMON: Onix
+[INFO] 19:55:00:172 brokerCatedra.log/(7261:7320): Se guardo el Mensaje con ID_MSJ:15  Puntero Inicial:48  Puntero Final:55 Tamaño: 8
+[INFO] 19:55:00:172 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola GET_POKEMON y token: 107737878
+[INFO] 19:55:00:276 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:297 brokerCatedra.log/(7261:7327): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 15 
+[INFO] 19:55:00:299 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:329 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:330 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:339 brokerCatedra.log/(7261:7330): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 13 
+[INFO] 19:55:00:344 brokerCatedra.log/(7261:7331): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 14 
+[INFO] 19:55:00:367 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:395 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:396 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:446 brokerCatedra.log/(7261:7334): Se elimino la particion asociada al ID_MSJ: 12 Puntero Inicial:0  Puntero Final:15 LRU: 1596754499922
+[INFO] 19:55:00:446 brokerCatedra.log/(7261:7334): Se guardo el Mensaje con ID_MSJ:16  Puntero Inicial:0  Puntero Final:15 Tamaño: 16
+[INFO] 19:55:00:452 brokerCatedra.log/(7261:7329): Recibí del modulo TEAM una suscribición a la cola APPEARED_POKEMON con el token 441131400
+[INFO] 19:55:00:523 brokerCatedra.log/(7261:7333): Recibí del modulo TEAM una suscribición a la cola LOCALIZED_POKEMON con el token 441131400
+[INFO] 19:55:00:523 brokerCatedra.log/(7261:7333): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 19:55:00:544 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:592 brokerCatedra.log/(7261:7335): Se elimino la particion asociada al ID_MSJ: 13 Puntero Inicial:16  Puntero Final:31 LRU: 1596754500101
+[INFO] 19:55:00:592 brokerCatedra.log/(7261:7335): Se guardo el Mensaje con ID_MSJ:19  Puntero Inicial:16  Puntero Final:31 Tamaño: 16
+[INFO] 19:55:00:592 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 19:55:00:638 brokerCatedra.log/(7261:7337): Recibí del modulo TEAM una suscribición a la cola CAUGHT_POKEMON con el token 441131400
+[INFO] 19:55:00:714 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:716 brokerCatedra.log/(7261:7340): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 16 
+[INFO] 19:55:00:720 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:00:724 brokerCatedra.log/(7261:7341): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 19 
+[INFO] 19:55:05:600 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:05:607 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:05:608 brokerCatedra.log/(7261:7343): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Pikachu  , CANTIDAD: 1 , POSICIÓN X: 9 , POSICIÓN Y: 9
+[INFO] 19:55:05:608 brokerCatedra.log/(7261:7343): Se elimino la particion asociada al ID_MSJ: 14 Puntero Inicial:32  Puntero Final:47 LRU: 1596754500144
+[INFO] 19:55:05:608 brokerCatedra.log/(7261:7343): Se elimino la particion asociada al ID_MSJ: 15 Puntero Inicial:48  Puntero Final:55 LRU: 1596754500171
+[INFO] 19:55:05:608 brokerCatedra.log/(7261:7343): Se guardo el Mensaje con ID_MSJ:21  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:55:05:608 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 19:55:05:619 brokerCatedra.log/(7261:7344): Recibí en la cola LOCALIZED_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1 , POSICIÓN X: 5 , POSICIÓN Y: 2
+[INFO] 19:55:05:619 brokerCatedra.log/(7261:7344): Se elimino la particion asociada al ID_MSJ: 16 Puntero Inicial:0  Puntero Final:15 LRU: 1596754500446
+[INFO] 19:55:05:619 brokerCatedra.log/(7261:7344): Se elimino la particion asociada al ID_MSJ: 19 Puntero Inicial:16  Puntero Final:31 LRU: 1596754500591
+[INFO] 19:55:05:619 brokerCatedra.log/(7261:7344): Se guardo el Mensaje con ID_MSJ:22  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:55:05:619 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola LOCALIZED_POKEMON y token: 441131400
+[INFO] 19:55:05:630 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:05:640 brokerCatedra.log/(7261:7347): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 21 
+[INFO] 19:55:05:646 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:05:653 brokerCatedra.log/(7261:7348): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 22 
+[INFO] 19:55:11:831 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:11:838 brokerCatedra.log/(7261:7350): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 2 
+[INFO] 19:55:11:838 brokerCatedra.log/(7261:7350): Se elimino la particion asociada al ID_MSJ: 21 Puntero Inicial:32  Puntero Final:63 LRU: 1596754505608
+[INFO] 19:55:11:838 brokerCatedra.log/(7261:7350): Se guardo el Mensaje con ID_MSJ:23  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:55:11:838 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 19:55:11:876 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:11:883 brokerCatedra.log/(7261:7352): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 23 
+[INFO] 19:55:16:967 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:16:971 brokerCatedra.log/(7261:7354): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 23  , ATRAPO: 1
+[INFO] 19:55:16:971 brokerCatedra.log/(7261:7354): Se elimino la particion asociada al ID_MSJ: 22 Puntero Inicial:0  Puntero Final:31 LRU: 1596754505619
+[INFO] 19:55:16:971 brokerCatedra.log/(7261:7354): Se guardo el Mensaje con ID_MSJ:24  Puntero Inicial:0  Puntero Final:3 Tamaño: 4
+[INFO] 19:55:16:972 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 19:55:16:989 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:16:0 brokerCatedra.log/(7261:7356): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 24 
+[INFO] 19:55:26:879 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:26:880 brokerCatedra.log/(7261:7358): Recibí en la cola CATCH_POKEMON . POKEMON: Pikachu  , CORDENADA X: 9 , CORDENADA Y: 9 
+[INFO] 19:55:26:880 brokerCatedra.log/(7261:7358): Se elimino la particion asociada al ID_MSJ: 23 Puntero Inicial:32  Puntero Final:63 LRU: 1596754511837
+[INFO] 19:55:26:880 brokerCatedra.log/(7261:7358): Se guardo el Mensaje con ID_MSJ:25  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:55:26:883 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 19:55:26:895 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:26:902 brokerCatedra.log/(7261:7361): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 25 
+[INFO] 19:55:31:917 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:31:918 brokerCatedra.log/(7261:7363): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 25  , ATRAPO: 1
+[INFO] 19:55:31:918 brokerCatedra.log/(7261:7363): Se guardo el Mensaje con ID_MSJ:26  Puntero Inicial:4  Puntero Final:7 Tamaño: 4
+[INFO] 19:55:31:918 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 19:55:31:926 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:55:31:928 brokerCatedra.log/(7261:7365): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 26 
+[INFO] 19:57:07:860 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:860 brokerCatedra.log/(7261:7381): Recibí en la cola NEW_POKEMON . POKEMON: Onix  , CANTIDAD: 1  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 19:57:07:861 brokerCatedra.log/(7261:7381): Se elimino la particion asociada al ID_MSJ: 24 Puntero Inicial:0  Puntero Final:3 LRU: 1596754516971
+[INFO] 19:57:07:861 brokerCatedra.log/(7261:7381): Se elimino la particion asociada al ID_MSJ: 25 Puntero Inicial:32  Puntero Final:63 LRU: 1596754526879
+[INFO] 19:57:07:861 brokerCatedra.log/(7261:7381): Se guardo el Mensaje con ID_MSJ:27  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:57:07:861 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:07:883 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:886 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:896 brokerCatedra.log/(7261:7387): Recibí en la cola NEW_POKEMON . POKEMON: Gengar  , CANTIDAD: 1  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 19:57:07:896 brokerCatedra.log/(7261:7387): Se elimino la particion asociada al ID_MSJ: 26 Puntero Inicial:4  Puntero Final:7 LRU: 1596754531918
+[INFO] 19:57:07:897 brokerCatedra.log/(7261:7387): Se guardo el Mensaje con ID_MSJ:28  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:07:897 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:07:900 brokerCatedra.log/(7261:7386): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 27 
+[INFO] 19:57:07:902 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:916 brokerCatedra.log/(7261:7389): Recibí en la cola NEW_POKEMON . POKEMON: Squirtle  , CANTIDAD: 1  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 19:57:07:916 brokerCatedra.log/(7261:7389): Se elimino la particion asociada al ID_MSJ: 27 Puntero Inicial:32  Puntero Final:63 LRU: 1596754627860
+[INFO] 19:57:07:916 brokerCatedra.log/(7261:7389): Se guardo el Mensaje con ID_MSJ:29  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:57:07:916 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:07:919 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:934 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:937 brokerCatedra.log/(7261:7393): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 28 
+[INFO] 19:57:07:939 brokerCatedra.log/(7261:7392): Recibí en la cola NEW_POKEMON . POKEMON: Umbreon  , CANTIDAD: 1  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 19:57:07:939 brokerCatedra.log/(7261:7392): Se elimino la particion asociada al ID_MSJ: 28 Puntero Inicial:0  Puntero Final:31 LRU: 1596754627896
+[INFO] 19:57:07:939 brokerCatedra.log/(7261:7392): Se guardo el Mensaje con ID_MSJ:30  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:07:939 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:07:955 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:07:961 brokerCatedra.log/(7261:7396): Recibí en la cola NEW_POKEMON . POKEMON: Espeon  , CANTIDAD: 1  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 19:57:07:961 brokerCatedra.log/(7261:7396): Se elimino la particion asociada al ID_MSJ: 29 Puntero Inicial:32  Puntero Final:63 LRU: 1596754627915
+[INFO] 19:57:07:961 brokerCatedra.log/(7261:7396): Se guardo el Mensaje con ID_MSJ:31  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:57:07:961 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:07:990 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7399): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 29 
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7401): Recibí en la cola NEW_POKEMON . POKEMON: Vaporeon  , CANTIDAD: 1  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7401): Se elimino la particion asociada al ID_MSJ: 30 Puntero Inicial:0  Puntero Final:31 LRU: 1596754627939
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7401): Se guardo el Mensaje con ID_MSJ:32  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:08:5 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola NEW_POKEMON y token: 107737878
+[INFO] 19:57:08:32 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:08:44 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:08:56 brokerCatedra.log/(7261:7404): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 31 
+[INFO] 19:57:08:62 brokerCatedra.log/(7261:7403): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 30 
+[INFO] 19:57:08:79 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:08:97 brokerCatedra.log/(7261:7405): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 32 
+[INFO] 19:57:12:999 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:12:999 brokerCatedra.log/(7261:7407): Recibí en la cola APPEARED_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 19:57:12:999 brokerCatedra.log/(7261:7407): Se elimino la particion asociada al ID_MSJ: 31 Puntero Inicial:32  Puntero Final:63 LRU: 1596754627960
+[INFO] 19:57:12:999 brokerCatedra.log/(7261:7407): Se guardo el Mensaje con ID_MSJ:33  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 19:57:12:999 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:17 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:19 brokerCatedra.log/(7261:7409): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 33 
+[INFO] 19:57:13:123 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:141 brokerCatedra.log/(7261:7410): Recibí en la cola APPEARED_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 19:57:13:141 brokerCatedra.log/(7261:7410): Se elimino la particion asociada al ID_MSJ: 32 Puntero Inicial:0  Puntero Final:31 LRU: 1596754628005
+[INFO] 19:57:13:141 brokerCatedra.log/(7261:7410): Se guardo el Mensaje con ID_MSJ:34  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:13:141 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:175 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:200 brokerCatedra.log/(7261:7412): Recibí en la cola APPEARED_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 19:57:13:200 brokerCatedra.log/(7261:7412): Se elimino la particion asociada al ID_MSJ: 33 Puntero Inicial:32  Puntero Final:47 LRU: 1596754632999
+[INFO] 19:57:13:200 brokerCatedra.log/(7261:7412): Se guardo el Mensaje con ID_MSJ:35  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:57:13:200 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:216 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:242 brokerCatedra.log/(7261:7413): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 34 
+[INFO] 19:57:13:259 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:291 brokerCatedra.log/(7261:7415): Recibí en la cola APPEARED_POKEMON . POKEMON: Umbreon  , CORDENADA X: 10 , CORDENADA Y: 6 
+[INFO] 19:57:13:291 brokerCatedra.log/(7261:7415): Se elimino la particion asociada al ID_MSJ: 34 Puntero Inicial:0  Puntero Final:31 LRU: 1596754633141
+[INFO] 19:57:13:291 brokerCatedra.log/(7261:7415): Se guardo el Mensaje con ID_MSJ:36  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:13:292 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:305 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:328 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:329 brokerCatedra.log/(7261:7416): Recibí en la cola APPEARED_POKEMON . POKEMON: Espeon  , CORDENADA X: 7 , CORDENADA Y: 1 
+[INFO] 19:57:13:329 brokerCatedra.log/(7261:7416): Se elimino la particion asociada al ID_MSJ: 35 Puntero Inicial:32  Puntero Final:63 LRU: 1596754633199
+[INFO] 19:57:13:329 brokerCatedra.log/(7261:7416): Se guardo el Mensaje con ID_MSJ:37  Puntero Inicial:32  Puntero Final:63 Tamaño: 32
+[INFO] 19:57:13:329 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:343 brokerCatedra.log/(7261:7418): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 35 
+[INFO] 19:57:13:352 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:360 brokerCatedra.log/(7261:7419): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 36 
+[INFO] 19:57:13:377 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:378 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:380 brokerCatedra.log/(7261:7422): Recibí en la cola APPEARED_POKEMON . POKEMON: Vaporeon  , CORDENADA X: 4 , CORDENADA Y: 10 
+[INFO] 19:57:13:380 brokerCatedra.log/(7261:7422): Se elimino la particion asociada al ID_MSJ: 36 Puntero Inicial:0  Puntero Final:31 LRU: 1596754633291
+[INFO] 19:57:13:380 brokerCatedra.log/(7261:7422): Se guardo el Mensaje con ID_MSJ:38  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:13:380 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola APPEARED_POKEMON y token: 441131400
+[INFO] 19:57:13:387 brokerCatedra.log/(7261:7421): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 37 
+[INFO] 19:57:13:395 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:13:397 brokerCatedra.log/(7261:7424): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 38 
+[INFO] 19:57:21:148 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:21:149 brokerCatedra.log/(7261:7426): Recibí en la cola CATCH_POKEMON . POKEMON: Onix  , CORDENADA X: 2 , CORDENADA Y: 8 
+[INFO] 19:57:21:149 brokerCatedra.log/(7261:7426): Se elimino la particion asociada al ID_MSJ: 37 Puntero Inicial:32  Puntero Final:63 LRU: 1596754633329
+[INFO] 19:57:21:149 brokerCatedra.log/(7261:7426): Se guardo el Mensaje con ID_MSJ:39  Puntero Inicial:32  Puntero Final:47 Tamaño: 16
+[INFO] 19:57:21:150 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 19:57:21:166 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:21:169 brokerCatedra.log/(7261:7429): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 39 
+[INFO] 19:57:26:203 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:26:204 brokerCatedra.log/(7261:7431): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 39  , ATRAPO: 1
+[INFO] 19:57:26:204 brokerCatedra.log/(7261:7431): Se guardo el Mensaje con ID_MSJ:40  Puntero Inicial:48  Puntero Final:51 Tamaño: 4
+[INFO] 19:57:26:204 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 19:57:26:214 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:26:214 brokerCatedra.log/(7261:7433): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 40 
+[INFO] 19:57:28:159 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:28:159 brokerCatedra.log/(7261:7434): Recibí en la cola CATCH_POKEMON . POKEMON: Gengar  , CORDENADA X: 6 , CORDENADA Y: 6 
+[INFO] 19:57:28:159 brokerCatedra.log/(7261:7434): Se elimino la particion asociada al ID_MSJ: 38 Puntero Inicial:0  Puntero Final:31 LRU: 1596754633379
+[INFO] 19:57:28:159 brokerCatedra.log/(7261:7434): Se guardo el Mensaje con ID_MSJ:41  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:28:161 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 19:57:28:164 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:28:167 brokerCatedra.log/(7261:7436): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 41 
+[INFO] 19:57:33:194 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:33:194 brokerCatedra.log/(7261:7439): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 41  , ATRAPO: 1
+[INFO] 19:57:33:194 brokerCatedra.log/(7261:7439): Se guardo el Mensaje con ID_MSJ:42  Puntero Inicial:52  Puntero Final:55 Tamaño: 4
+[INFO] 19:57:33:195 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 19:57:33:205 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:33:217 brokerCatedra.log/(7261:7441): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 42 
+[INFO] 19:57:38:174 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:38:174 brokerCatedra.log/(7261:7445): Recibí en la cola CATCH_POKEMON . POKEMON: Squirtle  , CORDENADA X: 5 , CORDENADA Y: 5 
+[INFO] 19:57:38:175 brokerCatedra.log/(7261:7445): Se elimino la particion asociada al ID_MSJ: 39 Puntero Inicial:32  Puntero Final:47 LRU: 1596754641148
+[INFO] 19:57:38:175 brokerCatedra.log/(7261:7445): Se elimino la particion asociada al ID_MSJ: 40 Puntero Inicial:48  Puntero Final:51 LRU: 1596754646204
+[INFO] 19:57:38:175 brokerCatedra.log/(7261:7445): Se elimino la particion asociada al ID_MSJ: 41 Puntero Inicial:0  Puntero Final:31 LRU: 1596754648159
+[INFO] 19:57:38:175 brokerCatedra.log/(7261:7445): Se guardo el Mensaje con ID_MSJ:43  Puntero Inicial:0  Puntero Final:31 Tamaño: 32
+[INFO] 19:57:38:175 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: GAMECARD de la cola CATCH_POKEMON y token: 107737878
+[INFO] 19:57:38:178 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:38:196 brokerCatedra.log/(7261:7447): Recibí un ACK del token 107737878 con los siguientes datos ESTADO: 1 ID_MSJ: 43 
+[INFO] 19:57:43:210 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:43:211 brokerCatedra.log/(7261:7450): Recibí en la cola CAUGHT_POKEMON . MENSAJE ID: 43  , ATRAPO: 1
+[INFO] 19:57:43:211 brokerCatedra.log/(7261:7450): Se guardo el Mensaje con ID_MSJ:44  Puntero Inicial:32  Puntero Final:35 Tamaño: 4
+[INFO] 19:57:43:211 brokerCatedra.log/(7261:7264): Se le envio un Mensaje al Suscriptor -> Modulo: TEAM de la cola CAUGHT_POKEMON y token: 441131400
+[INFO] 19:57:43:216 brokerCatedra.log/(7261:7262): Se conecto un Proceso al Broker
+[INFO] 19:57:43:219 brokerCatedra.log/(7261:7452): Recibí un ACK del token 441131400 con los siguientes datos ESTADO: 1 ID_MSJ: 44 
