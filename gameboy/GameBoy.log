@@ -15877,3 +15877,105 @@
 [INFO] 09:30:08:946 GameBoy.log/(5489:5489): Handshake recibido: GameCard
 [INFO] 09:30:08:947 GameBoy.log/(5489:5489): Le envio a la cola CATCH_POKEMON -> POKEMON: Charmander  , CORDENADA X: 413 , CORDENADA Y: 17 
 [INFO] 09:30:08:947 GameBoy.log/(5489:5489): Recibí un ACK con los siguientes datos ESTADO: -1217353749 ID_MSJ: -1217736704 
+[INFO] 09:54:59:629 GameBoy.log/(4639:4639): Por setear los valores del archivo de configuracion
+[INFO] 09:54:59:631 GameBoy.log/(4639:4639): Leyendo Archivo de Configuracion..
+[INFO] 09:54:59:631 GameBoy.log/(4639:4639): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Verificando los comandos ingresados
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Trabajando con el GAMECARD
+[INFO] 09:54:59:632 GameBoy.log/(4639:4639): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:54:59:633 GameBoy.log/(4639:4639): metodo handshake_cliente recibió: 8
+[INFO] 09:54:59:633 GameBoy.log/(4639:4639): Servidor o Cliente aceptado.
+[INFO] 09:54:59:633 GameBoy.log/(4639:4639): Handshake recibido: GameCard
+[INFO] 09:54:59:634 GameBoy.log/(4639:4639): Le envio a la cola NEW_POKEMON -> POKEMON: Javier  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:54:59:634 GameBoy.log/(4639:4639): Recibí un ACK con los siguientes datos ESTADO: -1216981013 ID_MSJ: -1217363968 
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Por setear los valores del archivo de configuracion
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Leyendo Archivo de Configuracion..
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Verificando los comandos ingresados
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Trabajando con el GAMECARD
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): metodo handshake_cliente recibió: 8
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Servidor o Cliente aceptado.
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Handshake recibido: GameCard
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Le envio a la cola NEW_POKEMON -> POKEMON: Javie1r  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:55:36:81 GameBoy.log/(4677:4677): Recibí un ACK con los siguientes datos ESTADO: -1216440341 ID_MSJ: -1216823296 
+[INFO] 09:56:27:179 GameBoy.log/(4768:4768): Por setear los valores del archivo de configuracion
+[INFO] 09:56:27:179 GameBoy.log/(4768:4768): Leyendo Archivo de Configuracion..
+[INFO] 09:56:27:179 GameBoy.log/(4768:4768): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:27:179 GameBoy.log/(4768:4768): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:56:27:179 GameBoy.log/(4768:4768): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Verificando los comandos ingresados
+[INFO] 09:56:27:180 GameBoy.log/(4768:4768): Trabajando con el GAMECARD
+[INFO] 09:56:27:185 GameBoy.log/(4768:4768): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:56:27:185 GameBoy.log/(4768:4768): metodo handshake_cliente recibió: 8
+[INFO] 09:56:27:185 GameBoy.log/(4768:4768): Servidor o Cliente aceptado.
+[INFO] 09:56:27:185 GameBoy.log/(4768:4768): Handshake recibido: GameCard
+[INFO] 09:56:27:186 GameBoy.log/(4768:4768): Le envio a la cola NEW_POKEMON -> POKEMON: Javier  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:56:27:186 GameBoy.log/(4768:4768): Recibí un ACK con los siguientes datos ESTADO: -1216923669 ID_MSJ: -1217306624 
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Por setear los valores del archivo de configuracion
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Leyendo Archivo de Configuracion..
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Verificando los comandos ingresados
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Trabajando con el GAMECARD
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): metodo handshake_cliente recibió: 8
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Servidor o Cliente aceptado.
+[INFO] 09:56:57:247 GameBoy.log/(4785:4785): Handshake recibido: GameCard
+[INFO] 09:56:57:248 GameBoy.log/(4785:4785): Le envio a la cola NEW_POKEMON -> POKEMON: Javier  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:56:57:248 GameBoy.log/(4785:4785): Recibí un ACK con los siguientes datos ESTADO: -1217480725 ID_MSJ: -1217863680 
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Por setear los valores del archivo de configuracion
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Leyendo Archivo de Configuracion..
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Verificando los comandos ingresados
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Trabajando con el GAMECARD
+[INFO] 09:57:09:840 GameBoy.log/(4798:4798): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:57:09:841 GameBoy.log/(4798:4798): metodo handshake_cliente recibió: 8
+[INFO] 09:57:09:841 GameBoy.log/(4798:4798): Servidor o Cliente aceptado.
+[INFO] 09:57:09:841 GameBoy.log/(4798:4798): Handshake recibido: GameCard
+[INFO] 09:57:09:841 GameBoy.log/(4798:4798): Le envio a la cola NEW_POKEMON -> POKEMON: Javier3  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:57:09:841 GameBoy.log/(4798:4798): Recibí un ACK con los siguientes datos ESTADO: -1216579605 ID_MSJ: -1216962560 
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Por setear los valores del archivo de configuracion
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Leyendo Archivo de Configuracion..
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contido del PUERTO_BROKER. Valor: 5003
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contenido de IP_BROKER a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contido del PUERTO_TEAM. Valor: 5002
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contenido de IP_GAMECARD a la estructura. Valor: 127.0.0.1
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contido del PUERTO_GAMECARD. Valor: 5001
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Se encontró y cargó el contido del TOKEN. Valor: 1368867145
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Verificando los comandos ingresados
+[INFO] 09:57:45:608 GameBoy.log/(4837:4837): Trabajando con el GAMECARD
+[INFO] 09:57:45:610 GameBoy.log/(4837:4837): Se pudo realizar la conexión entre el socket[5] y el servidor ip: 127.0.0.1 / puerto: 5001 
+[INFO] 09:57:45:610 GameBoy.log/(4837:4837): metodo handshake_cliente recibió: 8
+[INFO] 09:57:45:610 GameBoy.log/(4837:4837): Servidor o Cliente aceptado.
+[INFO] 09:57:45:610 GameBoy.log/(4837:4837): Handshake recibido: GameCard
+[INFO] 09:57:45:611 GameBoy.log/(4837:4837): Le envio a la cola NEW_POKEMON -> POKEMON: Javier2  , CORDENADA X: 129 , CORDENADA Y: 547 , CANTIDAD: 11 
+[INFO] 09:57:45:611 GameBoy.log/(4837:4837): Recibí un ACK con los siguientes datos ESTADO: -1216706581 ID_MSJ: -1217089536 
