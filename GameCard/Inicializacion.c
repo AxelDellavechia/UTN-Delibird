@@ -107,8 +107,17 @@ void crearPuntoMontaje()
 		strcpy(PuntoMontaje->FILES,PuntoMontaje->PUNTOMONTAJE);
 		strcat(PuntoMontaje->FILES,"Files/");
 
-		mkdir(PuntoMontaje->BLOCKS,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-		mkdir(PuntoMontaje->FILES,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		struct stat st = {0};
+
+		if (stat(PuntoMontaje->BLOCKS, &st) == -1) {
+			mkdir(PuntoMontaje->BLOCKS,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		}
+
+		struct stat st2 = {0};
+
+		if (stat(PuntoMontaje->FILES, &st2) == -1) {
+			mkdir(PuntoMontaje->FILES,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		}
 
 }
 
