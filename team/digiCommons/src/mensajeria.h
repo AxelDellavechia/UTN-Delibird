@@ -41,6 +41,7 @@ typedef struct{
 	uint32_t  tamanio_nombre;
 }cola_GET_POKEMON;
 
+
 typedef struct{
 	uint32_t id_mensaje;
 	uint32_t id_tracking;

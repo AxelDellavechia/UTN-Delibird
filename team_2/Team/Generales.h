@@ -86,6 +86,8 @@ pthread_mutex_t mxEntrenadoresList;
 pthread_mutex_t mxEntrenadoresDeadLock;
 pthread_mutex_t mxCiclosCPU;
 pthread_mutex_t mxExitEntrenadores;
+pthread_mutex_t mxInitAppeared;
+
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
 sem_t elementosEnReady;
@@ -138,7 +140,9 @@ typedef struct entrenadorPokemon {
 } entrenadorPokemon;
 
 entrenadorPokemon* exec;
-char ** aux ;
+//char ** aux ;
+
+int initAppeared;
 
 void leerArchivoDeConfiguracion(char *ruta);
 void capturarError(int signal);
@@ -161,6 +165,8 @@ void suscripcion_APPEARED_POKEMON();
 void suscripcion_LOCALIZED_POKEMON();
 void suscripcion_CAUGHT_POKEMON();
 void sendACK( int idMsj);
+void destroyListaChar(void* lista);
+
 
 
 void planificador_GameBoy();
@@ -189,5 +195,9 @@ void threadLocalized(cola_LOCALIZED_POKEMON* loc_poke);
 int mensajeNoRecibido(cola_LOCALIZED_POKEMON* pokemonLocalizado);
 void grabarToken(unsigned int token);
 void verificarEstado(entrenadorPokemon* entrenador);
+void obtenerObjetivosFaltantes(entrenadorPokemon* entrenador, t_list* objetivosFaltantes);
+void obtenerAtrapadosInnecesarios(entrenadorPokemon* entrenador, t_list* atrapadosInnecesarios);
+void establecerIntercambioTriple(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, entrenadorPokemon* entrenador3, char* atrapadoInnecesarioEntrenador1, char* atrapadoInnecesarioEntrenador2);
+void establecerIntercambio(entrenadorPokemon* entrenador1, entrenadorPokemon* entrenador2, char* atrapadoInnecesarioEntrenador1, char* atrapadoInnecesarioEntrenador2);
 
 #endif

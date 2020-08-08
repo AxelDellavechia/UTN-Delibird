@@ -9,7 +9,6 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include digiCommons/src/subdir.mk
--include digiCommons/Debug/src/subdir.mk
 -include Team/subdir.mk
 -include subdir.mk
 -include objects.mk

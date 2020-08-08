@@ -7,6 +7,7 @@ int main(void) {
 	//crearLogger("CatedraTeam.log",LOG_PATH);
 	//fdBroker = nuevoSocket();
 	//inicializar_semaforos();
+	initAppeared = 0;
 	EXIT_TEAM = TRUE;
 	crearEstructuras();
 	iniciar_log();
@@ -35,12 +36,15 @@ int main(void) {
 		sem_post(&semEntrenadores);
 		sem_post(&entrenadoresLibres);
 
-		pthread_create(&hilo, NULL, (void*) thread_Entrenador,entrenador->idEntrenador);
+		pthread_create(&hilo, NULL, (void*) thread_Entrenador,(int *) entrenador->idEntrenador);
 
 		//list_add(misHilos,process_get_thread_id());
 		//log_info(logger,"Cree un hilo para el entrenador %d y tiene ID %d",i,hilo=pthread_self());
 	}
+
 	getPokemon();
+
+
 	crearHilos();
 	return EXIT_SUCCESS;
 }
