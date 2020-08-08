@@ -86,6 +86,8 @@ pthread_mutex_t mxEntrenadoresList;
 pthread_mutex_t mxEntrenadoresDeadLock;
 pthread_mutex_t mxCiclosCPU;
 pthread_mutex_t mxExitEntrenadores;
+pthread_mutex_t mxInitAppeared;
+
 sem_t semEntrenadores;
 sem_t semPokemonesBuscados;
 sem_t elementosEnReady;
@@ -140,6 +142,8 @@ typedef struct entrenadorPokemon {
 entrenadorPokemon* exec;
 //char ** aux ;
 
+int initAppeared;
+
 void leerArchivoDeConfiguracion(char *ruta);
 void capturarError(int signal);
 void * reservarMemoria(int size);
@@ -162,6 +166,7 @@ void suscripcion_LOCALIZED_POKEMON();
 void suscripcion_CAUGHT_POKEMON();
 void sendACK( int idMsj);
 void destroyListaChar(void* lista);
+
 
 
 void planificador_GameBoy();
