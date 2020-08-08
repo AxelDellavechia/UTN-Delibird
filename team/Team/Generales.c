@@ -1788,7 +1788,7 @@ void threadAppeared(cola_APPEARED_POKEMON* app_poke) {
 		pthread_mutex_lock(&mxListaEjecutando);
 		//AHORA VERIFICO SI EL POKEMON BUSCADO NO ESTÁ EN CATCH O EJECUTANDOSE (NO DEBERÍAN)
 		//entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
-		entrenadorPokemon* proximoEntrenadorEnEjecutar;
+		entrenadorPokemon* proximoEntrenadorEnEjecutar = malloc(sizeof(entrenadorPokemon));
 		seleccionarEntrenadorMasCercano(newPoke,pos, proximoEntrenadorEnEjecutar);
 		pthread_mutex_unlock(&mxListaCatch);
 		pthread_mutex_unlock(&mxListaEjecutando);
