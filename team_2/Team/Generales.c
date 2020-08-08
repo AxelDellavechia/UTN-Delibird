@@ -1921,6 +1921,21 @@ void threadCaught(cola_CAUGHT_POKEMON* caug_poke) {
 	if (res == TRUE) {
 		if (caug_poke->atrapo_pokemon == OK) {
 			pokemonAtrapado(entrenador, caug_poke);
+		}else{ //si no atrapó el Pokemon
+			pthread_mutex_lock(&mxListaCatch);
+			for(int posicionPokemon = 0; posicionPokemon < list_size(listaCatchPokemon); posicionPokemon++) {
+					cola_CATCH_POKEMON* pokemonCatch = list_get(listaCatchPokemon, posicionPokemon);
+					if(pokemonCatch->id_mensaje == caug_poke->id_tracking) {
+						list_remove_and_destroy_element(listaCatchPokemon, posicionPokemon,destroyItemCatch);
+						break;
+					}
+			}
+			pthread_mutex_unlock(&mxListaCatch);
+
+			entrenador->proximaAccion= realloc(entrenador->proximaAccion,1 + string_length(""));
+			strcpy(entrenador->proximaAccion,"");
+			caug_poke->id_tracking = 0;
+
 		}
 	}
 	pthread_mutex_lock(&mutexLogCatedra);
