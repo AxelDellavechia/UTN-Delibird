@@ -10,5 +10,5 @@ POKEMON_ENTRENADORES=[]
 TOKEN=711344739
 IP_BROKER=127.0.0.1
 QUANTUM=1
-LOG_FILE=./log_team2.log
+LOG_FILE=./log_team1.log
 OBJETIVOS_ENTRENADORES=[Vaporeon,Jolteon,Flareon,Umbreon,Espeon]
