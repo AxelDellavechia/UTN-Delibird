@@ -27,7 +27,23 @@ int main(void) {
 	//	pthread_mutex_unlock(&mxEntrenadoresList);
 	}
 
+	for (int i = 0; i < cantEntrenadores; i++){
+		pthread_mutex_lock(&mutexColaNew);
+		entrenadorPokemon * entrenador = list_get(colaNew,i);
+		pthread_mutex_unlock(&mutexColaNew);
+		//sem_wait(&entrenador->semafoContador);
+		sem_post(&semEntrenadores);
+		sem_post(&entrenadoresLibres);
+
+		pthread_create(&hilo, NULL, (void*) thread_Entrenador,(int *) entrenador->idEntrenador);
+
+		//list_add(misHilos,process_get_thread_id());
+		//log_info(logger,"Cree un hilo para el entrenador %d y tiene ID %d",i,hilo=pthread_self());
+	}
+
+	getPokemon();
+
 
 	crearHilos();
-//	return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
